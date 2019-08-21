@@ -2,7 +2,7 @@
 #include <pthread.h>
 #include "rusage.h"
 #include "sys/types.h"
-#include "sys/sysinfo.h"
+//#include "sys/sysinfo.h"
 
 int level_count[12];
 

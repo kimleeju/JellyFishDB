@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 
 	if(argc < 4) {
 		printf("Usage: ./skip 16 10000 1 \n");
-		printf("(thread_num op_num)\n");
+		printf("(thread_num op_num put(1)/get(2))\n");
 		return -1;
 	}
 	
@@ -82,8 +82,6 @@ int main(int argc, char* argv[])
 	int benchmark = atoi(argv[3]);
 	FILE* fp;
 	double time;
-
-	
 
 
 
