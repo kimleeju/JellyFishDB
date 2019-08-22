@@ -2,26 +2,39 @@
 #define BLOCKED_SKIPLIST_H
 
 #include <list>
+#include <cstring>
 #include "SkipList.h"
-#include "Node.h"
+#include "Iterator.h"
+
+
+ 
 
 using namespace std;
 
 class BlockedSkipList : public SkipList{
 
-private:
-    unordered_map<string, string> kv_map; // hash map 
-    list<Node> sl; 
-    mutex sl_mutex; 
-
 public:
-    void init();
-    int put(string key, string value){};
-    string get(string key){}; 
-    int remove(string key){}; 
+    int put(string key, string value);
+    string get(string key); 
+//    int remove(string key); 
 
+   
 public:
-    BlockedSkipList(){}
+    Node* get_impl(string key);
+    void RangeQuery(string start_key, int count);
+    Splice* AllocateSplice();
+    Node* FindLast();
+    Node* FindLessThan(string key, Node** prev);
+    Node* FindGreaterorEqual(string key);
+    void RecomputeSpliceLevels(Node* node, int level);
+    void FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before);
+    bool KeyIsAfterNode(string key, Node* n);
+    Node* AllocateKey();
+    Node* AllocateNode(string key, string value, int height); 
+    int RandomHeight();
+    bool Insert(Node* nnode);
+public:
+    BlockedSkipList(int32_t max_height,int node_count);
     ~BlockedSkipList(){}
 };
 

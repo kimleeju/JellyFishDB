@@ -1,8 +1,11 @@
 // #define DEBUG 1 
-// #define debug_print(fmt, …) \
+
 //             do { if (DEBUG) fprintf(stderr, fmt, __VA_ARGS__); } while (0)
+#ifndef UTIL_H
+#define UTIL_H
 #include<mutex>
 #include<pthread.h>
+#include<atomic>
 
 class Mutex {
 
@@ -23,19 +26,22 @@ public:
 };
 
 class TimeStamp {
-    long sequence; 
+   atomic<long> sequence; 
+    //long sequence;
+  public:  
     Mutex mlock;
 
 public:
     long get_and_inc(){
-        mlock.lock();
+       // mlock.lock();
         long t = sequence; 
         sequence++;
-        mlock.unlock();
+       // mlock.unlock();
         return t;
     }
-
+    TimeStamp() : sequence (0){}
     TimeStamp(long s) : sequence (s) {}
     ~TimeStamp(){}
 
 };
+#endif
