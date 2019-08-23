@@ -48,7 +48,7 @@ public:
     virtual Node* FindLast() =0;
     virtual Node* FindLessThan(string key, Node** prev)=0;
     virtual Node* FindGreaterorEqual(string key)=0;
-    virtual void RecomputeSpliceLevels(Node* node, int level)=0;
+    virtual void RecomputeSpliceLevels(Node* node, int level, Splice* splice = 0)=0;
     virtual void FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before)=0;
     virtual bool KeyIsAfterNode(string key, Node* n)=0;
     virtual Node* AllocateKey()=0;

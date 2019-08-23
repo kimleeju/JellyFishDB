@@ -11,17 +11,19 @@ using namespace std;
 
 class ConcurrentSkipList : public SkipList{
 
-private:
+public:
    // unordered_map<string, string> kv_map; // hash map 
+   int put(string key, string value);
+   string get(string key);
 
 public:
-    Node* Get(string key);
+    Node* get_impl(string key);
     void RangeQuery(string start_key, int count);
     Splice* AllocateSplice();
     Node* FindLast();
     Node* FindLessThan(string key, Node** prev);
     Node* FindGreaterorEqual(string key);
-    void RecomputeSpliceLevels(Node* node, int level);
+    void RecomputeSpliceLevels(Node* node, int level, Splice* splice);
     void FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before);
     bool KeyIsAfterNode(string key, Node* n);
     Node* AllocateKey();

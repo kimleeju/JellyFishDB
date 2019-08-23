@@ -121,7 +121,7 @@ Node* BlockedSkipList::FindGreaterorEqual(string key){
     
 
 
-void BlockedSkipList::RecomputeSpliceLevels(Node* node, int level){
+void BlockedSkipList::RecomputeSpliceLevels(Node* node, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(node, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);

@@ -48,10 +48,22 @@ int main(int argc, char* argv[])
 	else
 	  cout<<"nullptr"<<endl;    
     }
+	
+    else if(type == "ConcurrentSkipList"){ 
+        sl = new ConcurrentSkipList(max_level, node_count);
+        for (int i=0;i<node_count; i++){
+       cout<<"-----------------------------"<<endl;
+	sl->put(sl->randomString(),sl->randomString());
+        }
+	cout<<"-----------------------------"<<endl; 
+	sl->RangeQuery("0", node_count);
+	cout<<"-----------------------------"<<endl;
+	if(sl->get_impl("a") != nullptr)
+	  cout<<sl->get("a")<<endl;
+	else
+	  cout<<"nullptr"<<endl;
+    }
 
-    else if(type == "ConcurrentSkipList"){
-	cout<<"Con"<<endl;
-	}
     return 0;
 }
 
