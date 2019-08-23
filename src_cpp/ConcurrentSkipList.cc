@@ -6,6 +6,11 @@ int ConcurrentSkipList::put(string key, string value){
     return 0;
 }
 
+void ConcurrentSkipList::put_impl(string key, string value){
+    Iterator iterator(this);
+    iterator.Put(key, value);
+}	
+
 string ConcurrentSkipList::get(string key){
     string get_value = get_impl(key)->Get_value();
     return get_value;
@@ -227,6 +232,7 @@ bool ConcurrentSkipList::Insert(Node *nnode){
 		
 	}
     }
+
    return true;
      
 }

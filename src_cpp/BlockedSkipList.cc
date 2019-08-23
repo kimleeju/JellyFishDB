@@ -3,9 +3,15 @@
 int BlockedSkipList::put(string key, string value){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
-    Insert(AllocateNode(key, value, RandomHeight()));
+   // Insert(AllocateNode(key, value, RandomHeight()));
+    put_impl(key, value);
     t_global_committed.mlock.unlock();
     return 0;
+}
+
+void BlockedSkipList::put_impl(string key, string value){
+    Iterator iterator(this);
+    iterator.Put(key, value);
 }
 
 string BlockedSkipList::get(string key){

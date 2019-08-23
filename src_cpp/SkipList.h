@@ -41,6 +41,7 @@ protected:
 public:    
     string randomString();
     virtual int put(string key, string value) = 0;
+    virtual void put_impl(string key, string value) = 0;
     virtual string get(string key) = 0;
     virtual Node* get_impl(string key) = 0;
     virtual void RangeQuery(string start_key, int count) = 0;

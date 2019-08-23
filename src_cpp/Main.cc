@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 	  cout<<"nullptr"<<endl;    
     }
 	
-    else if(type == "ConcurrentSkipList"){ 
+   else if(type == "ConcurrentSkipList"){ 
         sl = new ConcurrentSkipList(max_level, node_count);
         for (int i=0;i<node_count; i++){
        cout<<"-----------------------------"<<endl;
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	  cout<<sl->get("a")<<endl;
 	else
 	  cout<<"nullptr"<<endl;
-    }
+   }
 
     return 0;
 }
