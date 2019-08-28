@@ -87,6 +87,8 @@ Node* ConcurrentSkipList::FindGreaterorEqual(string key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
+	cout<<"level = "<<level<<endl;
+	cout<<"next = "<<next<<endl;
         int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
 
         if(cmp >= 0 &&level ==0){

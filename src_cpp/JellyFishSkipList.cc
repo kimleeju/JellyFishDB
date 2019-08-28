@@ -35,7 +35,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count){
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-	if(temp_->Get_vqueue() != 0)
+	if(temp_->Get_vqueue_num() != 0)
 		cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_vqueue()->value<<endl;
 	else
         	cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
@@ -120,6 +120,8 @@ Node* JellyFishSkipList::FindGreaterorEqual(string key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
+	cout<<"level = "<<level<<endl;
+	cout<<"next = "<<next<<endl;
         int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
 
         if(cmp >= 0 &&level ==0){

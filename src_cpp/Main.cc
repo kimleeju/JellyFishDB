@@ -69,13 +69,13 @@ int main(int argc, char* argv[])
         sl = new JellyFishSkipList(max_level, node_count);
         for (int i=0;i<node_count; i++){
        cout<<"-----------------------------"<<endl;
-	sl->put("kkk",sl->randomString());
+	sl->put(sl->randomString(),sl->randomString());
         }
 	cout<<"-----------------------------"<<endl; 
-	sl->RangeQuery("a", node_count);
+	sl->RangeQuery("0", node_count);
 	cout<<"-----------------------------"<<endl;
-	if(sl->get_impl("kkk") != nullptr)
-	  cout<<sl->get("kkk")<<endl;
+	if(sl->get_impl("a") != nullptr)
+	  cout<<sl->get("a")<<endl;
 	else
 	  cout<<"nullptr"<<endl;
    }
