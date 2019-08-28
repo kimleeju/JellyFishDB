@@ -2,7 +2,8 @@
 
 int ConcurrentSkipList::put(string key, string value){
     t_global_committed.get_and_inc();
-    Insert(AllocateNode(key, value, RandomHeight()));
+    //Insert(AllocateNode(key, value, RandomHeight()));
+    put_impl(key, value);
     return 0;
 }
 
@@ -12,6 +13,7 @@ void ConcurrentSkipList::put_impl(string key, string value){
 }	
 
 string ConcurrentSkipList::get(string key){
+    t_global_committed.get_and_inc();
     string get_value = get_impl(key)->Get_value();
     return get_value;
 }
@@ -24,6 +26,7 @@ Node* ConcurrentSkipList::get_impl(string key){
 
 
 void ConcurrentSkipList::RangeQuery(string start_key, int count){
+    t_global_committed.get_and_inc();
     cout<<"-----------------------------"<<endl;
     Iterator iterator(this);
     iterator.Seek(start_key);
@@ -142,9 +145,6 @@ bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
      return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 }
 
-Node* ConcurrentSkipList::AllocateKey(){
-	return AllocateNode(randomString(),randomString(),RandomHeight());
-}
 
 Node* ConcurrentSkipList::AllocateNode(string key, string value, int height){
    auto prefix = sizeof(Node*) * (height);
@@ -186,8 +186,8 @@ ConcurrentSkipList::ConcurrentSkipList(int32_t max_height, int node_count)
 
 
 
-bool ConcurrentSkipList::Insert(Node *nnode){
- //cout<<"nnode->Next(0) = "<<nnode->Next(0);
+bool ConcurrentSkipList::Insert(string key, string value){
+  Node* nnode = AllocateNode(key, value, RandomHeight());
   Splice* splice = AllocateSplice();
   int height = nnode->UnstashHeight();
   cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
@@ -195,7 +195,6 @@ bool ConcurrentSkipList::Insert(Node *nnode){
   cout<<"height = "<<height<<endl;
   cout<<"max_height_ = "<<max_height_<<endl;
   int max_height = max_height_.load(std::memory_order_relaxed);
-
    while(height > max_height){
      if(max_height_.compare_exchange_weak(max_height, height)){
 	max_height = height;

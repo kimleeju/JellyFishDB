@@ -3,7 +3,7 @@
 #include "SkipList.h"
 #include "BlockedSkipList.h"
 #include "ConcurrentSkipList.h"
-//#include "JellyFishSkipList.h"
+#include "JellyFishSkipList.h"
 //#include "SimpleSkipList.h"
 #include "Iterator.h"
 
@@ -63,7 +63,22 @@ int main(int argc, char* argv[])
 	else
 	  cout<<"nullptr"<<endl;
    }
+	
 
+   else if(type == "JellyFishSkipList"){ 
+        sl = new JellyFishSkipList(max_level, node_count);
+        for (int i=0;i<node_count; i++){
+       cout<<"-----------------------------"<<endl;
+	sl->put("kkk",sl->randomString());
+        }
+	cout<<"-----------------------------"<<endl; 
+	sl->RangeQuery("a", node_count);
+	cout<<"-----------------------------"<<endl;
+	if(sl->get_impl("kkk") != nullptr)
+	  cout<<sl->get("kkk")<<endl;
+	else
+	  cout<<"nullptr"<<endl;
+   }
     return 0;
 }
 

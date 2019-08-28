@@ -52,10 +52,9 @@ public:
     virtual void RecomputeSpliceLevels(Node* node, int level, Splice* splice = 0)=0;
     virtual void FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before)=0;
     virtual bool KeyIsAfterNode(string key, Node* n)=0;
-    virtual Node* AllocateKey()=0;
     virtual Node* AllocateNode(string key, string value, int height)=0;
     virtual int RandomHeight()=0;
-    virtual bool Insert(Node* nnode)=0;
+    virtual bool Insert(string key, string value)=0;
     /** 
      * put, get, delete 
      * */

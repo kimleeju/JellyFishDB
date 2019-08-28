@@ -16,7 +16,7 @@ class Iterator{
         }
 	
 	void Put(string key, string value){
-	    sl_->Insert(sl_->AllocateNode(key, value, sl_->RandomHeight()));
+	    sl_->Insert(key, value);
 	}
 
         void SetList(SkipList* sl){

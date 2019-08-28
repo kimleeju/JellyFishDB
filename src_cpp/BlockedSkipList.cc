@@ -155,9 +155,6 @@ bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
 
 
 
-Node* BlockedSkipList::AllocateKey(){
-	return AllocateNode(randomString(),randomString(),RandomHeight());
-}
 
 Node* BlockedSkipList::AllocateNode(string key, string value, int height){
    auto prefix = sizeof(Node*) * (height);
@@ -200,9 +197,9 @@ BlockedSkipList::BlockedSkipList(int32_t max_height,int node_count)
  
 
 
-bool BlockedSkipList::Insert(Node *nnode){
+bool BlockedSkipList::Insert(string key, string value){
 
-
+  Node* nnode = AllocateNode(key, value, RandomHeight());
   int height = nnode->UnstashHeight();
   cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
   cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
