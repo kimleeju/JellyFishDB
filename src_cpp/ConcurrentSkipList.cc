@@ -117,19 +117,19 @@ ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
     return splice;
 }
 
-void ConcurrentSkipList::RecomputeSpliceLevels(Node* node, int level, Splice* splice){
+void ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
-        FindSpliceForLevel(node, i, &splice->prev_[i], &splice->next_[i],before);
+        FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i],before);
     }
 }
 
 
-void ConcurrentSkipList::FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before){
+void ConcurrentSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
     Node* after = before ->Next(level);
    while(true){
 	
-     if(!KeyIsAfterNode(node->Get_key(), after)){
+     if(!KeyIsAfterNode(key, after)){
             *sp_prev = before;
             *sp_next = after;
             return;
@@ -187,13 +187,9 @@ ConcurrentSkipList::ConcurrentSkipList(int32_t max_height, int node_count)
 
 
 bool ConcurrentSkipList::Insert(string key, string value){
-  Node* nnode = AllocateNode(key, value, RandomHeight());
+  //Node* nnode = AllocateNode(key, value, RandomHeight());
   Splice* splice = AllocateSplice();
-  int height = nnode->UnstashHeight();
-  cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
-  cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
-  cout<<"height = "<<height<<endl;
-  cout<<"max_height_ = "<<max_height_<<endl;
+  int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
    while(height > max_height){
      if(max_height_.compare_exchange_weak(max_height, height)){
@@ -215,9 +211,10 @@ bool ConcurrentSkipList::Insert(string key, string value){
     }
 
     if(height > 0) {
-	RecomputeSpliceLevels(nnode, height,splice);
+	RecomputeSpliceLevels(key, height,splice);
     }
-
+    Node* nnode = AllocateNode(key, value, height);
+    
     for(int i = 0; i < height ; ++i){
 	while(true){
 	   nnode -> NoBarrier_SetNext(i, splice->next_[i]);
@@ -227,11 +224,15 @@ bool ConcurrentSkipList::Insert(string key, string value){
 	   }
 	
 	   Node* before = head_;
-	   FindSpliceForLevel(nnode, i, &splice->prev_[i], &splice->next_[i], before);
+	   FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], before);
 		
 	}
     }
-
+	
+  cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
+  cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
+  cout<<"height = "<<height<<endl;
+  cout<<"max_height_ = "<<max_height_<<endl;
    return true;
      
 }

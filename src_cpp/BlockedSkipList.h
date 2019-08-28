@@ -27,8 +27,8 @@ public:
     Node* FindLast();
     Node* FindLessThan(string key, Node** prev);
     Node* FindGreaterorEqual(string key);
-    void RecomputeSpliceLevels(Node* node, int level, Splice* splice = 0);
-    void FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before);
+    void RecomputeSpliceLevels(string key, int level, Splice* splice = 0);
+    void FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before);
     bool KeyIsAfterNode(string key, Node* n);
     Node* AllocateNode(string key, string value, int height); 
     int RandomHeight();

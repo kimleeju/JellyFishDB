@@ -127,18 +127,18 @@ Node* BlockedSkipList::FindGreaterorEqual(string key){
     
 
 
-void BlockedSkipList::RecomputeSpliceLevels(Node* node, int level, Splice* splice){
+void BlockedSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
-        FindSpliceForLevel(node, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);
+        FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);
     }
 }
 
 
-void BlockedSkipList::FindSpliceForLevel(Node* node, int level, Node** sp_prev, Node** sp_next, Node* before){
+void BlockedSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
     Node* after = before ->Next(level);
     while(true){
-        if(!KeyIsAfterNode(node->Get_key(), after)){
+        if(!KeyIsAfterNode(key, after)){
             *sp_prev = before;
             *sp_next = after;
             return;
@@ -199,12 +199,8 @@ BlockedSkipList::BlockedSkipList(int32_t max_height,int node_count)
 
 bool BlockedSkipList::Insert(string key, string value){
 
-  Node* nnode = AllocateNode(key, value, RandomHeight());
-  int height = nnode->UnstashHeight();
-  cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
-  cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
-  cout<<"height = "<<height<<endl;
-  cout<<"max_height_ = "<<max_height_<<endl;
+ // Node* nnode = AllocateNode(key, value, RandomHeight());
+  int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
 
     if(height > max_height){
@@ -226,10 +222,11 @@ bool BlockedSkipList::Insert(string key, string value){
     }
 
      if(height > 0){
-        RecomputeSpliceLevels(nnode, height);
+        RecomputeSpliceLevels(key, height);
     }
 
-
+     Node* nnode = AllocateNode(key, value, height);
+    
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, seq_splice->next_[i]);
         seq_splice->prev_[i]->SetNext(i,nnode);
@@ -239,7 +236,11 @@ bool BlockedSkipList::Insert(string key, string value){
         seq_splice->prev_[i] = head_;
         seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
     }
-   
+   cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
+  cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
+  cout<<"height = "<<height<<endl;
+  cout<<"max_height_ = "<<max_height_<<endl;
+  
 
   return true;
 
