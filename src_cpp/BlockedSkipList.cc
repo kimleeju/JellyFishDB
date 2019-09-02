@@ -48,6 +48,7 @@ void BlockedSkipList::RangeQuery(string start_key, int count){
 
 
 BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
+cout<<"******"<<endl;
     size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
     char* raw = new char[sizeof(Splice) + array_size*2];
     Splice* splice = reinterpret_cast<Splice*>(raw);
@@ -157,18 +158,33 @@ bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
 
 
 Node* BlockedSkipList::AllocateNode(string key, string value, int height){
-   auto prefix = sizeof(Node*) * (height);
-   char* raw = new char [prefix  + sizeof(Node*)+sizeof(Node)];
-   Node* x = reinterpret_cast<Node*>(raw + prefix);
-
+   cout<<"height = "<<height <<endl; 
+   //auto prefix = sizeof(atomic<Node*>) * (height-1);
+   //cout<<"prefix = "<<prefix<<endl;
+   //char* raw = new char [prefix +sizeof(Node)];
+   //cout<<"raw = "<<raw<<endl;
+   //printf("raw = %p\n",raw);
+   
+  //Node* x = reinterpret_cast<Node*>(raw + prefix);   
+  //cout<<"x->Get_eky() = "<<x->Get_key()<<endl;
+   Node* x = new Node(key,value,height);
    for(int i=0;i<height;i ++){
        x->SetNext(i,nullptr);
        //assert(x->Next(i));
    }
-   x->StashHeight(height);
-   x->Set_key(key);
-   x->Set_value(value);
-   
+cout<<"sizeof(*x) = "<<sizeof(*x)<<endl;
+//cout<<"str_key = "<<x->Get_key()<<endl;
+//cout<<"UnstashHeight() = "<<x->UnstashHeight()<<endl;
+//cout<<"str_key = "<<x->Get_key().capacity()<<endl;
+//cout<<"str_key.capacity() = "<<x->str_key.capacity()<<endl;
+//cout<<"sizeof(string) = "<<sizeof(string)<<endl;
+//cout<<"sizeof(key) = " <<sizeof(key)<<endl;   
+//cout<<"key.capacity() = "<<key.capacity()<<endl;
+ 
+//   x->Set_key(key);
+//   x->StashHeight(height);
+//   x->Set_key(key);
+//   x->Set_value(value);
    return x;
 } 
 
@@ -184,26 +200,21 @@ int BlockedSkipList::RandomHeight(){
 }
 
 
-
-BlockedSkipList::BlockedSkipList(int32_t max_height,int node_count)
-    :SkipList(static_cast<uint16_t>(max_height), AllocateNode("!","!",max_height),1,AllocateSplice()){
-   srand((unsigned)time(NULL));
-   
+BlockedSkipList::BlockedSkipList()
+    :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
+    srand((unsigned)time(NULL));
    for(int i=0; i<kMaxHeight_;i++){
         head_->SetNext(i, nullptr);
    }
 }
 
- 
-
 
 bool BlockedSkipList::Insert(string key, string value){
-
  // Node* nnode = AllocateNode(key, value, RandomHeight());
   int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
-
     if(height > max_height){
+	max_height_ = height;
 	max_height = height;   
     }
     
@@ -224,14 +235,15 @@ bool BlockedSkipList::Insert(string key, string value){
      if(height > 0){
         RecomputeSpliceLevels(key, height);
     }
-
+	cout<<"sizeof(Node) = "<<sizeof(Node)<<endl;
      Node* nnode = AllocateNode(key, value, height);
-    
+    cout<<"sizeof(*nnode) ="<< sizeof(*nnode)<<endl;
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, seq_splice->next_[i]);
         seq_splice->prev_[i]->SetNext(i,nnode);
 
     }
+
     for(int i = 0; i< height ; i++){
         seq_splice->prev_[i] = head_;
         seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
@@ -240,8 +252,8 @@ bool BlockedSkipList::Insert(string key, string value){
   cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
   cout<<"height = "<<height<<endl;
   cout<<"max_height_ = "<<max_height_<<endl;
-  
-
+ cout<<"cnt = "<<++cnt<<endl; 
+cout<<"-------------------------------"<<endl;
   return true;
 
 }

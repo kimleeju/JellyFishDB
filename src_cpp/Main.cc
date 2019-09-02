@@ -6,7 +6,7 @@
 #include "JellyFishSkipList.h"
 //#include "SimpleSkipList.h"
 #include "Iterator.h"
-
+#include "BenchManager.h"
 
 int main(int argc, char* argv[])
 { 
@@ -19,10 +19,32 @@ int main(int argc, char* argv[])
     }
 
     string type = argv[1];
-    int max_level = atoi(argv[2]);
-    int node_count = atoi(argv[3]);
+    int thread_num = atoi(argv[2]);
+
+    char *path = argv[3];
     cout << "type: " << type << endl;
-    
+
+   if(type == "BlockedSkipList"){
+	sl = new BlockedSkipList;
+     }
+
+   else if(type == "ConcurrentSkipList"){
+	sl = new ConcurrentSkipList;
+     }
+	
+   else if(type == "JellyFishSkipList"){
+	sl = new JellyFishSkipList;
+     } 
+  // else if(type == "SimpleSkiplist"){
+//	sl = new SimpleSkipList;
+ //   }
+    BenchManager bm(thread_num, path, sl);
+    bm.manage_wl();
+
+   if(bm.run() == 1)
+	cout<<"failed to check time"<<endl;
+
+
 #if 0    
     if (type == "BlockedSkipList"){
         sl = new BlockedSkipList();
@@ -34,8 +56,9 @@ int main(int argc, char* argv[])
         sl = new JellyFishSkipList();
     }
 #endif
+#if 0
     if(type == "BlockedSkipList"){ 
-        sl = new BlockedSkipList(max_level, node_count);
+        sl = new BlockedSkipList;
         for (int i=0;i<node_count; i++){
        cout<<"-----------------------------"<<endl;
 	sl->put(sl->randomString(),sl->randomString());
@@ -50,7 +73,7 @@ int main(int argc, char* argv[])
     }
 	
    else if(type == "ConcurrentSkipList"){ 
-        sl = new ConcurrentSkipList(max_level, node_count);
+        sl = new ConcurrentSkipList;
         for (int i=0;i<node_count; i++){
        cout<<"-----------------------------"<<endl;
 	sl->put(sl->randomString(),sl->randomString());
@@ -66,7 +89,7 @@ int main(int argc, char* argv[])
 	
 
    else if(type == "JellyFishSkipList"){ 
-        sl = new JellyFishSkipList(max_level, node_count);
+        sl = new JellyFishSkipList;
         for (int i=0;i<node_count; i++){
        cout<<"-----------------------------"<<endl;
 	sl->put(sl->randomString(),sl->randomString());
@@ -79,6 +102,7 @@ int main(int argc, char* argv[])
 	else
 	  cout<<"nullptr"<<endl;
    }
+#endif
     return 0;
 }
 

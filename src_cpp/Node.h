@@ -26,7 +26,8 @@ typedef struct VNode {
 
 //#endif
 
-typedef struct Node {
+class  Node {
+public:
   // Stores the height of the node in the memory location normally used for
   // next_[0].  This is used for passing data from AllocateKey to Insert.
   void StashHeight(const int height_) {
@@ -89,12 +90,14 @@ typedef struct Node {
 
   void Set_key(string key){
     //assert(str_key != key);
+	//cout<<"str_key = "<<str_key<<endl;
+    // strcmp(str_key ,key.c_str());
       str_key = key;
-      
   }
   
   string Get_key(){
-      return str_key;
+      string temp(str_key);
+      return temp;
   }
 
   void Set_value(string value){
@@ -142,22 +145,37 @@ typedef struct Node {
 	return vqueue_num;
   }
  #endif
+  
+  Node(string key_, string value_,int height_){
+	cout<<"key_ = "<<key_.capacity()<<endl;
+	//swap(str_key,key_);
+//	strcpy(str_key, key_.c_str());
+	cout<<"str_key = "<<str_key<<endl;
+	str_key =key_;
+//	string temp(str_key);
+//	cout<<"After, str_key = "<<temp.capacity()<<endl;
+//	str_key.shrink_to_fit();
+	cout<<"sizeof(str_key) = "<<sizeof(str_key)<<endl;
+	str_value = value_;
+	height = height_;
+	prefix = new Node *[height-1];
+}
 
 private:
   // next_[0] is the lowest level link (level 0).  Higher levels are
   // stored _earlier_, so level 1 is at next_[-1].
-  
-  std::atomic<Node*> next_[1];
-  string str_key ;
+  Node** prefix; 
+  std::atomic<Node*> next_[1]; 
   string str_value ;
-  int height = 1;
+  int height ;
   #ifdef JELLYFISH_SKIPLIST_H
    VNode* vqueue;
    int vqueue_num;
   #endif
-  
+//   char str_key[100];
+  string str_key ;
   //std::atomic<char*> value[1]; 
-}Node;
+};
 
 ///////////////////////////////////////////////
 /////////////////////////////////////////////

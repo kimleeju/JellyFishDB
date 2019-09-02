@@ -212,8 +212,8 @@ int JellyFishSkipList::RandomHeight(){
    return height;
 }
 
-JellyFishSkipList::JellyFishSkipList(int32_t max_height, int node_count)
-    :SkipList(static_cast<uint16_t>(max_height), AllocateNode("!","!",max_height),1,AllocateSplice()){
+JellyFishSkipList::JellyFishSkipList()
+    :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
     srand((unsigned)time(NULL));
 
     for(int i=0; i<kMaxHeight_; i++){

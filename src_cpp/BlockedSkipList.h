@@ -34,7 +34,7 @@ public:
     int RandomHeight();
     bool Insert(string key, string value);
 public:
-    BlockedSkipList(int32_t max_height,int node_count);
+    BlockedSkipList();
     ~BlockedSkipList(){}
 };
 

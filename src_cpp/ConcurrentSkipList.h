@@ -33,7 +33,7 @@ public:
  
 
 public:
-    ConcurrentSkipList(int32_t max_height, int node_count);
+    ConcurrentSkipList();
     ~ConcurrentSkipList(){}
 };
 

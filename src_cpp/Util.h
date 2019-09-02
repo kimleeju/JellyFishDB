@@ -26,7 +26,7 @@ public:
 };
 
 class TimeStamp {
-   atomic<long> sequence; 
+   std::atomic<long> sequence; 
     //long sequence;
   public:  
     Mutex mlock;

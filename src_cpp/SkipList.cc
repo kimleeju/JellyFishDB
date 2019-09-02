@@ -4,7 +4,7 @@
 string SkipList::randomString()
 { // maxLength and charIndex can be customized, but I've also initialized them.
     //uint length = rand() % maxLength + 1; // length of the string is a random value that can be up to 'l' characters.
-    uint maxLength = 15; 
+    uint maxLength = 25; 
     std::string charIndex = "abcdefghijklmnaoqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     uint length = random()%(maxLength -1) + 1;
     uint indexesOfRandomChars[maxLength]; // array of random values that will be used to iterate through random indexes of 'charIndex'

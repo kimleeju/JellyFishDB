@@ -39,7 +39,7 @@ public:
     bool Insert(string key, string value); 
 
 public:
-    JellyFishSkipList(int32_t max_height, int node_count);
+    JellyFishSkipList();
     ~JellyFishSkipList(){}
 };
 
