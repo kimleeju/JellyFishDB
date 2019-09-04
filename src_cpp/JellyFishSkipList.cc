@@ -190,21 +190,7 @@ VNode* JellyFishSkipList::AllocateVNode(string value){
 
 
 Node* JellyFishSkipList::AllocateNode(string key, string value, int height){
-  /* auto prefix = sizeof(Node*) * (height);
-   char* raw = new char [prefix  + sizeof(Node*)+sizeof(Node)];
-   Node* x = reinterpret_cast<Node*>(raw + prefix);
-   for(int i=0;i<height;i ++){
-       x->SetNext(i,nullptr);
-       //assert(x->Next(i))
-   }
-   x->Set_vqueue(nullptr);
-   x->Set_vqueue_num (0);
-   x->StashHeight(height);
-   x->Set_key(key);
-   x->Set_value(value);*/
-
    Node* x = new Node(key, value, height);
-   
    return x;
 }
 
@@ -222,15 +208,10 @@ int JellyFishSkipList::RandomHeight(){
 JellyFishSkipList::JellyFishSkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
     srand((unsigned)time(NULL));
-
-    /*for(int i=0; i<kMaxHeight_; i++){
-	head_->SetNext(i, nullptr);
-    }*/
 }
 
 bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
   
-  	//Splice* splice = AllocateSplice();
   int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
 
@@ -259,12 +240,7 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
    	
     if(iterator.splice->next_[0]!=nullptr &&iterator.splice->next_[0]->Get_key() == key){
        VNode* nnode = AllocateVNode(value);	
-       //nnode->next = iterator.splice->prev_[0]->Get_vqueue();
-	//	position_node->Get_vqueue()->next.compare_exchange_strong(nnode->next,nnode);
-		iterator.splice->next_[0]->Get_vqueue()->CASNext(nnode->next,nnode);
-		//position_node->Get_vqueue()->CASNext(nnode->next,nnode);   
-	// 	if((__sync_val_compare_and_swap(position_node->Get_vqueue()->next, nnode->next, nnode))== nnode->next){}
-		
+	iterator.splice->next_[0]->Get_vqueue()->CASNext(nnode->next,nnode);
 	iterator.splice->next_[0]->Set_vqueue(nnode);	
      }
 

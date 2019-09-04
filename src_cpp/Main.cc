@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     SkipList* sl;
 
     if (argc < 4){
-        cout << "Usage: ./Run ConcurrentSkipList max_level node_count" << endl;
+        cout << "Usage: ./Run ConcurrentSkipList thread_count path" << endl;
         cout << "Options: BlockedSkipList ConcurrentSkipList JellyFishSkipList" << endl;
         return -1;
     }
