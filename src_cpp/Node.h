@@ -26,7 +26,7 @@ typedef struct VNode {
 
 //#endif
 
-class  Node {
+typedef struct Node {
 public:
   // Stores the height of the node in the memory location normally used for
   // next_[0].  This is used for passing data from AllocateKey to Insert.
@@ -45,7 +45,6 @@ public:
     //return rv;
   }
 
-  const char* Key() const { return reinterpret_cast<const char*>(&next_[1]); }
 
   // Accessors/mutators for links.  Wrapped in methods so we can add
   // the appropriate barriers as necessary, and perform the necessary
@@ -54,30 +53,41 @@ public:
    // assert(n >= 0);
     // Use an 'acquire load' so that we observe a fully initialized
     // version of the returned Node.
-    return ((&next_[0] - n)->load(std::memory_order_acquire));
+   //// return ((&next_[0] - n)->load(std::memory_order_acquire));
+// return prefix[n].load(std::memory_order_acquire);
+	//return prefix[n];
+	return (&prefix[n])->load(std::memory_order_acquire);
   }
 
   void SetNext(int n, Node* x) {
     //assert(n >= 0);
     // Use a 'release store' so that anybody who reads through this
     // pointer observes a fully initialized version of the inserted node.
-    (&next_[0] - n)->store(x, std::memory_order_release);
+//	prefix[n]->store(x, std::memory_order_realse);	
+//	prefix[n] = x;
+ ///////   //(&next_[0] - n)->store(x, std::memory_order_release);
+  	(&prefix[n])->store(x, std::memory_order_release);
   }
 
   bool CASNext(int n, Node* expected, Node* x) {
    // assert(n >= 0);
-    return (&next_[0] - n)->compare_exchange_strong(expected, x);
+	return (&prefix[n])->compare_exchange_strong(expected, x);	
+  //  return (&next_[0] - n)->compare_exchange_strong(expected, x);
   }
 
   // No-barrier variants that can be safely used in a few locations.
   Node* NoBarrier_Next(int n) {
    // assert(n >= 0);
-    return (&next_[0] - n)->load(std::memory_order_relaxed);
+  return (&prefix[n])->load(std::memory_order_relaxed);
+
+ //return (&next_[0] - n)->load(std::memory_order_relaxed);
   }
 
   void NoBarrier_SetNext(int n, Node* x) {
     //assert(n >= 0);
-    (&next_[0] - n)->store(x, std::memory_order_relaxed);
+	//prefix[n] = x;
+	(&prefix[n])->store(x,std::memory_order_relaxed);	
+  //  (&next_[0] - n)->store(x, std::memory_order_relaxed);
   }
 
   // Insert node after prev on specific level.
@@ -91,8 +101,8 @@ public:
   void Set_key(string key){
     //assert(str_key != key);
 	//cout<<"str_key = "<<str_key<<endl;
-    // strcmp(str_key ,key.c_str());
-      str_key = key;
+     strcpy(str_key ,key.c_str());
+     // str_key = key;
   }
   
   string Get_key(){
@@ -146,36 +156,45 @@ public:
   }
  #endif
   
-  Node(string key_, string value_,int height_){
-	cout<<"key_ = "<<key_.capacity()<<endl;
+  Node(string key_, string value_,int height_): str_value(value_), height(height_){
+//	cout<<"key_ = "<<key_.capacity()<<endl;
 	//swap(str_key,key_);
-//	strcpy(str_key, key_.c_str());
-	cout<<"str_key = "<<str_key<<endl;
-	str_key =key_;
+	strcpy(str_key, key_.c_str());
+//	cout<<"str_key = "<<str_key<<endl;
+//	str_key =key_;
 //	string temp(str_key);
 //	cout<<"After, str_key = "<<temp.capacity()<<endl;
 //	str_key.shrink_to_fit();
-	cout<<"sizeof(str_key) = "<<sizeof(str_key)<<endl;
-	str_value = value_;
-	height = height_;
-	prefix = new Node *[height-1];
+//	cout<<"sizeof(str_key) = "<<sizeof(str_key)<<endl;
+//	str_value = value_;
+//	height = height_;
+	prefix = new std::atomic<Node*> [height];
+//	for(int i=0;i<height;i++){
+//		prefix[i] = nullptr;
+//	}
+	//prefix = (atomic<Node*>)malloc(sizeof(Node*) * height);
+	
+	
 }
 
 private:
   // next_[0] is the lowest level link (level 0).  Higher levels are
   // stored _earlier_, so level 1 is at next_[-1].
-  Node** prefix; 
-  std::atomic<Node*> next_[1]; 
+
+// std::atomic<Node**> prefix; 
+//  std::atomic<Node*> next_[1]; 
+  std::atomic<Node*> *prefix; 
+  //std::atomic<Node**> prefix;
   string str_value ;
   int height ;
   #ifdef JELLYFISH_SKIPLIST_H
-   VNode* vqueue;
+   std::atomic<VNode*> vqueue;
    int vqueue_num;
   #endif
-//   char str_key[100];
-  string str_key ;
-  //std::atomic<char*> value[1]; 
-};
+   char str_key[30];
+//  string str_key ;
+  //std::atomic<char*> value[1];
+}Node;
 
 ///////////////////////////////////////////////
 /////////////////////////////////////////////

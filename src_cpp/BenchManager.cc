@@ -37,7 +37,8 @@ int BenchManager::run(){
 	for(int i=0;i<th_num;i++){
 		Bench *bnch = new Bench;
 		req[i].wl_th = w_vec[i];
-		bnch->set_req(&req[i]);  // save request each Bench class
+//		req[i].wl_th.assign(w_vec[i].begin(), w_vec[i].end());	
+ 		bnch->set_req(&req[i]);  // save request each Bench class
 		gnrtor[i].set_bench(bnch);
 	}
 	// create thread

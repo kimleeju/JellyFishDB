@@ -13,13 +13,13 @@ class ConcurrentSkipList : public SkipList{
 
 public:
    // unordered_map<string, string> kv_map; // hash map 
-   int put(string key, string value);
-   string get(string key);
+   int put(string key, string value, Iterator iterator);
+   string get(string key, Iterator iterator);
 
 public:
     void put_impl(string key, string value);
     Node* get_impl(string key);
-    void RangeQuery(string start_key, int count);
+    void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
     Node* FindLast();
     Node* FindLessThan(string key, Node** prev);
@@ -29,7 +29,7 @@ public:
     bool KeyIsAfterNode(string key, Node* n);
     Node* AllocateNode(string key, string value, int height); 
     int RandomHeight();
-    bool Insert(string key, string value);
+    bool Insert(string key, string value , Iterator iterator);
  
 
 public:
