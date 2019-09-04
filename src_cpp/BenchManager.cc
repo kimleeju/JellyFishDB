@@ -27,6 +27,10 @@ void BenchManager::print_vector(){
 	}
 }*/
 int BenchManager::run(){
+
+	// load workloads 
+	wl.load_workloads(w_vec, path);
+
 	class Time time;
 	// time start
 	if(gettimeofday(&time.get_start(), NULL)==-1){
@@ -59,9 +63,6 @@ int BenchManager::run(){
 	time.print_result();
 
 	return 0;
-}
-void BenchManager::manage_wl(){
-	wl.save_workloads(w_vec, path);
 }
 void BenchManager::get_stat(){
 }

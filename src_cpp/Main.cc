@@ -38,70 +38,14 @@ int main(int argc, char* argv[])
 //	sl = new SimpleSkipList;
  //   }
     BenchManager bm(thread_num, path, sl);
+
+
     bm.manage_wl();
 
    if(bm.run() == 1)
 	cout<<"failed to check time"<<endl;
 
 
-#if 0    
-    if (type == "BlockedSkipList"){
-        sl = new BlockedSkipList();
-
-    } else if (type == "ConcurrentSkipList"){
-        sl = new ConcurrentSkipList();
-
-    } else if (type == "JellyFishSkipList"){
-        sl = new JellyFishSkipList();
-    }
-#endif
-#if 0
-    if(type == "BlockedSkipList"){ 
-        sl = new BlockedSkipList;
-        for (int i=0;i<node_count; i++){
-       cout<<"-----------------------------"<<endl;
-	sl->put(sl->randomString(),sl->randomString());
-        }
-	cout<<"-----------------------------"<<endl; 
-	sl->RangeQuery("0", node_count);
-	cout<<"-----------------------------"<<endl;
-	if(sl->get_impl("a") != nullptr)
-	  cout<<sl->get("a")<<endl;
-	else
-	  cout<<"nullptr"<<endl;    
-    }
-	
-   else if(type == "ConcurrentSkipList"){ 
-        sl = new ConcurrentSkipList;
-        for (int i=0;i<node_count; i++){
-       cout<<"-----------------------------"<<endl;
-	sl->put(sl->randomString(),sl->randomString());
-        }
-	cout<<"-----------------------------"<<endl; 
-	sl->RangeQuery("0", node_count);
-	cout<<"-----------------------------"<<endl;
-	if(sl->get_impl("a") != nullptr)
-	  cout<<sl->get("a")<<endl;
-	else
-	  cout<<"nullptr"<<endl;
-   }
-	
-
-   else if(type == "JellyFishSkipList"){ 
-        sl = new JellyFishSkipList;
-        for (int i=0;i<node_count; i++){
-       cout<<"-----------------------------"<<endl;
-	sl->put(sl->randomString(),sl->randomString());
-        }
-	cout<<"-----------------------------"<<endl; 
-	sl->RangeQuery("0", node_count);
-	cout<<"-----------------------------"<<endl;
-	if(sl->get_impl("a") != nullptr)
-	  cout<<sl->get("a")<<endl;
-	else
-	  cout<<"nullptr"<<endl;
-   }
-#endif
     return 0;
 }
 

@@ -15,7 +15,6 @@ class BenchManager
 	void prepare();
 	int run();  // get time by using Thread
 	void get_stat();
-	void manage_wl();  // save workloads
 //	void print_vector();
 
 	BenchManager(int t, char *p, SkipList *t_s);
