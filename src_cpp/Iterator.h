@@ -3,20 +3,23 @@
 
 #include "SkipList.h"
 #include "Node.h"
-
-class Iterator{
-    public:
+class SkipList;
+class Iterator{  
+   public:
         Iterator(){
             sl_ = nullptr;
             node_ = nullptr;
+	    splice = sl_->AllocateSplice();	
         }
 
         Iterator(SkipList* sl){
             SetList(sl);
+	    node_ = nullptr;
+	    splice = sl_->AllocateSplice();
         }
 	
-	void Put(string key, string value){
-	    sl_->Insert(key, value);
+	void Put(string key, string value, Iterator iterator){
+	    sl_->Insert(key, value, iterator);
 	}
 
         void SetList(SkipList* sl){
@@ -30,7 +33,7 @@ class Iterator{
             node_ = node_->Next(0);
         }
         void Prev(){
-            struct Node** prev_ = nullptr;
+           struct  Node** prev_ = nullptr;
             node_ = sl_->FindLessThan(node_->Get_key(),prev_);
         }
         void Seek(string key){
@@ -56,9 +59,11 @@ class Iterator{
         struct Node* Node(){
             return node_;
         }
-
     private:
         SkipList* sl_ = nullptr;
         struct Node* node_;
+
+    public:
+	SkipList::Splice* splice;
 };
 #endif

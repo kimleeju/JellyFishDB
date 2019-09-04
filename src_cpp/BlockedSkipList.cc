@@ -1,23 +1,23 @@
 #include "BlockedSkipList.h"
 
-int BlockedSkipList::put(string key, string value){
+int BlockedSkipList::put(string key, string value, Iterator iterator){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
-   // Insert(AllocateNode(key, value, RandomHeight()));
-    put_impl(key, value);
+    iterator.Put(key,value, iterator);
     t_global_committed.mlock.unlock();
     return 0;
 }
 
 void BlockedSkipList::put_impl(string key, string value){
     Iterator iterator(this);
-    iterator.Put(key, value);
+    //iterator.Put(key, value);
 }
 
-string BlockedSkipList::get(string key){
+string BlockedSkipList::get(string key , Iterator iterator){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
-    string get_value = get_impl(key)->Get_value();
+    iterator.Seek(key);
+    string get_value = iterator.Node()->Get_value();
     t_global_committed.mlock.unlock();
     return get_value;
 }
@@ -30,11 +30,10 @@ Node* BlockedSkipList::get_impl(string key){
 }
 
 
-void BlockedSkipList::RangeQuery(string start_key, int count){
+void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     cout<<"-----------------------------"<<endl;
-    Iterator iterator(this);
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
@@ -48,13 +47,17 @@ void BlockedSkipList::RangeQuery(string start_key, int count){
 
 
 BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
-cout<<"******"<<endl;
-    size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
+    /*size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
     char* raw = new char[sizeof(Splice) + array_size*2];
     Splice* splice = reinterpret_cast<Splice*>(raw);
     splice->height_ = 0;
     splice->prev_ = reinterpret_cast<Node**>(raw + sizeof(Splice) );
     splice->next_ = reinterpret_cast<Node**>(raw + sizeof(Splice) + array_size);
+    */
+	Splice* splice = new Splice();
+	splice->height_ = 0;
+	splice->prev_ = new Node *[MAX_LEVEL];
+	splice->next_ = new Node *[MAX_LEVEL];
     return splice;
 }
 
@@ -137,7 +140,7 @@ void BlockedSkipList::RecomputeSpliceLevels(string key, int level, Splice* splic
 
 
 void BlockedSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
-    Node* after = before ->Next(level);
+Node* after = before ->Next(level);
     while(true){
         if(!KeyIsAfterNode(key, after)){
             *sp_prev = before;
@@ -151,14 +154,13 @@ void BlockedSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, 
 }
 
 bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
-     return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+  return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 } 
 
 
 
 
 Node* BlockedSkipList::AllocateNode(string key, string value, int height){
-   cout<<"height = "<<height <<endl; 
    //auto prefix = sizeof(atomic<Node*>) * (height-1);
    //cout<<"prefix = "<<prefix<<endl;
    //char* raw = new char [prefix +sizeof(Node)];
@@ -168,11 +170,10 @@ Node* BlockedSkipList::AllocateNode(string key, string value, int height){
   //Node* x = reinterpret_cast<Node*>(raw + prefix);   
   //cout<<"x->Get_eky() = "<<x->Get_key()<<endl;
    Node* x = new Node(key,value,height);
-   for(int i=0;i<height;i ++){
-       x->SetNext(i,nullptr);
+  // for(int i=0;i<height;i ++){
+  //     x->SetNext(i,nullptr);
        //assert(x->Next(i));
-   }
-cout<<"sizeof(*x) = "<<sizeof(*x)<<endl;
+  // }
 //cout<<"str_key = "<<x->Get_key()<<endl;
 //cout<<"UnstashHeight() = "<<x->UnstashHeight()<<endl;
 //cout<<"str_key = "<<x->Get_key().capacity()<<endl;
@@ -202,14 +203,15 @@ int BlockedSkipList::RandomHeight(){
 
 BlockedSkipList::BlockedSkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
-    srand((unsigned)time(NULL));
-   for(int i=0; i<kMaxHeight_;i++){
-        head_->SetNext(i, nullptr);
-   }
+   srand((unsigned)time(NULL));
+//   for(int i=0; i<kMaxHeight_;i++){
+//        head_->SetNext(i, nullptr);
+//   }
+//cout<<"-----------------------------------"<<endl;
 }
 
 
-bool BlockedSkipList::Insert(string key, string value){
+bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
  // Node* nnode = AllocateNode(key, value, RandomHeight());
   int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
@@ -217,7 +219,6 @@ bool BlockedSkipList::Insert(string key, string value){
 	max_height_ = height;
 	max_height = height;   
     }
-    
 
     if(seq_splice->height_ < max_height){
        seq_splice->prev_[max_height] = head_;
@@ -231,13 +232,12 @@ bool BlockedSkipList::Insert(string key, string value){
            seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
         }
     }
-
      if(height > 0){
         RecomputeSpliceLevels(key, height);
     }
-	cout<<"sizeof(Node) = "<<sizeof(Node)<<endl;
+   
      Node* nnode = AllocateNode(key, value, height);
-    cout<<"sizeof(*nnode) ="<< sizeof(*nnode)<<endl;
+    
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, seq_splice->next_[i]);
         seq_splice->prev_[i]->SetNext(i,nnode);
@@ -248,12 +248,14 @@ bool BlockedSkipList::Insert(string key, string value){
         seq_splice->prev_[i] = head_;
         seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
     }
-   cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
-  cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
-  cout<<"height = "<<height<<endl;
-  cout<<"max_height_ = "<<max_height_<<endl;
- cout<<"cnt = "<<++cnt<<endl; 
-cout<<"-------------------------------"<<endl;
+  //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
+  //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
+  //cout<<"height = "<<height<<endl;
+  //cout<<"max_height_ = "<<max_height_<<endl;
+	++cnt;
+if(cnt%1000==0)
+  cout<<"cnt = "<<cnt<<endl; 
+ // cout<<"-------------------------------"<<endl;
   return true;
 
 }

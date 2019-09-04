@@ -23,8 +23,7 @@ int main(int argc, char* argv[])
 
     char *path = argv[3];
     cout << "type: " << type << endl;
-
-   if(type == "BlockedSkipList"){
+    if(type == "BlockedSkipList"){
 	sl = new BlockedSkipList;
      }
 
