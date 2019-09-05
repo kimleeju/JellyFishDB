@@ -13,7 +13,7 @@ class BenchManager
 {
  	public:
 	void prepare();
-	int run();  // get time by using Thread
+	unsigned long run();  // get time by using Thread
 	void get_stat();
 //	void print_vector();
 

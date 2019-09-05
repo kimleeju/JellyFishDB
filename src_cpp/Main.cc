@@ -42,9 +42,9 @@ int main(int argc, char* argv[])
 
   // bm.manage_wl();
 
-   if(bm.run() == 1)
-	cout<<"failed to check time"<<endl;
-
+//   if(bm.run() == 1)
+//	cout<<"failed to check time"<<endl;
+	cout<<bm.run()<<endl;
 
     return 0;
 }

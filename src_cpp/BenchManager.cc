@@ -16,7 +16,7 @@ BenchManager::BenchManager(int t, char *p, SkipList *t_s) : th_num(t), path(p), 
 void BenchManager::prepare(){
 	//	r->sl = s;
 }/*
-void BenchManager::print_vector(){
+    void BenchManager::print_vector(){
 	r->v.assign(v[0].begin(), v[0].end());
 	cout<<"workload[0] : 의 size"<<v[0].size()<<endl;
 	for (unsigned int i = 0; i < v[0].size(); i++) {
@@ -26,7 +26,7 @@ void BenchManager::print_vector(){
 	//	}
 	}
 }*/
-int BenchManager::run(){
+unsigned long BenchManager::run(){
 	wl.save_workloads(w_vec,path);
 	class Time time;
 	// time start
@@ -35,9 +35,11 @@ int BenchManager::run(){
 		return 1;
 	}
 	// set benmark for each thread
+	unsigned long op_cnt=0;
 	for(int i=0;i<th_num;i++){
 		Bench *bnch = new Bench;
 		req[i].wl_th = w_vec[i];
+		op_cnt += w_vec[i].size();
 //		req[i].wl_th.assign(w_vec[i].begin(), w_vec[i].end());	
  		bnch->set_req(&req[i]);  // save request each Bench class
 		gnrtor[i].set_bench(bnch);
@@ -63,7 +65,7 @@ int BenchManager::run(){
 	//time.print_result();
 	time.get_dur();
 
-	return 0;
+	return op_cnt/time.get_dur();
 }
 void BenchManager::get_stat(){
 }
