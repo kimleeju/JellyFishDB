@@ -27,10 +27,7 @@ void BenchManager::print_vector(){
 	}
 }*/
 int BenchManager::run(){
-
-	// load workloads 
-	wl.load_workloads(w_vec, path);
-
+	wl.save_workloads(w_vec,path);
 	class Time time;
 	// time start
 	if(gettimeofday(&time.get_start(), NULL)==-1){
@@ -60,7 +57,11 @@ int BenchManager::run(){
 		return 1;
 	}
 
-	time.print_result();
+	//----------------------------------------//
+	//----- print perf -----------------------//
+	//----------------------------------------//
+	//time.print_result();
+	time.get_dur();
 
 	return 0;
 }

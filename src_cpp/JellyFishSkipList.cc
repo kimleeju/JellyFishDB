@@ -6,10 +6,6 @@ int JellyFishSkipList::put(string key, string value, Iterator iterator){
     return 0;
 }
 
-void JellyFishSkipList::put_impl(string key, string value){
-    Iterator iterator(this);
-    //iterator.Put(key, value);
-}	
 
 string JellyFishSkipList::get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
@@ -22,11 +18,6 @@ string JellyFishSkipList::get(string key, Iterator iterator){
 	 return temp->Get_value();
 }
 
-Node* JellyFishSkipList::get_impl(string key){
-    Iterator iterator(this);
-    iterator.Seek(key);
-    return iterator.Node();
-}
 
 
 void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterator){
@@ -120,8 +111,6 @@ Node* JellyFishSkipList::FindGreaterorEqual(string key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-	cout<<"level = "<<level<<endl;
-	cout<<"next = "<<next<<endl;
         int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
 
         if(cmp >= 0 &&level ==0){
@@ -183,6 +172,7 @@ bool JellyFishSkipList::KeyIsAfterNode(string key, Node* n){
 VNode* JellyFishSkipList::AllocateVNode(string value){
    VNode* x = new VNode;
    x->value = value;
+   x->NoBarrier_SetNext(nullptr);
    //x->timestamp = n->Get_vqueue_num();
    //x->next = n->Get_vqueue();
    return x; 
@@ -237,35 +227,46 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
     if(height > 0) {
 	RecomputeSpliceLevels(key, height,iterator.splice);
     }
-   	
-    if(iterator.splice->next_[0]!=nullptr &&iterator.splice->next_[0]->Get_key() == key){
-       VNode* nnode = AllocateVNode(value);	
-	iterator.splice->next_[0]->Get_vqueue()->CASNext(nnode->next,nnode);
-	iterator.splice->next_[0]->Set_vqueue(nnode);	
-     }
 
+bool test = 1;
+while(test == 1){
+    if(iterator.splice->next_[0]!=nullptr &&iterator.splice->next_[0]->Get_key() == key){
+	   VNode* nnode = AllocateVNode(value);
+	     retry:
+		if(iterator.splice->next_[0]->Get_vqueue()!=nullptr)	
+			nnode->NoBarrier_SetNext(iterator.splice->next_[0]->Get_vqueue()->NoBarrier_Next());
+		 if(iterator.splice->next_[0]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
+		//iterator.splice->next_[0]->Set_vqueue(nnode);	
+		  break;
+	      }
+		goto retry;
+       }
+    
      else{
 	for(int i = 0; i < height ; ++i){
-	   while(true){
 		Node* nnode = AllocateNode(key, value, height);
-	   	nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
-	   	if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
+		nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
+		nnode->Set_vqueue(AllocateVNode(value));
+		if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
 		  //success
+		  test = 0;
 		  break;
-	   	}
-	
-		 Node* before = head_;
-		 FindSpliceForLevel(key, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
-	    }
+	   	}	
+		Node* before = head_;
+	 	FindSpliceForLevel(key, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
+		delete nnode;
+		break;   
 	}
-	cnt++;
-	if(cnt%1000 == 0)
-		cout<<"cnt = "<<cnt<<endl;
-		//cout<<"nnode->str_key = "<<key<<endl;
-  		//cout<<"nnode->str_value = "<<value<<endl;
-  		//cout<<"height = "<<height<<endl;
-  		//cout<<"max_height_ = "<<max_height_<<endl;
      }
+		/*cout<<"nnode->str_key = "<<key<<endl;
+  		cout<<"nnode->str_value = "<<value<<endl;
+  		cout<<"height = "<<height<<endl;
+  		cout<<"max_height_ = "<<max_height_<<endl;
+  	}*/
+  }
+	cnt++;
+	if(cnt % 1000 == 0)
+	cout<<"cnt = "<<cnt<<endl;
 
    return true;
      

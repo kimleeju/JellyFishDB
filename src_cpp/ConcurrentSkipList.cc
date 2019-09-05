@@ -6,10 +6,6 @@ int ConcurrentSkipList::put(string key, string value, Iterator iterator){
     return 0;
 }
 
-void ConcurrentSkipList::put_impl(string key, string value){
-    Iterator iterator(this);
-    //iterator.Put(key, value);
-}	
 
 string ConcurrentSkipList::get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
@@ -18,11 +14,6 @@ string ConcurrentSkipList::get(string key, Iterator iterator){
     return get_value;
 }
 
-Node* ConcurrentSkipList::get_impl(string key){
-    Iterator iterator(this);
-    iterator.Seek(key);
-    return iterator.Node();
-}
 
 
 void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterator){

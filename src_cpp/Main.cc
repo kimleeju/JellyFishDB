@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     BenchManager bm(thread_num, path, sl);
 
 
-    bm.manage_wl();
+  // bm.manage_wl();
 
    if(bm.run() == 1)
 	cout<<"failed to check time"<<endl;

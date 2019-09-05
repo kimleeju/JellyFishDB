@@ -11,14 +11,19 @@ using namespace std;
 
 //#ifdef JELLYFISH_SKIPLIST_H
 typedef struct VNode {
+     VNode* NoBarrier_Next() {
+	return next;
+  //	return (&next)->load(std::memory_order_relaxed);
+  }
 
+  void NoBarrier_SetNext(VNode* x) {
+	(&next)->store(x,std::memory_order_relaxed);	
+  }
+   
     bool CASNext(VNode* expected, VNode* x) {
-   // assert(n >= 0);
-  
-   // return (&next_[0] - n)->compare_exchange_strong(expected, x);
-     
 	return (&next)->compare_exchange_strong(expected, x);
   }
+
     string value; 
     string timestamp; 
     atomic<VNode*> next; 
@@ -139,6 +144,7 @@ public:
 
   void Set_vqueue(VNode* n){
 	vqueue = n;
+	//(&vqueue)->store(n, std::memory_order_relaxed);
 	vqueue_num++;
   }
 
@@ -173,8 +179,15 @@ public:
 //		prefix[i] = nullptr;
 //	}
 	//prefix = (atomic<Node*>)malloc(sizeof(Node*) * height);
+	#ifdef JELLYFISH_SKIPLIST_H
+//	 vqueue=nullptr;
+	 vqueue_num = 0;
+	#endif	
 	
-	
+}
+
+ ~Node(){
+	delete[] prefix;	
 }
 
 private:
@@ -185,13 +198,13 @@ private:
 //  std::atomic<Node*> next_[1]; 
   std::atomic<Node*> *prefix; 
   //std::atomic<Node**> prefix;
+  char str_key[30];
   string str_value ;
   int height ;
   #ifdef JELLYFISH_SKIPLIST_H
-   std::atomic<VNode*> vqueue;
+   VNode* vqueue;
    int vqueue_num;
   #endif
-   char str_key[30];
 //  string str_key ;
   //std::atomic<char*> value[1];
 }Node;

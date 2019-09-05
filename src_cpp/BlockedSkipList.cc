@@ -8,10 +8,6 @@ int BlockedSkipList::put(string key, string value, Iterator iterator){
     return 0;
 }
 
-void BlockedSkipList::put_impl(string key, string value){
-    Iterator iterator(this);
-    //iterator.Put(key, value);
-}
 
 string BlockedSkipList::get(string key , Iterator iterator){
     t_global_committed.mlock.lock();
@@ -22,12 +18,6 @@ string BlockedSkipList::get(string key , Iterator iterator){
     return get_value;
 }
     
-
-Node* BlockedSkipList::get_impl(string key){
-    Iterator iterator(this);
-    iterator.Seek(key);
-    return iterator.Node();
-}
 
 
 void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
@@ -252,9 +242,9 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
   //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
   //cout<<"height = "<<height<<endl;
   //cout<<"max_height_ = "<<max_height_<<endl;
-	++cnt;
-if(cnt%1000==0)
-  cout<<"cnt = "<<cnt<<endl; 
+	cnt++;
+//if(cnt%1000==0)
+//  cout<<"cnt = "<<cnt<<endl; 
  // cout<<"-------------------------------"<<endl;
   return true;
 

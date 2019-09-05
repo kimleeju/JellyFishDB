@@ -20,8 +20,6 @@ public:
 
    
 public:
-    void put_impl(string key, string value);
-    Node* get_impl(string key);
     void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
     Node* FindLast();
