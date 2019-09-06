@@ -4,7 +4,7 @@ threads="1 2 4"
 
 for th in $threads; do
 	for cf in $conf; do
-		rfname=$cf.rslt
+		rfname=result/$cf.rslt
 		trc=$TRC_DIR/test.log
 		echo "./Run $cf $th $trc  ..."
 		./Run $cf $th $trc > $rfname 
