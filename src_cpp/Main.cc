@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 
 //   if(bm.run() == 1)
 //	cout<<"failed to check time"<<endl;
-	cout<<bm.run()<<endl;
+	cout<<"IOPS = "<<bm.run()<<endl;
 
     return 0;
 }

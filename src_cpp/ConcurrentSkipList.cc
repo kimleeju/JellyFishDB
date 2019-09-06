@@ -112,11 +112,12 @@ ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
    return splice;
 }
 
-void ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i],before);
     }
+	return 0;
 }
 
 
@@ -223,9 +224,6 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator){
 		
 	}
     }
-cnt++;
-if(cnt% 1000 == 0)
-  cout<<"cnt = "<<cnt<<endl;		
   //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
   //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
   //cout<<"height = "<<height<<endl;

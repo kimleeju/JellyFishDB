@@ -141,11 +141,15 @@ JellyFishSkipList::Splice* JellyFishSkipList::AllocateSplice(){
     return splice;
 }
 
-void JellyFishSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i],before);
-    }
+		if(splice->next_[i]!=nullptr && key.compare(splice->next_[i]->Get_key())==0){
+			return i;	
+		}
+	}
+	return 0;
 }
 
 void JellyFishSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
@@ -224,18 +228,19 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
 	}
     }
 	
+	int splice_index;
     if(height > 0) {
-	RecomputeSpliceLevels(key, height,iterator.splice);
+		splice_index = RecomputeSpliceLevels(key, height,iterator.splice);
     }
 
 bool test = 1;
 while(test == 1){
-    if(iterator.splice->next_[0]!=nullptr &&iterator.splice->next_[0]->Get_key() == key){
-	   VNode* nnode = AllocateVNode(value);
+    if(iterator.splice->next_[splice_index]!=nullptr && iterator.splice->next_[splice_index]->Get_key() == key){
+		 VNode* nnode = AllocateVNode(value);
 	     retry:
-		if(iterator.splice->next_[0]->Get_vqueue()!=nullptr)	
-			nnode->NoBarrier_SetNext(iterator.splice->next_[0]->Get_vqueue()->NoBarrier_Next());
-		 if(iterator.splice->next_[0]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
+		if(iterator.splice->next_[splice_index]->Get_vqueue()!=nullptr)	
+			nnode->NoBarrier_SetNext(iterator.splice->next_[splice_index]->Get_vqueue()->NoBarrier_Next());
+		 if(iterator.splice->next_[splice_index]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
 		//iterator.splice->next_[0]->Set_vqueue(nnode);	
 		  break;
 	      }
@@ -264,9 +269,6 @@ while(test == 1){
   		cout<<"max_height_ = "<<max_height_<<endl;
   	}*/
   }
-	cnt++;
-	if(cnt % 1000 == 0)
-	cout<<"cnt = "<<cnt<<endl;
 
    return true;
      
