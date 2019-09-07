@@ -3,8 +3,8 @@
 
 #include <list>
 #include <cstring>
-#include "SkipList.h"
-#include "Iterator.h"
+#include "../SkipList.h"
+#include "../Iterator.h"
 
 
  

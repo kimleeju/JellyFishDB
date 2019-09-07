@@ -39,7 +39,7 @@ protected:
     TimeStamp t_global_committed;
     
 public:    
-    string randomString();
+    //string randomString();
     virtual int put(string key, string value, Iterator iterator ) = 0;
     virtual string get(string key, Iterator iterator) = 0;
     virtual void RangeQuery(string start_key, int count, Iterator iterator) = 0;

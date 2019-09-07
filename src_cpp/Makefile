@@ -1,11 +1,31 @@
 CC=g++
-CXXFLAGS=-std=gnu++11 -std=c++11 -g -Wall
-LDFLAGS= -pthread
-OBJS=Main.o SkipList.o ConcurrentSkipList.o JellyFishSkipList.o SimpleSkipList.o BlockedSkipList.o WorkLoad.o Bench.o BenchManager.o Thread.o
-TARGET=Run
+CXXFLAGS=-std=c++11 -g -Wall
+LDFLAGS=-pthread
 
-$(TARGET): $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ $(OBJS)   
+SRCS +=\
+	BlockedSkipList/BlockedSkipList.cc\
+	ConcurrentSkipList/ConcurrentSkipList.cc\
+	JellyFishSkipList/JellyFishSkipList.cc\
+	Bench/BenchManager.cc
+
+OBJS = $(SRCS:.cc=.o)
+
+$(info $(OBJS))
+
+TARG=Run
+
+all: $(TARG)
+
+$(TARG): Main.cc ./bin/libskiplist.a
+	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ $^
+
+./bin/libskiplist.a: $(SRCS)
+	mkdir -p bin
+	cd ./BlockedSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
+	$(AR) r $(@) $(OBJS)
 
 clean:
-	rm $(TARGET) $(OBJS)
+	rm -f $(TARG) $(OBJS) ./bin/*.o ./bin/libskiplist.a

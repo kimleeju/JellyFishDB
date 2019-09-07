@@ -1,12 +1,14 @@
 #define DEBUG
 
 #include "SkipList.h"
-#include "BlockedSkipList.h"
-#include "ConcurrentSkipList.h"
-#include "JellyFishSkipList.h"
+#include "BlockedSkipList/BlockedSkipList.h"
+#include "ConcurrentSkipList/ConcurrentSkipList.h"
+#include "JellyFishSkipList/JellyFishSkipList.h"
 //#include "SimpleSkipList.h"
-#include "Iterator.h"
-#include "BenchManager.h"
+//#include "Iterator.h"
+#include "Bench/BenchManager.h"
+
+using namespace std;
 
 int main(int argc, char* argv[])
 { 
