@@ -17,6 +17,7 @@
 
 using namespace std;
 #define MAX_LEVEL 12 
+
 class Iterator;
 
 class SkipList {

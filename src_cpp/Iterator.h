@@ -4,6 +4,8 @@
 #include "SkipList.h"
 #include "Node.h"
 class SkipList;
+
+
 class Iterator{  
    public:
         Iterator(){
@@ -66,4 +68,6 @@ class Iterator{
     public:
 	SkipList::Splice* splice;
 };
+
+
 #endif
