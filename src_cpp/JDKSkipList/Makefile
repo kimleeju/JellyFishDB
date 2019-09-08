@@ -7,7 +7,7 @@ CXXFLAGS=-std=c++11 -g -Wall \
 
 #LDFLAGS= -pthread
 SRCS +=\
-	JNISkipList.cc
+	JDKSkipList.cc
 	
 OBJS:= $(SRCS:.cc=.o)
 
@@ -19,7 +19,7 @@ OBJS:= $(SRCS:.cc=.o)
 #	$(cc) $(LDFLAGS) -c $< -o $@
 
 all: $(OBJS)
-	$(CC) $(LDFLAGS) -o $@ -c $^
+	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ -c $^ -ljvm
 
 clean:
 	rm -f *.o Run

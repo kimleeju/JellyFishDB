@@ -1,5 +1,5 @@
-#ifndef BLOCKED_SKIPLIST_H
-#define BLOCKED_SKIPLIST_H
+#ifndef JNI_SKIPLIST_H
+#define JNI_SKIPLIST_H
 
 #include <list>
 #include <cstring>
@@ -12,7 +12,8 @@
 
 using namespace std;
 
-class JNISkipList : public SkipList{
+
+class JDKSkipList : public SkipList{
 
 	JavaVM *vm;
 	JNIEnv *env;
@@ -38,8 +39,8 @@ public:
     int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
 public:
-    JNISkipList();
-    ~JNISkipList(){}
+    JDKSkipList();
+    ~JDKSkipList(){}
 };
 
 #endif

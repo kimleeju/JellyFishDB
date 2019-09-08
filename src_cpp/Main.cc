@@ -3,7 +3,7 @@
 #include "SkipList.h"
 #include "BlockedSkipList/BlockedSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
-#include "JDKSkipList/JNISkipList.h"
+#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
 //#include "SimpleSkipList.h"
 //#include "Iterator.h"
@@ -12,11 +12,11 @@
 using namespace std;
 
 int main(int argc, char* argv[])
-{ 
+{ 	
     SkipList* sl;
     if (argc < 4){
         cout << "Usage: ./Run Options thread_count path" << endl;
-        cout << "Options: BlockedSkipList ConcurrentSkipList JNISkipList JellyFishSkipList" << endl;
+        cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
         return -1;
     }
 
@@ -33,8 +33,8 @@ int main(int argc, char* argv[])
 	sl = new ConcurrentSkipList;
      }
 	
-   else if(type == "JNISkipList"){
-	sl = new JNISkipList;
+   else if(type == "JDKSkipList"){
+	sl = new JDKSkipList;
 	}
 	
    else if(type == "JellyFishSkipList"){
