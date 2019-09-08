@@ -1,26 +1,43 @@
-#include "BlockedSkipList.h"
+#include "JNISkipList.h"
 
-int BlockedSkipList::Put(string key, string value, Iterator iterator){
-    t_global_committed.mlock.lock();
+int JNISkipList::Put(string key, string value, Iterator iterator){
+ //   t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
-    t_global_committed.mlock.unlock();
+ //   t_global_committed.mlock.unlock();
     return 0;
 }
 
 
-string BlockedSkipList::Get(string key , Iterator iterator){
-    t_global_committed.mlock.lock();
+string JNISkipList::Get(string key , Iterator iterator){
+//    t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
-    iterator.Seek(key);
-    string get_value = iterator.Node()->Get_value();
-    t_global_committed.mlock.unlock();
+	jstring jstr = env->NewStringUTF(key.c_str());	
+	mid = env->GetStaticMethodID(jcls, "Get", "(Ljava/lang/String;)Ljava/lang/String;");
+
+	if (!mid) {
+		printf("Error: unable to find Get\n");
+		return 0;
+	}
+
+	jobject jrslt = env->CallStaticObjectMethod(jcls, mid, jstr);
+	if (!jrslt) {
+		cout<<"Error : failed to get value for key "<<key<<endl;
+		return 0;
+	}
+
+	const char* str = env->GetStringUTFChars((jstring) jrslt, NULL);
+	printf("%s\n", str);
+    //iterator.Seek(key);
+    //string get_value = iterator.Node()->Get_value();
+ //   t_global_committed.mlock.unlock();
+	string get_value(str);
     return get_value;
 }
     
 
 
-void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
+void JNISkipList::RangeQuery(string start_key, int count, Iterator iterator ){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     cout<<"-----------------------------"<<endl;
@@ -36,7 +53,7 @@ void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator 
 
 
 
-BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
+JNISkipList::Splice* JNISkipList::AllocateSplice(){
     /*size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
     char* raw = new char[sizeof(Splice) + array_size*2];
     Splice* splice = reinterpret_cast<Splice*>(raw);
@@ -52,7 +69,7 @@ BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
 }
 
 
-Node* BlockedSkipList::FindLast(){
+Node* JNISkipList::FindLast(){
     Node* x = head_;
     int level = kMaxHeight_ - 1;
     while(true){
@@ -71,7 +88,7 @@ Node* BlockedSkipList::FindLast(){
     }
 }
 
-Node* BlockedSkipList::FindLessThan(string key, Node** prev){
+Node* JNISkipList::FindLessThan(string key, Node** prev){
     int level = kMaxHeight_ -1 ;
     Node* x = head_;
     Node* last_not_after = nullptr;
@@ -95,7 +112,7 @@ Node* BlockedSkipList::FindLessThan(string key, Node** prev){
     }
 }
 
-Node* BlockedSkipList::FindGreaterorEqual(string key){
+Node* JNISkipList::FindGreaterorEqual(string key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
@@ -121,7 +138,7 @@ Node* BlockedSkipList::FindGreaterorEqual(string key){
     
 
 
-int BlockedSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int JNISkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);
@@ -130,7 +147,7 @@ int BlockedSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice
 }
 
 
-void BlockedSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
+void JNISkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
 Node* after = before ->Next(level);
     while(true){
         if(!KeyIsAfterNode(key, after)){
@@ -144,14 +161,14 @@ Node* after = before ->Next(level);
     }
 }
 
-bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
+bool JNISkipList::KeyIsAfterNode(string key, Node* n){
   return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 } 
 
 
 
 
-Node* BlockedSkipList::AllocateNode(string key, string value, int height){
+Node* JNISkipList::AllocateNode(string key, string value, int height){
    //auto prefix = sizeof(atomic<Node*>) * (height-1);
    //cout<<"prefix = "<<prefix<<endl;
    //char* raw = new char [prefix +sizeof(Node)];
@@ -180,7 +197,7 @@ Node* BlockedSkipList::AllocateNode(string key, string value, int height){
    return x;
 } 
 
-int BlockedSkipList::RandomHeight(){
+int JNISkipList::RandomHeight(){
    int height, balancing, pivot;
    balancing =2 ;
    height = 1;
@@ -192,9 +209,39 @@ int BlockedSkipList::RandomHeight(){
 }
 
 
-BlockedSkipList::BlockedSkipList()
+JNISkipList::JNISkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
    srand((unsigned)time(NULL));
+
+	// initialize skip list 
+	vm_args.version = JNI_VERSION_1_2;
+	vm_args.nOptions = 0;
+
+	// Construct a VM
+	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
+	if (res < 0) {
+		printf("Error: failed to create jvm\n");
+		return ;
+	}
+
+	//jclass jcls = env->FindClass("java/util/concurrent/ConcurrentSkipListMap");
+	jcls = env->FindClass("MyConcurrentSkipListMap");
+
+
+	if (!jcls) {
+		printf("Error: unable to find class \n");
+		return ;
+	}
+
+	// create skip list 
+	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
+	if (!mid){
+		printf("Error: unable to find create_sl\n");
+		return ;
+	}
+	env->CallStaticVoidMethod(jcls, mid);
+
+
 //   for(int i=0; i<kMaxHeight_;i++){
 //        head_->SetNext(i, nullptr);
 //   }
@@ -202,7 +249,27 @@ BlockedSkipList::BlockedSkipList()
 }
 
 
-bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
+bool JNISkipList::Insert(string key, string value, Iterator iterator)
+{
+	// put <k, v>
+	jobjectArray jarr = env->NewObjectArray(2, 
+							env->FindClass("java/lang/String"),
+							env->NewStringUTF("str"));
+
+	env->SetObjectArrayElement(jarr, 0, env->NewStringUTF(key.c_str()));
+	env->SetObjectArrayElement(jarr, 1, env->NewStringUTF(value.c_str()));
+
+	mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");
+
+	if (!mid) {
+		printf("Error: unable to find Put\n");
+		return 0;
+	}
+
+	env->CallStaticVoidMethod(jcls, mid, jarr);
+
+
+#if 0
  // Node* nnode = AllocateNode(key, value, RandomHeight());
   int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
@@ -248,9 +315,8 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 //  cout<<"cnt = "<<cnt<<endl; 
  // cout<<"-------------------------------"<<endl;
   return true;
-
+#endif
+	return true;
 }
-
-
 
 

@@ -3,6 +3,7 @@
 
 #include <list>
 #include <cstring>
+#include <jni.h>
 #include "../SkipList.h"
 #include "../Iterator.h"
 
@@ -11,8 +12,13 @@
 
 using namespace std;
 
-class BlockedSkipList : public SkipList{
+class JNISkipList : public SkipList{
 
+	JavaVM *vm;
+	JNIEnv *env;
+	JavaVMInitArgs vm_args;
+	jmethodID mid;
+	jclass jcls;
 public:
     int Put(string key, string value, Iterator iterator);
     string Get(string key, Iterator iterator); 
@@ -32,8 +38,8 @@ public:
     int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
 public:
-    BlockedSkipList();
-    ~BlockedSkipList(){}
+    JNISkipList();
+    ~JNISkipList(){}
 };
 
 #endif

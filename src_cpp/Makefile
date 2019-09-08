@@ -5,6 +5,7 @@ LDFLAGS=-pthread
 SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
+	JDKSkipList/JNISkipList.cc\
 	JellyFishSkipList/JellyFishSkipList.cc\
 	Bench/BenchManager.cc
 
@@ -23,6 +24,7 @@ $(TARG): Main.cc ./bin/libskiplist.a
 	mkdir -p bin
 	cd ./BlockedSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
 	$(AR) r $(@) $(OBJS)

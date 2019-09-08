@@ -1,13 +1,13 @@
 #include "JellyFishSkipList.h"
 
-int JellyFishSkipList::put(string key, string value, Iterator iterator){
+int JellyFishSkipList::Put(string key, string value, Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Put(key, value, iterator);
     return 0;
 }
 
 
-string JellyFishSkipList::get(string key, Iterator iterator){
+string JellyFishSkipList::Get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Seek(key);
     Node* temp = iterator.Node();

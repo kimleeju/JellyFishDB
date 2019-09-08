@@ -7,16 +7,19 @@ CXXFLAGS=-std=c++11 -g -Wall \
 
 #LDFLAGS= -pthread
 SRCS +=\
-	JNI_ConcurrentSkipList.cc\
+	JNISkipList.cc
 	
 OBJS:= $(SRCS:.cc=.o)
 
 
-all: $(SRCS)
-	g++ $(CXXFLAGS) -o Run $(SRCS) -ljvm
+#all: $(SRCS)
+#	$(cc) $(CXXFLAGS) -o Run $(SRCS) -ljvm
 
 #all: $(OBJS)
-#	$(CC) $(LDFLAGS) -o $@ -c $^
+#	$(cc) $(LDFLAGS) -c $< -o $@
+
+all: $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ -c $^
 
 clean:
 	rm -f *.o Run

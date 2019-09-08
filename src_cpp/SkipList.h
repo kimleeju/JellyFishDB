@@ -41,8 +41,8 @@ protected:
     
 public:    
     //string randomString();
-    virtual int put(string key, string value, Iterator iterator ) = 0;
-    virtual string get(string key, Iterator iterator) = 0;
+    virtual int Put(string key, string value, Iterator iterator ) = 0;
+    virtual string Get(string key, Iterator iterator) = 0;
     virtual void RangeQuery(string start_key, int count, Iterator iterator) = 0;
     virtual Splice* AllocateSplice() =0;
     virtual Node* FindLast() =0;

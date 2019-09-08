@@ -2,11 +2,11 @@ import random
 import string
 
 _LENGTH = 10
-_COUNT = 100000
-_THREAD_NUM = 1
+_COUNT = 32000
+_THREAD_NUM = 16
 
 
-string_thread = ['1']
+string_thread = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16']
 string_pool = string.digits
 string_operation = ['put', 'update' ,'get', 'scan']
 list = []

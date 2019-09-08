@@ -1,13 +1,13 @@
 #include  "ConcurrentSkipList.h"
 
-int ConcurrentSkipList::put(string key, string value, Iterator iterator){
+int ConcurrentSkipList::Put(string key, string value, Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
     return 0;
 }
 
 
-string ConcurrentSkipList::get(string key, Iterator iterator){
+string ConcurrentSkipList::Get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Seek(key);
     string get_value = iterator.Node()->Get_value();

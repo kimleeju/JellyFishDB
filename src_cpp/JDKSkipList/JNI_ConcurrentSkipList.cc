@@ -42,10 +42,10 @@ int main(int argc, char** argv)
 	env->SetObjectArrayElement(jarr, 0, env->NewStringUTF("eunji"));
 	env->SetObjectArrayElement(jarr, 1, env->NewStringUTF("seoul"));
 
-	mid = env->GetStaticMethodID(jcls, "put_sl", "([Ljava/lang/String;)V");
+	mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");
 
 	if (!mid) {
-		printf("Error: unable to find put_sl\n");
+		printf("Error: unable to find Put\n");
 		return 0;
 	}
 
@@ -53,10 +53,10 @@ int main(int argc, char** argv)
 
 	// get <k> returns <v> 
 	jstring jstr = env->NewStringUTF("eunji");	
-	mid = env->GetStaticMethodID(jcls, "get_sl", "(Ljava/lang/String;)Ljava/lang/String;");
+	mid = env->GetStaticMethodID(jcls, "Get", "(Ljava/lang/String;)Ljava/lang/String;");
 
 	if (!mid) {
-		printf("Error: unable to find get_sl\n");
+		printf("Error: unable to find Get\n");
 		return 0;
 	}
 

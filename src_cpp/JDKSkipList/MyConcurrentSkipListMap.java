@@ -9,15 +9,15 @@ public class MyConcurrentSkipListMap
 		sl = new ConcurrentSkipListMap();
 	}
 
-	public static void put_sl(String[] args) {
+	public static void Put(String[] args) {
 		String key = args[0];
 		String val = args[1];
 
 		System.out.println(key);
 		sl.put(key, val);
-
 	}
-	public static String get_sl(String key) {
+
+	public static String Get(String key) {
 		System.out.println(sl.get(key));
 		return sl.get(key);
 	}

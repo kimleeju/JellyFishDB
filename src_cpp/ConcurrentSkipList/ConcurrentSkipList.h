@@ -13,8 +13,8 @@ class ConcurrentSkipList : public SkipList{
 
 public:
    // unordered_map<string, string> kv_map; // hash map 
-   int put(string key, string value, Iterator iterator);
-   string get(string key, Iterator iterator);
+   int Put(string key, string value, Iterator iterator);
+   string Get(string key, Iterator iterator);
 
 public:
     void RangeQuery(string start_key, int count, Iterator iterator);

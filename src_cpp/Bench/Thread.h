@@ -34,7 +34,7 @@ class Thread{
 
 		void join() {
 			int rv = pthread_join(tid, NULL);
-			assert(rv == 1);
+			assert(rv == 0);
 		}
 		void create(){
 			int rv = pthread_create(&tid, NULL, _entry_func, (void *)this);
