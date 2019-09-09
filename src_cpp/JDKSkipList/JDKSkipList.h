@@ -15,11 +15,13 @@ using namespace std;
 
 class JDKSkipList : public SkipList{
 
+public:
 	JavaVM *vm;
 	JNIEnv *env;
 	JavaVMInitArgs vm_args;
 	jmethodID mid;
 	jclass jcls;
+
 public:
     int Put(string key, string value, Iterator iterator);
     string Get(string key, Iterator iterator); 

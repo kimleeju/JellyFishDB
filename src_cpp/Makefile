@@ -15,6 +15,7 @@ SRCS +=\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
 	JDKSkipList/JDKSkipList.cc\
 	JellyFishSkipList/JellyFishSkipList.cc\
+	SimpleSkipList/SimpleSkipList.cc\
 	Bench/BenchManager.cc
 
 OBJS = $(SRCS:.cc=.o)
@@ -34,6 +35,7 @@ $(TARG): Main.cc ./bin/libskiplist.a
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./SimpleSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
 	$(AR) r $(@) $(OBJS)
 

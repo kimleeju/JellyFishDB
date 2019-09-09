@@ -5,7 +5,7 @@
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
 #include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
-#include "SimpleSkipList/SimpleSkipList.h"
+//#include "SimpleSkipList.h"
 //#include "Iterator.h"
 #include "Bench/BenchManager.h"
 
@@ -39,10 +39,10 @@ int main(int argc, char* argv[])
 	
    else if(type == "JellyFishSkipList"){
 	sl = new JellyFishSkipList;
-   } 
-   else if(type == "SimpleSkipList"){
-	sl = new SimpleSkipList;
-   }
+     } 
+  // else if(type == "SimpleSkiplist"){
+//	sl = new SimpleSkipList;
+ //   }
     BenchManager bm(thread_num, path, sl);
 
 
