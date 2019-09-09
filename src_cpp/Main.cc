@@ -43,6 +43,12 @@ int main(int argc, char* argv[])
    else if(type == "SimpleSkipList"){
 	sl = new SimpleSkipList;
    }
+   else{
+	cout<< "failed to run"<<endl;
+	cout << "Usage: ./Run Options thread_count path" << endl;
+   	cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;	
+    return -1;
+} 
     BenchManager bm(thread_num, path, sl);
 
 
