@@ -209,39 +209,51 @@ int JDKSkipList::RandomHeight(){
 }
 
 
-JDKSkipList::JDKSkipList()
-    :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
-   srand((unsigned)time(NULL));
-	
+JDKSkipList::JDKSkipList() : SkipList(
+			static_cast<uint16_t>(MAX_LEVEL), 
+			AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice())
+{
+	srand((unsigned)time(NULL));
+
 	// initialize skip list 
 	vm_args.version = JNI_VERSION_1_2;
 	vm_args.nOptions = 0;
-	// Construct a VM
 
+	// contruct jvm 
 	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
 	if (res < 0) {
 		printf("Error: failed to create jvm\n");
-		return ;
+		goto out;
 	}
+
+	cout << "Find Class .." << endl;
+
 //	jcls = env->FindClass("java/util/concurrent/ConcurrentSkipListMap");
 	jcls = env->FindClass("MyConcurrentSkipListMap");
 	//jcls = env->FindClass("JDKSkipList/MyConcurrentSkipListMap");
 	if (!jcls) {
 		printf("Error: unable to find class \n");
-		return ;
+		goto out;
 	}
+
+	cout << "Get Method .." << endl;
 	// create skip list
 	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
 	if (!mid){
 		printf("Error: unable to find create_sl\n");
-		return ;
+		goto out;
 	}
+
+
+	cout << "Call Method .." << endl;
 	env->CallStaticVoidMethod(jcls, mid);
 
 //   for(int i=0; i<kMaxHeight_;i++){
 //        head_->SetNext(i, nullptr);
 //   }
 //cout<<"-----------------------------------"<<endl;
+out:
+	printf("Finished\n");
 }
 
 

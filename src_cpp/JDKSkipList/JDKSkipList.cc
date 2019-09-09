@@ -226,6 +226,8 @@ JDKSkipList::JDKSkipList() : SkipList(
 		goto out;
 	}
 
+	cout << "Find Class .." << endl;
+
 //	jcls = env->FindClass("java/util/concurrent/ConcurrentSkipListMap");
 	jcls = env->FindClass("MyConcurrentSkipListMap");
 	//jcls = env->FindClass("JDKSkipList/MyConcurrentSkipListMap");
@@ -234,12 +236,16 @@ JDKSkipList::JDKSkipList() : SkipList(
 		goto out;
 	}
 
+	cout << "Get Method .." << endl;
 	// create skip list
 	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
 	if (!mid){
 		printf("Error: unable to find create_sl\n");
 		goto out;
 	}
+
+
+	cout << "Call Method .." << endl;
 	env->CallStaticVoidMethod(jcls, mid);
 
 //   for(int i=0; i<kMaxHeight_;i++){
