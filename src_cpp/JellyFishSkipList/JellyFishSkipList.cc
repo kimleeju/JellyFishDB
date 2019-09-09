@@ -112,8 +112,12 @@ Node* JellyFishSkipList::FindGreaterorEqual(string key){
     while(true){
         Node* next = x->Next(level);
         int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
+		
+		if(cmp==0){
+			return next;
+		}
 
-        if(cmp >= 0 &&level ==0){
+        else if(cmp > 0 &&level ==0){
             return next;
         }
         else if (cmp < 0){

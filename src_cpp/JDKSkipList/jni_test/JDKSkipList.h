@@ -1,24 +1,27 @@
-#ifndef BLOCKED_SKIPLIST_H
-#define BLOCKED_SKIPLIST_H
+#ifndef JNI_SKIPLIST_H
+#define JNI_SKIPLIST_H
 
 #include <list>
 #include <cstring>
 #include <jni.h>
-#include "../SkipList.h"
-#include "../Iterator.h"
+#include "../../SkipList.h"
+#include "../../Iterator.h"
 
 
  
 
 using namespace std;
 
-class JNISkipList : public SkipList{
 
+class JDKSkipList : public SkipList{
+
+public:
 	JavaVM *vm;
 	JNIEnv *env;
 	JavaVMInitArgs vm_args;
 	jmethodID mid;
 	jclass jcls;
+
 public:
     int Put(string key, string value, Iterator iterator);
     string Get(string key, Iterator iterator); 
@@ -38,8 +41,8 @@ public:
     int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
 public:
-    JNISkipList();
-    ~JNISkipList(){}
+    JDKSkipList();
+    ~JDKSkipList(){}
 };
 
 #endif

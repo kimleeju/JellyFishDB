@@ -1,6 +1,6 @@
-#include "JNISkipList.h"
+#include "JDKSkipList.h"
 
-int JNISkipList::Put(string key, string value, Iterator iterator){
+int JDKSkipList::Put(string key, string value, Iterator iterator){
  //   t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
@@ -9,7 +9,7 @@ int JNISkipList::Put(string key, string value, Iterator iterator){
 }
 
 
-string JNISkipList::Get(string key , Iterator iterator){
+string JDKSkipList::Get(string key , Iterator iterator){
 //    t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
 	jstring jstr = env->NewStringUTF(key.c_str());	
@@ -37,8 +37,8 @@ string JNISkipList::Get(string key , Iterator iterator){
     
 
 
-void JNISkipList::RangeQuery(string start_key, int count, Iterator iterator ){
-    t_global_committed.mlock.lock();
+void JDKSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
+   /* t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
@@ -48,12 +48,12 @@ void JNISkipList::RangeQuery(string start_key, int count, Iterator iterator ){
 	if(temp_->Next(0)!=nullptr)
        	    temp_=temp_->Next(0);
     } 
-    t_global_committed.mlock.unlock();
+    t_global_committed.mlock.unlock();*/
 }
 
 
 
-JNISkipList::Splice* JNISkipList::AllocateSplice(){
+JDKSkipList::Splice* JDKSkipList::AllocateSplice(){
     /*size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
     char* raw = new char[sizeof(Splice) + array_size*2];
     Splice* splice = reinterpret_cast<Splice*>(raw);
@@ -61,16 +61,16 @@ JNISkipList::Splice* JNISkipList::AllocateSplice(){
     splice->prev_ = reinterpret_cast<Node**>(raw + sizeof(Splice) );
     splice->next_ = reinterpret_cast<Node**>(raw + sizeof(Splice) + array_size);
     */
-	Splice* splice = new Splice();
+	/*Splice* splice = new Splice();
 	splice->height_ = 0;
 	splice->prev_ = new Node *[MAX_LEVEL];
 	splice->next_ = new Node *[MAX_LEVEL];
-    return splice;
+    return splice;*/
 }
 
 
-Node* JNISkipList::FindLast(){
-    Node* x = head_;
+Node* JDKSkipList::FindLast(){
+    /*Node* x = head_;
     int level = kMaxHeight_ - 1;
     while(true){
         Node* next = x->Next(level);
@@ -85,11 +85,11 @@ Node* JNISkipList::FindLast(){
         else{
             x = next;
         }
-    }
+    }*/
 }
 
-Node* JNISkipList::FindLessThan(string key, Node** prev){
-    int level = kMaxHeight_ -1 ;
+Node* JDKSkipList::FindLessThan(string key, Node** prev){
+    /*int level = kMaxHeight_ -1 ;
     Node* x = head_;
     Node* last_not_after = nullptr;
     while(true){
@@ -109,11 +109,11 @@ Node* JNISkipList::FindLessThan(string key, Node** prev){
                 level--;
             }
         }
-    }
+    }*/
 }
 
-Node* JNISkipList::FindGreaterorEqual(string key){
-    Node* x = head_;
+Node* JDKSkipList::FindGreaterorEqual(string key){
+    /*Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
     while(true){
@@ -133,22 +133,22 @@ Node* JNISkipList::FindGreaterorEqual(string key){
             last_bigger = next;
             level --;
         }
-    }
+    }*/
 }
     
 
 
-int JNISkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
-    Node* before = head_;
+int JDKSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+   /* Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);
-    }
+    }*/
 	return 0;
 }
 
 
-void JNISkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
-Node* after = before ->Next(level);
+void JDKSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
+/*Node* after = before ->Next(level);
     while(true){
         if(!KeyIsAfterNode(key, after)){
             *sp_prev = before;
@@ -158,17 +158,17 @@ Node* after = before ->Next(level);
         before = after;
         if(after != nullptr)
             after = after->Next(level);
-    }
+    }*/
 }
 
-bool JNISkipList::KeyIsAfterNode(string key, Node* n){
+bool JDKSkipList::KeyIsAfterNode(string key, Node* n){
   return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 } 
 
 
 
 
-Node* JNISkipList::AllocateNode(string key, string value, int height){
+Node* JDKSkipList::AllocateNode(string key, string value, int height){
    //auto prefix = sizeof(atomic<Node*>) * (height-1);
    //cout<<"prefix = "<<prefix<<endl;
    //char* raw = new char [prefix +sizeof(Node)];
@@ -197,7 +197,7 @@ Node* JNISkipList::AllocateNode(string key, string value, int height){
    return x;
 } 
 
-int JNISkipList::RandomHeight(){
+int JDKSkipList::RandomHeight(){
    int height, balancing, pivot;
    balancing =2 ;
    height = 1;
@@ -209,58 +209,67 @@ int JNISkipList::RandomHeight(){
 }
 
 
-JNISkipList::JNISkipList()
-    :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
-   srand((unsigned)time(NULL));
+JDKSkipList::JDKSkipList() : SkipList(
+			static_cast<uint16_t>(MAX_LEVEL), 
+			AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice())
+{
+	srand((unsigned)time(NULL));
 
 	// initialize skip list 
 	vm_args.version = JNI_VERSION_1_2;
 	vm_args.nOptions = 0;
 
-	// Construct a VM
+	// contruct jvm 
 	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
 	if (res < 0) {
 		printf("Error: failed to create jvm\n");
-		return ;
+		goto out;
 	}
 
-	//jclass jcls = env->FindClass("java/util/concurrent/ConcurrentSkipListMap");
+	cout << "Find Class .." << endl;
+
+//	jcls = env->FindClass("java/util/concurrent/ConcurrentSkipListMap");
 	jcls = env->FindClass("MyConcurrentSkipListMap");
-
-
+	//jcls = env->FindClass("JDKSkipList/MyConcurrentSkipListMap");
 	if (!jcls) {
 		printf("Error: unable to find class \n");
-		return ;
+		goto out;
 	}
 
-	// create skip list 
+	cout << "Get Method .." << endl;
+	// create skip list
 	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
 	if (!mid){
 		printf("Error: unable to find create_sl\n");
-		return ;
+		goto out;
 	}
-	env->CallStaticVoidMethod(jcls, mid);
 
+
+	cout << "Call Method .." << endl;
+	env->CallStaticVoidMethod(jcls, mid);
 
 //   for(int i=0; i<kMaxHeight_;i++){
 //        head_->SetNext(i, nullptr);
 //   }
 //cout<<"-----------------------------------"<<endl;
+out:
+	printf("Finished\n");
 }
 
 
-bool JNISkipList::Insert(string key, string value, Iterator iterator)
+bool JDKSkipList::Insert(string key, string value, Iterator iterator)
 {
+	
 	// put <k, v>
 	jobjectArray jarr = env->NewObjectArray(2, 
 							env->FindClass("java/lang/String"),
 							env->NewStringUTF("str"));
-
+	
 	env->SetObjectArrayElement(jarr, 0, env->NewStringUTF(key.c_str()));
 	env->SetObjectArrayElement(jarr, 1, env->NewStringUTF(value.c_str()));
-
+	
 	mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");
-
+	
 	if (!mid) {
 		printf("Error: unable to find Put\n");
 		return 0;

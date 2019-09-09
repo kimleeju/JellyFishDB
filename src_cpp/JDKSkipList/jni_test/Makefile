@@ -8,7 +8,7 @@ CXXFLAGS=-std=c++11 -g -Wall \
 #LDFLAGS= -pthread
 SRCS +=\
 	JDKSkipList.cc
-	
+
 OBJS:= $(SRCS:.cc=.o)
 
 
@@ -18,8 +18,13 @@ OBJS:= $(SRCS:.cc=.o)
 #all: $(OBJS)
 #	$(cc) $(LDFLAGS) -c $< -o $@
 
-all: $(OBJS)
-	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ -c $^ -ljvm
+all: Main.cc JDKSkipList.cc
+	g++ $(LDFLAGS) $(CXXFLAGS) -o JDKSkipList.o -c JDKSkipList.cc -ljvm
+	$(AR) r libjdk.a JDKSkipList.o 
+	g++ $(LDFLAGS) $(CXXFLAGS) -o Run Main.cc libjdk.a -ljvm
+	#$(CC) $(LDFLAGS) $(CXXFLAGS) -o Run JDKSkipList.cc Main.cc -ljvm
+
+	#$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ -c $^ -ljvm
 
 clean:
 	rm -f *.o Run

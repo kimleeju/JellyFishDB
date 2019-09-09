@@ -1,4 +1,4 @@
-javac MyConcurrentSkipListMap.java
+#javac MyConcurrentSkipListMap.java
 
 
 g++ -g -I/usr/lib/jvm/java-8-openjdk-amd64/include/ \

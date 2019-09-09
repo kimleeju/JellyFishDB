@@ -11,13 +11,13 @@ class Iterator{
         Iterator(){
             sl_ = nullptr;
             node_ = nullptr;
-	    splice = sl_->AllocateSplice();	
+	    	splice = sl_->AllocateSplice();	
         }
 
         Iterator(SkipList* sl){
             SetList(sl);
-	    node_ = nullptr;
-	    splice = sl_->AllocateSplice();
+	    	node_ = nullptr;
+	    	splice = sl_->AllocateSplice();
         }
 	
 	void Put(string key, string value, Iterator iterator){
