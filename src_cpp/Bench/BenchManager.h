@@ -55,7 +55,7 @@ class Bench {
 		string get_rv();
 		Request *get_req();
 		void printf_req();
-		void *do_query_with_trace(); 
+		void *do_query_with_trace(int seq); 
 
 //		Bench(Request *r) : r(t_arg) {}
 
@@ -72,13 +72,14 @@ class Bench {
 class Generator : public Thread {
 	Bench *b;
 	public:
+	int seq;
 	Generator() {};
 
 	void set_bench(Bench *bt){
 		b=bt;
 	}
 	void *entry() override {
-		b->do_query_with_trace();
+		b->do_query_with_trace(seq);
 		return 0;
 	}
 	void print_bench_request(){

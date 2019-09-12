@@ -1,6 +1,6 @@
 CC=g++
 CXXFLAGS=-std=c++11 -g -Wall \
-	-g -I/usr/lib/jvm/java-8-openjdk-amd64/include/ \
+	-I/usr/lib/jvm/java-8-openjdk-amd64/include/ \
 	-I/usr/lib/jvm/java-8-openjdk-amd64/include/linux/ \
 	-L/usr/bin/java \
 	-L/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/

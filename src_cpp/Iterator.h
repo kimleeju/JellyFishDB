@@ -14,15 +14,16 @@ class Iterator{
 	    	splice = sl_->AllocateSplice();	
         }
 
-        Iterator(SkipList* sl){
+        Iterator(SkipList* sl, int seq_){
             SetList(sl);
 	    	node_ = nullptr;
 	    	splice = sl_->AllocateSplice();
+			seq=seq_;
         }
 	
-	void Put(string key, string value, Iterator iterator){
-	    sl_->Insert(key, value, iterator);
-	}
+		void Put(string key, string value, Iterator iterator){
+		    sl_->Insert(key, value, iterator);
+		}
 
         void SetList(SkipList* sl){
             sl_ = sl; 
@@ -66,7 +67,8 @@ class Iterator{
         struct Node* node_;
 
     public:
-	SkipList::Splice* splice;
+		int seq;
+		SkipList::Splice* splice;
 };
 
 

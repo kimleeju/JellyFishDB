@@ -21,12 +21,17 @@ public:
 	JavaVMInitArgs vm_args;
 	jmethodID mid;
 	jclass jcls;
+	jobjectArray jarr;
+		
+	jmethodID put_mid;
+	jmethodID get_mid;
+	JNIEnv** t_env;
 
 public:
     int Put(string key, string value, Iterator iterator);
     string Get(string key, Iterator iterator); 
 //    int remove(string key); 
-
+	virtual void GetEnv(int t_num);
    
 public:
     void RangeQuery(string start_key, int count, Iterator iterator);
@@ -42,6 +47,7 @@ public:
     bool Insert(string key, string value, Iterator iterator);
 public:
     JDKSkipList();
+	JDKSkipList(int t_num);
     ~JDKSkipList(){}
 };
 

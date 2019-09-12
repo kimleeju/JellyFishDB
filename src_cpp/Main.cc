@@ -11,6 +11,7 @@
 
 using namespace std;
 
+
 int main(int argc, char* argv[])
 { 	
     SkipList* sl;
@@ -21,7 +22,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    string type = argv[1];
+	string type = argv[1];
     int thread_num = atoi(argv[2]);
 
     char *path = argv[3];
@@ -34,7 +35,7 @@ int main(int argc, char* argv[])
 		sl = new ConcurrentSkipList;
     }
 	else if(type == "JDKSkipList"){
-		sl = new JDKSkipList;
+		sl = new JDKSkipList(thread_num);
 	}
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
@@ -54,10 +55,11 @@ int main(int argc, char* argv[])
 
 	//bm.manage_wl();
 
-#if 0    
+#if 1
+/*
 	if(bm.run() == 1)
 		cout<<"failed to check time"<<endl;
-
+*/
 	cout<<"IOPS = "<<bm.run()<<endl;
 #endif
 
