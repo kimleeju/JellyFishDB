@@ -39,8 +39,8 @@ string JDKSkipList::Get(string key , Iterator iterator){
 //    t_global_committed.mlock.lock();
 	int seq = iterator.seq;
     t_global_committed.get_and_inc();
-	jstring jstr = t_env[seq]->NewStringUTF(key.c_str());	
 
+	jstring jstr = t_env[seq]->NewStringUTF(key.c_str());	
 	jobject jrslt = t_env[seq]->CallStaticObjectMethod(jcls, get_mid, jstr);
 	if (!jrslt) {
 		cout<<"Error : failed to get value for key "<<key<<endl;

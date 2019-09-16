@@ -19,6 +19,8 @@ OBJS:= $(SRCS:.cc=.o)
 #	$(cc) $(LDFLAGS) -c $< -o $@
 
 all: $(OBJS)
+	javac MyConcurrentSkipListMap.java
+	cp MyConcurrentSkipListMap.class ..
 	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ -c $^ -ljvm
 
 clean:
