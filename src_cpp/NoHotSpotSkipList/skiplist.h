@@ -1,4 +1,4 @@
-/*
+k*
  * Interface for the skip list data stucture.
  *
  * Author: Ian Dick, 2013
