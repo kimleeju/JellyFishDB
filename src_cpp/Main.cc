@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     SkipList* sl;
 
     if (argc < 4){
-        cout << "Usage: ./Run Options thread_count run_trc" << endl;
+        cout << "Usage: ./Run Options thread_count load_trc run_trc" << endl;
         cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
         return -1;
     }
