@@ -118,6 +118,7 @@ void *Bench::do_query_with_trace(int seq) {
 			}
 		}
 		else if (get_op() == "scan") {
+
 			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),*iterator);
 			//mmap = t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt());
 			multimap<string, string>::iterator iter;
@@ -159,6 +160,7 @@ void BenchManager::prepare(){
 unsigned long BenchManager::run(){
 	wl.save_workloads(w_vec,path);
 	class Time time;
+
 	// time start
 	if(gettimeofday(&time.get_start(), NULL)==-1){
 		cout<<"failed to read time"<<endl;

@@ -1,8 +1,8 @@
-1. random workload 
 
-./rand_gen.py 10000 
-(10000 represents the total number of operations)
-
-2. zipf workload 
 ./zipf_gen.py 10000
 (10000 represents the total number of operations)
+
+Output 
+- uniform distribution workloads 
+- zipfian distribution workloads 
+

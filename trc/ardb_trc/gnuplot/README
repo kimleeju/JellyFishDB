@@ -1,8 +1,0 @@
-draw graph of ardb_trace
-
-thread= 1 2 4 8
-trace= a b c d e f
-
-ardb.cfs : graph set file
-
-./1_drgraph.sh (contain open eps file)

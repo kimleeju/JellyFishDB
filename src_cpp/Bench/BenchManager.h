@@ -18,6 +18,7 @@
 #define MAXVALUE 100
 using namespace std;
 
+
 class Workloads {
 	public:
 		void setTid(int t);

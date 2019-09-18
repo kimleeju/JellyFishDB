@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     SkipList* sl;
 
     if (argc < 4){
-        cout << "Usage: ./Run Options thread_count path" << endl;
+        cout << "Usage: ./Run Options thread_count run_trc" << endl;
         cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
         return -1;
     }
@@ -28,9 +28,13 @@ int main(int argc, char* argv[])
     char *path = argv[3];
     cout << "type: " << type << endl;
 
-    if(type == "BlockedSkipList"){
+    if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
     }
+	else if(type == "BlockedCVSkipList"){
+	//	sl = new CVSkipList;
+		return 0;
+	}
    	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
     }
@@ -60,6 +64,7 @@ int main(int argc, char* argv[])
 	if(bm.run() == 1)
 		cout<<"failed to check time"<<endl;
 */
+
 	cout<<"IOPS = "<<bm.run()<<endl;
 #endif
 
