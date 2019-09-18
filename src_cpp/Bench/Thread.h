@@ -18,7 +18,6 @@ class Thread{
 	private:
 		static void *_entry_func(void* arg) {
 			assert(arg);
-
 			((Thread *)arg)->entry();
 			return NULL;
 		}
@@ -36,6 +35,8 @@ class Thread{
 			int rv = pthread_join(tid, NULL);
 			assert(rv == 0);
 		}
+		
+		
 		void create(){
 			int rv = pthread_create(&tid, NULL, _entry_func, (void *)this);
 			assert(rv == 0);

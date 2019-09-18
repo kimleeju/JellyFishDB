@@ -12,6 +12,7 @@ LDFLAGS=-pthread
 
 SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
+	CVSkipList/CVSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
 	JDKSkipList/JDKSkipList.cc\
 	JellyFishSkipList/JellyFishSkipList.cc\
@@ -32,6 +33,7 @@ $(TARG): Main.cc ./bin/libskiplist.a
 ./bin/libskiplist.a: $(SRCS)
 	mkdir -p bin
 	cd ./BlockedSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./CVSkipList && $(MAKE) clean && $(MAKE) && cd ..	
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..

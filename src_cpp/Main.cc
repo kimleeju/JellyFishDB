@@ -2,6 +2,7 @@
 
 #include "SkipList.h"
 #include "BlockedSkipList/BlockedSkipList.h"
+#include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
 #include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
@@ -30,6 +31,9 @@ int main(int argc, char* argv[])
     if(type == "BlockedSkipList"){
 		sl = new BlockedSkipList;
     }
+	else if(type == "CVSkipList"){
+		sl = new CVSkipList;
+    }
    	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
     }
@@ -53,7 +57,7 @@ int main(int argc, char* argv[])
 	BenchManager bm(thread_num, path, sl);
 
 	//bm.manage_wl();
-
+	cout<<"IOPS = "<<bm.run()<<endl;
 #if 0    
 	if(bm.run() == 1)
 		cout<<"failed to check time"<<endl;

@@ -1,26 +1,22 @@
-#include "BlockedSkipList.h"
+#include "CVSkipList.h"
 
-int BlockedSkipList::Put(string key, string value, Iterator iterator){
-    t_global_committed.mlock.lock();
-    t_global_committed.get_and_inc();
+int CVSkipList::Put(string key, string value, Iterator iterator){
+	t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
-    t_global_committed.mlock.unlock();
-    return 0;
+	return 0;
 }
 
 
-string BlockedSkipList::Get(string key , Iterator iterator){
-    t_global_committed.mlock.lock();
+string CVSkipList::Get(string key , Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Seek(key);
     string get_value = iterator.Node()->Get_value();
-    t_global_committed.mlock.unlock();
     return get_value;
 }
     
 
 
-void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
+void CVSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     cout<<"-----------------------------"<<endl;
@@ -36,7 +32,7 @@ void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator 
 
 
 
-BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
+CVSkipList::Splice* CVSkipList::AllocateSplice(){
     /*size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
     char* raw = new char[sizeof(Splice) + array_size*2];
     Splice* splice = reinterpret_cast<Splice*>(raw);
@@ -52,7 +48,7 @@ BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
 }
 
 
-Node* BlockedSkipList::FindLast(){
+Node* CVSkipList::FindLast(){
     Node* x = head_;
     int level = kMaxHeight_ - 1;
     while(true){
@@ -71,7 +67,7 @@ Node* BlockedSkipList::FindLast(){
     }
 }
 
-Node* BlockedSkipList::FindLessThan(string key, Node** prev){
+Node* CVSkipList::FindLessThan(string key, Node** prev){
     int level = kMaxHeight_ -1 ;
     Node* x = head_;
     Node* last_not_after = nullptr;
@@ -95,7 +91,7 @@ Node* BlockedSkipList::FindLessThan(string key, Node** prev){
     }
 }
 
-Node* BlockedSkipList::FindGreaterorEqual(string key){
+Node* CVSkipList::FindGreaterorEqual(string key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
@@ -121,16 +117,16 @@ Node* BlockedSkipList::FindGreaterorEqual(string key){
     
 
 
-int BlockedSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int CVSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
-        FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);
+        FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i],before);
     }
 	return 0;
 }
 
 
-void BlockedSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
+void CVSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
 Node* after = before ->Next(level);
     while(true){
         if(!KeyIsAfterNode(key, after)){
@@ -144,14 +140,14 @@ Node* after = before ->Next(level);
     }
 }
 
-bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
+bool CVSkipList::KeyIsAfterNode(string key, Node* n){
   return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 } 
 
 
 
 
-Node* BlockedSkipList::AllocateNode(string key, string value, int height){
+Node* CVSkipList::AllocateNode(string key, string value, int height){
    //auto prefix = sizeof(atomic<Node*>) * (height-1);
    //cout<<"prefix = "<<prefix<<endl;
    //char* raw = new char [prefix +sizeof(Node)];
@@ -161,6 +157,8 @@ Node* BlockedSkipList::AllocateNode(string key, string value, int height){
   //Node* x = reinterpret_cast<Node*>(raw + prefix);   
   //cout<<"x->Get_eky() = "<<x->Get_key()<<endl;
    Node* x = new Node(key,value,height);
+	x->done = false;
+	
   // for(int i=0;i<height;i ++){
   //     x->SetNext(i,nullptr);
        //assert(x->Next(i));
@@ -180,7 +178,7 @@ Node* BlockedSkipList::AllocateNode(string key, string value, int height){
    return x;
 } 
 
-int BlockedSkipList::RandomHeight(){
+int CVSkipList::RandomHeight(){
    int height, balancing, pivot;
    balancing =2 ;
    height = 1;
@@ -192,7 +190,7 @@ int BlockedSkipList::RandomHeight(){
 }
 
 
-BlockedSkipList::BlockedSkipList()
+CVSkipList::CVSkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
    srand((unsigned)time(NULL));
 //   for(int i=0; i<kMaxHeight_;i++){
@@ -202,47 +200,94 @@ BlockedSkipList::BlockedSkipList()
 }
 
 
-bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
- // Node* nnode = AllocateNode(key, value, RandomHeight());
-  int height = RandomHeight();
-  int max_height = max_height_.load(std::memory_order_relaxed);
-    if(height > max_height){
-		max_height_ = height;
-		max_height = height;   
-    }
+bool CVSkipList::Insert(string key, string value, Iterator iterator){
+	int height = RandomHeight();
+	Node* nnode = AllocateNode(key, value, height);
+//	nnode->mu.lock();
+//	pthread_mutex_lock(&queue.lock);
+	queue.push_back(nnode);
+		cout<<"-------------------------------------"<<endl;
+	cout<<"nnode = "<<nnode<<endl;
+	cout<<"nnode->key = "<<nnode->Get_key()<<endl;	
+	cout<<"queu.front() = "<<queue.front()<<endl;
+	if(!nnode->done && nnode != queue.front()){
+		cout<<"IN"<<endl;
+		//nnode->mu.lock();
+		//queue.push_back(nnode);
+//		nnode->mu.wait();
+		pthread_mutex_lock(&queue.lock);
+		cout<<"Sleep!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+		pthread_cond_wait(&nnode->cond, &queue.lock);
+		cout<<"nnode wakeup@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ = "<<nnode<<endl;
+		pthread_mutex_unlock(&queue.lock);
+	}
 
-    if(seq_splice->height_ < max_height){
-       seq_splice->prev_[max_height] = head_;
-       seq_splice->next_[max_height] = nullptr;
-       seq_splice->height_ = max_height; 
-    }
-    
-    else{
-        for(int i = 0; i< height ; i++){
-           seq_splice->prev_[i] = head_;
-           seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
-        }
-    }
-     if(height > 0){
-        RecomputeSpliceLevels(key, height);
-    }
-   
-     Node* nnode = AllocateNode(key, value, height);
-    
-     for(int i=0;i<height;++i){  
-        nnode->SetNext(i, seq_splice->next_[i]);
-        seq_splice->prev_[i]->SetNext(i,nnode);
 
-      }
+	if(nnode->done){
+		cout<<"return!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+		return true;
+	}
 
-  //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
-  //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
-  //cout<<"height = "<<height<<endl;
-  //cout<<"max_height_ = "<<max_height_<<endl;
-//	cnt++;
-//if(cnt%1000==0)
-//  cout<<"cnt = "<<cnt<<endl; 
- // cout<<"-------------------------------"<<endl;
+	Node* last_node = queue.back();
+	cout<<"queue.back() = "<<queue.back()<<endl;
+
+	while(!queue.empty()){
+		Node* ready_node = queue.front();
+		//if(ready_node != last_node){
+			int max_height = max_height_.load(std::memory_order_relaxed);
+			
+			if(ready_node->Get_height() > max_height){
+				max_height_ = ready_node->Get_height();
+				max_height = ready_node->Get_height();   
+ 			}
+   			
+			if(iterator.splice->height_ < max_height){
+      			iterator.splice->prev_[max_height] = head_;
+      			iterator.splice->next_[max_height] = nullptr;
+      			iterator.splice->height_ =max_height;
+   			}
+  
+  			else{
+  				for(int i = 0; i<ready_node->Get_height() ; i++){
+	  				iterator.splice->prev_[i] = head_;
+	   				iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
+				}	
+  			}
+
+			if(ready_node->Get_height() > 0) {
+				RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(),iterator.splice);
+    		}
+
+			for(int i=0;i<ready_node->Get_height();++i){ 
+				ready_node->SetNext(i, iterator.splice->next_[i]);
+        		iterator.splice->prev_[i]->SetNext(i,ready_node);
+    		}
+			cout<<"cnt = "<<++cnt<<endl;
+	//		pthread_mutex_lock(&queue.lock);
+			queue.pop_front();
+			if(ready_node != last_node){
+				pthread_mutex_lock(&queue.lock);
+				ready_node->done = true;
+				cout<<"que_signal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+				pthread_cond_signal(&ready_node->cond);
+				pthread_mutex_unlock(&queue.lock);
+			}
+	//		pthread_mutex_unlock(&queue.lock);
+	//	}	
+		if(ready_node == last_node) {
+			ready_node->done = true;
+			break;
+		}	
+	}
+	if(!queue.empty()){
+		cout<<"!empty"<<endl;
+		//queue.front()->mu.signal();
+		pthread_mutex_lock(&queue.lock);
+		cout<<"signal"<<endl;
+		pthread_cond_signal(&queue.front()->cond);
+		cout<<"signal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+		pthread_mutex_unlock(&queue.lock);
+	}
   return true;
 
 }

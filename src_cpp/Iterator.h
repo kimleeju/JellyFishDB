@@ -21,7 +21,7 @@ class Iterator{
         }
 	
 	void Put(string key, string value, Iterator iterator){
-	    sl_->Insert(key, value, iterator);
+		 sl_->Insert(key, value, iterator);
 	}
 
         void SetList(SkipList* sl){

@@ -89,10 +89,10 @@ void *Bench::do_query_with_trace() {
 	Iterator iterator(t_arg->sl);
 	for (unsigned int j = 0; j < t_arg->wl_th.size(); j++) {
 		set_op(t_arg->wl_th[j].getOp());
+//	cout<<"1111111"<endl;
 		if (get_op() == "put" || get_op() == "update") {
 			set_val(rand() % MAXVALUE);
 			if (get_op() == "put") {
-					//t_arg->sl->put("111111111111111", to_string(get_val()));
 				t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), iterator);
 			}
 			else if (get_op() == "update") {
@@ -170,7 +170,7 @@ unsigned long BenchManager::run(){
 	}
 	// create thread
 	for(int i=0;i<th_num; i++){
-		gnrtor[i].create();
+		gnrtor[i].create();	
 	}
 	// join thread
 	for(int i=0; i<th_num; i++){

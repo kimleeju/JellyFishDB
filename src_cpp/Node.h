@@ -5,7 +5,7 @@
 #include<vector>
 #include<queue>
 #include "SkipList.h"
-
+#include "Util.h"
 using namespace std;
 
 
@@ -190,6 +190,7 @@ public:
 	delete[] prefix;	
 }
 
+
 private:
   // next_[0] is the lowest level link (level 0).  Higher levels are
   // stored _earlier_, so level 1 is at next_[-1].
@@ -205,8 +206,15 @@ private:
    VNode* vqueue;
    int vqueue_num;
   #endif
-//  string str_key ;
-  //std::atomic<char*> value[1];
+
+public:
+  #ifdef CV_SKIPLIST_H
+	pthread_cond_t cond;
+	//Mutex mu;
+    bool done;
+  #endif
+
+
 }Node;
 
 ///////////////////////////////////////////////
