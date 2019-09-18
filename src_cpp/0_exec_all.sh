@@ -1,4 +1,4 @@
-THREADS=16
+THREADS=8
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList SimpleSkipList"
 
 TRC_DIR="../trc/micro_trc"
