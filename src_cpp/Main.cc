@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     int thread_num = atoi(argv[2]);
 
     char *path = argv[3];
-    cout << "type: " << type << endl;
+//    cout << "type: " << type << endl;
 
     if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
@@ -64,8 +64,8 @@ int main(int argc, char* argv[])
 	if(bm.run() == 1)
 		cout<<"failed to check time"<<endl;
 */
-
-	cout<<"IOPS = "<<bm.run()<<endl;
+	bm.load_trc();
+	cout<<"IOPS = "<<bm.run_trc()<<endl;
 #endif
 
     return 0;

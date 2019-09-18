@@ -92,21 +92,21 @@ void *Bench::do_query_with_trace(int seq) {
 	t_arg->sl->GetEnv(seq);
 	for (unsigned int j = 0; j < t_arg->wl_th.size(); j++) {
 		set_op(t_arg->wl_th[j].getOp());
-		printf("key : %s\n", t_arg->wl_th[j].getKey().c_str());
+	//	printf("key : %s\n", t_arg->wl_th[j].getKey().c_str());
 		if (get_op() == "put" || get_op() == "update") {
 			set_val(rand() % MAXVALUE);
 			if (get_op() == "put") {
 					//t_arg->sl->put("111111111111111", to_string(get_val()));
 				t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), *iterator);
 			}
-			else if (get_op() == "update") {
+		//	else if (get_op() == "update") {
 				// 해당 key가 없으면 update안함
 				//if (t_arg->sl->get(t_arg->wl_th[j].getKey()) != "not found") {
 				//	printf("[update]  ");
-					t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), *iterator);
+		//			t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), *iterator);
 				//}
 				//else { cout << "[update fail]" << endl; }
-			}
+		//	}
 		}
 		else if (get_op() == "get") {
 			set_rv(t_arg->sl->Get(t_arg->wl_th[j].getKey(), *iterator));
@@ -117,7 +117,7 @@ void *Bench::do_query_with_trace(int seq) {
 				//printf("[get( %s  %s ) success]\n", t_arg->wl_th[j].getKey().c_str(), get_rv().c_str());
 			}
 		}
-		else if (get_op() == "scan") {
+		else if (get_op() == "range_query") {
 
 			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),*iterator);
 			//mmap = t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt());
@@ -133,7 +133,8 @@ void *Bench::do_query_with_trace(int seq) {
 
 
 BenchManager::BenchManager(int t, char *p, SkipList *t_s) : th_num(t), path(p), sl(t_s) {
-	w_vec.resize(t);
+	l_vec.resize(t);
+	r_vec.resize(t);
 	gnrtor = new Generator[t];
 	//req = (Request *)malloc(sizeof(Request) * t);
 	req = new Request[t];
@@ -157,8 +158,29 @@ void BenchManager::prepare(){
 	//	}
 	}
 }*/
-unsigned long BenchManager::run(){
-	wl.save_workloads(w_vec,path);
+void BenchManager::load_trc(){
+	wl.save_workloads(l_vec,path);
+
+	// set benmark for each thread
+	unsigned long op_cnt=0;
+	for(int i=0;i<th_num;i++){
+		Bench *bnch = new Bench;
+		req[i].wl_th = l_vec[i];
+ 		bnch->set_req(&req[i]);  // save request each Bench class
+		gnrtor[i].set_bench(bnch);
+	}
+	for(int i=0;i<th_num; i++){
+		gnrtor[i].create();
+	}
+	// join thread
+	for(int i=0; i<th_num; i++){
+		gnrtor[i].join();
+	}
+
+}
+
+unsigned long BenchManager::run_trc(){
+	wl.save_workloads(r_vec,path);
 	class Time time;
 
 	// time start
@@ -170,8 +192,8 @@ unsigned long BenchManager::run(){
 	unsigned long op_cnt=0;
 	for(int i=0;i<th_num;i++){
 		Bench *bnch = new Bench;
-		req[i].wl_th = w_vec[i];
-		op_cnt += w_vec[i].size();
+		req[i].wl_th = r_vec[i];
+		op_cnt += r_vec[i].size();
  		bnch->set_req(&req[i]);  // save request each Bench class
 		gnrtor[i].set_bench(bnch);
 	}

@@ -6,7 +6,7 @@ void JDKSkipList::GetEnv(int t_num){
 		if(vm->AttachCurrentThread((void **) &t_env[t_num], NULL) != 0){
 			std::cout << "Failed to attach" << std::endl;
 		}
-		std::cout<< "AttachCurrentThread success : " << t_num <<endl; 
+	//	std::cout<< "AttachCurrentThread success : " << t_num <<endl; 
 	}else{
 		cout << "Fail Attached thread : " << t_num << endl; 
 	}
@@ -246,7 +246,7 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 		goto out;
 	}
 
-	cout << "Find Class .." << endl;
+//	cout << "Find Class .." << endl;
 
 	jcls = env->FindClass("MyConcurrentSkipListMap");
 	if (!jcls) {
@@ -254,7 +254,7 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 		goto out;
 	}
 
-	cout << "Get Method .." << endl;
+//	cout << "Get Method .." << endl;
 	// create skip list
 	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
 	if (!mid){
@@ -263,7 +263,7 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 	}
 
 
-	cout << "Call Method .." << endl;
+//	cout << "Call Method .." << endl;
 	env->CallStaticVoidMethod(jcls, mid);
 
 	put_mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");

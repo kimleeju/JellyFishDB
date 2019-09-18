@@ -100,7 +100,8 @@ class BenchManager
 {
  	public:
 	void prepare();
-	unsigned long run();  // get time by using Thread
+	unsigned long run_trc();  // get time by using Thread
+	void load_trc();
 	void get_stat();
 //	void print_vector();
 
@@ -110,7 +111,8 @@ class BenchManager
 	int th_num;  // thread num
 	char *path;  // trace path
 	SkipList *sl;
-	vector<vector<Workloads> > w_vec;
+	vector<vector<Workloads> > l_vec;  // load_vec
+	vector<vector<Workloads> > r_vec;  // run_vec
 	Generator *gnrtor;
 //	Bench b;
 	Request *req;
