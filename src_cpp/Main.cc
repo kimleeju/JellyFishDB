@@ -25,7 +25,8 @@ int main(int argc, char* argv[])
 	string type = argv[1];
     int thread_num = atoi(argv[2]);
 
-    char *path = argv[3];
+    char *l_path = argv[3];
+    char *r_path = argv[4];
 //    cout << "type: " << type << endl;
 
     if(type == "BlockedSpinSkipList"){
@@ -55,7 +56,7 @@ int main(int argc, char* argv[])
 	} 
 
 	// create a bench manager 	
-	BenchManager bm(thread_num, path, sl);
+	BenchManager bm(thread_num, l_path, r_path, sl);
 
 	//bm.manage_wl();
 

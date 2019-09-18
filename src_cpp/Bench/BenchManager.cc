@@ -132,7 +132,7 @@ void *Bench::do_query_with_trace(int seq) {
 }
 
 
-BenchManager::BenchManager(int t, char *p, SkipList *t_s) : th_num(t), path(p), sl(t_s) {
+BenchManager::BenchManager(int t, char *lp, char *rp, SkipList *t_s) : th_num(t), l_path(lp), r_path(rp), sl(t_s) {
 	l_vec.resize(t);
 	r_vec.resize(t);
 	gnrtor = new Generator[t];
@@ -159,7 +159,7 @@ void BenchManager::prepare(){
 	}
 }*/
 void BenchManager::load_trc(){
-	wl.save_workloads(l_vec,path);
+	wl.save_workloads(l_vec,l_path);
 
 	// set benmark for each thread
 	unsigned long op_cnt=0;
@@ -180,7 +180,7 @@ void BenchManager::load_trc(){
 }
 
 unsigned long BenchManager::run_trc(){
-	wl.save_workloads(r_vec,path);
+	wl.save_workloads(r_vec,r_path);
 	class Time time;
 
 	// time start

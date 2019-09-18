@@ -105,11 +105,12 @@ class BenchManager
 	void get_stat();
 //	void print_vector();
 
-	BenchManager(int t, char *p, SkipList *t_s);
+	BenchManager(int t, char *lp, char *rp, SkipList *t_s);
 
 	private:
 	int th_num;  // thread num
-	char *path;  // trace path
+	char *l_path;  // load trace path
+	char *r_path;  // run trace path
 	SkipList *sl;
 	vector<vector<Workloads> > l_vec;  // load_vec
 	vector<vector<Workloads> > r_vec;  // run_vec
