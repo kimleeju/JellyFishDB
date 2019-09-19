@@ -21,6 +21,7 @@ public:
 	class Deque{
 			public:
 				pthread_mutex_t lock;
+
 			public:
     		void push_back( const T& value ){
 				//pthread_mutex_lock(&lock);
@@ -59,12 +60,15 @@ public:
     		}
 	
 			bool empty(){
-//				pthread_mutex_lock(&lock);
+//				pt
         		int result = m_deque.empty();
 //				pthread_mutex_unlock(&lock);
 				return result;
     		}
 
+			void swap(deque& x) {
+				m_deque.swap(x);
+			}
 
 			private:
     			std::deque<T> m_deque;

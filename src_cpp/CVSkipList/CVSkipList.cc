@@ -200,91 +200,98 @@ CVSkipList::CVSkipList()
 }
 
 
-bool CVSkipList::Insert(string key, string value, Iterator iterator){
+bool CVSkipList::Insert(string key, string value, Iterator iterator)
+{
 	int height = RandomHeight();
 	Node* nnode = AllocateNode(key, value, height);
-//	nnode->mu.lock();
-	pthread_mutex_lock(&queue.lock);
-	queue.push_back(nnode);
-		cout<<"-------------------------------------"<<endl;
-		cout<<"nnode = "<<nnode<<endl;
-		cout<<"nnode->key = "<<nnode->Get_key()<<endl;
-	if(!nnode->done && nnode != queue.front()){
-		cout<<"Sleep!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-		pthread_cond_wait(&nnode->cond, &queue.lock);
-		cout<<"nnode wakeup@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ = "<<nnode<<endl;
+	std::deque<T> myreq_q;
+
+	// enqueue a new node 
+	pthread_mutex_lock(&req_q.lock);
+	req_q.push_back(nnode);
+
+	while(!nnode->done && nnode != req_q.front()){
+		pthread_cond_wait(&nnode->cond, &req_q.lock);
 	}
-	cout<<"OUT"<<endl;
-//	pthread_mutex_unlock(&queue.lock);
 
-
+	// check if the request is finished 
 	if(nnode->done){
-		cout<<"return!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
+		pthread_mutex_unlock(&req_q.lock);
 		return true;
 	}
-//	pthread_mutex_lock(&queue.lock);
-	Node* last_node = queue.back();
-//	p:thread_mutex_unlock(&queue.lock);
+
+#if 0
+	// process requset 
+	req_q.swap(myreq_q);
+#endif
+	Node* last_node = req_q.back();
+	pthread_mutex_unlock(&req_q.lock);
+
 
 	while(true){
-//		pthread_mutex_lock(&queue.lock);
-			Node* ready_node = queue.front();
-			cout<<"ready_node = "<<ready_node<<endl;
-//		pthread_mutex_unlock(&queue.lock);
-			int max_height = max_height_.load(std::memory_order_relaxed);
+
+//		pthread_mutex_lock(&req_q.lock);
+		Node* ready_node = req_q.front();
+		cout<<"ready_node = "<<ready_node<<endl;
+//		pthread_mutex_unlock(&req_q.lock);
+
+		// insert a new node into the skip list 
+		int max_height = max_height_.load(std::memory_order_relaxed);
 			
-			if(ready_node->Get_height() > max_height){
-				max_height_ = ready_node->Get_height();
-				max_height = ready_node->Get_height();   
- 			}
+		if(ready_node->Get_height() > max_height){
+			max_height_ = ready_node->Get_height();
+			max_height = ready_node->Get_height();   
+ 		}
    			
-			if(iterator.splice->height_ < max_height){
-      			iterator.splice->prev_[max_height] = head_;
-      			iterator.splice->next_[max_height] = nullptr;
-      			iterator.splice->height_ =max_height;
-   			}
-  
-  			else{
-  				for(int i = 0; i<ready_node->Get_height() ; i++){
-	  				iterator.splice->prev_[i] = head_;
-	   				iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
-				}	
-  			}
+		if(iterator.splice->height_ < max_height){
+      		iterator.splice->prev_[max_height] = head_;
+      		iterator.splice->next_[max_height] = nullptr;
+      		iterator.splice->height_ =max_height;
+   		}else{
+  			for(int i = 0; i<ready_node->Get_height() ; i++){
+	  			iterator.splice->prev_[i] = head_;
+	   			iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
+			}	
+  		}
 
-			if(ready_node->Get_height() > 0) {
-				RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(),iterator.splice);
-    		}
+		if(ready_node->Get_height() > 0) {
+			RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(),iterator.splice);
+    	}
 
-			for(int i=0;i<ready_node->Get_height();++i){ 
-				ready_node->SetNext(i, iterator.splice->next_[i]);
-        		iterator.splice->prev_[i]->SetNext(i,ready_node);
-    		}
-			cout<<"cnt = "<<++cnt<<endl;
-//			pthread_mutex_lock(&queue.lock);
-			queue.pop_front();
-				cout<<"ready_node = "<<ready_node<<endl;
-				cout<<"last_node = "<<last_node<<endl;
-			if(ready_node != last_node){
-				ready_node->done = true;
-				cout<<"que_signal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-				pthread_cond_signal(&ready_node->cond);
-			}
-//			pthread_mutex_unlock(&queue.lock);
+		for(int i=0;i<ready_node->Get_height();++i){ 
+			ready_node->SetNext(i, iterator.splice->next_[i]);
+        	iterator.splice->prev_[i]->SetNext(i,ready_node);
+    	}
+		// insert completes. 
+		
+
+		pthread_mutex_lock(&req_q.lock);
+
+		// release ready_node 
+		assert(ready_node == req_q.front());
+		req_q.pop_front();
+
+		// wake up 
+		ready_node->done = true;
+		pthread_cond_signal(&ready_node->cond);
+
+		pthread_mutex_unlock(&req_q.lock);
+
 		if(ready_node == last_node) {
-			ready_node->done = true;
 			break;
 		}	
 	}
-//	pthread_mutex_lock(&queue.lock);
-	if(!queue.empty()){
-		cout<<"!empty"<<endl;
-		cout<<"signal"<<endl;
-		pthread_cond_signal(&queue.front()->cond);
-		cout<<"signal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-	}
-	pthread_mutex_unlock(&queue.lock);
-  return true;
 
+	// make the next thread progress 
+
+	pthread_mutex_lock(&req_q.lock);
+	if(!req_q.empty()){
+		pthread_cond_signal(&req_q.front()->cond);
+	}
+	pthread_mutex_unlock(&req_q.lock);
+
+out:
+  return true;
 }
 
 
