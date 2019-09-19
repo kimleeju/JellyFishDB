@@ -161,7 +161,6 @@ void BenchManager::load_trc(){
 	wl.save_workloads(l_vec,l_path);
 
 	// set benmark for each thread
-	unsigned long op_cnt=0;
 	for(int i=0;i<th_num;i++){
 		Bench *bnch = new Bench;
 		req[i].wl_th = l_vec[i];
