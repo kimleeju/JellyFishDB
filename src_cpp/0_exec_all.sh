@@ -2,7 +2,7 @@ THREADS=16
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList SimpleSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList SimpleSkipList"
 
-TRC_DIR="../trc/micro_trc/backup10000trc/result"
+TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 CONF="uni zipf_1.2 zipf_1.4 zipf_1.6 zipf_1.8 zipf_2.0"
 
