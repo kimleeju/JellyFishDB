@@ -22,7 +22,7 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
 
 void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     t_global_committed.get_and_inc();
-    cout<<"-----------------------------"<<endl;
+//    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {

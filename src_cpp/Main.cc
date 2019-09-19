@@ -71,7 +71,12 @@ int main(int argc, char* argv[])
 */
 #endif
 	bm.load_trc();
+<<<<<<< HEAD
 	cout<<"IOPS = "<<bm.run_trc()<<endl;
+=======
+	cout<<bm.run_trc()<<endl;
+#endif
+>>>>>>> e377523b306e5ef001cfe33929f962f45f061c6f
 
     return 0;
 }
