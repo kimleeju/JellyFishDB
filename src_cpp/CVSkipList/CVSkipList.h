@@ -66,9 +66,9 @@ public:
 				return result;
     		}
 
-			void swap(deque& x) {
-				m_deque.swap(x);
-			}
+	//		void swap(std::deque<T>& x) {
+	//			m_deque.swap(x);
+	//		}
 
 			private:
     			std::deque<T> m_deque;
@@ -76,7 +76,7 @@ public:
     			//mutable std::mutex m_mutex;
 	};
 std::atomic<int> cnt ;
-	Deque<Node*> queue;	
+	Deque<Node*> req_q;	
 	void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
     Node* FindLast();

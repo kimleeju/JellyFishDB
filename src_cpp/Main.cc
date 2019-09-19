@@ -34,8 +34,8 @@ int main(int argc, char* argv[])
 		sl = new BlockedSkipList;
     }
 	else if(type == "BlockedCVSkipList"){
-	//	sl = new CVSkipList;
-		return 0;
+		sl = new CVSkipList;
+		//return 0;
 	}
    	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 #endif
 	bm.load_trc();
 	cout<<"IOPS = "<<bm.run_trc()<<endl;
-	cout<<bm.run_trc()<<endl;
+//	cout<<bm.run_trc()<<endl;
 
     return 0;
 }

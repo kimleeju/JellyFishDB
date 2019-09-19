@@ -204,7 +204,7 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 {
 	int height = RandomHeight();
 	Node* nnode = AllocateNode(key, value, height);
-	std::deque<T> myreq_q;
+	//std::deque<T> myreq_q;
 
 	// enqueue a new node 
 	pthread_mutex_lock(&req_q.lock);
@@ -268,7 +268,7 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		pthread_mutex_lock(&req_q.lock);
 
 		// release ready_node 
-		assert(ready_node == req_q.front());
+	//	assert(ready_node == req_q.front());
 		req_q.pop_front();
 
 		// wake up 
