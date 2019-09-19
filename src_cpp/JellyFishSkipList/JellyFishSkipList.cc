@@ -12,7 +12,7 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
     iterator.Seek(key);
     Node* temp = iterator.Node();
     if(temp -> Get_vqueue_num() != 0){
-	return temp -> Get_vqueue() -> value; 
+		return temp -> Get_vqueue() -> value; 
     }
     else	
 	 return temp->Get_value();
@@ -26,15 +26,16 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-	if(temp_->Get_vqueue_num() != 0)
-		cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_vqueue()->value<<endl;
-	else
+		if(temp_->Get_vqueue_num() != 0)
+			cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_vqueue()->value<<endl;
+		else
         	cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-	if(temp_->Next(0)!=nullptr)
+		if(temp_->Next(0)!=nullptr)
        	    temp_=temp_->Next(0);
-	else
-		return;
+		else
+			return;
     } 
+	return;
 }
 
 Node* JellyFishSkipList::FindLast(){
