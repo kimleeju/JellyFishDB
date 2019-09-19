@@ -243,7 +243,7 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
 	if (res < 0) {
 		printf("Error: failed to create jvm\n");
-		goto out;
+//		goto out;
 	}
 
 //	cout << "Find Class .." << endl;
@@ -251,7 +251,7 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 	jcls = env->FindClass("MyConcurrentSkipListMap");
 	if (!jcls) {
 		printf("Error: unable to find class \n");
-		goto out;
+//		goto out;
 	}
 
 //	cout << "Get Method .." << endl;
@@ -259,7 +259,7 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
 	if (!mid){
 		printf("Error: unable to find create_sl\n");
-		goto out;
+//		goto out;
 	}
 
 
@@ -269,13 +269,13 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 	put_mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");
 	if(!put_mid){
 		printf("Error : unable to Put method\n");
-		goto out;
+//		goto out;
 	}
 
 	get_mid = env->GetStaticMethodID(jcls, "Get", "(Ljava/lang/String;)Ljava/lang/String;");
 	if(!get_mid){
 		printf("Error : unable to Get method\n");
-		goto out;
+//		goto out;
 	}
 	
 	t_env = new JNIEnv*[t_num];	
@@ -291,8 +291,8 @@ JDKSkipList::JDKSkipList(int t_num) : SkipList(
 
 	}
 */
-out:
-	printf("Finished\n");
+//out:
+//	printf("Finished\n");
 }
 
 

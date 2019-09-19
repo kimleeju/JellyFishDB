@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
 		cout<<"failed to check time"<<endl;
 */
 	bm.load_trc();
-	cout<<"IOPS = "<<bm.run_trc()<<endl;
+	cout<<bm.run_trc()<<endl;
 #endif
 
     return 0;
