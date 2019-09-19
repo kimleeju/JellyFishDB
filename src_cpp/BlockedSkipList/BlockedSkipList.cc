@@ -1,5 +1,9 @@
 #include "BlockedSkipList.h"
 
+void BlockedSkipList::GetEnv(int t_num){
+	return;
+}
+
 int BlockedSkipList::Put(string key, string value, Iterator iterator){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();

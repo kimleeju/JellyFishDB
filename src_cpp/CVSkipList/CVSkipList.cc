@@ -204,36 +204,33 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator){
 	int height = RandomHeight();
 	Node* nnode = AllocateNode(key, value, height);
 //	nnode->mu.lock();
-//	pthread_mutex_lock(&queue.lock);
+	pthread_mutex_lock(&queue.lock);
 	queue.push_back(nnode);
 		cout<<"-------------------------------------"<<endl;
-	cout<<"nnode = "<<nnode<<endl;
-	cout<<"nnode->key = "<<nnode->Get_key()<<endl;	
-	cout<<"queu.front() = "<<queue.front()<<endl;
+		cout<<"nnode = "<<nnode<<endl;
+		cout<<"nnode->key = "<<nnode->Get_key()<<endl;
 	if(!nnode->done && nnode != queue.front()){
-		cout<<"IN"<<endl;
-		//nnode->mu.lock();
-		//queue.push_back(nnode);
-//		nnode->mu.wait();
-		pthread_mutex_lock(&queue.lock);
 		cout<<"Sleep!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
 		pthread_cond_wait(&nnode->cond, &queue.lock);
 		cout<<"nnode wakeup@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ = "<<nnode<<endl;
-		pthread_mutex_unlock(&queue.lock);
 	}
+	cout<<"OUT"<<endl;
+//	pthread_mutex_unlock(&queue.lock);
 
 
 	if(nnode->done){
 		cout<<"return!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
 		return true;
 	}
-
+//	pthread_mutex_lock(&queue.lock);
 	Node* last_node = queue.back();
-	cout<<"queue.back() = "<<queue.back()<<endl;
+//	p:thread_mutex_unlock(&queue.lock);
 
-	while(!queue.empty()){
-		Node* ready_node = queue.front();
-		//if(ready_node != last_node){
+	while(true){
+//		pthread_mutex_lock(&queue.lock);
+			Node* ready_node = queue.front();
+			cout<<"ready_node = "<<ready_node<<endl;
+//		pthread_mutex_unlock(&queue.lock);
 			int max_height = max_height_.load(std::memory_order_relaxed);
 			
 			if(ready_node->Get_height() > max_height){
@@ -263,31 +260,29 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator){
         		iterator.splice->prev_[i]->SetNext(i,ready_node);
     		}
 			cout<<"cnt = "<<++cnt<<endl;
-	//		pthread_mutex_lock(&queue.lock);
+//			pthread_mutex_lock(&queue.lock);
 			queue.pop_front();
+				cout<<"ready_node = "<<ready_node<<endl;
+				cout<<"last_node = "<<last_node<<endl;
 			if(ready_node != last_node){
-				pthread_mutex_lock(&queue.lock);
 				ready_node->done = true;
 				cout<<"que_signal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
 				pthread_cond_signal(&ready_node->cond);
-				pthread_mutex_unlock(&queue.lock);
 			}
-	//		pthread_mutex_unlock(&queue.lock);
-	//	}	
+//			pthread_mutex_unlock(&queue.lock);
 		if(ready_node == last_node) {
 			ready_node->done = true;
 			break;
 		}	
 	}
+//	pthread_mutex_lock(&queue.lock);
 	if(!queue.empty()){
 		cout<<"!empty"<<endl;
-		//queue.front()->mu.signal();
-		pthread_mutex_lock(&queue.lock);
 		cout<<"signal"<<endl;
 		pthread_cond_signal(&queue.front()->cond);
 		cout<<"signal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-		pthread_mutex_unlock(&queue.lock);
 	}
+	pthread_mutex_unlock(&queue.lock);
   return true;
 
 }

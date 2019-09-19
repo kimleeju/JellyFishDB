@@ -1,0 +1,2 @@
+type: ConcurrentSkipList
+cnt = 1000

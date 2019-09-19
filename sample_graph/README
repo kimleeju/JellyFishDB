@@ -1,0 +1,14 @@
+
+1. gnuplot graph
+
+Make sure gnuplot installed on your machine. 
+
+./draw_gnuplot.sh
+
+
+
+2. zplot graph
+
+Make sure zplot installed on your machine.
+
+./draw_zplot.sh

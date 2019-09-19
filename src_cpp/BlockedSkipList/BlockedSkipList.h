@@ -31,6 +31,7 @@ public:
     Node* AllocateNode(string key, string value, int height); 
     int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
+	void GetEnv(int t_num);
 public:
     BlockedSkipList();
     ~BlockedSkipList(){}

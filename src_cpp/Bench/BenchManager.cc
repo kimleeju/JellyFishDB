@@ -85,27 +85,30 @@ void Bench::printf_req(){
 		printf("--%d  %s  %s  %d\n", t_arg->wl_th[i].getTid(), t_arg->wl_th[i].getOp().c_str(), t_arg->wl_th[i].getKey().c_str(), t_arg->wl_th[i].getCnt());
 	}
 }
-void *Bench::do_query_with_trace() {
-	Iterator iterator(t_arg->sl);
+void *Bench::do_query_with_trace(int seq) {
+//	Iterator iterator(t_arg->sl);
+//	printf_req();
+	Iterator* iterator = new Iterator(t_arg->sl,seq);
+	t_arg->sl->GetEnv(seq);
 	for (unsigned int j = 0; j < t_arg->wl_th.size(); j++) {
 		set_op(t_arg->wl_th[j].getOp());
 //	cout<<"1111111"<endl;
 		if (get_op() == "put" || get_op() == "update") {
 			set_val(rand() % MAXVALUE);
 			if (get_op() == "put") {
-				t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), iterator);
+				t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), *iterator);
 			}
-			else if (get_op() == "update") {
+		//	else if (get_op() == "update") {
 				// 해당 key가 없으면 update안함
 				//if (t_arg->sl->get(t_arg->wl_th[j].getKey()) != "not found") {
 				//	printf("[update]  ");
-					t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), iterator);
+		//			t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), *iterator);
 				//}
 				//else { cout << "[update fail]" << endl; }
-			}
+		//	}
 		}
 		else if (get_op() == "get") {
-			set_rv(t_arg->sl->Get(t_arg->wl_th[j].getKey(), iterator));
+			set_rv(t_arg->sl->Get(t_arg->wl_th[j].getKey(), *iterator));
 			if (get_rv() == "not found") {
 				//printf("[not found key]\n");
 			}
@@ -113,8 +116,9 @@ void *Bench::do_query_with_trace() {
 				//printf("[get( %s  %s ) success]\n", t_arg->wl_th[j].getKey().c_str(), get_rv().c_str());
 			}
 		}
-		else if (get_op() == "scan") {
-			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),iterator);
+		else if (get_op() == "range_query") {
+
+			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),*iterator);
 			//mmap = t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt());
 			multimap<string, string>::iterator iter;
 			/*for (iter = mmap.begin(); iter != mmap.end(); iter++) {
@@ -127,13 +131,16 @@ void *Bench::do_query_with_trace() {
 }
 
 
-BenchManager::BenchManager(int t, char *p, SkipList *t_s) : th_num(t), path(p), sl(t_s) {
-	w_vec.resize(t);
+BenchManager::BenchManager(int t, char *lp, char *rp, SkipList *t_s) : th_num(t), l_path(lp), r_path(rp), sl(t_s) {
+	l_vec.resize(t);
+	r_vec.resize(t);
 	gnrtor = new Generator[t];
-	req = (Request *)malloc(sizeof(Request) * t);
+	//req = (Request *)malloc(sizeof(Request) * t);
+	req = new Request[t];
 	req->sl = sl;
 	for(int i = 0; i < t ; i++){
 		req[i].sl = sl;
+		gnrtor[i].seq= i;
 	}
 }
 
@@ -150,9 +157,31 @@ void BenchManager::prepare(){
 	//	}
 	}
 }*/
-unsigned long BenchManager::run(){
-	wl.save_workloads(w_vec,path);
+void BenchManager::load_trc(){
+	wl.save_workloads(l_vec,l_path);
+
+	// set benmark for each thread
+	unsigned long op_cnt=0;
+	for(int i=0;i<th_num;i++){
+		Bench *bnch = new Bench;
+		req[i].wl_th = l_vec[i];
+ 		bnch->set_req(&req[i]);  // save request each Bench class
+		gnrtor[i].set_bench(bnch);
+	}
+	for(int i=0;i<th_num; i++){
+		gnrtor[i].create();
+	}
+	// join thread
+	for(int i=0; i<th_num; i++){
+		gnrtor[i].join();
+	}
+
+}
+
+unsigned long BenchManager::run_trc(){
+	wl.save_workloads(r_vec,r_path);
 	class Time time;
+
 	// time start
 	if(gettimeofday(&time.get_start(), NULL)==-1){
 		cout<<"failed to read time"<<endl;
@@ -162,13 +191,11 @@ unsigned long BenchManager::run(){
 	unsigned long op_cnt=0;
 	for(int i=0;i<th_num;i++){
 		Bench *bnch = new Bench;
-		req[i].wl_th = w_vec[i];
-		op_cnt += w_vec[i].size();
-//		req[i].wl_th.assign(w_vec[i].begin(), w_vec[i].end());	
+		req[i].wl_th = r_vec[i];
+		op_cnt += r_vec[i].size();
  		bnch->set_req(&req[i]);  // save request each Bench class
 		gnrtor[i].set_bench(bnch);
 	}
-	// create thread
 	for(int i=0;i<th_num; i++){
 		gnrtor[i].create();	
 	}
@@ -188,7 +215,6 @@ unsigned long BenchManager::run(){
 	//----------------------------------------//
 	//time.print_result();
 	time.get_dur();
-
 	return op_cnt/time.get_dur();
 }
 void BenchManager::get_stat(){

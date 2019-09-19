@@ -54,6 +54,10 @@ public:
     virtual Node* AllocateNode(string key, string value, int height)=0;
     virtual int RandomHeight()=0;
     virtual bool Insert(string key, string value ,Iterator iterator)=0;
+	virtual void GetEnv(int t_num){
+		return;
+	}		
+	
     /** 
      * put, get, delete 
      * */

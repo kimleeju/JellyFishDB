@@ -18,6 +18,7 @@
 #define MAXVALUE 100
 using namespace std;
 
+
 class Workloads {
 	public:
 		void setTid(int t);
@@ -55,7 +56,7 @@ class Bench {
 		string get_rv();
 		Request *get_req();
 		void printf_req();
-		void *do_query_with_trace(); 
+		void *do_query_with_trace(int seq); 
 
 //		Bench(Request *r) : r(t_arg) {}
 
@@ -72,13 +73,14 @@ class Bench {
 class Generator : public Thread {
 	Bench *b;
 	public:
+	int seq;
 	Generator() {};
 
 	void set_bench(Bench *bt){
 		b=bt;
 	}
 	void *entry() override {
-		b->do_query_with_trace();
+		b->do_query_with_trace(seq);
 		return 0;
 	}
 	void print_bench_request(){
@@ -98,17 +100,20 @@ class BenchManager
 {
  	public:
 	void prepare();
-	unsigned long run();  // get time by using Thread
+	unsigned long run_trc();  // get time by using Thread
+	void load_trc();
 	void get_stat();
 //	void print_vector();
 
-	BenchManager(int t, char *p, SkipList *t_s);
+	BenchManager(int t, char *lp, char *rp, SkipList *t_s);
 
 	private:
 	int th_num;  // thread num
-	char *path;  // trace path
+	char *l_path;  // load trace path
+	char *r_path;  // run trace path
 	SkipList *sl;
-	vector<vector<Workloads> > w_vec;
+	vector<vector<Workloads> > l_vec;  // load_vec
+	vector<vector<Workloads> > r_vec;  // run_vec
 	Generator *gnrtor;
 //	Bench b;
 	Request *req;
