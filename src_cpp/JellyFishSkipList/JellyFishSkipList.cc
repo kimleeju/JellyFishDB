@@ -245,8 +245,9 @@ while(test == 1){
 		if(iterator.splice->next_[splice_index]->Get_vqueue()!=nullptr)	
 			nnode->NoBarrier_SetNext(iterator.splice->next_[splice_index]->Get_vqueue()->NoBarrier_Next());
 		 if(iterator.splice->next_[splice_index]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
+			iterator.splice->next_[splice_index]->Set_vqueue_num();
 		//iterator.splice->next_[0]->Set_vqueue(nnode);	
-		  break;
+		  	break;
 	      }
 		goto retry;
        }

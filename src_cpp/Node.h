@@ -153,8 +153,8 @@ public:
   }
 
 
-  void Set_vqueue_num(int num){
-	vqueue_num = num;
+  void Set_vqueue_num(){
+	vqueue_num++;
   }
 
   int Get_vqueue_num(){
