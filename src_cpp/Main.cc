@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
     if (argc < 4){
         cout << "Usage: ./Run Options thread_count load_trc run_trc" << endl;
-        cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
+        cout << "Options: BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
         return -1;
     }
 
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
     char *l_path = argv[3];
     char *r_path = argv[4];
-//    cout << "type: " << type << endl;
+    cout << "type: " << type << endl;
 
     if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
