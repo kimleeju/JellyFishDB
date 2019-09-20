@@ -69,6 +69,7 @@ class Iterator{
     public:
 		int seq;
 		SkipList::Splice* splice;
+		bool test;
 };
 
 
