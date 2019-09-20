@@ -4,7 +4,7 @@ operations="put get range_query"
 ###extract IOPS
 for sk in $skewness; do
 	for op in $operations; do
-		awk '{printf("%8d\n", $4)}' ../"$sk"_"$op".rslt > "$sk"_"$op".rslt
+		awk '{printf("%d	\n", $4)}' ../"$sk"_"$op".rslt > "$sk"_"$op".rslt
 	done
 done
 
