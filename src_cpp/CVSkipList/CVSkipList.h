@@ -5,7 +5,6 @@
 #include <cstring>
 #include "../SkipList.h"
 #include "../Iterator.h"
- 
 
 using namespace std;
 class CVSkipList : public SkipList{
@@ -18,50 +17,45 @@ public:
    
 public:
 	template<typename T>
-	class Deque{
+	class Queue{
 			public:
 				pthread_mutex_t lock;
 
 			public:
     		void push_back( const T& value ){
 				//pthread_mutex_lock(&lock);
-        		m_deque.push_back(value);
+        		m_que.push(value);
 				//pthread_mutex_unlock(&lock);
     		}
 
     		void pop(){
-        		m_deque.pop();
+        		m_que.pop();
     		}
 			
 			T front(){
 				//pthread_mutex_lock(&lock);
-				T tmp = m_deque.front();
+				T tmp = m_que.front();
 				//pthread_mutex_unlock(&lock);
 				return tmp;
 			}
 
 			T back(){
 //				pthread_mutex_lock(&lock);
-        		T tmp = m_deque.back();
+        		T tmp = m_que.back();
 //				pthread_mutex_unlock(&lock);
         		return tmp;
     		}
 			
 			void pop_front(){	
 //				pthread_mutex_lock(&lock);
-        		m_deque.pop_front();
+        		m_que.pop();
 //				pthread_mutex_unlock(&lock);
     		}
 
-			void pop_back(){
-				//pthread_mutex_lock(&lock);
-        		m_deque.pop_back();
-				//pthread_mutex_unlock(&lock);
-    		}
 	
 			bool empty(){
 //				pt
-        		int result = m_deque.empty();
+        		int result = m_que.empty();
 //				pthread_mutex_unlock(&lock);
 				return result;
     		}
@@ -71,12 +65,12 @@ public:
 	//		}
 
 			private:
-    			std::deque<T> m_deque;
-				Mutex mu;
+    			std::queue<T> m_que;
     			//mutable std::mutex m_mutex;
 	};
 std::atomic<int> cnt ;
-	Deque<Node*> req_q;	
+	pthread_mutex_t mu_lock;
+	Queue<Node*> req_q;	
 	void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
     Node* FindLast();

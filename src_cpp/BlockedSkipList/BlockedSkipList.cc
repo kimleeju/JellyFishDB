@@ -149,7 +149,11 @@ Node* after = before ->Next(level);
 }
 
 bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
-  return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+   	if(n == nullptr || key.length() < n->Get_key().length())
+		return  0;
+	else if ( key.length() > n->Get_key().length())
+		return 1;
+	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 } 
 
 

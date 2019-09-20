@@ -36,7 +36,7 @@ protected:
     uint16_t kMaxHeight_;
     atomic<int>max_height_; 
     Splice* seq_splice;
-	int cnt =0 ;
+	atomic<int> cnt;
     TimeStamp t_global_committed;
     
 public:    

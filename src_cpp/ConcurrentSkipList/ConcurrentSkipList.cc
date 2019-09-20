@@ -78,15 +78,19 @@ Node* ConcurrentSkipList::FindGreaterorEqual(string key){
     while(true){
         Node* next = x->Next(level);
         int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
-
+//		cout<<"cnt = "<<++cnt<<endl;
+#if 0
+		cout<<"--------------------------"<<endl;
+		cout<<"key = "<<key<<endl;
+		if(next!=nullptr)
+		cout<<"next->Get_key() = "<<next->Get_key()<<endl;
+		cout<<"level = "<<level<<endl;
+#endif
         if(cmp >= 0 &&level ==0){
             return next;
         }
         else if (cmp < 0){
-//	 if(next->Next(level) !=nullptr)	
             x= next;
-//	 else
-//	    return nullptr;
         }
         else{
             last_bigger = next;
@@ -138,7 +142,11 @@ void ConcurrentSkipList::FindSpliceForLevel(string key, int level, Node** sp_pre
 }
 
 bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
-     return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+ 	if(n == nullptr || key.length() < n->Get_key().length())
+		return  0;
+	else if ( key.length() > n->Get_key().length())
+		return 1;
+    return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 }
 
 
