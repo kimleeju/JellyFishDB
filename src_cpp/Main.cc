@@ -15,31 +15,31 @@ using namespace std;
 
 int main(int argc, char* argv[])
 { 	
-    SkipList* sl;
+	SkipList* sl;
 
-    if (argc < 4){
-        cout << "Usage: ./Run Options thread_count load_trc run_trc" << endl;
-        cout << "Options: BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
-        return -1;
-    }
+	if (argc < 4){
+		cout << "Usage: ./Run Options thread_count load_trc run_trc" << endl;
+		cout << "Options: BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
+		return -1;
+	}
 
 	string type = argv[1];
-    int thread_num = atoi(argv[2]);
+	int thread_num = atoi(argv[2]);
 
-    char *l_path = argv[3];
-    char *r_path = argv[4];
-    cout << "type: " << type << endl;
+	char *l_path = argv[3];
+	char *r_path = argv[4];
+	// cout << "type: " << type << endl;
 
-    if(type == "BlockedSpinSkipList"){
+	if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
-    }
+	}
 	else if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 		//return 0;
 	}
-   	else if(type == "ConcurrentSkipList"){
+	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
-    }
+	}
 	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);
 	}
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 	else{
 		cout<< "failed to run"<<endl;
 		cout << "Usage: ./Run Options thread_count path" << endl;
-   		cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
+		cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
 		return -1;
 	} 
 
@@ -60,24 +60,24 @@ int main(int argc, char* argv[])
 	BenchManager bm(thread_num, l_path, r_path, sl);
 
 	//bm.manage_wl();
-//	cout<<"IOPS = "<<bm.run()<<endl;
+	//	cout<<"IOPS = "<<bm.run()<<endl;
 #if 0
-=======
+	=======
 
-/*
->>>>>>> 2f5d29caa9c1f9197581464219767605c356331c
-	if(bm.run() == 1)
-		cout<<"failed to check time"<<endl;
-*/
+		/*
+		   >>>>>>> 2f5d29caa9c1f9197581464219767605c356331c
+		   if(bm.run() == 1)
+		   cout<<"failed to check time"<<endl;
+		 */
 #endif
-	bm.load_trc();
+		bm.load_trc();
 	cout<<"IOPS = "<<bm.run_trc()<<endl;
-//	cout<<bm.run_trc()<<endl;
+	//	cout<<bm.run_trc()<<endl;
 
-    return 0;
+	return 0;
 }
 
 
 
 
- 
+
