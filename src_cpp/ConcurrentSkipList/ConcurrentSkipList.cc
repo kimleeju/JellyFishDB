@@ -22,7 +22,7 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
+//        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
 	if(temp_->Next(0)!=nullptr)
        	    temp_=temp_->Next(0);
     } 
@@ -77,7 +77,7 @@ Node* ConcurrentSkipList::FindGreaterorEqual(string key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-        int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
+        int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(next->Get_key(),key);
 //		cout<<"cnt = "<<++cnt<<endl;
 #if 0
 		cout<<"--------------------------"<<endl;
@@ -86,10 +86,10 @@ Node* ConcurrentSkipList::FindGreaterorEqual(string key){
 		cout<<"next->Get_key() = "<<next->Get_key()<<endl;
 		cout<<"level = "<<level<<endl;
 #endif
-        if(cmp >= 0 &&level ==0){
+        if(cmp <= 0 &&level ==0){
             return next;
         }
-        else if (cmp < 0){
+        else if (cmp > 0){
             x= next;
         }
         else{
@@ -141,12 +141,32 @@ void ConcurrentSkipList::FindSpliceForLevel(string key, int level, Node** sp_pre
     }
 }
 
+int ConcurrentSkipList::Comparator(string key1, string key2){
+	
+	if(key1.length() < key2.length())
+		return  -1;
+	else if ( key1.length() > key2.length())
+		return 1;
+  return key1.compare(key2);
+}
+
 bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
- 	if(n == nullptr || key.length() < n->Get_key().length())
+	//if(n!=nullptr){
+	//	cout<<"n = "<<n<<endl;
+	//}
+	if(n == nullptr || key.length() < n->Get_key().length())
 		return  0;
 	else if ( key.length() > n->Get_key().length())
 		return 1;
-    return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+#if 0
+	if(n == nullptr)
+		return 0;
+	else if(key.length() < n->Get_key().length())
+		return 0;
+	else if(key.length() > n->Get_key().length())
+		return 1;
+#endif
+	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 }
 
 

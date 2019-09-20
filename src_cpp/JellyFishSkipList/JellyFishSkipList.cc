@@ -27,10 +27,11 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-		if(temp_->Get_vqueue_num() != 0)
-			cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_vqueue()->value<<endl;
+		if(temp_->Get_vqueue_num() != 0){}
+	//		cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_vqueue()->value<<endl;
 		else
-        	cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
+		{}
+      //  	cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
 		if(temp_->Next(0)!=nullptr)
        	    temp_=temp_->Next(0);
 		else
@@ -115,7 +116,10 @@ Node* JellyFishSkipList::FindGreaterorEqual(string key){
     while(true){
 
         Node* next = x->Next(level);
-        int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
+        int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(next->Get_key(),key);
+	//	int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
+		
+
 		if(cmp==0){
 			return next;
 		}
@@ -152,7 +156,7 @@ int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, Splice* spl
     Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i],before);
-		if(splice->next_[i]!=nullptr && key.compare(splice->next_[i]->Get_key())==0){
+		if(splice->next_[i]!=nullptr && (Comparator(key,splice->next_[i]->Get_key())==0)){
 			return i;	
 		}
 	}
@@ -175,9 +179,18 @@ void JellyFishSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev
     }
 }
 
+int JellyFishSkipList::Comparator(string key1, string key2){
+	
+	if(key1.length() < key2.length())
+		return  -1;
+	else if ( key1.length() > key2.length())
+		return 1;
+  return key1.compare(key2);
+}
+
 
 bool JellyFishSkipList::KeyIsAfterNode(string key, Node* n){
- 	if(n == nullptr || key.length() < n->Get_key().length())
+	if(n == nullptr || key.length() < n->Get_key().length())
 		return  0;
 	else if ( key.length() > n->Get_key().length())
 		return 1;

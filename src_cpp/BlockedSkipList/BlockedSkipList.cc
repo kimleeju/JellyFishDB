@@ -31,7 +31,7 @@ void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator 
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
+//        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
 	if(temp_->Next(0)!=nullptr)
        	    temp_=temp_->Next(0);
     } 
@@ -105,7 +105,7 @@ Node* BlockedSkipList::FindGreaterorEqual(string key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-        int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
+        int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(next->Get_key(),key);
 
         if(cmp >= 0 &&level ==0){
             return next;
@@ -146,6 +146,15 @@ Node* after = before ->Next(level);
         if(after != nullptr)
             after = after->Next(level);
     }
+}
+
+int BlockedSkipList::Comparator(string key1, string key2){
+	
+	if(key1.length() < key2.length())
+		return  -1;
+	else if ( key1.length() > key2.length())
+		return 1;
+  return key1.compare(key2);
 }
 
 bool BlockedSkipList::KeyIsAfterNode(string key, Node* n){
