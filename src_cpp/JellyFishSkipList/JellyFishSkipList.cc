@@ -304,6 +304,7 @@ while(!iterator.test){
 #endif	
 //			splice_index = RecomputeSpliceLevels(key, height,iterator.splice);	
 				delete nnode;
+				i =height-1;
 				break;   
 			}
 		}
