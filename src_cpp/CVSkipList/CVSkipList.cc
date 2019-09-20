@@ -19,7 +19,7 @@ string CVSkipList::Get(string key , Iterator iterator){
 void CVSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
     t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
-    cout<<"-----------------------------"<<endl;
+//    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
@@ -212,20 +212,20 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 
 	// enqueue a new node 
 	pthread_mutex_lock(&req_q.lock);
-	cout<<"--------------------------------"<<endl<<"nnode = "<<nnode<<endl;
+//	cout<<"--------------------------------"<<endl<<"nnode = "<<nnode<<endl;
 	req_q.push_back(nnode);
 	if(nnode != req_q.front()){
 //		if(nnode ->done)
 //			break;
-		cout<<"sleep_node = "<<nnode<<endl;
+/*		cout<<"sleep_node = "<<nnode<<endl;
 		pthread_cond_wait(&nnode->cond, &req_q.lock);
 		cout<<"wake_up_node =  "<<nnode<<endl;
-		cout<<"wake_up_node->done = "<<nnode->done<<endl;
+		cout<<"wake_up_node->done = "<<nnode->done<<endl;*/
 	}
 
 	// check if the request is finished 
 	if(nnode->done){
-		cout<<"return ( node = "<<nnode<<" ) "<<endl;
+//		cout<<"return ( node = "<<nnode<<" ) "<<endl;
 		pthread_mutex_unlock(&req_q.lock);
 		return true;
 	}
@@ -278,9 +278,9 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 
 		// wake up 
 		ready_node->done = true;
-		cout<<"finish_noode = "<<ready_node<<endl;
+/*		cout<<"finish_noode = "<<ready_node<<endl;
 		cout<<"last_node = "<<last_node<<endl;
-		cout<<"cnt = "<<++cnt<<endl;
+		cout<<"cnt = "<<++cnt<<endl;*/
 		pthread_cond_signal(&ready_node->cond);
 //		cout<<"ready_node = "<<ready_node<<endl;
 		pthread_mutex_unlock(&req_q.lock);

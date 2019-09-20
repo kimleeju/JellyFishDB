@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
 	if (argc < 4){
 		cout << "Usage: ./Run Options thread_count load_trc run_trc" << endl;
-		cout << "Options: BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
+		cout << "Options: BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
 		return -1;
 	}
 
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 		   cout<<"failed to check time"<<endl;
 		 */
 #endif
-		bm.load_trc();
+	bm.load_trc();
 	cout<<"IOPS = "<<bm.run_trc()<<endl;
 	//	cout<<bm.run_trc()<<endl;
 
