@@ -217,10 +217,7 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 	if(nnode != req_q.front()){
 //		if(nnode ->done)
 //			break;
-/*		cout<<"sleep_node = "<<nnode<<endl;
 		pthread_cond_wait(&nnode->cond, &req_q.lock);
-		cout<<"wake_up_node =  "<<nnode<<endl;
-		cout<<"wake_up_node->done = "<<nnode->done<<endl;*/
 	}
 
 	// check if the request is finished 
@@ -278,9 +275,6 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 
 		// wake up 
 		ready_node->done = true;
-/*		cout<<"finish_noode = "<<ready_node<<endl;
-		cout<<"last_node = "<<last_node<<endl;
-		cout<<"cnt = "<<++cnt<<endl;*/
 		pthread_cond_signal(&ready_node->cond);
 //		cout<<"ready_node = "<<ready_node<<endl;
 		pthread_mutex_unlock(&req_q.lock);
@@ -298,8 +292,7 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		pthread_cond_signal(&req_q.front()->cond);
 	}
 	pthread_mutex_unlock(&req_q.lock);
-	pthread_mutex_unlock(&mu_lock);
-out:
+//	pthread_mutex_unlock(&mu_lock);
   return true;
 }
 
