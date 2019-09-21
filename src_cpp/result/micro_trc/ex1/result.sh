@@ -9,7 +9,7 @@ for i in {1..10}; do
 	for cf in $CONF; do
 		for op in $OP; do
 			test=$op			
-			test+=$(cat ${cf}_$op.rslt | awk '{print $4}')
+			test+=$(cat ${cf}_$op.rslt | awk '{print '"$cf"', $4}')
 			echo $test
 		done
 	done	
