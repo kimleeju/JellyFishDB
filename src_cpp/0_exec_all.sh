@@ -11,18 +11,21 @@ th=$THREADS
 
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
-for cf in $CONF; do
-	for op in $OP; do
-		rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
-		echo "" > $rfname
-		for sk in $SKIPLISTS; do
+for i in {1..10}; do
+	for cf in $CONF; do
+		for op in $OP; do
+			rfname=result/micro_trc/ex$i/"$cf"_"$op".rslt 
+#			rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
+			echo "" > $rfname
+			for sk in $SKIPLISTS; do
 			
-			load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
-			run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
-			echo $load_trc
-			echo $run_trc
-			result=`./Run $sk $th $load_trc $run_trc` 
-			echo $sk $result >> $rfname
+				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
+				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
+				echo $load_trc
+				echo $run_trc
+				result=`./Run $sk $th $load_trc $run_trc` 
+				echo $sk $result >> $rfname
+			done
 		done
 	done
 done
