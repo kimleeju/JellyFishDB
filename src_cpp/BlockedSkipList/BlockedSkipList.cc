@@ -218,6 +218,7 @@ BlockedSkipList::BlockedSkipList()
 
 
 bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
+
  // Node* nnode = AllocateNode(key, value, RandomHeight());
   int height = RandomHeight();
   int max_height = max_height_.load(std::memory_order_relaxed);
@@ -249,6 +250,18 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
         seq_splice->prev_[i]->SetNext(i,nnode);
 
       }
+
+	// debug
+    iterator.Seek(key);
+    string get_value = iterator.Node()->Get_value();
+
+	if(get_value.compare(value) != 0)
+		cout << "insert: " << value << " returned " << get_value << endl;
+#if 0
+	string _value = Get(key, iterator);
+	if(_value.compare(value) != 0)
+		cout << "insert: " << value << " returned " << _value << endl;
+#endif
 
   //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
   //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;

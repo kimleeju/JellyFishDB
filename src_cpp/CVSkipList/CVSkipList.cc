@@ -209,15 +209,130 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 
 	// enqueue a new node 
 	pthread_mutex_lock(&req_q.lock);
-//	cout<<"--------------------------------"<<endl<<"nnode = "<<nnode<<endl;
+
 	req_q.push_back(nnode);
+	assert(nnode == req_q.front());
+	assert(!nnode->done);
+
+#if 0
 	while(nnode != req_q.front()){
+<<<<<<< HEAD
+=======
+	
+		pthread_cond_wait(&nnode->cond, &req_q.lock);
+
+>>>>>>> 9232caf169e9cdf028dd312b4864170e0ff24a77
 		if(nnode->done){
 			pthread_mutex_unlock(&req_q.lock);
 			return true;
 		}
 		pthread_cond_wait(&nnode->cond, &req_q.lock);
 	}
+#endif
+
+	// check if the request is finished 
+#if 0	
+	if(nnode->done){
+		cout<<"return ( node = "<<nnode<<" ) "<<endl;
+		pthread_mutex_unlock(&req_q.lock);
+		return true;
+	}
+#endif
+	Node* last_node = req_q.back();
+
+	while(true){
+		Node* ready_node = req_q.front();
+		assert(last_node == ready_node);
+
+		// insert a new node into the skip list 
+		int max_height = max_height_.load(std::memory_order_relaxed);
+			
+		if(ready_node->Get_height() > max_height){
+			max_height_ = ready_node->Get_height();
+			max_height = ready_node->Get_height();   
+ 		}
+   			
+		if(iterator.splice->height_ < max_height){
+      		iterator.splice->prev_[max_height] = head_;
+      		iterator.splice->next_[max_height] = nullptr;
+      		iterator.splice->height_ =max_height;
+   		}else{
+  			for(int i = 0; i<ready_node->Get_height() ; i++){
+	  			iterator.splice->prev_[i] = head_;
+	   			iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
+			}	
+  		}
+
+		if(ready_node->Get_height() > 0) {
+			RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(),iterator.splice);
+    	}
+
+		for(int i=0;i<ready_node->Get_height();++i){ 
+			ready_node->SetNext(i, iterator.splice->next_[i]);
+        	iterator.splice->prev_[i]->SetNext(i,ready_node);
+    	}
+
+		req_q.pop_front();
+
+		ready_node->done = true;	
+
+#if 0
+//		if(ready_node != last_node)
+		pthread_cond_signal(&ready_node->cond);
+
+//		cout<<"ready_node = "<<ready_node<<endl;
+		pthread_mutex_unlock(&req_q.lock);
+#endif
+		if(ready_node == last_node) {
+			break;
+		}
+//		pthread_mutex_unlock(&req_q.lock);
+	}
+
+	assert(req_q.empty());
+
+#if 0
+	// make the next thread progress 
+	pthread_mutex_lock(&req_q.lock);
+	if(!req_q.empty()){
+		pthread_cond_signal(&req_q.front()->cond);
+	}
+#endif
+
+	// debug
+	string _value = Get(key, iterator);
+	if(_value.compare(value) != 0)
+		cout << "insert: " << value << " returned " << _value << endl;
+
+
+	pthread_mutex_unlock(&req_q.lock);
+
+	return true;
+}
+
+#if 0
+
+bool CVSkipList::Insert(string key, string value, Iterator iterator)
+{
+	int height = RandomHeight();
+	Node* nnode = AllocateNode(key, value, height);
+	//std::deque<T> myreq_q;
+
+	// enqueue a new node 
+	pthread_mutex_lock(&req_q.lock);
+
+	req_q.push_back(nnode);
+
+#if 0
+	while(nnode != req_q.front()){
+		pthread_cond_wait(&nnode->cond, &req_q.lock);
+
+		if(nnode->done){
+			pthread_mutex_unlock(&req_q.lock);
+			return true;
+		}
+	}
+#endif
 
 	// check if the request is finished 
 #if 0	
@@ -228,15 +343,17 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 	}
 #endif
 
-#if 0
-	// process requset 
-	req_q.swap(myreq_q);
-#endif
 	pthread_mutex_unlock(&req_q.lock);
 	
 	Node* last_node = req_q.back();
+
 	while(true){
 		Node* ready_node = req_q.front();
+<<<<<<< HEAD
+=======
+//		pthread_mutex_unlock(&req_q.lock);
+
+>>>>>>> 9232caf169e9cdf028dd312b4864170e0ff24a77
 		// insert a new node into the skip list 
 		int max_height = max_height_.load(std::memory_order_relaxed);
 			
@@ -282,7 +399,6 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		if(ready_node == last_node) {
 			break;
 		}
-	
 //		pthread_mutex_unlock(&req_q.lock);
 	}
 
@@ -292,10 +408,10 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		pthread_cond_signal(&req_q.front()->cond);
 	}
 	pthread_mutex_unlock(&req_q.lock);
-//	pthread_mutex_unlock(&mu_lock);
-  return true;
+
+	return true;
 }
 
-
+#endif
 
 
