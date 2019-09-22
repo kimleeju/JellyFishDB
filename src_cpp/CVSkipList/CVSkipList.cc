@@ -17,7 +17,7 @@ string CVSkipList::Get(string key , Iterator iterator){
 
 
 void CVSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
-    t_global_committed.mlock.lock();
+//    t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
 //    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
@@ -28,7 +28,7 @@ void CVSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
 			return;
        	temp_=temp_->Next(0);
      } 
-    t_global_committed.mlock.unlock();
+//    t_global_committed.mlock.unlock();
 }
 
 

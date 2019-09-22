@@ -14,18 +14,18 @@ int BlockedSkipList::Put(string key, string value, Iterator iterator){
 
 
 string BlockedSkipList::Get(string key , Iterator iterator){
-    t_global_committed.mlock.lock();
+//    t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     iterator.Seek(key);
     string get_value = iterator.Node()->Get_value();
-    t_global_committed.mlock.unlock();
+//    t_global_committed.mlock.unlock();
     return get_value;
 }
     
 
 
 void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
-    t_global_committed.mlock.lock();
+//    t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
 //    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
@@ -36,7 +36,7 @@ void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator 
 			return;
        	temp_=temp_->Next(0);
     } 
-    t_global_committed.mlock.unlock();
+//    t_global_committed.mlock.unlock();
 }
 
 

@@ -1,5 +1,5 @@
 THREADS=16
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList SimpleSkipList"
+SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 
 TRC_DIR="../trc/micro_trc/backup10000trc/result"
 OP="put get range_query"
@@ -10,11 +10,11 @@ th=$THREADS
 
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
-#for i in {1..10}; do
+for i in {1..10}; do
 	for cf in $CONF; do
 		for op in $OP; do
-#			rfname=result/micro_trc/ex$i/"$cf"_"$op".rslt 
-			rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
+			rfname=result/micro_trc/ex$i/"$cf"_"$op".rslt 
+#			rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
 			echo "" > $rfname
 			for sk in $SKIPLISTS; do
 			
@@ -27,4 +27,4 @@ th=$THREADS
 			done
 		done
 	done
-#done
+done
