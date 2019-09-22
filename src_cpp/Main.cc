@@ -28,8 +28,12 @@ int main(int argc, char* argv[])
 
 	char *l_path = argv[3];
 	char *r_path = argv[4];
-	// cout << "type: " << type << endl;
-
+#if 0
+	// cout << "type: " << type << endl;:w
+	if(type == "BlockedCVSkipList"){
+		sl = new CVSkipList;
+	}
+#else
 	if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
 	}
@@ -49,6 +53,7 @@ int main(int argc, char* argv[])
 	else if(type == "SimpleSkipList"){
 		sl = new SimpleSkipList;
 	}
+#endif
 	else{
 		cout<< "failed to run"<<endl;
 		cout << "Usage: ./Run Options thread_count path" << endl;

@@ -6,6 +6,7 @@
 #include "../SkipList.h"
 #include "../Iterator.h"
 
+#include <assert.h>
 using namespace std;
 class CVSkipList : public SkipList{
 

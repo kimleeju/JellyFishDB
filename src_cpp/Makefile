@@ -11,6 +11,10 @@ CXXFLAGS=-std=c++11 -g -Wall \
 LDFLAGS=-pthread
 
 SRCS +=\
+	CVSkipList/CVSkipList.cc\
+	Bench/BenchManager.cc
+
+SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
 	CVSkipList/CVSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
@@ -18,6 +22,8 @@ SRCS +=\
 	JellyFishSkipList/JellyFishSkipList.cc\
 	SimpleSkipList/SimpleSkipList.cc\
 	Bench/BenchManager.cc
+
+
 
 OBJS = $(SRCS:.cc=.o)
 
