@@ -92,7 +92,6 @@ void *Bench::do_query_with_trace(int seq) {
 	t_arg->sl->GetEnv(seq);
 	for (unsigned int j = 0; j < t_arg->wl_th.size(); j++) {
 		set_op(t_arg->wl_th[j].getOp());
-		cout << "Op " <<  j << " is processed " << endl;
 //	cout<<"1111111"<endl;
 		if (get_op() == "put" || get_op() == "update") {
 			set_val(rand() % MAXVALUE);

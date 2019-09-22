@@ -23,8 +23,9 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
 //        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-	if(temp_->Next(0)!=nullptr)
-       	    temp_=temp_->Next(0);
+		if(temp_->Next(0)!=nullptr)
+			return;
+       	temp_=temp_->Next(0);
     } 
 }
 

@@ -32,10 +32,9 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 		else
 		{}
       //  	cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-		if(temp_->Next(0)!=nullptr)
-       	    temp_=temp_->Next(0);
-		else
+		if(temp_->Next(0)==nullptr)
 			return;
+       	temp_=temp_->Next(0);
     } 
 	return;
 }

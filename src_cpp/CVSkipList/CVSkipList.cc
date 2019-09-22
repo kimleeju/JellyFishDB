@@ -23,10 +23,11 @@ void CVSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-	if(temp_->Next(0)!=nullptr)
-       	    temp_=temp_->Next(0);
-    } 
+        //cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
+		if(temp_->Next(0)==nullptr)
+			return;
+       	temp_=temp_->Next(0);
+     } 
     t_global_committed.mlock.unlock();
 }
 
@@ -141,10 +142,6 @@ Node* after = before ->Next(level);
 }
 
 bool CVSkipList::KeyIsAfterNode(string key, Node* n){
- 	if(n == nullptr || key.length() < n->Get_key().length())
-		return  0;
-	else if ( key.length() > n->Get_key().length())
-		return 1;
 	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
 } 
 
@@ -162,7 +159,7 @@ Node* CVSkipList::AllocateNode(string key, string value, int height){
   //cout<<"x->Get_eky() = "<<x->Get_key()<<endl;
    Node* x = new Node(key,value,height);
 	x->done = false;
-	
+	pthread_cond_init(&x->cond,NULL);	
   // for(int i=0;i<height;i ++){
   //     x->SetNext(i,nullptr);
        //assert(x->Next(i));
@@ -215,12 +212,11 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 //	cout<<"--------------------------------"<<endl<<"nnode = "<<nnode<<endl;
 	req_q.push_back(nnode);
 	while(nnode != req_q.front()){
-		pthread_cond_wait(&nnode->cond, &req_q.lock);
 		if(nnode->done){
-			cout<<"return ( node = "<<nnode<<" ) "<<endl;
 			pthread_mutex_unlock(&req_q.lock);
 			return true;
 		}
+		pthread_cond_wait(&nnode->cond, &req_q.lock);
 	}
 
 	// check if the request is finished 
@@ -238,12 +234,9 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 #endif
 	pthread_mutex_unlock(&req_q.lock);
 	
-//	pthread_mutex_lock(&mu_lock);
 	Node* last_node = req_q.back();
 	while(true){
-//		pthread_mutex_lock(&req_q.lock);
 		Node* ready_node = req_q.front();
-//		pthread_mutex_unlock(&req_q.lock);
 		// insert a new node into the skip list 
 		int max_height = max_height_.load(std::memory_order_relaxed);
 			

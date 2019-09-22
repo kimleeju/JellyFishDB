@@ -1,6 +1,7 @@
 
-BlockedSpinSkipList IOPS = 561671
-ConcurrentSkipList IOPS = 2047502
-JDKSkipList IOPS = 1303441
-JellyFishSkipList IOPS = 3434065
-SimpleSkipList IOPS = 998601
+BlockedSpinSkipList IOPS = 392495
+BlockedCVSkipList IOPS = 628614
+ConcurrentSkipList IOPS = 1515151
+JDKSkipList IOPS = 3571428
+JellyFishSkipList IOPS = 3866976
+SimpleSkipList IOPS = 861103

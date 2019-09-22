@@ -35,7 +35,6 @@ int main(int argc, char* argv[])
 	}
 	else if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
-		//return 0;
 	}
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
@@ -70,9 +69,7 @@ int main(int argc, char* argv[])
 		   cout<<"failed to check time"<<endl;
 		 */
 #endif
-	cout << "load ..." << endl;
 	bm.load_trc();
-	cout << "run ..." << endl;
 	cout<<"IOPS = "<<bm.run_trc()<<endl;
 	//	cout<<bm.run_trc()<<endl;
 

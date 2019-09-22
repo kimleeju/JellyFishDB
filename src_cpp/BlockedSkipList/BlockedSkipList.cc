@@ -31,9 +31,10 @@ void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator 
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
-        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-	if(temp_->Next(0)!=nullptr)
-       	    temp_=temp_->Next(0);
+       // cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
+		if(temp_->Next(0)==nullptr)
+			return;
+       	temp_=temp_->Next(0);
     } 
     t_global_committed.mlock.unlock();
 }
