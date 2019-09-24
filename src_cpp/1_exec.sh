@@ -11,11 +11,11 @@ th=$THREADS
 
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
-for i in {1..10}; do
+=for i in {1..10}; do
 	for cf in $CONF; do
 		for op in $OP; do
 			rfname=$RSLT_DIR/"$cf"_"$op"_"$i".rslt 
-#			rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
+		#	rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
 			echo "" > $rfname
 			for sk in $SKIPLISTS; do
 			

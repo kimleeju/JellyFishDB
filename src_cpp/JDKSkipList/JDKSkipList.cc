@@ -167,7 +167,7 @@ int JDKSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
 }
 
 
-void JDKSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
+void JDKSkipList::FindSpliceForLevel(string key, int level, int cur_level, Node** sp_prev, Node** sp_next, Node* before){
 /*Node* after = before ->Next(level);
     while(true){
         if(!KeyIsAfterNode(key, after)){

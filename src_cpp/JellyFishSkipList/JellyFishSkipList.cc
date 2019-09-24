@@ -158,8 +158,8 @@ JellyFishSkipList::Splice* JellyFishSkipList::AllocateSplice(){
 
 int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
-    for(int i =level -1  ;i>=0; --i){
-        FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i],before);
+    for(int i = max_height_ -1  ;i>=0; --i){
+        FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],before);
 		if(splice->next_[i]!=nullptr && (Comparator(key,splice->next_[i]->Get_key())==0)){
 			return i;	
 		}
@@ -167,19 +167,21 @@ int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, Splice* spl
 	return 0;
 }
 
-void JellyFishSkipList::FindSpliceForLevel(string key, int level, Node** sp_prev, Node** sp_next, Node* before){
-    Node* after = before ->Next(level);
+void JellyFishSkipList::FindSpliceForLevel(string key, int level, int cur_level,  Node** sp_prev, Node** sp_next, Node* before){
+    Node* after = before ->Next(cur_level);
    while(true){
 	
      if(!KeyIsAfterNode(key, after)){
-            *sp_prev = before;
+        if(level >= cur_level){
+		    *sp_prev = before;
             *sp_next = after;
-            return;
+		}
+        return;
         }
         before = after;
         if(after != nullptr){
-            after = after->Next(level);
-	}
+            after = after->Next(cur_level);
+		}
     }
 }
 
@@ -242,22 +244,23 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
   int max_height = max_height_.load(std::memory_order_relaxed);
 
    while(height > max_height){
-     if(max_height_.compare_exchange_weak(max_height, height)){
-	max_height = height;
-	 break;
+   		if(max_height_.compare_exchange_weak(max_height, height)){
+			max_height = height;
+	 	break;
      }	
   } 
 	 
-  if(iterator.splice->height_ < max_height){
-      iterator.splice->prev_[max_height] = head_;
-      iterator.splice->next_[max_height] = nullptr;
-      iterator.splice->height_ =max_height;
+   if(iterator.splice->height_ < max_height){
+   		iterator.splice->prev_[max_height] = head_;
+      	iterator.splice->next_[max_height] = nullptr;
+      	iterator.splice->height_ =max_height;
    }
+
    else{
-	for(int i = 0; i<height ; i++){
-	   iterator.splice->prev_[i] = head_;
-	   iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
-	}
+		for(int i = 0; i<height ; i++){
+	   		iterator.splice->prev_[i] = head_;
+	   		iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
+		}
     }
 	
 	int splice_index;
@@ -265,7 +268,7 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
 		splice_index = RecomputeSpliceLevels(key, height,iterator.splice);
     }
 
-iterator.test = 0;
+	iterator.test = 0;
 while(!iterator.test){
 #if 0
 	if(iterator.splice->next_[splice_index]!=nullptr)
@@ -297,19 +300,20 @@ while(!iterator.test){
 		  			iterator.test = 1;
 		  			break;
 	   			}
-#if 1	
-				Node* before = head_;
-	 			FindSpliceForLevel(key, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
-#endif	
-//			splice_index = RecomputeSpliceLevels(key, height,iterator.splice);	
+#if 1			
+				Node* before = iterator.splice->prev_[i];
+	 			FindSpliceForLevel(key, height, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
+#endif
+//				splice_index = RecomputeSpliceLevels(key, i, iterator.splice);
+				++cnt;
 				delete nnode;
-				i =height-1;
+			//	i =height-1;
 				break;   
 			}
 		}
      }
   }
 
-   return true;
+  return true;
      
 }
