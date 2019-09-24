@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#infile="ex5/put.rslt ex5/get.rslt ex5/range_query.rslt"
-infile=$1
+infile="ex5/put.rslt ex5/get.rslt ex5/range_query.rslt"
+#infile=$1
 declare -a array
 
 array=(`cat $infile`)
