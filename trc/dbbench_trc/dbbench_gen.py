@@ -13,7 +13,7 @@ def gen(op_type, op_num, threads):
 	ofile = open(fname, "w")
 
 	if op_type == "put":
-		ofile.write("put" + " " + str(0) + "\n")
+		ofile.write("0 put" + " " + str(0) + "\n")
 	else:
 		n = 0
 		while n < threads: 
