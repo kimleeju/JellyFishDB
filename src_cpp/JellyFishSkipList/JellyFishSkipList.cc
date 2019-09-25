@@ -286,18 +286,20 @@ while(!iterator.test){
 		  		iterator.test = 1;
 				break;
 	      }
+			++cnt;
 		}
     }
     
      else{
+		Node* nnode = AllocateNode(key, value, height);
 		for(int i = 0; i < height ; ++i){
-			Node* nnode = AllocateNode(key, value, height);
 			while(true){
 				nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
 				nnode->Set_vqueue(AllocateVNode(value));
 				if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
 		  			//success
-		  			iterator.test = 1;
+					if(i==height-1)
+		  				iterator.test = 1;
 		  			break;
 	   			}
 #if 1			
@@ -307,7 +309,7 @@ while(!iterator.test){
 //				splice_index = RecomputeSpliceLevels(key, i, iterator.splice);
 				++cnt;
 				delete nnode;
-			//	i =height-1;
+				i =height-1;
 				break;   
 			}
 		}

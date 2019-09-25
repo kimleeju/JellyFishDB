@@ -4,6 +4,7 @@
 #include "BlockedSkipList/BlockedSkipList.h"
 #include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
+#include "StrideSkipList/StrideSkipList.h"
 #include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
 #include "SimpleSkipList/SimpleSkipList.h"
@@ -42,6 +43,9 @@ int main(int argc, char* argv[])
 	}
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
+	}
+	else if(type == "StrideSkipList"){
+		sl = new StrideSkipList;
 	}
 	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);

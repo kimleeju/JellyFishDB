@@ -1,13 +1,13 @@
-#include  "ConcurrentSkipList.h"
+#include  "StrideSkipList.h"
 
-int ConcurrentSkipList::Put(string key, string value, Iterator iterator){
+int StrideSkipList::Put(string key, string value, Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
     return 0;
 }
 
 
-string ConcurrentSkipList::Get(string key, Iterator iterator){
+string StrideSkipList::Get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Seek(key);
     string get_value = iterator.Node()->Get_value();
@@ -16,22 +16,20 @@ string ConcurrentSkipList::Get(string key, Iterator iterator){
 
 
 
-void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterator){
+void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     t_global_committed.get_and_inc();
 //    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
 //        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-		if(temp_->Next(0)!=nullptr)
+		if(temp_->Get_stride_next()!=nullptr)
 			return;
-		if(temp_->Next(0)->Get_key() == temp_->Get_key())
-			i++;
-       	temp_=temp_->Next(0);
+       	temp_=temp_->Get_stride_next();
     } 
 }
 
-Node* ConcurrentSkipList::FindLast(){
+Node* StrideSkipList::FindLast(){
     Node* x = head_;
     int level = kMaxHeight_ - 1;
     while(true){
@@ -50,7 +48,7 @@ Node* ConcurrentSkipList::FindLast(){
     }
 }
 
-Node* ConcurrentSkipList::FindLessThan(string key, Node** prev){
+Node* StrideSkipList::FindLessThan(string key, Node** prev){
     int level = kMaxHeight_ -1 ;
     Node* x = head_;
     Node* last_not_after = nullptr;
@@ -74,7 +72,7 @@ Node* ConcurrentSkipList::FindLessThan(string key, Node** prev){
     }
 }
 
-Node* ConcurrentSkipList::FindGreaterorEqual(string key){
+Node* StrideSkipList::FindGreaterorEqual(string key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
@@ -97,7 +95,7 @@ Node* ConcurrentSkipList::FindGreaterorEqual(string key){
  
 
 
-ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
+StrideSkipList::Splice* StrideSkipList::AllocateSplice(){
    /* size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
     char* raw = new char[sizeof(Splice) + array_size*2];
     Splice* splice = reinterpret_cast<Splice*>(raw);
@@ -112,7 +110,7 @@ ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
    return splice;
 }
 
-int ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int StrideSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
     Node* before = head_;
     for(int i =max_height_-1  ;i>=0; --i){
         FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],before);
@@ -121,7 +119,7 @@ int ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, Splice* spl
 }
 
 
-void ConcurrentSkipList::FindSpliceForLevel(string key, int level,  int cur_level, Node** sp_prev, Node** sp_next, Node* before){
+void StrideSkipList::FindSpliceForLevel(string key, int level,  int cur_level, Node** sp_prev, Node** sp_next, Node* before){
 	 Node* after = before ->Next(cur_level);
    while(true){
 	
@@ -139,7 +137,7 @@ void ConcurrentSkipList::FindSpliceForLevel(string key, int level,  int cur_leve
     }
 }
 
-int ConcurrentSkipList::Comparator(string key1, string key2){
+int StrideSkipList::Comparator(string key1, string key2){
 #if 0	
 	if(key1.length() < key2.length())
 		return  -1;
@@ -150,7 +148,7 @@ int ConcurrentSkipList::Comparator(string key1, string key2){
 	return key1.compare(key2);
 }
 
-bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
+bool StrideSkipList::KeyIsAfterNode(string key, Node* n){
 #if 0
 	if(n == nullptr || key.length() < n->Get_key().length())
 		return  0;
@@ -169,7 +167,7 @@ bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
 }
 
 
-Node* ConcurrentSkipList::AllocateNode(string key, string value, int height){
+Node* StrideSkipList::AllocateNode(string key, string value, int height){
    /*auto prefix = sizeof(Node*) * (height);
    char* raw = new char [prefix  + sizeof(Node*)+sizeof(Node)];
    Node* x = reinterpret_cast<Node*>(raw + prefix);
@@ -186,7 +184,7 @@ Node* ConcurrentSkipList::AllocateNode(string key, string value, int height){
    return x;
 }
 
-int ConcurrentSkipList::RandomHeight(){
+int StrideSkipList::RandomHeight(){
    int height, balancing, pivot;
    balancing =2 ;
    height = 1;
@@ -197,7 +195,7 @@ int ConcurrentSkipList::RandomHeight(){
    return height;
 }
 
-ConcurrentSkipList::ConcurrentSkipList()
+StrideSkipList::StrideSkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
     srand((unsigned)time(NULL));
 
@@ -209,7 +207,7 @@ ConcurrentSkipList::ConcurrentSkipList()
 
 
 
-bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator){
+bool StrideSkipList::Insert(string key, string value, Iterator iterator){
   //Node* nnode = AllocateNode(key, value, RandomHeight());
 //  Splice* splice = AllocateSplice();
 	int height = RandomHeight();
@@ -256,10 +254,12 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator){
 			 ++cnt;
 		}
 	}
-
-
-
-
+	
+	while(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key){
+		iterator.splice->next_[0] = iterator.splice->next_[0]->Next(0);
+	}
+	nnode->Set_stride_next(iterator.splice->next_[0]);
+	//Set_stride_next(nullptr);
   //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
   //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
   //cout<<"height = "<<height<<endl;

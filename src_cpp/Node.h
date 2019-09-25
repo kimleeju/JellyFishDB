@@ -161,6 +161,17 @@ public:
 	return vqueue_num;
   }
  #endif
+
+ #ifdef STRIDE_SKIPLIST_H
+	void Set_stride_next(Node* next){
+		stride_next = next;
+	}
+	
+	Node* Get_stride_next(){
+		return stride_next;
+	}
+ #endif
+
   
   Node(string key_, string value_,int height_): str_value(value_), height(height_){
 //	cout<<"key_ = "<<key_.capacity()<<endl;
@@ -181,8 +192,12 @@ public:
 	//prefix = (atomic<Node*>)malloc(sizeof(Node*) * height);
 	#ifdef JELLYFISH_SKIPLIST_H
 //	 vqueue=nullptr;
-	 vqueue_num = 0;
+	 	vqueue_num = 0;
 	#endif	
+	
+	#ifdef STRIDE_SKIPLIST_H
+		stride_next =nullptr;
+	#endif
 	
 }
 
@@ -206,6 +221,11 @@ private:
    VNode* vqueue;
    int vqueue_num;
   #endif
+  
+  #ifdef STRIDE_SKIPLIST_H
+   Node* stride_next;
+  #endif
+
 
 public:
   #ifdef CV_SKIPLIST_H

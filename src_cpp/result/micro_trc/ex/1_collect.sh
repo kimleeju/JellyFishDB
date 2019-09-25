@@ -1,6 +1,6 @@
 operations="put get range_query"
 exercise="ex1 ex2 ex3 ex4 ex5 ex6 ex7 ex8 ex9 ex10"
-skewness="uni zipf_1.2 zipf_1.4 zipf_1.6 zipf_1.8 zipf_2.0"
+skewness="uni zipf_1.4"
 #skiplist="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 skiplist="2 3 4 5 6 7"
 

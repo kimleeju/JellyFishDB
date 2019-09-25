@@ -3,7 +3,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList 
 
 TRC_DIR="../trc/micro_trc/backup10000trc/result"
 OP="put get range_query"
-CONF="uni zipf_1.2 zipf_1.4 zipf_1.6 zipf_1.8 zipf_2.0"
+CONF="uni zipf_1.4"
 RSLT_DIR="./perf_result"
 
 
@@ -11,11 +11,14 @@ th=$THREADS
 
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
-=for i in {1..10}; do
+for i in {1..10}; do
 	for cf in $CONF; do
 		for op in $OP; do
-			rfname=$RSLT_DIR/"$cf"_"$op"_"$i".rslt 
+		#	rfname=$RSLT_DIR/"$cf"_"$op"_"$i".rslt 
 		#	rfname=result/micro_trc/10000trc/"$cf"_"$op".rslt 
+		
+			rfname=result/micro_trc/ex"$i"/"$cf"_"$op".rslt 
+			echo "" > $rfname
 			echo "" > $rfname
 			for sk in $SKIPLISTS; do
 			
