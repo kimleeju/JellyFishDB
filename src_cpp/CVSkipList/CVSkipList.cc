@@ -118,9 +118,9 @@ Node* CVSkipList::FindGreaterorEqual(string key){
     
 
 
-int CVSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int CVSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
     Node* before = head_;
-    for(int i =max_height_ -1  ;i>=0; --i){
+    for(int i =max_height_ -1  ;i>=low; --i){
         FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],before);
     }
 	return 0;
@@ -257,7 +257,7 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
   		}
 
 		if(ready_node->Get_height() > 0) {
-			RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(),iterator.splice);
+			RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(), 0, iterator.splice);
     	}
 
 		for(int i=0;i<ready_node->Get_height();++i){ 

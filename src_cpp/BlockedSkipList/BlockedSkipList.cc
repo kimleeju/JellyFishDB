@@ -126,9 +126,9 @@ Node* BlockedSkipList::FindGreaterorEqual(string key){
     
 
 
-int BlockedSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int BlockedSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
     Node* before = head_;
-    for(int i =max_height_ -1  ;i>=0; --i){
+    for(int i =max_height_ -1  ;i>=low; --i){
         FindSpliceForLevel(key, level, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);
     }
 	return 0;
@@ -242,7 +242,7 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
         }
     }
      if(height > 0){
-        RecomputeSpliceLevels(key, height);
+        RecomputeSpliceLevels(key, height, 0);
     }
    
      Node* nnode = AllocateNode(key, value, height);

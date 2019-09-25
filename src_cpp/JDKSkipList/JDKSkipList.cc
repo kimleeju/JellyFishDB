@@ -158,7 +158,7 @@ Node* JDKSkipList::FindGreaterorEqual(string key){
     
 
 
-int JDKSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int JDKSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
    /* Node* before = head_;
     for(int i =level -1  ;i>=0; --i){
         FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i],before);

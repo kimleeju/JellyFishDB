@@ -23,7 +23,7 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     Node* temp_ = iterator.Node();
       for(int i=count; i > 0; --i) {
 //        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-		if(temp_->Get_stride_next()!=nullptr)
+		if(temp_->Get_stride_next()==nullptr)
 			return;
        	temp_=temp_->Get_stride_next();
     } 
@@ -110,9 +110,9 @@ StrideSkipList::Splice* StrideSkipList::AllocateSplice(){
    return splice;
 }
 
-int StrideSkipList::RecomputeSpliceLevels(string key, int level, Splice* splice){
+int StrideSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
     Node* before = head_;
-    for(int i =max_height_-1  ;i>=0; --i){
+    for(int i =max_height_-1  ;i>=low; --i){
         FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],before);
     }
 	return 0;
@@ -233,7 +233,7 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 	Node* nnode = AllocateNode(key, value, height);
 
 	if(nnode->Get_height() > 0) {
-		RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(),iterator.splice);
+		RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(), 0,iterator.splice);
     }
     
 	for(int i=0; i<height ; i++){
@@ -243,8 +243,10 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 				//success
 				break;
 			}
+			
+			RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(), 0,iterator.splice);
 //			goto retry;
-#if 1 
+#if 0 
 	  		 Node* before = iterator.splice->prev_[i];
 			 FindSpliceForLevel(key, height, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
 #endif
