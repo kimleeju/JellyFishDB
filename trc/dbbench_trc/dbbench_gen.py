@@ -13,13 +13,13 @@ def gen(op_type, op_num, threads):
 	ofile = open(fname, "w")
 
 	if op_type == "put":
-		ofile.write("0 put" + " " + str(0) + "\n")
+		ofile.write("1 put" + " " + str(0) + "\n")
 	else:
 		n = 0
 		while n < threads: 
 			k = 0
 			for w in workload:
-				ofile.write(str(k % threads) + " put" + " " + str(w) + "\n")
+				ofile.write(str(k % threads + 1) + " put" + " " + str(w) + "\n")
 				k += 1
 			n += 1
 			random.shuffle(workload)
@@ -35,7 +35,7 @@ def gen(op_type, op_num, threads):
 	while n < threads:
 		k = 0
 		for w in workload:
-			ofile.write(str(k % threads) + " " + op_type + " " + str(w) + "\n")
+			ofile.write(str(k % threads + 1) + " " + op_type + " " + str(w) + "\n")
 			k += 1
 
 		n += 1
