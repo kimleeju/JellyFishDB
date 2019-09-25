@@ -1,5 +1,6 @@
 THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
+SKIPLISTS="StrideSkipList"
 
 TRC_DIR="../trc/micro_trc/backup10000trc/result"
 OP="put get range_query"
