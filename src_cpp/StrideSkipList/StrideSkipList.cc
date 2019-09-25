@@ -255,10 +255,15 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 		}
 	}
 	
+#if 0	
 	while(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key){
 		iterator.splice->next_[0] = iterator.splice->next_[0]->Next(0);
-	}
-	nnode->Set_stride_next(iterator.splice->next_[0]);
+	i}
+#endif
+	if(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key)
+		nnode->Set_stride_next(iterator.splice->next_[0]->Get_stride_next());
+	else
+		nnode->Set_stride_next(iterator.splice->next_[0]);
 	//Set_stride_next(nullptr);
   //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
   //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
