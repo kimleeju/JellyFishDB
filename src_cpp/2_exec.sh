@@ -1,5 +1,5 @@
 THREADS=16
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
+SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList"
 
 #SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
 
@@ -26,8 +26,8 @@ th=$THREADS
 			
 				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
-				echo $load_trc
-				echo $run_trc
+				echo "$load_trc"_"$sk"
+				echo "$run_trc"_"$sk"
 				result=`./Run $sk $th $load_trc $run_trc` 
 	#			echo $sk $result
 				echo $sk $result >> $rfname
