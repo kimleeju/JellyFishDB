@@ -27,7 +27,7 @@ public:
     Node* FindLessThan(string key, Node** prev);
     Node* FindEqual(string key);
     Node* FindGreaterorEqual(string key);
-    int RecomputeSpliceLevels(string key, int level, int low,Splice* splice);
+	int RecomputeSpliceLevels(string key, int level, int low,Splice* splice);
     void FindSpliceForLevel(string key, int level, int cur_level,Node** sp_prev, Node** sp_next, Node* before);
 	int Comparator(string key1, string key2); 
      bool KeyIsAfterNode(string key, Node* n);

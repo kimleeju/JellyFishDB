@@ -12,7 +12,7 @@
 #include "Bench/BenchManager.h"
 
 using namespace std;
-
+#if 1
 
 int main(int argc, char* argv[])
 { 	
@@ -89,4 +89,27 @@ int main(int argc, char* argv[])
 
 
 
+#endif
+#if 0
 
+int main(){
+	SkipList *sl;
+	Iterator* it;
+	int seq;
+	sl = new ConcurrentSkipList;
+	it = new Iterator(sl,seq);
+	sl->Put("aaaaaaaa", "111", *it);
+
+	sl->Put("aaaaaaaa", "222", *it);
+
+	sl->Put("aaaaaaaa", "333", *it);
+
+	sl->Put("aaaaaaaa", "444", *it);
+
+	sl->Put("aaaaaaaa", "555", *it);
+
+	sl->Put("aaaaaaaa", "666", *it);
+
+	cout<<sl->Get("aaaaaaaa", *it)<<endl;
+}
+#endif

@@ -117,7 +117,6 @@ void *Bench::do_query_with_trace(int seq) {
 			}
 		}
 		else if (get_op() == "range_query") {
-
 			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),*iterator);
 			//mmap = t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt());
 			multimap<string, string>::iterator iter;

@@ -21,12 +21,21 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
 //    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
+	//cout<<"count = "<<count<<endl;
       for(int i=count; i > 0; --i) {
 //        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-		if(temp_->Get_stride_next()==nullptr)
-			return;
-       	temp_=temp_->Get_stride_next();
-    } 
+		cout<<"temp_->Get_stride_next() = "<<temp_->Get_stride_next()<<endl;
+		if(temp_->Get_stride_next()==nullptr){
+			if(temp_->Next(0)==nullptr);
+				return;
+			temp_=temp_->Next(0);
+		}
+		else{
+			cout<<"aaaaaaa"<<endl;
+       		temp_=temp_->Get_stride_next();
+    	}
+	} 
+	
 }
 
 Node* StrideSkipList::FindLast(){
@@ -111,10 +120,12 @@ StrideSkipList::Splice* StrideSkipList::AllocateSplice(){
 }
 
 int StrideSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
-    Node* before = head_;
-    for(int i =max_height_-1  ;i>=low; --i){
-        FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],before);
-    }
+    for(int i = MAX_LEVEL-1  ;i>=low; --i){	
+		if(i==MAX_LEVEL-1)
+        	FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],head_);
+		else
+			FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
+	 }
 	return 0;
 }
 
@@ -124,16 +135,12 @@ void StrideSkipList::FindSpliceForLevel(string key, int level,  int cur_level, N
    while(true){
 	
      if(!KeyIsAfterNode(key, after)){
-		if(level >= cur_level){
             *sp_prev = before;
             *sp_next = after;
-		}	
         return;
      }
         before = after;
-        if(after != nullptr){
             after = after->Next(cur_level);
-	}
     }
 }
 
@@ -263,9 +270,10 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 	i}
 #endif
 	if(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key)
-		nnode->Set_stride_next(iterator.splice->next_[0]->Get_stride_next());
-	else
-		nnode->Set_stride_next(iterator.splice->next_[0]);
+	{	nnode->Set_stride_next(iterator.splice->next_[0]);
+	}
+	//else
+	//	nnode->Set_stride_next(iterator.splice->next_[0]);
 	//Set_stride_next(nullptr);
   //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
   //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;

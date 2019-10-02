@@ -186,9 +186,11 @@ public:
 //	str_value = value_;
 //	height = height_;
 	prefix = new std::atomic<Node*> [height];
-//	for(int i=0;i<height;i++){
-//		prefix[i] = nullptr;
-//	}
+	for(int i=0;i<height;i++){
+		(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
+	}
+	
+  //  (&next_[0] - n)->store(x, std::memory_order_relaxed);
 	//prefix = (atomic<Node*>)malloc(sizeof(Node*) * height);
 	#ifdef JELLYFISH_SKIPLIST_H
 //	 vqueue=nullptr;

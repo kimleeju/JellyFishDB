@@ -157,32 +157,31 @@ JellyFishSkipList::Splice* JellyFishSkipList::AllocateSplice(){
 }
 
 int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, int low, Splice* splice){
-	for(int i = MAX_LEVEL -1  ;i>=low; --i){
-		if(i==MAX_LEVEL -1 )
-        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],head_);
-		else	
-        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
-				
+    Node* before = head_;
+    for(int i = max_height_ -1  ;i>=low; --i){
+        FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],before);
 		if(splice->next_[i]!=nullptr && (Comparator(key,splice->next_[i]->Get_key())==0)){
-			//cnt++;
 			return i;	
-		}	
+		}
 	}
 	return 0;
 }
 
 void JellyFishSkipList::FindSpliceForLevel(string key, int level, int cur_level,  Node** sp_prev, Node** sp_next, Node* before){
     Node* after = before ->Next(cur_level);
-	while(true){
+   while(true){
 	
      if(!KeyIsAfterNode(key, after)){
-		*sp_prev = before;
-     	*sp_next = after;
-		return;
-     }
-		before = after;		
-        after = after->Next(cur_level);	
-		
+        if(level >= cur_level){
+		    *sp_prev = before;
+            *sp_next = after;
+		}
+        return;
+        }
+        before = after;
+        if(after != nullptr){
+            after = after->Next(cur_level);
+		}
     }
 }
 
@@ -268,34 +267,30 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
     if(height > 0) {
 		splice_index = RecomputeSpliceLevels(key, height, 0,iterator.splice);
     }
+
 	iterator.test = 0;
-	
 while(!iterator.test){
-    if(iterator.splice->next_[splice_index]!=nullptr && iterator.splice->next_[splice_index]->Get_key() == key){	
+    if(iterator.splice->next_[splice_index]!=nullptr && iterator.splice->next_[splice_index]->Get_key() == key){
 		VNode* nnode = AllocateVNode(value);
 	     while(true){
-			if(iterator.splice->next_[splice_index]->Get_vqueue_num()==0){
-				iterator.splice->next_[splice_index]->Set_vqueue(nnode);
-				iterator.test = 1;
-				break;
-			}
-			else{	
+			if(iterator.splice->next_[splice_index]->Get_vqueue_num()!=0)	
 				nnode->NoBarrier_SetNext(iterator.splice->next_[splice_index]->Get_vqueue()->NoBarrier_Next());
-		 		if(iterator.splice->next_[splice_index]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
-					iterator.splice->next_[splice_index]->Set_vqueue_num();
-		  			iterator.test = 1;
-					break;
-	      		}
-			}
-//			++cnt;
+		 	if(iterator.splice->next_[splice_index]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
+				iterator.splice->next_[splice_index]->Set_vqueue_num();
+			//iterator.splice->next_[0]->Set_vqueue(nnode);	
+		  		iterator.test = 1;
+				break;
+	      }
+			++cnt;
 		}
-    } 
+    }
+   #if 0 
      else{
 		Node* nnode = AllocateNode(key, value, height);
-		
 		for(int i = 0; i < height ; ++i){
 			while(true){
 				nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
+				nnode->Set_vqueue(AllocateVNode(value));
 				if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
 		  			//success
 					if(i==height-1)
@@ -303,16 +298,50 @@ while(!iterator.test){
 		  			break;
 	   			}
 				splice_index = RecomputeSpliceLevels(key, height, i,iterator.splice);
-				if(i==0){	
-					i= height;
-					break;
-				}
-//				delete nnode;
-				
+				cout<<"splice_indx = "<<splice_index<<endl;
+#if 0			
+				Node* before = iterator.splice->prev_[i];
+	 			FindSpliceForLevel(key, height, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
+#endif
+//				splice_index = RecomputeSpliceLevels(key, i, iterator.splice);
+				++cnt;
+				delete nnode;
+				i =height-1;
+				break;   
+			}
+		}
+     }
+	#endif
+
+
+
+	
+     else{
+		Node* nnode = AllocateNode(key, value, height);
+		for(int i = 0; i < height ; ++i){
+			while(true){
+				nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
+				nnode->Set_vqueue(AllocateVNode(value));
+				if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
+		  			//success
+					if(i==height-1)
+		  				iterator.test = 1;
+		  			break;
+	   			}
+				splice_index = RecomputeSpliceLevels(key, height, i,iterator.splice);
+				cout<<"splice_indx = "<<splice_index<<endl;
+#if 0			
+				Node* before = iterator.splice->prev_[i];
+	 			FindSpliceForLevel(key, height, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
+#endif
+//				splice_index = RecomputeSpliceLevels(key, i, iterator.splice);
+				++cnt;
+				delete nnode;
+				i =height-1;
+				break;   
 			}
 		}
      }
   }
-	
   return true; 
 }
