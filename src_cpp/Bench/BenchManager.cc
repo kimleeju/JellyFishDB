@@ -39,14 +39,16 @@ void Workloads::save_workloads(vector<vector<Workloads> > &v, char *p){
 					if (cnt == 1) { th.setTid(stoi(temp)); sindex = sindex + eindex + 1; eindex = 0; }
 					else if (cnt == 2) { th.setOp(temp); sindex = sindex + eindex + 1; eindex = 0; }
 					else if (cnt == 3) { th.setKey(temp); sindex = sindex + eindex + 1; eindex = 0; }
-					else if (cnt == 4) {
+					else if (cnt == 4) {				
+						//cout<<"before count = "<<th.getCnt()<<endl;
 						th.setCnt(stoi(temp)); sindex = sindex + eindex + 1; eindex = 0;
+	//					cout<<"after count = "<<th.getCnt()<<endl;
 					}
 					else { cnt = 0; break; }
 				}
 				else { eindex++; }
 			}
-			if (th.getOp() != "scan") { th.setCnt(0);  eindex = 0; }
+			if (th.getOp() != "range_query") { th.setCnt(0);  eindex = 0; }
 
 			for (unsigned int i = 0; i < v.size(); i++) {
 				// 비어있지 않고 tid가 같은 곳이 있으면 거기에 push back
@@ -117,6 +119,7 @@ void *Bench::do_query_with_trace(int seq) {
 			}
 		}
 		else if (get_op() == "range_query") {
+//			cout<<"count = "<<t_arg->wl_th[j].getCnt()<<endl;
 			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),*iterator);
 			//mmap = t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt());
 			multimap<string, string>::iterator iter;
