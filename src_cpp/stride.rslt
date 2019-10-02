@@ -1,0 +1,19 @@
+
+ConcurrentSkipList 1 put IOPS = 36380 , cnt = 0
+ConcurrentSkipList 1 get IOPS = 809061 , cnt = 0
+ConcurrentSkipList 1 range_query IOPS = 807102 , cnt = 0
+ConcurrentSkipList 2 put IOPS = 36415 , cnt = 13
+ConcurrentSkipList 2 get IOPS = 1279590 , cnt = 9
+ConcurrentSkipList 2 range_query IOPS = 1391788 , cnt = 2
+ConcurrentSkipList 4 put IOPS = 23491 , cnt = 10
+ConcurrentSkipList 4 get IOPS = 2392344 , cnt = 20
+ConcurrentSkipList 4 range_query IOPS = 2389486 , cnt = 12
+StrideSkipList 1 put IOPS = 39091 , cnt = 0
+StrideSkipList 1 get IOPS = 825763 , cnt = 0
+StrideSkipList 1 range_query IOPS = 766283 , cnt = 0
+StrideSkipList 2 put IOPS = 37293 , cnt = 5
+StrideSkipList 2 get IOPS = 1330671 , cnt = 8
+StrideSkipList 2 range_query IOPS = 1317523 , cnt = 9
+StrideSkipList 4 put IOPS = 24025 , cnt = 13
+StrideSkipList 4 get IOPS = 2123142 , cnt = 23
+StrideSkipList 4 range_query IOPS = 2419842 , cnt = 16
