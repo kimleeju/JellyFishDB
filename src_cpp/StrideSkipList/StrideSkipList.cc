@@ -21,21 +21,20 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
 //    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
-	//cout<<"count = "<<count<<endl;
-      for(int i=count; i > 0; --i) {
-//        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
-		cout<<"temp_->Get_stride_next() = "<<temp_->Get_stride_next()<<endl;
+    int i = count;
+	while(i>0){  
 		if(temp_->Get_stride_next()==nullptr){
 			if(temp_->Next(0)==nullptr);
 				return;
 			temp_=temp_->Next(0);
+			--i;
 		}
 		else{
-			cout<<"aaaaaaa"<<endl;
+//			cout<<"aaaaaa"<<endl;
        		temp_=temp_->Get_stride_next();
+			--i;
     	}
-	} 
-	
+	} 	
 }
 
 Node* StrideSkipList::FindLast(){
@@ -251,16 +250,7 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 				break;
 			}
 			
-			RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(), 0,iterator.splice);
-//			goto retry;
-#if 0 
-	  		 Node* before = iterator.splice->prev_[i];
-			 FindSpliceForLevel(key, height, i, &iterator.splice->prev_[i], &iterator.splice->next_[i], before);
-#endif
-		//	cout<<"111111111111111"<<endl;
-		//	RecomputeSpliceLevels(key, i, iterator.splice);
-		//		cout<<"2222222222222"<<endl;
-			 ++cnt;
+			RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(), i,iterator.splice);
 		}
 	}
 	
@@ -270,15 +260,9 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 	i}
 #endif
 	if(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key)
-	{	nnode->Set_stride_next(iterator.splice->next_[0]);
+	{	
+		nnode->Set_stride_next(iterator.splice->next_[0]);
 	}
-	//else
-	//	nnode->Set_stride_next(iterator.splice->next_[0]);
-	//Set_stride_next(nullptr);
-  //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
-  //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
-  //cout<<"height = "<<height<<endl;
-  //cout<<"max_height_ = "<<max_height_<<endl;
    return true;
      
 }

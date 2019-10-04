@@ -21,14 +21,21 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 //    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
-      for(int i=count; i > 0; --i) {
-//        cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
+    //  for(int i=count; i > 0; --i) {
+	int i = count;
+	while(i>0){
 		if(temp_->Next(0)==nullptr)
 			return;
-		if(temp_->Next(0)->Get_key() == temp_->Get_key())
-			i++;
+		if(temp_->Next(0)->Get_key() != temp_->Get_key()){
+			//cout<<temp_->Get_key()<<" -> ";
+			--i;
+		}
+		else{
+		//	++cnt;
+		}
        	temp_=temp_->Next(0);
-    } 
+    } 	
+//	cout<<endl;
 }
 
 Node* ConcurrentSkipList::FindLast(){
@@ -249,5 +256,6 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator){
 		}
 	}
    return true;
+	
      
 }

@@ -24,6 +24,7 @@ class SkipList {
 //protected:
 public:
 
+	    
     class Splice{
         public:
         int height_ =0;

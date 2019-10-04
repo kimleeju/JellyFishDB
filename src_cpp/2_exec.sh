@@ -3,7 +3,7 @@ THREADS=16
 
 SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 
-TRC_DIR="../trc/micro_trc/backup100000trc/result"
+TRC_DIR="../trc/micro_trc/backup10000trc/result"
 OP="put get range_query"
 CONF="uni  zipf_1.4"
 RSLT_DIR="./perf_result"

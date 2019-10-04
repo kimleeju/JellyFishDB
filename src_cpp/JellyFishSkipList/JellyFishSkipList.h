@@ -19,7 +19,6 @@ public:
     int Put(string key, string value, Iterator iterator);
     string Get(string key, Iterator iterator); 
 //    int remove(string key){};
-    
 public:
     void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();

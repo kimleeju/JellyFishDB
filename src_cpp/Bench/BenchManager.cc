@@ -42,13 +42,13 @@ void Workloads::save_workloads(vector<vector<Workloads> > &v, char *p){
 					else if (cnt == 4) {				
 						//cout<<"before count = "<<th.getCnt()<<endl;
 						th.setCnt(stoi(temp)); sindex = sindex + eindex + 1; eindex = 0;
-	//					cout<<"after count = "<<th.getCnt()<<endl;
+//						cout<<"after count = "<<th.getCnt()<<endl;
 					}
 					else { cnt = 0; break; }
 				}
 				else { eindex++; }
 			}
-			if (th.getOp() != "range_query") { th.setCnt(0);  eindex = 0; }
+//			if (th.getOp() != "range_query" || th.getOp() != "SEEK") { th.setCnt(0);  eindex = 0; }
 
 			for (unsigned int i = 0; i < v.size(); i++) {
 				// 비어있지 않고 tid가 같은 곳이 있으면 거기에 push back
@@ -95,9 +95,9 @@ void *Bench::do_query_with_trace(int seq) {
 	for (unsigned int j = 0; j < t_arg->wl_th.size(); j++) {
 		set_op(t_arg->wl_th[j].getOp());
 //	cout<<"1111111"<endl;
-		if (get_op() == "put" || get_op() == "update") {
+		if (get_op() == "put" || get_op() == "update"||get_op() == "PUT") {
 			set_val(rand() % MAXVALUE);
-			if (get_op() == "put") {
+			if (get_op() == "put" || get_op()=="PUT") {
 				t_arg->sl->Put(t_arg->wl_th[j].getKey(), to_string(get_val()), *iterator);
 			}
 		//	else if (get_op() == "update") {
@@ -109,7 +109,7 @@ void *Bench::do_query_with_trace(int seq) {
 				//else { cout << "[update fail]" << endl; }
 		//	}
 		}
-		else if (get_op() == "get") {
+		else if (get_op() == "get"||get_op()=="GET") {
 			set_rv(t_arg->sl->Get(t_arg->wl_th[j].getKey(), *iterator));
 			if (get_rv() == "not found") {
 				//printf("[not found key]\n");
@@ -118,7 +118,7 @@ void *Bench::do_query_with_trace(int seq) {
 				//printf("[get( %s  %s ) success]\n", t_arg->wl_th[j].getKey().c_str(), get_rv().c_str());
 			}
 		}
-		else if (get_op() == "range_query") {
+		else if (get_op() == "range_query"||get_op() == "SEEK") {
 //			cout<<"count = "<<t_arg->wl_th[j].getCnt()<<endl;
 			t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt(),*iterator);
 			//mmap = t_arg->sl->RangeQuery(t_arg->wl_th[j].getKey(), t_arg->wl_th[j].getCnt());
