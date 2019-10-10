@@ -25,6 +25,8 @@ class Thread{
 	protected:
 		virtual void *entry() = 0;
 	public:
+		Thread() : tid(0), pid(0){};
+		~Thread(){};
 
 		const pthread_t &get_tid() const {return tid;}
 		pid_t get_pid() const{return pid;}
@@ -40,9 +42,6 @@ class Thread{
 			assert(rv == 0);
 		}
 
-
-		Thread() : tid(0), pid(0){};
-		~Thread(){};
 };
 
 #endif

@@ -15,57 +15,43 @@
 
 #include <stdio.h>
 #include <cstring>
-#include <sstream>
 #define MAXVALUE 100
 using namespace std;
 
 
-struct Request {
+struct Req {
 	string op;
 	string key;
 
-	Request(string op, string key) : op(op), key(key) {}
+	Req(string op, string key) : key(k), op(op) {}
 };
 
 class Worker : public Thread {
 
 	SkipList *sl;
-	vector<Request> rqs;
-	int ops;
+	vector<Req> req;
 
-public:
-	void add_rq(Request rq) { rqs.push_back(rq); }
+	int do_query_with_trace(){}
 
-	void reset() { 
-		rqs.clear(); 
-		ops = 0;
-	}
-
-	void* do_query_with_trace();
-	void* entry() override {
-		return do_query_with_trace();
+	void *entry() override {
+		do_query_with_trace();
 	}
 
 public:
-	Worker(SkipList* sl) : sl(sl), ops(0) {}
-	~Worker() {}
+	Worker(SkipList* sl) : sl(sl) {};
 };
 
 
 class BenchManager 
 {
-	Timer timer;
-
 public:
 	int th; 
-	int tot_ops; 
-
-
 	SkipList *sl;
-	vector<Worker> workers;
+	Worker *workers;
 	
 	int _read_trc_file(string fname); // load req to thread vector 
 
+	int load_trc(string fname);
 	int run_trc(string fname);  // get time by using Thread
 	void get_stat();
 
@@ -73,11 +59,7 @@ public:
 		th(th),
 		sl(sl)
 	{
-
-		for(int i = 0; i < th; i++) {
-			Worker w(sl); 
-			workers.push_back(w);
-		}
+		workers = new Worker[th](sl);
 
 	} 
 };

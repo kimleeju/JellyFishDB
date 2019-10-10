@@ -1,4 +1,3 @@
-
 #ifndef SKIPLIST_H
 #define SKIPLIST_H
 #include<atomic>
@@ -17,6 +16,18 @@
 
 using namespace std;
 #define MAX_LEVEL 12 
+
+
+#define DEBUG(x) do {\
+	if(1) { std::cerr << x << std::endl; } \
+} while (0)
+
+
+//#define DEBUG(x) do {\
+//	if(0) { std::cerr << x << std::endl; } \
+//} while (0)
+//
+
 
 class Iterator;
 

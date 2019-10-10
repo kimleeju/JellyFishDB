@@ -5,7 +5,7 @@
 #include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
 #include "StrideSkipList/StrideSkipList.h"
-#include "JDKSkipList/JDKSkipList.h"
+//#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
 #include "SimpleSkipList/SimpleSkipList.h"
 //#include "Iterator.h"
@@ -26,9 +26,10 @@ int main(int argc, char* argv[])
 
 	string type = argv[1];
 	int thread_num = atoi(argv[2]);
+	char *load_trc_fname = argv[3];
+	char *run_trc_fname = argv[4];
 
-	char *l_path = argv[3];
-	char *r_path = argv[4];
+	int rv;
 #if 0
 	// cout << "type: " << type << endl;:w
 	if(type == "BlockedCVSkipList"){
@@ -48,7 +49,7 @@ int main(int argc, char* argv[])
 		sl = new StrideSkipList;
 	}
 	else if(type == "JDKSkipList"){
-		sl = new JDKSkipList(thread_num);
+//		sl = new JDKSkipList(thread_num);
 	}
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
@@ -65,22 +66,22 @@ int main(int argc, char* argv[])
 	} 
 
 	// create a bench manager 	
-	BenchManager bm(thread_num, l_path, r_path, sl);
+	BenchManager bm(thread_num, sl);
 
-	//bm.manage_wl();
-	//	cout<<"IOPS = "<<bm.run()<<endl;
-#if 0
-	=======
+	rv = bm.run_trc(load_trc_fname); 
+	if (rv < 0){
+		cout << "Failed to load trc" << endl;
+		return 0;
+	}
 
-		/*
-		   >>>>>>> 2f5d29caa9c1f9197581464219767605c356331c
-		   if(bm.run() == 1)
-		   cout<<"failed to check time"<<endl;
-		 */
-#endif
-	bm.load_trc(); 
-	cout<<"IOPS = "<<bm.run_trc()<<endl;	
-	cout<<", cnt = "<<sl->cnt<<endl;
+	rv = bm.run_trc(run_trc_fname);
+	if (rv < 0) {
+		cout << "Failed to load trc" << endl;
+		return 0;
+	}
+
+//	cout<<"IOPS = "<<bm.run_trc()<<endl;	
+//	cout<<", cnt = "<<sl->cnt<<endl;
 	//	cout<<bm.run_trc()<<endl;
 
 	return 0;

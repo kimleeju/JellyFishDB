@@ -1,10 +1,15 @@
-THREADS=16
+THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
+SKIPLISTS="JellyFishSkipList"
+#SKIPLISTS="SimpleSkipList"
 
-TRC_DIR="../trc/micro_trc/backup10000trc/result"
+TRC_DIR="../trc/micro_trc/backup100trc"
+#TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
+OP="put"
 CONF="uni zipf_1.4"
+CONF="uni"
 RSLT_DIR="./perf_result"
 
 
@@ -12,7 +17,7 @@ th=$THREADS
 
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
-for i in {1..10}; do
+for i in {1..1}; do
 	for cf in $CONF; do
 		for op in $OP; do
 		#	rfname=$RSLT_DIR/"$cf"_"$op"_"$i".rslt 
@@ -25,11 +30,10 @@ for i in {1..10}; do
 			
 				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
-				echo $load_trc
-				echo $run_trc
-				result=`./Run $sk $th $load_trc $run_trc` 
-				echo $sk $result >> $rfname
+				echo "./Run $sk $th $load_trc $run_trc"
+				./Run $sk $th $load_trc $run_trc
 			done
+			cat $rfname
 		done
 	done
 done
