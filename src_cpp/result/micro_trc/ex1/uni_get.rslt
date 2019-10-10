@@ -1,2 +1,12 @@
 
+<<<<<<< HEAD
 JellyFishSkipList
+=======
+BlockedSpinSkipList IOPS = 1816860 , cnt = 0
+BlockedCVSkipList IOPS = 2548419 , cnt = 0
+ConcurrentSkipList IOPS = 1053518 , cnt = 0
+StrideSkipList IOPS = 1827485 , cnt = 0
+JDKSkipList IOPS = 688420 , cnt = 0
+SimpleSkipList IOPS = 694155 , cnt = 0
+JellyFishSkipList IOPS = 4610419 , cnt = 0
+>>>>>>> 35967580b1026f41ab2e9f20c3ac8e86154081bd

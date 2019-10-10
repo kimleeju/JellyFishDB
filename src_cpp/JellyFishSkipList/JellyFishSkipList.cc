@@ -166,14 +166,18 @@ int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, int low, Sp
         	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],head_);
 		else	
         	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
-				
+#if 1	
+			
 		if(splice->next_[i]!=nullptr && (Comparator(key,splice->next_[i]->Get_key())==0)){
-	//		if( i != 0)
-	//			cnt++;
+		//	if( i != 0)
+//				++cnt;
 			return i;	
-		}	
+		}
+
+#endif
 	}
-	return 0;
+//	++cnt;
+	return -1;
 }
 
 void JellyFishSkipList::FindSpliceForLevel(string key, int level, int cur_level,  Node** sp_prev, Node** sp_next, Node* before){
@@ -185,6 +189,7 @@ void JellyFishSkipList::FindSpliceForLevel(string key, int level, int cur_level,
      	*sp_next = after;
 		return;
      }
+	//	++cnt;
 		before = after;		
         after = after->Next(cur_level);	
 		
@@ -275,33 +280,48 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator){
     }
 	
 	int splice_index;
-    if(height > 0) {
+    if(height > 0) {	
 		splice_index = RecomputeSpliceLevels(key, height, 0,iterator.splice);
     }
 	iterator.test = 0;
 	
+
 while(!iterator.test){
-    if(iterator.splice->next_[splice_index]!=nullptr && iterator.splice->next_[splice_index]->Get_key() == key){	
+		if(splice_index != -1){
+   // if(iterator.splice->next_[splice_index]!=nullptr && iterator.splice->next_[splice_index]->Get_key() == key){	
 		VNode* nnode = AllocateVNode(value);
-	     //while(true){
+	     while(true){
+
+#if 0
+			iterator.test = 1;
+			break;
+#endif
+
+#if 1
+		
 				if(iterator.splice->next_[splice_index]->Get_vqueue_num()==0){
-					nnode->NoBarrier_SetNext(nullptr);
+					//nnode->NoBarrier_SetNext(nullptr);
 					iterator.splice->next_[splice_index]->Set_vqueue(nnode);
 					iterator.test = 1;
+	//				++cnt;
 					break;
 				}
 				else{
-					while(true){
 						nnode->NoBarrier_SetNext(iterator.splice->next_[splice_index]->Get_vqueue()->NoBarrier_Next());
-		 				if(iterator.splice->next_[splice_index]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
+//		 				++cnt;
+						if(iterator.splice->next_[splice_index]->Get_vqueue()->CASNext(nnode->NoBarrier_Next(),nnode)){
 							iterator.splice->next_[splice_index]->Set_vqueue_num();
 		  					iterator.test = 1;
+//							++cnt;
 							break;
-	      				}
 			//	splice_index = RecomputeSpliceLevels(key, height, 0,iterator.splice);	
 					}
+//							++cnt;
 				}
-//			++cnt;
+#endif
+		}
+
+		//	++cnt;
 	}
 //		++cnt;
      
@@ -311,25 +331,27 @@ while(!iterator.test){
 		for(int i = 0; i < height ; ++i){
 			while(true){
 				nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
+//				++cnt;
 				if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
 		  			//success
 					if(i==height-1){
 		  				iterator.test = 1;
-		  				break;
+					//	++cnt;
 					}
+//					++cnt;
+					break;
 	   			}
+//			++cnt;
 				splice_index = RecomputeSpliceLevels(key, height, i,iterator.splice);
 				if(i==0){	
 					i= height;
 					break;
 				}
-//				delete nnode;
 				
 			}
 		}
      }
   }
 
-	
   return true; 
 }
