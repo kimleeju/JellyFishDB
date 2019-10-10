@@ -5,7 +5,7 @@ SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 
 TRC_DIR="../trc/micro_trc/backup10000trc/result"
 OP="put get range_query"
-CONF="uni  zipf_1.4"
+CONF="uni  zipf_1.4 duplicate"
 RSLT_DIR="./perf_result"
 
 

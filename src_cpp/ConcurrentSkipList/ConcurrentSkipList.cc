@@ -126,6 +126,7 @@ int ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, int low,  S
 		else
 			FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
 	 }
+//	++cnt;
 	return 0;
 }
 
@@ -139,6 +140,7 @@ void ConcurrentSkipList::FindSpliceForLevel(string key, int level,  int cur_leve
      	*sp_next = after;
         return;
      }
+		//++cnt;
         before = after;
         after = after->Next(cur_level);
 	}
@@ -247,10 +249,13 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator){
 	for(int i=0; i<height ; i++){
 		while(true){
 			nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);
+//			++cnt;
 			if(iterator.splice->prev_[i]->CASNext(i,iterator.splice->next_[i],nnode)){
 				//success
+//					++cnt;
 				break;
 			}	
+//				++cnt;
 			RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(),i,iterator.splice);
 	//		 ++cnt;
 		}
