@@ -50,7 +50,9 @@ void* Worker::do_query_with_trace()
 		return NULL;
 	}
 
-	Iterator iter(sl, 0);
+	Iterator *iter = new Iterator(sl, 0);
+	sl->SetThreadNum(th); // for JDK SkipList
+			
 	ops = 0;
 
 	for(vector<Request>::iterator p = rqs.begin(); p != rqs.end(); ++p){
@@ -58,18 +60,17 @@ void* Worker::do_query_with_trace()
 		
 		Request rq = *p;
 		string val("abcdefghijklmnopqrstuvwzABCDEFGHIJKLMNOPQRSTUVWZ");
-		int rv; 
 
 		DEBUG(rq.op << " " << rq.key );
 		if (rq.op == "put" || rq.op == "PUT" || 
 			rq.op == "update" || rq.op == "UPDATE") {
-			rv = sl->Put(rq.key, val, iter);
+			int rv = sl->Put(rq.key, val, *iter);
 
 		} else if (rq.op == "get" || rq.op == "GET" ) {
-			val = sl->Get(rq.key, iter); 
+			val = sl->Get(rq.key, *iter); 
 
 		} else if (rq.op == "range_query" || rq.op == "SEEK") {
-			sl->RangeQuery(rq.key, 10, iter); // op, cnt, iter 
+			sl->RangeQuery(rq.key, 10, *iter); // op, cnt, iter 
 		}
 
 	}
@@ -97,7 +98,7 @@ int BenchManager::run_trc(string fname)
 
 	// create and run threads 
 	for(int i = 0; i < th; i++){
-		workers[i].create();
+		workers[i].create(i);
 	}
 
 	// join thread

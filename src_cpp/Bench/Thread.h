@@ -15,6 +15,7 @@ class Thread{
 	public:
 		pthread_t tid;
 		pid_t pid;
+	
 	private:
 		static void *_entry_func(void* arg) {
 			assert(arg);
@@ -24,18 +25,14 @@ class Thread{
 
 	protected:
 		virtual void *entry() = 0;
-	public:
 
-		const pthread_t &get_tid() const {return tid;}
-		pid_t get_pid() const{return pid;}
-
-		void join() {
+		void _join() {
 			int rv = pthread_join(tid, NULL);
 			assert(rv == 0);
 		}
 		
 		
-		void create(){
+		void _create(){
 			int rv = pthread_create(&tid, NULL, _entry_func, (void *)this);
 			assert(rv == 0);
 		}

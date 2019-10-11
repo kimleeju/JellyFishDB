@@ -23,27 +23,20 @@ using namespace std;
 } while (0)
 
 
-//#define DEBUG(x) do {\
-//	if(0) { std::cerr << x << std::endl; } \
-//} while (0)
-//
-
-
 class Iterator;
 
 class SkipList {
-//protected:
 public:
-
-	    
     class Splice{
         public:
         int height_ =0;
         Node** prev_;
         Node** next_;
     };
+	    
     Node* head_;
 	atomic<int> cnt;
+
 protected:
     uint16_t kMaxHeight_;
     atomic<int>max_height_; 
@@ -65,18 +58,8 @@ public:
     virtual Node* AllocateNode(string key, string value, int height)=0;
     virtual int RandomHeight()=0;
     virtual bool Insert(string key, string value ,Iterator iterator)=0;
-	virtual void GetEnv(int t_num){
-		return;
-	}		
+	virtual void SetThreadNum(int t_num){}		
 	
-    /** 
-     * put, get, delete 
-     * */
-//    virtual int put(string key, string value) = 0;
-//    virtual string get(string key) = 0;
-//    virtual int remove (string key) = 0;
-    // virtual set<string, string> range_query (string starting_key, int n) = 0;
-
 public:
     SkipList(int kMaxHeight, Node* head, int max_height, Splice* seq_splice_) : 
         head_(head),

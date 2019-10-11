@@ -32,8 +32,18 @@ class Worker : public Thread {
 	SkipList *sl;
 	vector<Request> rqs;
 	int ops;
+	int th;
 
 public:
+	void create(int _th) {
+		_create();
+		th = _th;
+	}
+
+	void join() {
+		_join();
+	}
+
 	void add_rq(Request rq) { rqs.push_back(rq); }
 
 	void reset() { 

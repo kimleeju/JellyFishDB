@@ -10,11 +10,11 @@ CXXFLAGS=-std=c++11 -g -Wall \
 
 LDFLAGS=-pthread
 
-SRCS +=\
+#SRCS +=\
 	CVSkipList/CVSkipList.cc\
 	Bench/BenchManager.cc
 
-#SRCS +=\
+SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
 	CVSkipList/CVSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\

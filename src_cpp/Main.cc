@@ -1,11 +1,9 @@
-#define DEBUG
-
 #include "SkipList.h"
 #include "BlockedSkipList/BlockedSkipList.h"
 #include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
 #include "StrideSkipList/StrideSkipList.h"
-//#include "JDKSkipList/JDKSkipList.h"
+#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
 #include "SimpleSkipList/SimpleSkipList.h"
 //#include "Iterator.h"
@@ -49,7 +47,7 @@ int main(int argc, char* argv[])
 		sl = new StrideSkipList;
 	}
 	else if(type == "JDKSkipList"){
-//		sl = new JDKSkipList(thread_num);
+		sl = new JDKSkipList(thread_num);
 	}
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
