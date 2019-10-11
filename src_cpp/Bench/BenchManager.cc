@@ -109,7 +109,11 @@ int BenchManager::run_trc(string fname)
 	timer.end();
 
 	// perf_report 
-	cout << "workload = " << fname << " tot_ops = " << tot_ops << " " << "exec_time(s) = " << timer.lat() << " IOPS = " << tot_ops / timer.lat() << endl;
+	cout << "workload = " << fname 
+		<< " th = " << th  
+		<< " tot_ops = " << tot_ops 
+		<< " exec_time(s) = " << timer.lat() 
+		<< " IOPS = " << tot_ops / timer.lat() << endl;
 
 	return 0;
 }

@@ -4,7 +4,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipLi
 SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="SimpleSkipList"
 
-TRC_DIR="../trc/micro_trc/backup100trc"
+TRC_DIR="../trc/micro_trc/backup100000trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 OP="put"
@@ -17,7 +17,9 @@ th=$THREADS
 
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
-for i in {1..1}; do
+#for i in {1..1}; do
+th=1
+while [[ $th -le $THREADS ]]; do
 	for cf in $CONF; do
 		for op in $OP; do
 		#	rfname=$RSLT_DIR/"$cf"_"$op"_"$i".rslt 
@@ -36,4 +38,5 @@ for i in {1..1}; do
 			cat $rfname
 		done
 	done
+	th=$((th+th))
 done
