@@ -19,7 +19,7 @@ using namespace std;
 
 
 #define DEBUG(x) do {\
-	if(1) { std::cerr << x << std::endl; } \
+	if(0) { std::cerr << x << std::endl; } \
 } while (0)
 
 

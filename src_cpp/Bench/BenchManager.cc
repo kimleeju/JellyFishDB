@@ -73,7 +73,7 @@ void* Worker::do_query_with_trace()
 		}
 
 	}
-	cout << " completed ops = " << ops << endl;
+	DEBUG( " completed ops = " << ops );
 	
 	return NULL;
 }
