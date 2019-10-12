@@ -50,7 +50,7 @@ void* Worker::do_query_with_trace()
 		return NULL;
 	}
 
-	Iterator *iter = new Iterator(sl, 0);
+	Iterator *iter = new Iterator(sl, th);
 	sl->SetThreadNum(th); // for JDK SkipList
 			
 	ops = 0;
@@ -62,6 +62,7 @@ void* Worker::do_query_with_trace()
 		string val("abcdefghijklmnopqrstuvwzABCDEFGHIJKLMNOPQRSTUVWZ");
 
 		DEBUG(rq.op << " " << rq.key );
+
 		if (rq.op == "put" || rq.op == "PUT" || 
 			rq.op == "update" || rq.op == "UPDATE") {
 			int rv = sl->Put(rq.key, val, *iter);
@@ -74,7 +75,7 @@ void* Worker::do_query_with_trace()
 		}
 
 	}
-	DEBUG( " completed ops = " << ops );
+	DEBUG( "completed ops = " << ops );
 	
 	return NULL;
 }
@@ -110,7 +111,8 @@ int BenchManager::run_trc(string fname)
 	timer.end();
 
 	// perf_report 
-	cout << "workload = " << fname 
+	cout << type 
+		<< "workload = " << fname 
 		<< " th = " << th  
 		<< " tot_ops = " << tot_ops 
 		<< " exec_time(s) = " << timer.lat() 

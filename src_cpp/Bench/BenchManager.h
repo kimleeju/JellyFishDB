@@ -65,6 +65,7 @@ public:
 class BenchManager 
 {
 	Timer timer;
+	string type;
 
 public:
 	int th; 
@@ -79,7 +80,8 @@ public:
 	int run_trc(string fname);  // get time by using Thread
 	void get_stat();
 
-	BenchManager(int th, SkipList *sl) : 
+	BenchManager(int th, SkipList *sl, string type) : 
+		type(type),
 		th(th),
 		sl(sl)
 	{

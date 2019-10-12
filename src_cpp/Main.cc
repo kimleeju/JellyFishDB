@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 	} 
 
 	// create a bench manager 	
-	BenchManager bm(thread_num, sl);
+	BenchManager bm(thread_num, sl, type);
 
 	rv = bm.run_trc(load_trc_fname); 
 	if (rv < 0){
