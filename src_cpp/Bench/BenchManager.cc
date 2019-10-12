@@ -116,7 +116,7 @@ int BenchManager::run_trc(string fname)
 		<< " th = " << th  
 		<< " tot_ops = " << tot_ops 
 		<< " exec_time(s) = " << timer.lat() 
-		<< " IOPS = " << tot_ops / timer.lat() << endl;
+		<< " IOPS(K) = " << tot_ops / (timer.lat() * 1000) << endl;
 
 	return 0;
 }

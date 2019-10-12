@@ -8,12 +8,12 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipLi
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 
 ops="1000000"
+
 TRC_DIR="../trc/micro_trc/backup"$ops"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-OP="put"
 CONF="uni zipf_1.4"
-CONF="zipf_1.4"
+#CONF="zipf_1.4"
 
 RSLT_DIR="./perf_result"
 
@@ -24,29 +24,37 @@ th=$THREADS
 	#Usage: ./Run Options thread_count run_trc load_trc 
 #for i in {1..1}; do
 suffix=`date +%y%m%d_%H%M_%s`
-suffix="$ops"_"$CONF"
-rfname="$RSLT_DIR/perf_"$suffix".rslt"
-echo $rfname 
-if [[ -f $rfname ]]; then
-	rm $rfname
-fi
-touch $rfname
-
+#echo $rfname 
+#
+#if [[ -f $rfname ]]; then
+#	rm $rfname
+#fi
+#touch $rfname
+#echo "" > $rfname
+#
 th=1
-while [[ $th -le $THREADS ]]; do
+
+for op in $OP; do
+	#rfname="$RSLT_DIR/perf_"$suffix"_"$op".rslt"
 	for cf in $CONF; do
-		for op in $OP; do
-		
+		rfname="$RSLT_DIR/perf_"$op"_"$cf".rslt"
+		if [[ -f $rfname ]];then
+			mv $rfname $rfname.bak
+		fi
+		touch $rfname
+
+		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
-			
 				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
 				echo "./Run $sk $th $load_trc $run_trc"
+				#./Run $sk $th $load_trc $run_trc
 				./Run $sk $th $load_trc $run_trc >> $rfname
+				#./Run $sk $th $load_trc $run_trc >> $rfname
 			done
+			th=$((th+th))
 		done
+		cat $rfname
 	done
-	th=$((th+th))
 done
 
-cat $rfname
