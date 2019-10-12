@@ -112,7 +112,7 @@ int BenchManager::run_trc(string fname)
 
 	// perf_report 
 	cout << type 
-		<< "workload = " << fname 
+		<< " workload = " << fname 
 		<< " th = " << th  
 		<< " tot_ops = " << tot_ops 
 		<< " exec_time(s) = " << timer.lat() 
