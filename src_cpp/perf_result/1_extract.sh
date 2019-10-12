@@ -3,6 +3,7 @@
 skiplists="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 threads="1 2 4"
 ops="put get range_query"
+ops="put get"
 
 
 num="1000000"
@@ -10,9 +11,9 @@ workloads="uni zipf_1.4"
 
 for op in $ops; do
 	for wk in $workloads; do
-		srcfile="perf_"$op"_"$wk".rslt"
+		srcfile="perf_"$op"_"$wk"_"$num".rslt"
 		echo "$srcfile"
-		datafile="perf_"$op"_"$wk".dat"
+		datafile="perf_"$op"_"$wk"_"$num".dat"
 	
 		echo "thread $skiplists" > $datafile
 		for th in $threads; do
