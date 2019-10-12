@@ -1,18 +1,4 @@
-BlockedSpinSkipListworkload 1 64864.8
-BlockedCVSkipListworkload 1 107542
-ConcurrentSkipListworkload 1 116644
-JDKSkipListworkload 1 249161
-SimpleSkipListworkload 1 460053
-JellyFishSkipListworkload 1 106780
-BlockedSpinSkipListworkload 2 58517.2
-BlockedCVSkipListworkload 2 103028
-ConcurrentSkipListworkload 2 209975
-JDKSkipListworkload 2 442138
-SimpleSkipListworkload 2 304192
-JellyFishSkipListworkload 2 198422
-BlockedSpinSkipListworkload 4 61501.8
-BlockedCVSkipListworkload 4 95390.1
-ConcurrentSkipListworkload 4 434299
-JDKSkipListworkload 4 755980
-SimpleSkipListworkload 4 360727
-JellyFishSkipListworkload 4 420959
+thread BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList
+1 64864.8 107542 116644 249161 106780
+2 58517.2 103028 209975 442138 198422
+4 61501.8 95390.1 434299 755980 420959
