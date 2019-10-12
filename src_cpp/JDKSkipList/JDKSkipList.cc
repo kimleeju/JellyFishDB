@@ -25,16 +25,19 @@ void JDKSkipList::SetThreadNum(int t_num){
 };
 
 int JDKSkipList::Put(string key, string value, Iterator iterator){
+#ifdef OP_EXEC
  //   t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
  //   t_global_committed.mlock.unlock();
+#endif
     return 0;
 }
 
 
 string JDKSkipList::Get(string key , Iterator iterator){
 //    t_global_committed.mlock.lock();
+#ifdef OP_EXEC
 	int seq = iterator.seq;
     t_global_committed.get_and_inc();
 
@@ -51,6 +54,10 @@ string JDKSkipList::Get(string key , Iterator iterator){
  //   t_global_committed.mlock.unlock();
 	string get_value(str);
     return get_value;
+#else
+	string get_value("deadbeaf");
+	return get_value;
+#endif
 }
     
 
