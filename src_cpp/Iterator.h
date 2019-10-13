@@ -6,20 +6,9 @@
 class SkipList;
 
 
-class Iterator{  
-   public:
-        Iterator(){
-            sl_ = nullptr;
-            node_ = nullptr;
-	    	splice = sl_->AllocateSplice();	
-        }
+class Iterator{
 
-        Iterator(SkipList* sl, int seq_){
-            SetList(sl);
-	    	node_ = nullptr;
-	    	splice = sl_->AllocateSplice();
-			seq=seq_;
-        }
+public:
 	
 		void Put(string key, string value, Iterator iterator){
 		    sl_->Insert(key, value, iterator);
@@ -70,6 +59,21 @@ class Iterator{
 		int seq;
 		SkipList::Splice* splice;
 		bool test;
+
+public:
+        Iterator(){
+            sl_ = nullptr;
+            node_ = nullptr;
+	    	splice = sl_->AllocateSplice();	
+        }
+
+        Iterator(SkipList* sl, int seq_){
+            SetList(sl);
+	    	node_ = nullptr;
+	    	splice = sl_->AllocateSplice();
+			seq=seq_;
+        }
+
 };
 
 

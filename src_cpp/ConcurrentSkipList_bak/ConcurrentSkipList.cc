@@ -126,41 +126,33 @@ ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
    return splice;
 }
 
-bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
-	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+int ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, int low,  Splice* splice){
+    for(int i = MAX_LEVEL-1  ;i>=low; --i){	
+		if(i==MAX_LEVEL-1)
+        	FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],head_);
+		else
+			FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
+	 }
+//	++cnt;
+	return 0;
 }
 
 
-void ConcurrentSkipList::FindSpliceForLevel(string key, int level, int cur_level, 
-		Node** sp_prev, Node** sp_next, Node* before)
-{
-	assert(before != NULL);
-
-	Node* after = before->Next(cur_level);
-
-	while(true){
-		if(!KeyIsAfterNode(key, after)){
-			*sp_prev = before;
-			*sp_next = after;
-			return;
-		}
+void ConcurrentSkipList::FindSpliceForLevel(string key, int level,  int cur_level, Node** sp_prev, Node** sp_next, Node* before){
+ Node* after = before ->Next(cur_level);
+   while(true){
+	
+     if(!KeyIsAfterNode(key, after)){
+     	*sp_prev = before;
+     	*sp_next = after;
+        return;
+     }
+		//++cnt;
         before = after;
         after = after->Next(cur_level);
 	}
+    
 }
-
-int ConcurrentSkipList::RecomputeSpliceLevels(string key, int level, int low, Splice* splice)
-{
-	for(int i = MAX_LEVEL-1; i >= low; --i){
-
-		if(i==MAX_LEVEL-1)
-        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i], head_);
-		else
-			FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
-	 }
-	return -1;
-}
-
 
 int ConcurrentSkipList::Comparator(string key1, string key2){
 #if 0	
@@ -172,6 +164,25 @@ int ConcurrentSkipList::Comparator(string key1, string key2){
 #endif
 	return key1.compare(key2);
 }
+
+bool ConcurrentSkipList::KeyIsAfterNode(string key, Node* n){
+#if 0
+	if(n == nullptr || key.length() < n->Get_key().length())
+		return  0;
+	else if ( key.length() > n->Get_key().length())
+		return 1;
+#endif
+#if 0
+	if(n == nullptr)
+		return 0;
+	else if(key.length() < n->Get_key().length())
+		return 0;
+	else if(key.length() > n->Get_key().length())
+		return 1;
+#endif
+	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+}
+
 
 Node* ConcurrentSkipList::AllocateNode(string key, string value, int height){
    /*auto prefix = sizeof(Node*) * (height);
@@ -201,43 +212,6 @@ int ConcurrentSkipList::RandomHeight(){
    return height;
 }
 
-
-
-bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
-{
-	// update current max height
-	int height = RandomHeight();
-	int max_height = max_height_.load(std::memory_order_relaxed);
-
-	while(height > max_height){
-		if(max_height_.compare_exchange_weak(max_height, height)){
-			max_height = height; // EUNJI: what's this? 
-			break;
-		}
-	}	 
-
-	// Allocate a new node 
-	Node* nnode = AllocateNode(key, value, height);
-
-	int rv = RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(),0,iterator.splice);
-	assert(rv < 0);
-
-	for(int i=0; i < height; i++){
-		while(true){
-			nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);
-	
-			if(iterator.splice->prev_[i]->CASNext(i,iterator.splice->next_[i],nnode)){
-				break; // success 
-			}	
-			// failure
-			rv = RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(),i,iterator.splice);
-			assert(rv < 0);
-		}
-	}
-	
-	return true;
-}
-
 ConcurrentSkipList::ConcurrentSkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
     srand((unsigned)time(NULL));
@@ -249,3 +223,52 @@ ConcurrentSkipList::ConcurrentSkipList()
 
 
 
+
+bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator){
+	//Node* nnode = AllocateNode(key, value, RandomHeight());
+	//  Splice* splice = AllocateSplice();
+	int height = RandomHeight();
+	int max_height = max_height_.load(std::memory_order_relaxed);
+
+	while(height > max_height){
+		if(max_height_.compare_exchange_weak(max_height, height)){
+			max_height = height; // EUNJI: what's this? 
+			break;
+		}
+	}	 
+
+		if(iterator.splice->height_ < max_height){
+				iterator.splice->prev_[max_height] = head_;
+				iterator.splice->next_[max_height] = nullptr;
+				iterator.splice->height_ =max_height;
+		}
+		else{
+				for(int i = 0; i<height ; i++){
+						iterator.splice->prev_[i] = head_;
+						iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
+				}
+		}
+		Node* nnode = AllocateNode(key, value, height);
+
+		if(nnode->Get_height() > 0) {
+				RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(),0,iterator.splice);
+		}
+
+		for(int i=0; i<height ; i++){
+				while(true){
+						nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);
+						//			++cnt;
+						if(iterator.splice->prev_[i]->CASNext(i,iterator.splice->next_[i],nnode)){
+								//success
+								//					++cnt;
+								break;
+						}	
+						//				++cnt;
+						RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(),i,iterator.splice);
+						//		 ++cnt;
+				}
+		}
+		return true;
+
+     
+}

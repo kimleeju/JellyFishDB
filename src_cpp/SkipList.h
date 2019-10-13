@@ -8,6 +8,7 @@
 #include<set>
 #include<mutex>
 #include<cstring>
+#include<assert.h>
 //#include<memory>
 // #include<pthread.h>
 
@@ -15,15 +16,15 @@
 #include "Util.h"
 
 using namespace std;
-#define MAX_LEVEL 12 
+#define MAX_LEVEL 12
 
 #define DEBUG(x) do {\
 	if(0) { std::cerr << x << std::endl; } \
 } while (0)
 
 #define OP_EXEC
-#define PRINT_LATENCY
-//#define PRINT_PERF
+//#define PRINT_LATENCY
+#define PRINT_PERF
 
 
 class Iterator;

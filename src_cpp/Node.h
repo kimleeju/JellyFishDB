@@ -134,12 +134,11 @@ public:
   }
 
  #ifdef JELLYFISH_SKIPLIST_H
-  bool CAS_vqueue(VNode* n){
-//	if(__sync_bool_compare_and_swap(vqueue, nullptr, n)){
-//		return 1;
-//	}
-//	else
-		return 0;
+  bool CAS_vqueue(VNode* expected, VNode* n){
+	//return vqueue.compare_exchange_weak(expected, n);
+	//return __sync_bool_compare_and_swap(vqueue, expected, n);
+	vqueue = n;
+	return true;
   }
 
   void Set_vqueue(VNode* n){

@@ -7,9 +7,10 @@ THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
+SKIPLISTS="JellyFishSkipList ConcurrentSkipList JDKSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 
-num="100000"
+num="1000000"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
@@ -52,8 +53,8 @@ for op in $OP; do
 		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
-				rfname="$sk.lat"
-				rm $rfname
+#				rfname="$sk.lat"
+#				rm $rfname
 				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
 				echo "./Run $sk $th $load_trc $run_trc"
