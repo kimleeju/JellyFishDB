@@ -7,8 +7,6 @@ THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
-SKIPLISTS="ConcurrentSkipList"
-SKIPLISTS="JDKSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 
 num="100000"
@@ -45,7 +43,6 @@ for op in $OP; do
 	echo "$op ....."
 	for cf in $CONF; do
 		rfname="$RSLT_DIR/perf_"$op"_"$cf"_"$num".rslt"
-		rfname="tmp.lat"
 		if [[ -f $rfname ]];then
 			mv $rfname $rfname.bak
 		fi
@@ -55,17 +52,17 @@ for op in $OP; do
 		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
+				rfname="$sk.lat"
 				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
 				echo "./Run $sk $th $load_trc $run_trc"
 				#./Run $sk $th $load_trc $run_trc
 				#./Run $sk $th $load_trc $run_trc 
 				./Run $sk $th $load_trc $run_trc >> $rfname
+				cat $rfname
 			done
 			th=$((th+th))
 		done
-		cat $rfname
-		echo "============="
 		cat $rfname | grep "run" | awk '{print $1, $NF}'
 	done
 done
