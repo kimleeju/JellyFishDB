@@ -44,6 +44,9 @@ int BenchManager::_read_trc_file(string fname)
 void* Worker::do_query_with_trace()
 {
 	DEBUG(__func__);
+#ifdef PRINT_LATENCY
+	NanoTimer ntimer;
+#endif
 
 	if(!sl){
 		cout << "Skip List is not created" << endl;
@@ -62,6 +65,9 @@ void* Worker::do_query_with_trace()
 		string val("abcdefghijklmnopqrstuvwzABCDEFGHIJKLMNOPQRSTUVWZ");
 
 		DEBUG(rq.op << " " << rq.key );
+#ifdef PRINT_LATENCY
+		ntimer.start();
+#endif
 
 		if (rq.op == "put" || rq.op == "PUT" || 
 			rq.op == "update" || rq.op == "UPDATE") {
@@ -73,6 +79,12 @@ void* Worker::do_query_with_trace()
 		} else if (rq.op == "range_query" || rq.op == "SEEK") {
 			sl->RangeQuery(rq.key, 10, *iter); // op, cnt, iter 
 		}
+#ifdef PRINT_LATENCY
+		ntimer.end();
+		//cout << timer.lat() << " s"  << endl;
+		printf("%ld\n", ntimer.lat());
+		//cout << timer.lat()*1000000000 << " ns"  << endl;
+#endif
 
 	}
 	DEBUG( "completed ops = " << ops );
@@ -112,6 +124,8 @@ int BenchManager::run_trc(string fname)
 
 	double lat = timer.lat();
 	// perf_report 
+
+#ifdef PRINT_PERF
 	cout << type 
 		<< " workload = " << fname 
 		<< " th = " << th  
@@ -119,6 +133,7 @@ int BenchManager::run_trc(string fname)
 		<< " exec_time(s) = " << lat
 		<< " IOPS = " << tot_ops / lat 
 		<< endl;
+#endif
 
 	return 0;
 }

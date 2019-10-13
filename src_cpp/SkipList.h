@@ -22,6 +22,7 @@ using namespace std;
 } while (0)
 
 #define OP_EXEC
+#define PRINT_LATENCY
 
 
 class Iterator;

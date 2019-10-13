@@ -4,7 +4,7 @@
 
 #include "../SkipList.h"
 #include "../Util.h"
-#include "../Time.h"
+#include "../Timer.h"
 #include "../Iterator.h"
 #include "Thread.h"
 

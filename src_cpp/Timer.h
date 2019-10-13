@@ -4,6 +4,12 @@
 #include <sys/time.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <chrono>
+#include <ctime>
+#include <iostream>
+
+using namespace std;
+using namespace chrono;
 
 class Timer {
 	public:
@@ -31,5 +37,31 @@ class Timer {
 		struct timeval t_start;
 		struct timeval t_end;
 };
+
+class NanoTimer {
+	public:
+		void start(){
+			t_start = chrono::high_resolution_clock::now();
+		}
+		void end(){
+			t_end = chrono::high_resolution_clock::now();
+		}
+
+		long lat(){
+			//cout << (t_end-t_start).count() << " s" << endl;
+			return (t_end - t_start).count();
+		}
+
+		void sleep(unsigned s)
+		{
+			usleep(s * 1000000);
+		}
+
+	private:
+		chrono::high_resolution_clock::time_point t_start; 
+		chrono::high_resolution_clock::time_point t_end;
+};
+
+
 
 #endif

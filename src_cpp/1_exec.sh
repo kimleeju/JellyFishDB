@@ -7,6 +7,7 @@ THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
+SKIPLISTS="ConcurrentSkipList"
 #SKIPLISTS="JDKSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 
@@ -44,6 +45,7 @@ for op in $OP; do
 	echo "$op ....."
 	for cf in $CONF; do
 		rfname="$RSLT_DIR/perf_"$op"_"$cf"_"$num".rslt"
+		rfname="tmp.lat"
 		if [[ -f $rfname ]];then
 			mv $rfname $rfname.bak
 		fi
