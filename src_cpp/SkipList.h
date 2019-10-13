@@ -17,10 +17,11 @@
 using namespace std;
 #define MAX_LEVEL 12 
 
-
 #define DEBUG(x) do {\
 	if(0) { std::cerr << x << std::endl; } \
 } while (0)
+
+#define OP_EXEC
 
 
 class Iterator;

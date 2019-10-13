@@ -65,7 +65,7 @@ void* Worker::do_query_with_trace()
 
 		if (rq.op == "put" || rq.op == "PUT" || 
 			rq.op == "update" || rq.op == "UPDATE") {
-			int rv = sl->Put(rq.key, val, *iter);
+			sl->Put(rq.key, val, *iter);
 
 		} else if (rq.op == "get" || rq.op == "GET" ) {
 			val = sl->Get(rq.key, *iter); 
@@ -96,7 +96,6 @@ int BenchManager::run_trc(string fname)
 
 	// timer start 
 	timer.start();
-
 	// create and run threads 
 	for(int i = 0; i < th; i++){
 		workers[i].create(i);
@@ -106,17 +105,20 @@ int BenchManager::run_trc(string fname)
 	for(int i = 0; i < th; i++){
 		workers[i].join();
 	}
+	//usleep(1000000);
 
 	// time end 
 	timer.end();
 
+	double lat = timer.lat();
 	// perf_report 
 	cout << type 
 		<< " workload = " << fname 
 		<< " th = " << th  
 		<< " tot_ops = " << tot_ops 
-		<< " exec_time(s) = " << timer.lat() 
-		<< " IOPS(K) = " << tot_ops / (timer.lat() * 1000) << endl;
+		<< " exec_time(s) = " << lat
+		<< " IOPS = " << tot_ops / lat 
+		<< endl;
 
 	return 0;
 }

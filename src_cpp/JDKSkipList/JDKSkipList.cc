@@ -5,14 +5,11 @@ void JDKSkipList::SetThreadNum(int t_num){
 
 	int rv = vm->GetEnv((void **)&t_env[t_num], JNI_VERSION_1_2);
 
-	DEBUG("Start to attach ...");
-
 	if(rv != JNI_EDETACHED){
-		DEBUG("[1] Failed to Attach Thread = " << t_num);	
+		DEBUG("[1] Failed to Attach Thread: Already attached or  " << t_num << " is not available");	
 		return; 
 	}
 
-	DEBUG("Try to attach");		
 	// Try to attach a thread 
 	rv = vm->AttachCurrentThread((void **) &t_env[t_num], NULL); 
 
@@ -37,6 +34,7 @@ int JDKSkipList::Put(string key, string value, Iterator iterator){
 
 string JDKSkipList::Get(string key , Iterator iterator){
 //    t_global_committed.mlock.lock();
+	string value("deadbeaf");
 #ifdef OP_EXEC
 	int seq = iterator.seq;
     t_global_committed.get_and_inc();
@@ -47,17 +45,10 @@ string JDKSkipList::Get(string key , Iterator iterator){
 		cout<<"Error : failed to get value for key "<<key<<endl;
 		//return 0;
 	}
-	const char* str = t_env[seq]->GetStringUTFChars((jstring) jrslt, NULL);
-//	printf("%s\n", str);
-    //iterator.Seek(key);
-    //string get_value = iterator.Node()->Get_value();
- //   t_global_committed.mlock.unlock();
-	string get_value(str);
-    return get_value;
-#else
-	string get_value("deadbeaf");
-	return get_value;
+	const char* get_val = t_env[seq]->GetStringUTFChars((jstring) jrslt, NULL);
+	value = get_val;
 #endif
+	return value;
 }
     
 
@@ -234,77 +225,6 @@ int JDKSkipList::RandomHeight(){
 }
 
 
-JDKSkipList::JDKSkipList(int t_num) : SkipList(
-			static_cast<uint16_t>(MAX_LEVEL), 
-			AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice())
-{
-	DEBUG(__func__ << " " << t_num );
-	srand((unsigned)time(NULL));
-
-	// initialize skip list 
-	vm_args.version = JNI_VERSION_1_2;
-	vm_args.nOptions = 0;
-
-	// contruct jvm 
-	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
-	if (res < 0) {
-		printf("Error: failed to create jvm\n");
-//		goto out;
-	}
-
-//	cout << "Find Class .." << endl;
-
-	jcls = env->FindClass("MyConcurrentSkipListMap");
-	if (!jcls) {
-		printf("Error: unable to find class \n");
-//		goto out;
-	}
-
-//	cout << "Get Method .." << endl;
-	// create skip list
-	mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
-	if (!mid){
-		printf("Error: unable to find create_sl\n");
-//		goto out;
-	}
-
-
-//	cout << "Call Method .." << endl;
-	env->CallStaticVoidMethod(jcls, mid);
-
-	put_mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");
-	if(!put_mid){
-		printf("Error : unable to Put method\n");
-//		goto out;
-	}
-
-	get_mid = env->GetStaticMethodID(jcls, "Get", "(Ljava/lang/String;)Ljava/lang/String;");
-	if(!get_mid){
-		printf("Error : unable to Get method\n");
-//		goto out;
-	}
-	
-	t_env = new JNIEnv*[t_num];	
-
-#if 0
-	cout << "Try to attach" << endl;
-	for(int i=0; i < t_num; i++){
-		int get_env =vm->GetEnv((void **)t_env[i], JNI_VERSION_1_2);
-		if(get_env == JNI_EDETACHED){
-			std::cout << "GetEnv: not attached" << std::endl;
-       		if (vm->AttachCurrentThread((void **) &t_env, NULL) != 0) {
-       	   		 std::cout << "Failed to attach" << std::endl;
-        	}
-			else
-				cout << "Succeed to attach " << endl;
-		} else 
-			cout << "Failed to attach " << endl;
-	}
-#endif
-//out:
-//	printf("Finished\n");
-}
-
 
 bool JDKSkipList::Insert(string key, string value, Iterator iterator)
 {
@@ -320,54 +240,62 @@ bool JDKSkipList::Insert(string key, string value, Iterator iterator)
 	t_env[seq]->SetObjectArrayElement(jarr_temp, 1, t_env[seq]->NewStringUTF(value.c_str()));
 	t_env[seq]->CallStaticVoidMethod(jcls, put_mid, jarr_temp);	
 
-#if 0
- // Node* nnode = AllocateNode(key, value, RandomHeight());
-  int height = RandomHeight();
-  int max_height = max_height_.load(std::memory_order_relaxed);
-    if(height > max_height){
-	max_height_ = height;
-	max_height = height;   
-    }
-
-    if(seq_splice->height_ < max_height){
-       seq_splice->prev_[max_height] = head_;
-       seq_splice->next_[max_height] = nullptr;
-       seq_splice->height_ = max_height; 
-    }
-    
-    else{
-        for(int i = 0; i< height ; i++){
-           seq_splice->prev_[i] = head_;
-           seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
-        }
-    }
-     if(height > 0){
-        RecomputeSpliceLevels(key, height);
-    }
-   
-     Node* nnode = AllocateNode(key, value, height);
-    
-     for(int i=0;i<height;++i){  
-        nnode->SetNext(i, seq_splice->next_[i]);
-        seq_splice->prev_[i]->SetNext(i,nnode);
-
-    }
-
-    for(int i = 0; i< height ; i++){
-        seq_splice->prev_[i] = head_;
-        seq_splice->next_[i] = seq_splice->prev_[i]->Next(i);
-    }
-  //cout<<"nnode->str_key = "<<nnode->Get_key()<<endl;
-  //cout<<"nnode->str_value = "<<nnode->Get_value()<<endl;
-  //cout<<"height = "<<height<<endl;
-  //cout<<"max_height_ = "<<max_height_<<endl;
-//	cnt++;
-//if(cnt%1000==0)
-//  cout<<"cnt = "<<cnt<<endl; 
- // cout<<"-------------------------------"<<endl;
-  return true;
-#endif
 	return true;
+}
+
+JDKSkipList::JDKSkipList(int t_num) : SkipList(
+			static_cast<uint16_t>(MAX_LEVEL), 
+			AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice())
+{
+	DEBUG(__func__ << " " << t_num );
+	srand((unsigned)time(NULL));
+
+	// contruct jvm 
+	vm_args.version = JNI_VERSION_1_2;
+	vm_args.nOptions = 0;
+
+	jint res = JNI_CreateJavaVM(&vm, (void **)&env, &vm_args);
+	if (res < 0) {
+		cout << "Error: Failed to create jvm" << endl;
+		return; 
+	}
+
+	jcls = env->FindClass("MyConcurrentSkipListMap");
+	if (!jcls) {
+		cout << "Error: Unable to find MyConcurrentSkipListMap" << endl;
+		return; 
+	}
+
+	// create skip list
+	create_mid = env->GetStaticMethodID(jcls, "create_sl", "()V");
+	if (!create_mid){
+		cout << "Error: Unable to find method: create_sl" << endl;
+		return; 
+	}
+
+	env->CallStaticVoidMethod(jcls, create_mid);
+
+	// mapping functions 
+	put_mid = env->GetStaticMethodID(jcls, "Put", "([Ljava/lang/String;)V");
+	if(!put_mid){
+		cout << "Error: Unable to find method: Put" << endl;
+		return;
+	}
+
+	get_mid = env->GetStaticMethodID(jcls, "Get", "(Ljava/lang/String;)Ljava/lang/String;");
+	if(!get_mid){
+		cout << "Error: Unable to find method: Get" << endl;
+		return;
+	}
+
+	// create JNI Environment size of threads 	
+	t_env = new JNIEnv*[t_num];	
+	if(!t_env) {
+		cout << "Error: Failed to create JNIEnv" << endl;
+		return;
+	}
+
+	return;
 }
 
 

@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <pthread.h>
+#include <unistd.h>
+
 class Timer {
 	public:
 		void start(){
@@ -14,6 +16,11 @@ class Timer {
 
 		double lat(){
 			return t_end.tv_sec-t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec) / 1000000.0;
+		}
+
+		void sleep(unsigned s)
+		{
+			usleep(s * 1000000);
 		}
 
 		void print_result(){

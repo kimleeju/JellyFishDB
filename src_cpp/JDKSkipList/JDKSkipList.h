@@ -20,10 +20,10 @@ public:
 	JavaVM *vm;
 	JNIEnv *env;
 	JavaVMInitArgs vm_args;
-	jmethodID mid;
 	jclass jcls;
 	jobjectArray jarr;
 		
+	jmethodID create_mid;
 	jmethodID put_mid;
 	jmethodID get_mid;
 	JNIEnv** t_env;

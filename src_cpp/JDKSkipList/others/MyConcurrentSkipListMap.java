@@ -3,19 +3,17 @@ import java.util.concurrent.ConcurrentSkipListMap;
 
 public class MyConcurrentSkipListMap
 {
-	static int count = 0;
-
 	public static ConcurrentSkipListMap<String, String> sl;
 
 	public static void create_sl() {
 		sl = new ConcurrentSkipListMap();
-		count = 0;
 	}
 
 	public static void Put(String[] args) {
 		String key = args[0];
 		String val = args[1];
 
+		//System.out.println(key);
 		sl.put(key, val);
 	}
 

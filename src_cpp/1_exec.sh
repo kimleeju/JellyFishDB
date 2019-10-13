@@ -1,4 +1,4 @@
-THREADS=4
+THREADS=1
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #SKIPLISTS="JellyFishSkipList"
@@ -7,14 +7,17 @@ THREADS=4
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
+#SKIPLISTS="JDKSkipList"
+#SKIPLISTS="ConcurrentSkipList"
 
-num="1000000"
+num="100000"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 OP="put"
 CONF="uni zipf_1.4"
+CONF="uni"
 
 #CONF="zipf_1.4"
 
@@ -59,7 +62,9 @@ for op in $OP; do
 			done
 			th=$((th+th))
 		done
-#		cat $rfname
+		cat $rfname
+		echo "============="
+		cat $rfname | grep "run" | awk '{print $1, $NF}'
 	done
 done
 
