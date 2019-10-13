@@ -8,7 +8,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipLi
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList"
-#SKIPLISTS="JDKSkipList"
+SKIPLISTS="JDKSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 
 num="100000"
