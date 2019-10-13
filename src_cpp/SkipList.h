@@ -23,6 +23,7 @@ using namespace std;
 
 #define OP_EXEC
 #define PRINT_LATENCY
+//#define PRINT_PERF
 
 
 class Iterator;
