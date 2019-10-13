@@ -53,6 +53,7 @@ for op in $OP; do
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
 				rfname="$sk.lat"
+				rm $rfname
 				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
 				echo "./Run $sk $th $load_trc $run_trc"
