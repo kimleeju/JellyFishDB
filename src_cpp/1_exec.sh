@@ -17,9 +17,11 @@ SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList"
+#SKIPLISTS="ConcurrentSkipList"
+##SKIPLISTS="JDKSkipList"
 
 num="1000000"
-num="100"
+#num="100"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
@@ -78,8 +80,8 @@ for op in $OP; do
 			done
 			th=$((th+th))
 		done
-		cat $rfname
 		cat $rfname | grep "run" | awk '{print $1, $NF}'
+		cat $rfname | grep "comparator" 
 	done
 done
 

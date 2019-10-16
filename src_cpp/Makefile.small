@@ -15,6 +15,7 @@ LDFLAGS=-pthread
 SRCS +=\
 	JDKSkipList/JDKSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
+	JellyFishSkipList/JellyFishSkipList.cc\
 	Bench/BenchManager.cc
 
 OBJS = $(SRCS:.cc=.o)
@@ -31,6 +32,7 @@ $(TARG): Main.cc ./bin/libskiplist.a
 	mkdir -p bin
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
 	$(AR) r $(@) $(OBJS)
 

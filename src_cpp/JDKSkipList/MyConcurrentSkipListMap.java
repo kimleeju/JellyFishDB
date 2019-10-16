@@ -32,6 +32,11 @@ public class MyConcurrentSkipListMap
 
 		return sl.get(key);
 	}
+	public static void print_stat() {
+		System.out.println("print_stat..");
+		sl.print_stat();
+	}
+
 	public static void main(String[] args)
 	{
         System.out.println("Hello World");

@@ -1,4 +1,0 @@
-thread ConcurrentSkipList JDKSkipList JellyFishSkipList
-1 6040.84 6047.71 6164.66
-2 11604 11708.5 10124.6
-4 13921.2 14059.4 14230.2

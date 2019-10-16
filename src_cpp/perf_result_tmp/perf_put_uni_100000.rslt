@@ -1,4 +1,0 @@
-JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000127 IOPS = 15748.031496
-JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.295601 IOPS = 338297.231741
-ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000128 IOPS = 15625.000000
-ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.260892 IOPS = 383304.202505

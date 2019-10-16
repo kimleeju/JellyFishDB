@@ -104,10 +104,7 @@ public:
   }
 
   void Set_key(string key){
-    //assert(str_key != key);
-	//cout<<"str_key = "<<str_key<<endl;
-     strcpy(str_key ,key.c_str());
-     // str_key = key;
+	str_key = key;
   }
   
   string Get_key(){
@@ -171,36 +168,25 @@ public:
 	}
  #endif
 
-  
-  Node(string key_, string value_,int height_): str_value(value_), height(height_){
-//	cout<<"key_ = "<<key_.capacity()<<endl;
-	//swap(str_key,key_);
-	strcpy(str_key, key_.c_str());
-//	cout<<"str_key = "<<str_key<<endl;
-//	str_key =key_;
-//	string temp(str_key);
-//	cout<<"After, str_key = "<<temp.capacity()<<endl;
-//	str_key.shrink_to_fit();
-//	cout<<"sizeof(str_key) = "<<sizeof(str_key)<<endl;
-//	str_value = value_;
-//	height = height_;
-	prefix = new std::atomic<Node*> [height];
-	for(int i=0;i<height;i++){
-		(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
+
+	// Constructor 
+	Node(const string& key_, const string& value_,int height_)
+		: str_key(key_), str_value(value_), height(height_){
+
+			prefix = new std::atomic<Node*> [height];
+
+			for(int i=0; i < height; i++){
+					(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
+			}
+#ifdef JELLYFISH_SKIPLIST_H
+			//	 vqueue=nullptr;
+			vqueue_num = 0;
+#endif	
+#ifdef STRIDE_SKIPLIST_H
+			stride_next =nullptr;
+#endif
+
 	}
-	
-  //  (&next_[0] - n)->store(x, std::memory_order_relaxed);
-	//prefix = (atomic<Node*>)malloc(sizeof(Node*) * height);
-	#ifdef JELLYFISH_SKIPLIST_H
-//	 vqueue=nullptr;
-	 	vqueue_num = 0;
-	#endif	
-	
-	#ifdef STRIDE_SKIPLIST_H
-		stride_next =nullptr;
-	#endif
-	
-}
 
  ~Node(){
 	delete[] prefix;	
@@ -208,16 +194,12 @@ public:
 
 
 private:
-  // next_[0] is the lowest level link (level 0).  Higher levels are
-  // stored _earlier_, so level 1 is at next_[-1].
+	std::atomic<Node*> *prefix; 
+//  char str_key[30];
+	string str_key;
+	string str_value;
 
-// std::atomic<Node**> prefix; 
-//  std::atomic<Node*> next_[1]; 
-  std::atomic<Node*> *prefix; 
-  //std::atomic<Node**> prefix;
-  char str_key[30];
-  string str_value ;
-  int height ;
+	int height;
   #ifdef JELLYFISH_SKIPLIST_H
    VNode* vqueue;
    int vqueue_num;

@@ -28,6 +28,13 @@ import java.lang.reflect.Field;
 public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     implements ConcurrentNavigableMap<K,V>, Cloneable, Serializable {
     private static final long serialVersionUID = -8627078645895051609L;
+	
+	/* stat vars */ 
+	private static long cpr_cnt = 0;
+	public void print_stat() {
+//		System.out.println("compartor_cnt = %d", cpr_cnt); 
+		System.out.format("JDKSkipList comparator count = %d\n", cpr_cnt); 
+	}
 
     /**
      * Special value used to identify base-level header
@@ -330,6 +337,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     static final int cpr(Comparator c, Object x, Object y) {
+		cpr_cnt++; // EUNJI
         return (c != null) ? c.compare(x, y) : ((Comparable)x).compareTo(y);
     }
 

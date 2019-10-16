@@ -88,7 +88,7 @@ void* Worker::do_query_with_trace()
 
 	}
 	DEBUG( "completed ops = " << ops );
-	
+
 	return NULL;
 }
 

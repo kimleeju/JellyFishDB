@@ -24,6 +24,7 @@ public:
 	jobjectArray jarr;
 		
 	jmethodID create_mid;
+	jmethodID print_mid;
 	jmethodID put_mid;
 	jmethodID get_mid;
 	JNIEnv** t_env;
@@ -31,25 +32,27 @@ public:
 public:
     int Put(string key, string value, Iterator iterator);
     string Get(string key, Iterator iterator); 
-//    int remove(string key); 
+    void RangeQuery(string start_key, int count, Iterator iterator){}
 	void SetThreadNum(int t_num) override;
    
 public:
-    void RangeQuery(string start_key, int count, Iterator iterator);
-    Splice* AllocateSplice();
-    Node* FindLast();
-    Node* FindLessThan(string key, Node** prev);
-    Node* FindGreaterorEqual(string key);
-    int RecomputeSpliceLevels(string key, int level,int low,Splice* splice = 0);
-    void FindSpliceForLevel(string key, int level,int cur_level, Node** sp_prev, Node** sp_next, Node* before);
-    bool KeyIsAfterNode(string key, Node* n);
-    Node* AllocateNode(string key, string value, int height); 
-    int RandomHeight();
+    Splice* AllocateSplice(){}
+    Node* FindLast(){}
+    Node* FindLessThan(const string& key, Node** prev){}
+    Node* FindGreaterorEqual(const string& key){}
+    int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0){}
+    void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){}
+    bool KeyIsAfterNode(const string& key, Node* n){return true;}
+    Node* AllocateNode(const string& key, const string& value, int height); 
+    //Node* AllocateNode(string key, string value, int height); 
+    int RandomHeight() {};
     bool Insert(string key, string value, Iterator iterator);
+	void PrintStat();
 public:
-    JDKSkipList();
 	JDKSkipList(int t_num);
-    ~JDKSkipList(){}
+    ~JDKSkipList(){
+		PrintStat();
+	}
 };
 
 #endif

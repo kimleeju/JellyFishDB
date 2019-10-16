@@ -28,27 +28,33 @@ int main(int argc, char* argv[])
 	char *run_trc_fname = argv[4];
 
 	int rv;
+
+
+	if(type == "JDKSkipList"){
+		sl = new JDKSkipList(thread_num);
+	}
+	else if(type == "ConcurrentSkipList"){
+		sl = new ConcurrentSkipList;
+	}
+
 #if 0
 	// cout << "type: " << type << endl;:w
 	if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 	}
-#else
 	if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
 	}
 	else if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 	}
-	else if(type == "ConcurrentSkipList"){
-		sl = new ConcurrentSkipList;
+	else if(type == "JDKSkipList"){
+		sl = new JDKSkipList(thread_num);
 	}
 	else if(type == "StrideSkipList"){
 		sl = new StrideSkipList;
 	}
-	else if(type == "JDKSkipList"){
-		sl = new JDKSkipList(thread_num);
-	}
+
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
 	}
@@ -82,10 +88,12 @@ int main(int argc, char* argv[])
 //	cout<<", cnt = "<<sl->cnt<<endl;
 	//	cout<<bm.run_trc()<<endl;
 
+#ifdef PRINT_STAT
+	sl->PrintStat();
+#endif
+
 	return 0;
 }
 #endif
-
-
 
 
