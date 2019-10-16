@@ -1,0 +1,18 @@
+# started on Wed Oct 16 16:18:57 2019
+
+
+ Performance counter stats for './Run ConcurrentSkipList 1 ../trc/micro_trc/backup1000000trc/uni_put_load.trc ../trc/micro_trc/backup1000000trc/uni_put_run.trc':
+
+       7486.274941      task-clock (msec)         #    1.000 CPUs utilized          
+                17      context-switches          #    0.002 K/sec                  
+                 3      cpu-migrations            #    0.000 K/sec                  
+            79,789      page-faults               #    0.011 M/sec                  
+    28,947,723,435      cycles                    #    3.867 GHz                    
+   <not supported>      stalled-cycles-frontend  
+   <not supported>      stalled-cycles-backend   
+    59,343,661,917      instructions              #    2.05  insns per cycle        
+    13,893,041,638      branches                  # 1855.802 M/sec                  
+        43,309,028      branch-misses             #    0.31% of all branches        
+
+       7.486583693 seconds time elapsed
+

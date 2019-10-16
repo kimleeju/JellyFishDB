@@ -190,15 +190,31 @@ Node* ConcurrentSkipList::AllocateNode(string key, string value, int height){
    return x;
 }
 
-int ConcurrentSkipList::RandomHeight(){
+int ConcurrentSkipList::RandomHeight()
+{
+	int height = 1;
+	
+	int rnum = rand();
+
+	if(rnum & 0x3) { // 둘다 0 이어야 동작. 
+		while(rnum & 1 << 30 && height < kMaxHeight_) {
+			height++;
+			rnum <<= 1;
+		} 
+	}
+	return height;
+
+#if 0
    int height, balancing, pivot;
    balancing =2 ;
    height = 1;
    pivot = 1000/balancing;
+
    while(height < kMaxHeight_ && height < pivot && (rand()%1000)<pivot){
     height++;
    }
    return height;
+#endif
 }
 
 
@@ -207,6 +223,11 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 {
 	// update current max height
 	int height = RandomHeight();
+
+#ifdef PRINT_HEIGHT
+	cout << height << endl;
+#endif
+
 	int max_height = max_height_.load(std::memory_order_relaxed);
 
 	while(height > max_height){

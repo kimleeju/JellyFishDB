@@ -1,3 +1,8 @@
+make clean
+make -j4
+#CLASSPATH=$CLASSPATH:~/JDKSkipList/
+#export $CLASSPATH
+
 THREADS=1
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
@@ -7,12 +12,17 @@ THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
-SKIPLISTS="JellyFishSkipList ConcurrentSkipList JDKSkipList"
+#SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
+#SKIPLISTS="JellyFishSkipList ConcurrentSkipList JDKSkipList"
+#SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList"
+SKIPLISTS="ConcurrentSkipList JDKSkipList"
 
 num="1000000"
+num="100"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
+#TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 OP="put"
@@ -53,18 +63,22 @@ for op in $OP; do
 		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
-#				rfname="$sk.lat"
-#				rm $rfname
-				load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
-				run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
-				echo "./Run $sk $th $load_trc $run_trc"
-				#./Run $sk $th $load_trc $run_trc
-				#./Run $sk $th $load_trc $run_trc 
-				./Run $sk $th $load_trc $run_trc >> $rfname
-				cat $rfname
+				iter=5
+				while [[ $iter -le 5 ]]; do
+					#rfname="latency/$sk.lat"
+					load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
+					run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
+					echo "./Run $sk $th $load_trc $run_trc"
+					#./Run $sk $th $load_trc $run_trc
+					#./Run $sk $th $load_trc $run_trc 
+					./Run $sk $th $load_trc $run_trc >> $rfname
+					#./Run $sk $th $load_trc $run_trc > con.level
+					iter=$((iter+1))
+				done
 			done
 			th=$((th+th))
 		done
+		cat $rfname
 		cat $rfname | grep "run" | awk '{print $1, $NF}'
 	done
 done

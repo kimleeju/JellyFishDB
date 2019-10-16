@@ -1,0 +1,7 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.142414 IOPS = 7021788.588201
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.148341 IOPS = 6741231.352087
+create skip list
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.142688 IOPS = 7008304.832922
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.147911 IOPS = 6760829.147257
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.143345 IOPS = 6976183.333915
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.147865 IOPS = 6762932.404558

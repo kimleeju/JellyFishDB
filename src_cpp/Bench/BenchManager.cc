@@ -130,9 +130,10 @@ int BenchManager::run_trc(string fname)
 		<< " workload = " << fname 
 		<< " th = " << th  
 		<< " tot_ops = " << tot_ops 
-		<< " exec_time(s) = " << lat
-		<< " IOPS = " << tot_ops / lat 
-		<< endl;
+		<< " exec_time(s) = " << lat;
+
+//		<< " IOPS = %.6f", tot_ops / lat 
+	printf(" IOPS = %.6f\n",tot_ops / lat);
 #endif
 
 	return 0;

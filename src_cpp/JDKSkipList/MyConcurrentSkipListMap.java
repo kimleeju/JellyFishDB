@@ -1,4 +1,4 @@
-//import jdk.java.util.concurrent.ConcurrentSkipListMap;
+//import java.util.concurrent.ConcurrentSkipListMap;
 //import ConcurrentSkipListMap;
 
 
@@ -11,17 +11,20 @@ public class MyConcurrentSkipListMap
 
 	public static void create_sl() {
 		sl = new ConcurrentSkipListMap<String, String>();
-		System.out.println("create skip list");
 		count = 0;
 	}
 	public static void Put(String[] args) {
+//		System.out.println("Put 1");
 		String key = args[0];
 		String val = args[1];
 
-		sl.put(key, val);
+		String rv = sl.put(key, val);
+//		System.out.println("Finished");
 	}
 	public static void Put(String key, String val) {
-		sl.put(key, val);
+//		System.out.println("Put 2");
+		String rv = sl.put(key, val);
+//		System.out.println("Finished");
 	}
 
 	public static String Get(String key) {

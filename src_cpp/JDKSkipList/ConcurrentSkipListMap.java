@@ -533,7 +533,9 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         }
 
         int rnd = ThreadLocalRandom.nextSecondarySeed();
+		// EUNJI 
         if ((rnd & 0x80000001) == 0) { // test highest and lowest bits
+//		if(true) { // EUNJI: maintain indices for all nodes 
             int level = 1, max;
             while (((rnd >>>= 1) & 1) != 0)
                 ++level;
@@ -566,7 +568,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                     }
                 }
             }
-			System.out.println(level);
+//			System.out.println(level+1); // EUNJI
             // find insertion points and splice in
             splice: for (int insertionLevel = level;;) {
                 int j = h.level;
@@ -607,7 +609,9 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                     r = q.right;
                 }
             }
-        }
+        } else {
+//			System.out.println(1); // EUNJI
+		}
         return null;
     }
 

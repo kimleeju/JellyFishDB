@@ -166,60 +166,54 @@ JellyFishSkipList::Splice* JellyFishSkipList::AllocateSplice(){
     return splice;
 }
 
+
+bool JellyFishSkipList::KeyIsAfterNode(string key, Node* n)
+{
+	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+}
+
+
+void JellyFishSkipList::FindSpliceForLevel(string key, int level, int cur_level,  Node** sp_prev, Node** sp_next, Node* before)
+{
+	assert(before != NULL);
+
+    Node* after = before->Next(cur_level);
+
+	while(true){
+		if(!KeyIsAfterNode(key, after)){
+			*sp_prev = before;
+			*sp_next = after;
+			return;
+		}
+        before = after;
+        after = after->Next(cur_level);
+	}
+}
+
+
 int  JellyFishSkipList::RecomputeSpliceLevels(string key, int level, int low, Splice* splice)
 {
-	for(int i = MAX_LEVEL -1  ;i>=low; --i){
-		if(i==MAX_LEVEL -1 )
-        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],head_);
+	for(int i = MAX_LEVEL -1; i >= low; --i){
+		if(i == MAX_LEVEL -1 )
+        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i], head_);
 		else	
-        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
-		#if 0	
-		if(splice->next_[i]!=nullptr && (Comparator(key,splice->next_[i]->Get_key())==0)){
-			cout << __func__ << " " << key << " " << splice->next_[i]->Get_key() << endl;
+        	FindSpliceForLevel(key, level, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
+
+#ifdef JELLYFISH
+		// found the node with same key 
+		if(splice->next_[i] && (Comparator(key, splice->next_[i]->Get_key())==0)){
+			DEBUG( __func__ << " " << key << " " << splice->next_[i]->Get_key());
 			return i;	
 		}
-		#endif
+#endif
 	}
 	return -1;
 }
 
-void JellyFishSkipList::FindSpliceForLevel(string key, int level, int cur_level,  Node** sp_prev, Node** sp_next, Node* before){
-    Node* after = before ->Next(cur_level);
-	while(true){
-	
-     if(!KeyIsAfterNode(key, after)){
-		*sp_prev = before;
-     	*sp_next = after;
-		return;
-     }
-	//	++cnt;
-		before = after;		
-        after = after->Next(cur_level);	
-		
-    }
-}
-
 int JellyFishSkipList::Comparator(string key1, string key2){
-#if 0	
-	if(key1.length() < key2.length())
-		return  -1;
-	else if ( key1.length() > key2.length())
-		return 1;
-#endif
   return key1.compare(key2);
 }
 
-
-bool JellyFishSkipList::KeyIsAfterNode(string key, Node* n){
-#if 0
-	if(n == nullptr || key.length() < n->Get_key().length())
-		return  0;
-	else if ( key.length() > n->Get_key().length())
-		return 1;
-#endif
-  return (n != nullptr) && (key.compare(n->Get_key()) > 0);
-//	return (n != nullptr) && ((key > n->Get_key())?1:0);
-}
 
 VNode* JellyFishSkipList::AllocateVNode(string value){
    VNode* x = new VNode;
@@ -237,20 +231,47 @@ Node* JellyFishSkipList::AllocateNode(string key, string value, int height){
 }
 
 int JellyFishSkipList::RandomHeight(){
-#if 1
-   int height, balancing, pivot;
-   balancing = 2 ;
-   height = 1;
-   pivot = 1000/balancing;
-   while(height < kMaxHeight_ && height < pivot && (rand()%1000)<pivot){
-    height++;
-   }
-#endif
+
+	int height = 1;
+	
+	int rnum = rand();
+
+	if(rnum & 0x3) { // 둘다 0 이어야 동작. 
+		while(rnum & 1 << 30 && height < kMaxHeight_) {
+			height++;
+			rnum <<= 1;
+		} 
+	 }
+	return height;
+
 #if 0
-	int height = rand()%MAX_LEVEL-1;
+	int height, balancing, pivot;
+	balancing = 2 ;
+	height = 1;
+	pivot = 1000/balancing;
+
+	while(height < kMaxHeight_ && height < pivot && (rand()%1000) < pivot){
+		height++;
+	}
+
+	return height;
 #endif
-   return height;
 }
+#if 0
+int JellyFishSkipList::RandomHeight(){
+
+	int height, balancing, pivot;
+	balancing = 2 ;
+	height = 1;
+	pivot = 1000/balancing;
+
+	while(height < kMaxHeight_ && height < pivot && (rand()%1000) < pivot){
+		height++;
+	}
+
+	return height;
+}
+#endif
 
 JellyFishSkipList::JellyFishSkipList()
     :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
@@ -260,6 +281,10 @@ JellyFishSkipList::JellyFishSkipList()
 bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 {
 	int height = RandomHeight();
+
+#ifdef PRINT_HEIGHT
+	cout << height << endl;
+#endif
 	int max_height = max_height_.load(std::memory_order_relaxed);
 	while(height > max_height){
 		if(max_height_.compare_exchange_weak(max_height, height)){
@@ -270,9 +295,8 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 
 	// fl : found_level
 	int fl = RecomputeSpliceLevels(key, height, 0, iterator.splice);
-	assert(fl < 0);
 
-#if 0
+#ifdef JELLYFISH
 	// Insert a new node into the value chain 
 	if(fl >= 0){ 
 found:
@@ -297,7 +321,8 @@ found:
 		}
 	}
 #endif
-	// not found 	
+
+	// Insert a new node into the skip list 
 	Node* nnode = AllocateNode(key, value, height);
 		
 	for(int i = 0; i < height; ++i){
@@ -311,11 +336,9 @@ found:
 			
 			// failure 	
 			fl = RecomputeSpliceLevels(key, height, i, iterator.splice);
-			assert(fl < 0);
-
+#ifdef JELLYFISH
 			// if an insert fails in a bottom layer and a new node with a same key 
 			// is already inserted, we should insert the node into a value chain. 
-#if 0
 			if (i == 0 && fl >= 0){
 				if(nnode) free(nnode);
 				goto found;

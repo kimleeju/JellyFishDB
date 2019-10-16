@@ -19,13 +19,12 @@ SRCS +=\
 SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
 	CVSkipList/CVSkipList.cc\
-	ConcurrentSkipList/ConcurrentSkipList.cc\
 	JDKSkipList/JDKSkipList.cc\
 	StrideSkipList/StrideSkipList.cc\
+	ConcurrentSkipList/ConcurrentSkipList.cc\
 	JellyFishSkipList/JellyFishSkipList.cc\
 	SimpleSkipList/SimpleSkipList.cc\
 	Bench/BenchManager.cc
-
 
 OBJS = $(SRCS:.cc=.o)
 
@@ -51,4 +50,5 @@ $(TARG): Main.cc ./bin/libskiplist.a
 
 clean:
 	rm -f $(TARG) $(OBJS) ./bin/*.o ./bin/libskiplist.a
+	rm -f *.class
 

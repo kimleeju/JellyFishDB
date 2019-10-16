@@ -1,5 +1,6 @@
 CC=g++
-CXXFLAGS=-std=gnu++11 -std=c++11 -g -Wall
+CXXFLAGS=-std=c++11 -g -Wall
+#CXXFLAGS=-std=gnu++11 -std=c++11 -g -Wall
 LDFLAGS= -pthread
 
 SRCS +=\

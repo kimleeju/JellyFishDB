@@ -1,2 +1,2 @@
-JDKSkipList workload = ../trc/micro_trc/backup100trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000662 IOPS = 3021.15
-JDKSkipList workload = ../trc/micro_trc/backup100trc/uni_put_run.trc th = 1 tot_ops = 101 exec_time(s) = 0.000795 IOPS = 127044
+JDKSkipList workload = ../trc/micro_trc/backup100trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.001525 IOPS = 1311.475410
+JDKSkipList workload = ../trc/micro_trc/backup100trc/uni_put_run.trc th = 1 tot_ops = 101 exec_time(s) = 0.000817 IOPS = 123623.011016
