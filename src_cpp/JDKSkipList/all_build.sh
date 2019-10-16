@@ -1,0 +1,3 @@
+javac ThreadLocalRandom.java
+javac ConcurrentSkipListMap.java
+javac MyConcurrentSkipListMap.java

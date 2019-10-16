@@ -56,7 +56,6 @@ public class MyConcurrentSkipListMap
 			kv[1] = String.valueOf(i+100);
 			Put(kv);			
 		}
-/*
 		endTime = System.nanoTime();
 		diffTime = (endTime - startTime)/(double)1000000000;
 		System.out.printf("Lat = %.6f ", diffTime);
@@ -64,7 +63,7 @@ public class MyConcurrentSkipListMap
 		//System.out.println("Lat = " + diffTime + " OPS = " + ops + " IOPS = " + diffTime/ops );
 		System.out.printf(" OPS = %d IOPS = %.4f\n", ops, ops/diffTime );
 		//System.out.println(" OPS = " + ops + " IOPS = " + ops/diffTime );
-*/
+
 		//create_sl();
 		//put_sl("eunji", "seoul");
 		//put_sl("mike", "pusan");
