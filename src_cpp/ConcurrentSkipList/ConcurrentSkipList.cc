@@ -111,13 +111,6 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
  
 
 ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
-   /* size_t array_size = sizeof(Node*) * (kMaxHeight_ + 1) + sizeof(Node) ;
-    char* raw = new char[sizeof(Splice) + array_size*2];
-    Splice* splice = reinterpret_cast<Splice*>(raw);
-    splice->height_ = 0;
-    splice->prev_ = reinterpret_cast<Node**>(raw + sizeof(Splice) );
-    splice->next_ = reinterpret_cast<Node**>(raw + sizeof(Splice) + array_size);
-    return splice;*/
 	Splice* splice = new Splice();
 	splice->height_ = 0;
 	splice->prev_ = new Node *[MAX_LEVEL];
@@ -189,17 +182,6 @@ int ConcurrentSkipList::RandomHeight()
 	}
 	return height;
 
-#if 0
-   int height, balancing, pivot;
-   balancing =2 ;
-   height = 1;
-   pivot = 1000/balancing;
-
-   while(height < kMaxHeight_ && height < pivot && (rand()%1000)<pivot){
-    height++;
-   }
-   return height;
-#endif
 }
 
 

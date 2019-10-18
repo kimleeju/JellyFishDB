@@ -1,0 +1,11 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup10000trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 9.8e-05 IOPS = 20408.163265
+ConcurrentSkipList workload = ../trc/micro_trc/backup10000trc/uni_put_run.trc th = 1 tot_ops = 10001 exec_time(s) = 0.018889 IOPS = 529461.591402
+ConcurrentSkipList comparator count = 211102
+JDKSkipList workload = ../trc/micro_trc/backup10000trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.001571 IOPS = 1273.074475
+JDKSkipList workload = ../trc/micro_trc/backup10000trc/uni_put_run.trc th = 1 tot_ops = 10001 exec_time(s) = 0.022394 IOPS = 446592.837367
+PrintStat
+print_stat..
+JDKSkipList comparator count = 256065
+failed to run
+Usage: ./Run Options thread_count path
+Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList

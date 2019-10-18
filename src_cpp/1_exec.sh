@@ -11,16 +11,16 @@ THREADS=1
 
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-SKIPLISTS="ConcurrentSkipList JDKSkipList JellyFishSkipList"
+SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 #SKIPLISTS="JellyFishSkipList ConcurrentSkipList JDKSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList"
-SKIPLISTS="ConcurrentSkipList JDKSkipList"
+#SKIPLISTS="ConcurrentSkipList JDKSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 ##SKIPLISTS="JDKSkipList"
 
-num="1000000"
+num="10000"
 #num="100"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"

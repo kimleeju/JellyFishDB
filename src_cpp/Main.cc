@@ -29,16 +29,20 @@ int main(int argc, char* argv[])
 
 	int rv;
 
+#if 1
 
-	if(type == "JDKSkipList"){
+	if(type == "BlockedSpinSkipList"){
+		sl = new BlockedSkipList;
+	}
+
+	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);
 	}
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
 	}
-
+#endif
 #if 0
-	// cout << "type: " << type << endl;:w
 	if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 	}

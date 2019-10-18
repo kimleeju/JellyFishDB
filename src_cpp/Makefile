@@ -13,6 +13,7 @@ CXXFLAGS=-std=c++11 -g -Wall \
 LDFLAGS=-pthread
 
 SRCS +=\
+	BlockedSkipList/BlockedSkipList.cc\
 	JDKSkipList/JDKSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
 	Bench/BenchManager.cc
@@ -29,6 +30,7 @@ $(TARG): Main.cc ./bin/libskiplist.a
 	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ $^ -ljvm
 ./bin/libskiplist.a: $(SRCS)
 	mkdir -p bin
+	cd ./BlockedSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
