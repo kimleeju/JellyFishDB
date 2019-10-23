@@ -34,12 +34,19 @@ int main(int argc, char* argv[])
 	if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
 	}
+	
+	else if(type == "BlockedCVSkipList"){
+		sl = new CVSkipList;
+	}
 
 	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);
 	}
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
+	}
+	else if(type == "JellyFishSkipList"){
+		sl = new JellyFishSkipList;
 	}
 #endif
 #if 0

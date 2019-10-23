@@ -131,11 +131,11 @@ int BlockedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Spli
 
 	// head 
 	int i = MAX_LEVEL-1;
-	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
+	FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], head_);
 	
 	while(i > to_level) {
 		--i;
-		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
+		FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], seq_splice->prev_[i+1]);
 	}
 	return -1;
 
@@ -172,7 +172,7 @@ Node* BlockedSkipList::AllocateNode(const string& key, const string& value, int 
 bool BlockedSkipList::KeyIsAfterNode(const string& key, Node* n){
 	if(n == nullptr)
 		return false;
-
+	cpr_cnt++;
 	return key.compare(n->Get_key()) > 0;
 }
 
@@ -205,9 +205,7 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 		max_height_ = height;
 		max_height = height;   
     }
-cout<<"1111111"<<endl;
     int rv = RecomputeSpliceLevels(key, 0);
-     cout<<"22222222"<<endl;
 	Node* nnode = AllocateNode(key, value, height);
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, seq_splice->next_[i]);
@@ -226,6 +224,16 @@ cout<<"1111111"<<endl;
 
 }
 
+void BlockedSkipList::PrintStat()
+{
+	cout << "BlockedSkipList comparator count = " << cpr_cnt << endl;
+
+}
+void BlockedSkipList::ResetStat()
+{
+	cpr_cnt = 0;
+}
+
 BlockedSkipList::BlockedSkipList()
 {
 	string key = "!";
@@ -236,5 +244,6 @@ BlockedSkipList::BlockedSkipList()
 	seq_splice = AllocateSplice(); 
 
     srand((unsigned)time(NULL));
+	cpr_cnt = 0;
 }
 

@@ -75,14 +75,19 @@ std::atomic<int> cnt ;
 	void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
     Node* FindLast();
-    Node* FindLessThan(string key, Node** prev);
-    Node* FindGreaterorEqual(string key);
-    int RecomputeSpliceLevels(string key, int level, int low,Splice* splice = 0);
-    void FindSpliceForLevel(string key, int level, int cur_level,Node** sp_prev, Node** sp_next, Node* before);
-    bool KeyIsAfterNode(string key, Node* n);
-    Node* AllocateNode(string key, string value, int height); 
+    Node* FindLessThan(const string& key, Node** prev);
+    Node* FindGreaterorEqual(const string& key);
+    int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice);
+    void FindSpliceForLevel(const string& key, int to_level, Node** sp_prev, Node** sp_next, Node* before);
+    bool KeyIsAfterNode(const string& key, Node* n);
+    Node* AllocateNode(const string& key, const string& value, int height); 
     int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
+	void PrintStat();
+	void ResetStat();
+
+	
+
 public:
     CVSkipList();
     ~CVSkipList(){}

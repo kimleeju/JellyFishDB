@@ -11,7 +11,7 @@ THREADS=1
 
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
+SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 #SKIPLISTS="JellyFishSkipList ConcurrentSkipList JDKSkipList"
 #SKIPLISTS="JellyFishSkipList"
@@ -20,7 +20,7 @@ SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList"
 ##SKIPLISTS="JDKSkipList"
 
-num="10000"
+num="100000"
 #num="100"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
@@ -30,7 +30,7 @@ OP="put get range_query"
 OP="put"
 CONF="uni zipf_1.4"
 CONF="uni"
-
+CONF="zipf_1.4"
 #CONF="zipf_1.4"
 
 RSLT_DIR="./perf_result"

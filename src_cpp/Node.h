@@ -132,9 +132,10 @@ public:
 
  #ifdef JELLYFISH_SKIPLIST_H
   bool CAS_vqueue(VNode* expected, VNode* n){
+	(&vqueue)->compare_exchange_strong(expected,n);
 	//return vqueue.compare_exchange_weak(expected, n);
 	//return __sync_bool_compare_and_swap(vqueue, expected, n);
-	vqueue = n;
+	//vqueue = n;
 	return true;
   }
 
@@ -201,7 +202,7 @@ private:
 
 	int height;
   #ifdef JELLYFISH_SKIPLIST_H
-   VNode* vqueue;
+   atomic<VNode*> vqueue;
    int vqueue_num;
   #endif
   

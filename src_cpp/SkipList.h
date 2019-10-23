@@ -30,6 +30,7 @@ using namespace std;
 #define JELLYFISH
 
 
+
 class Iterator;
 
 class SkipList {
@@ -49,7 +50,8 @@ protected:
     atomic<int>max_height_; 
     Splice* seq_splice;
     TimeStamp t_global_committed;
-    
+	atomic<long> cpr_cnt; 	    
+
 public:    
     //string randomString();
     virtual int Put(string key, string value, Iterator iterator ) = 0;

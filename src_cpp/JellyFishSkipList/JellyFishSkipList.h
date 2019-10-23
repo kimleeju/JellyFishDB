@@ -24,17 +24,22 @@ public:
     void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
     Node* FindLast();
-    Node* FindLessThan(string key, Node** prev);
+    Node* FindLessThan(const string& key, Node** prev);
     Node* FindEqual(string key);
-    Node* FindGreaterorEqual(string key);
-	int RecomputeSpliceLevels(string key, int level, int low,Splice* splice);
-    void FindSpliceForLevel(string key, int level, int cur_level,Node** sp_prev, Node** sp_next, Node* before);
+    Node* FindGreaterorEqual(const string& key);
+	int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice);
+    void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before);
 	int Comparator(string key1, string key2); 
-     bool KeyIsAfterNode(string key, Node* n);
-    VNode* AllocateVNode(string value);
-    Node* AllocateNode(string key, string value, int height); 
+     bool KeyIsAfterNode(const string& key, Node* n);
+    VNode* AllocateVNode(const string& value);
+    Node* AllocateNode(const string& key, const string& value, int height); 
     int RandomHeight();
     bool Insert(string key, string value ,Iterator iterator); 
+//	void SetThreadNum(int t_num){}		
+	void PrintStat();
+	void ResetStat();
+
+
 
 public:
     JellyFishSkipList();

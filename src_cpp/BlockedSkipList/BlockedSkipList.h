@@ -33,6 +33,12 @@ public:
     int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
 	void GetEnv(int t_num);
+	void PrintStat();
+	void ResetStat();
+
+
+
+
 public:
     BlockedSkipList();
     ~BlockedSkipList(){}

@@ -70,7 +70,7 @@ Node* CVSkipList::FindLast(){
     }
 }
 
-Node* CVSkipList::FindLessThan(string key, Node** prev){
+Node* CVSkipList::FindLessThan(const string& key, Node** prev){
     int level = kMaxHeight_ -1 ;
     Node* x = head_;
     Node* last_not_after = nullptr;
@@ -94,7 +94,7 @@ Node* CVSkipList::FindLessThan(string key, Node** prev){
     }
 }
 
-Node* CVSkipList::FindGreaterorEqual(string key){
+Node* CVSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
@@ -120,89 +120,66 @@ Node* CVSkipList::FindGreaterorEqual(string key){
     
 
 
-int CVSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
-    for(int i = MAX_LEVEL-1  ;i>=low; --i){	
-		if(i==MAX_LEVEL-1)
-        	FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],head_);
-		else
-			FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
-	 }
-	return 0;
+int CVSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
+ 	// head 
+	int i = MAX_LEVEL-1;
+	FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], head_);
+	
+	while(i > to_level) {
+		--i;
+		FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], seq_splice->prev_[i+1]);
+	}
+	return -1; 
 }
 
-
-void CVSkipList::FindSpliceForLevel(string key, int level, int cur_level,Node** sp_prev, Node** sp_next, Node* before){
-Node* after = before ->Next(cur_level);
-    while(true){
+void CVSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){
+	assert(before != nullptr);
+	Node* after = before ->Next(level);
+	while(true){
         if(!KeyIsAfterNode(key, after)){
-            *sp_prev = before;
+			*sp_prev = before;
             *sp_next = after;
             return;
         }
-        before = after;
-       	after = after->Next(cur_level);
+        	before = after;
+            after = after->Next(level);
     }
 }
 
-bool CVSkipList::KeyIsAfterNode(string key, Node* n){
-	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
-} 
+bool CVSkipList::KeyIsAfterNode(const string& key, Node* n){
+	if(n == nullptr)
+		return false;
+	cpr_cnt++;
+	return key.compare(n->Get_key()) > 0;
+}
 
 
 
 
-Node* CVSkipList::AllocateNode(string key, string value, int height){
-   //auto prefix = sizeof(atomic<Node*>) * (height-1);
-   //cout<<"prefix = "<<prefix<<endl;
-   //char* raw = new char [prefix +sizeof(Node)];
-   //cout<<"raw = "<<raw<<endl;
-   //printf("raw = %p\n",raw);
-   
-  //Node* x = reinterpret_cast<Node*>(raw + prefix);   
-  //cout<<"x->Get_eky() = "<<x->Get_key()<<endl;
+
+Node* CVSkipList::AllocateNode(const string& key,const string& value, int height){
    Node* x = new Node(key,value,height);
 	x->done = false;
 	pthread_cond_init(&x->cond,NULL);	
-  // for(int i=0;i<height;i ++){
-  //     x->SetNext(i,nullptr);
-       //assert(x->Next(i));
-  // }
-//cout<<"str_key = "<<x->Get_key()<<endl;
-//cout<<"UnstashHeight() = "<<x->UnstashHeight()<<endl;
-//cout<<"str_key = "<<x->Get_key().capacity()<<endl;
-//cout<<"str_key.capacity() = "<<x->str_key.capacity()<<endl;
-//cout<<"sizeof(string) = "<<sizeof(string)<<endl;
-//cout<<"sizeof(key) = " <<sizeof(key)<<endl;   
-//cout<<"key.capacity() = "<<key.capacity()<<endl;
- 
-//   x->Set_key(key);
-//   x->StashHeight(height);
-//   x->Set_key(key);
-//   x->Set_value(value);
    return x;
-} 
+}
+ 
+int CVSkipList::RandomHeight()
+{
+	int height = 1;
+	
+	int rnum = rand();
 
-int CVSkipList::RandomHeight(){
-   int height, balancing, pivot;
-   balancing =2 ;
-   height = 1;
-   pivot = 1000/balancing;
-   while(height < kMaxHeight_ && height < pivot && (rand()%1000)<pivot){
-    height++;
-   }
-   return height;
+	if(rnum & 0x3) { // 둘다 0 이어야 동작. 
+		while(rnum & 1 << 30 && height < kMaxHeight_) {
+			height++;
+			rnum <<= 1;
+		} 
+	}
+	return height;
+
 }
 
-
-CVSkipList::CVSkipList()
-    :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
-   	srand((unsigned)time(NULL));
-	pthread_mutex_init(&req_q.lock,NULL);
-//   for(int i=0; i<kMaxHeight_;i++){
-//        head_->SetNext(i, nullptr);
-//   }
-//cout<<"-----------------------------------"<<endl;
-}
 
 
 bool CVSkipList::Insert(string key, string value, Iterator iterator)
@@ -242,31 +219,16 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 
 		// insert a new node into the skip list 
 		int max_height = max_height_.load(std::memory_order_relaxed);
-			
 		if(ready_node->Get_height() > max_height){
 			max_height_ = ready_node->Get_height();
 			max_height = ready_node->Get_height();   
  		}
-   			
-		if(iterator.splice->height_ < max_height){
-      		iterator.splice->prev_[max_height] = head_;
-      		iterator.splice->next_[max_height] = nullptr;
-      		iterator.splice->height_ =max_height;
-   		}else{
-  			for(int i = 0; i<ready_node->Get_height() ; i++){
-	  			iterator.splice->prev_[i] = head_;
-	   			iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
-			}	
-  		}
 
-		if(ready_node->Get_height() > 0) {
-			RecomputeSpliceLevels(ready_node->Get_key(), ready_node->Get_height(), 0, iterator.splice);
-    	}
-
+		int rv = RecomputeSpliceLevels(ready_node->Get_key(), 0, iterator.splice);
 		for(int i=0;i<ready_node->Get_height();++i){ 
 			ready_node->SetNext(i, iterator.splice->next_[i]);
         	iterator.splice->prev_[i]->SetNext(i,ready_node);
-    	}
+		}
 		// insert completes. 
 		pthread_mutex_lock(&req_q.lock);
 		// release ready_node 
@@ -293,4 +255,26 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 }
 
 
+void CVSkipList::PrintStat()
+{
+	cout << "CVSkipList comparator count = " << cpr_cnt << endl;
+
+}
+void CVSkipList::ResetStat()
+{
+	cpr_cnt = 0;
+}
+
+CVSkipList::CVSkipList()
+{
+	string key = "!";
+	string val = "!";
+	head_ = AllocateNode(key, val, MAX_LEVEL); 
+	kMaxHeight_ = MAX_LEVEL;	
+	max_height_ = 1; 
+	seq_splice = AllocateSplice(); 
+	pthread_mutex_init(&req_q.lock,NULL);
+    srand((unsigned)time(NULL));
+	cpr_cnt = 0;
+}
 
