@@ -33,7 +33,6 @@ public:
      bool KeyIsAfterNode(const string& key, Node* n);
     VNode* AllocateVNode(const string& value);
     Node* AllocateNode(const string& key, const string& value, int height); 
-    int RandomHeight();
     bool Insert(string key, string value ,Iterator iterator); 
 //	void SetThreadNum(int t_num){}		
 	void PrintStat();

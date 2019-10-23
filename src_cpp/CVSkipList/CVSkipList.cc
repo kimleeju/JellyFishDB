@@ -123,11 +123,10 @@ Node* CVSkipList::FindGreaterorEqual(const string& key){
 int CVSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
  	// head 
 	int i = MAX_LEVEL-1;
-	FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], head_);
-	
+	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
 	while(i > to_level) {
 		--i;
-		FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], seq_splice->prev_[i+1]);
+		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
 	}
 	return -1; 
 }
@@ -164,22 +163,6 @@ Node* CVSkipList::AllocateNode(const string& key,const string& value, int height
    return x;
 }
  
-int CVSkipList::RandomHeight()
-{
-	int height = 1;
-	
-	int rnum = rand();
-
-	if(rnum & 0x3) { // 둘다 0 이어야 동작. 
-		while(rnum & 1 << 30 && height < kMaxHeight_) {
-			height++;
-			rnum <<= 1;
-		} 
-	}
-	return height;
-
-}
-
 
 
 bool CVSkipList::Insert(string key, string value, Iterator iterator)

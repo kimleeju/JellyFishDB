@@ -168,22 +168,6 @@ Node* ConcurrentSkipList::AllocateNode(const string& key, const string& value, i
    return x;
 }
 
-int ConcurrentSkipList::RandomHeight()
-{
-	int height = 1;
-	
-	int rnum = rand();
-
-	if(rnum & 0x3) { // 둘다 0 이어야 동작. 
-		while(rnum & 1 << 30 && height < kMaxHeight_) {
-			height++;
-			rnum <<= 1;
-		} 
-	}
-	return height;
-
-}
-
 
 
 bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
@@ -251,17 +235,5 @@ ConcurrentSkipList::ConcurrentSkipList()
 	cpr_cnt = 0;
 }
 
-#if 0
-ConcurrentSkipList::ConcurrentSkipList()
-    :SkipList(static_cast<uint16_t>(MAX_LEVEL), 
-	AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
-    srand((unsigned)time(NULL));
-	cpr_cnt = 0;
-
-    /*for(int i=0; i<kMaxHeight_; i++){
-	head_->SetNext(i, nullptr);
-    }*/
-}
-#endif
 
 

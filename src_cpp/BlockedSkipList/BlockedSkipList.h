@@ -30,14 +30,10 @@ public:
     int Comparator(string key1, string key2);
 	bool KeyIsAfterNode(const string& key, Node* n);
     Node* AllocateNode(const string& key, const string& value, int height); 
-    int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
 	void GetEnv(int t_num);
 	void PrintStat();
 	void ResetStat();
-
-
-
 
 public:
     BlockedSkipList();

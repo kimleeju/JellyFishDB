@@ -45,7 +45,6 @@ public:
     bool KeyIsAfterNode(const string& key, Node* n){return true;}
     Node* AllocateNode(const string& key, const string& value, int height); 
     //Node* AllocateNode(string key, string value, int height); 
-    int RandomHeight() {};
     bool Insert(string key, string value, Iterator iterator);
 	void PrintStat();
 public:

@@ -25,16 +25,17 @@ public:
     void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice(){return nullptr;}
     Node* FindLast(){return nullptr;}
-    Node* FindLessThan(string key, Node** prev){return nullptr;}
-    Node* FindGreaterorEqual(string key){return nullptr;}
-    int RecomputeSpliceLevels(string key, int level, int low,Splice* splice = 0){return 0;}
-    void FindSpliceForLevel(string key, int level, int cur_level,Node** sp_prev, Node** sp_next, Node* before){}
-    bool KeyIsAfterNode(string key, Node* n){return 0;}
-    Node* AllocateNode(string key, string value, int height){return nullptr;} 
-    int RandomHeight(){return 0;}
+    Node* FindLessThan(const string& key, Node** prev){return nullptr;}
+    Node* FindGreaterorEqual(const string& key){return nullptr;}
+    int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0){return 0;}
+    void FindSpliceForLevel(const string& key,int to_level,Node** sp_prev, Node** sp_next, Node* before){}
+    bool KeyIsAfterNode(const string& key, Node* n){return 0;}
+    Node* AllocateNode(const string& key, const string& value, int height){return nullptr;} 
     bool Insert(string key, string value, Iterator iterator);
+	void PrintStat();
+	void ResetStat();
 public:
-    SimpleSkipList(){}
+    SimpleSkipList();
     ~SimpleSkipList(){}
 };
 

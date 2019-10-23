@@ -42,9 +42,19 @@ int main(int argc, char* argv[])
 	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);
 	}
+	
+	else if(type =="SimpleSkipList"){
+		sl = new SimpleSkipList;
+	}
+
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
 	}
+	
+	else if(type =="StrideSkipList"){
+		sl = new StrideSkipList;
+	}
+	
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
 	}

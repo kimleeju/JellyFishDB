@@ -176,7 +176,7 @@ bool BlockedSkipList::KeyIsAfterNode(const string& key, Node* n){
 	return key.compare(n->Get_key()) > 0;
 }
 
-
+#if 0
 int BlockedSkipList::RandomHeight()
 {
 	int height = 1;
@@ -192,6 +192,7 @@ int BlockedSkipList::RandomHeight()
 	return height;
 
 }
+#endif
 
 
 

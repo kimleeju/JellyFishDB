@@ -81,7 +81,6 @@ std::atomic<int> cnt ;
     void FindSpliceForLevel(const string& key, int to_level, Node** sp_prev, Node** sp_next, Node* before);
     bool KeyIsAfterNode(const string& key, Node* n);
     Node* AllocateNode(const string& key, const string& value, int height); 
-    int RandomHeight();
     bool Insert(string key, string value, Iterator iterator);
 	void PrintStat();
 	void ResetStat();

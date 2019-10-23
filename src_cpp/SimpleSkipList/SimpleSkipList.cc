@@ -51,3 +51,19 @@ bool SimpleSkipList::Insert(string key, string value, Iterator iterator){
 	kv_map.insert(make_pair(key, value));
 	return true;
 }
+
+void SimpleSkipList::PrintStat()
+{
+	cout << "SimpleSkipList comparator count = " << cpr_cnt << endl;
+
+}
+void SimpleSkipList::ResetStat()
+{
+	cpr_cnt = 0;
+}
+
+SimpleSkipList::SimpleSkipList()
+{
+    srand((unsigned)time(NULL));
+	cpr_cnt = 0;
+}

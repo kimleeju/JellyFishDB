@@ -56,7 +56,7 @@ Node* StrideSkipList::FindLast(){
     }
 }
 
-Node* StrideSkipList::FindLessThan(string key, Node** prev){
+Node* StrideSkipList::FindLessThan(const string& key, Node** prev){
     int level = kMaxHeight_ -1 ;
     Node* x = head_;
     Node* last_not_after = nullptr;
@@ -80,7 +80,7 @@ Node* StrideSkipList::FindLessThan(string key, Node** prev){
     }
 }
 
-Node* StrideSkipList::FindGreaterorEqual(string key){
+Node* StrideSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
@@ -118,19 +118,22 @@ StrideSkipList::Splice* StrideSkipList::AllocateSplice(){
    return splice;
 }
 
-int StrideSkipList::RecomputeSpliceLevels(string key, int level, int low,Splice* splice){
-    for(int i = MAX_LEVEL-1  ;i>=low; --i){	
-		if(i==MAX_LEVEL-1)
-        	FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],head_);
-		else
-			FindSpliceForLevel(key, level,  i, &splice->prev_[i], &splice->next_[i],splice->prev_[i+1]);
-	 }
-	return 0;
+int StrideSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
+   
+	// head 
+	int i = MAX_LEVEL-1;
+	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
+
+	while(i > to_level) {
+		--i;
+		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
+	}
+	return -1;
 }
 
 
-void StrideSkipList::FindSpliceForLevel(string key, int level,  int cur_level, Node** sp_prev, Node** sp_next, Node* before){
-	 Node* after = before ->Next(cur_level);
+void StrideSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){
+	 Node* after = before ->Next(level);
    while(true){
 	
      if(!KeyIsAfterNode(key, after)){
@@ -139,108 +142,44 @@ void StrideSkipList::FindSpliceForLevel(string key, int level,  int cur_level, N
         return;
      }
         before = after;
-            after = after->Next(cur_level);
+            after = after->Next(level);
     }
 }
 
-int StrideSkipList::Comparator(string key1, string key2){
-#if 0	
-	if(key1.length() < key2.length())
-		return  -1;
-	else if ( key1.length() > key2.length())
-		return 1;
-  return key1.compare(key2);
-#endif
-	return key1.compare(key2);
-}
 
-bool StrideSkipList::KeyIsAfterNode(string key, Node* n){
-#if 0
-	if(n == nullptr || key.length() < n->Get_key().length())
-		return  0;
-	else if ( key.length() > n->Get_key().length())
-		return 1;
-#endif
-#if 0
+bool StrideSkipList::KeyIsAfterNode(const string& key, Node* n){
 	if(n == nullptr)
-		return 0;
-	else if(key.length() < n->Get_key().length())
-		return 0;
-	else if(key.length() > n->Get_key().length())
-		return 1;
-#endif
-	return (n != nullptr) && (key.compare(n->Get_key()) > 0);
+		return false;
+
+	cpr_cnt++;
+	return key.compare(n->Get_key()) > 0;
 }
 
 
-Node* StrideSkipList::AllocateNode(string key, string value, int height){
-   /*auto prefix = sizeof(Node*) * (height);
-   char* raw = new char [prefix  + sizeof(Node*)+sizeof(Node)];
-   Node* x = reinterpret_cast<Node*>(raw + prefix);
-
-   for(int i=0;i<height;i ++){
-       x->SetNext(i,nullptr);
-       //assert(x->Next(i))
-   }
-	
-   x->StashHeight(height);
-   x->Set_key(key);
-   x->Set_value(value);*/
+Node* StrideSkipList::AllocateNode(const string& key, const string& value, int height){
    Node* x = new Node(key,value, height);
    return x;
 }
-
-int StrideSkipList::RandomHeight(){
-   int height, balancing, pivot;
-   balancing =2 ;
-   height = 1;
-   pivot = 1000/balancing;
-   while(height < kMaxHeight_ && height < pivot && (rand()%1000)<pivot){
-    height++;
-   }
-   return height;
+int StrideSkipList::Comparator(string key1, string key2){
+	return key1.compare(key2);
 }
-
-StrideSkipList::StrideSkipList()
-    :SkipList(static_cast<uint16_t>(MAX_LEVEL), AllocateNode("!","!",MAX_LEVEL),1,AllocateSplice()){
-    srand((unsigned)time(NULL));
-
-    /*for(int i=0; i<kMaxHeight_; i++){
-	head_->SetNext(i, nullptr);
-    }*/
-}
-
-
-
 
 bool StrideSkipList::Insert(string key, string value, Iterator iterator){
   //Node* nnode = AllocateNode(key, value, RandomHeight());
 //  Splice* splice = AllocateSplice();
-	int height = RandomHeight();
-  int max_height = max_height_.load(std::memory_order_relaxed);
-   while(height > max_height){
-     if(max_height_.compare_exchange_weak(max_height, height)){
-	max_height = height;
-	break;
-     }
-  } 
-	 
-  if(iterator.splice->height_ < max_height){
-      iterator.splice->prev_[max_height] = head_;
-      iterator.splice->next_[max_height] = nullptr;
-      iterator.splice->height_ =max_height;
-   }
-   else{
-		for(int i = 0; i<height ; i++){
-			iterator.splice->prev_[i] = head_;
-	   		iterator.splice->next_[i] = iterator.splice->prev_[i] ->NoBarrier_Next(i);
+	int height = RandomHeight();  
+	int max_height = max_height_.load(std::memory_order_relaxed);
+   
+	while(height > max_height){
+		if(max_height_.compare_exchange_weak(max_height, height)){
+			max_height = height;
+			break;
 		}
-    }
+	} 
+	 
 	Node* nnode = AllocateNode(key, value, height);
 
-	if(nnode->Get_height() > 0) {
-		RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(), 0,iterator.splice);
-    }
+	int rv = RecomputeSpliceLevels(nnode->Get_key(), 0,iterator.splice);
     
 	for(int i=0; i<height ; i++){
 		while(true){
@@ -250,19 +189,38 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 				break;
 			}
 			
-			RecomputeSpliceLevels(nnode->Get_key(), nnode->Get_height(), i,iterator.splice);
+			rv = RecomputeSpliceLevels(nnode->Get_key(), i,iterator.splice);
 		}
 	}
 	
-#if 0	
-	while(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key){
-		iterator.splice->next_[0] = iterator.splice->next_[0]->Next(0);
-	i}
-#endif
 	if(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key)
 	{	
 		nnode->Set_stride_next(iterator.splice->next_[0]);
 	}
    return true;
      
+}
+
+void StrideSkipList::PrintStat()
+{
+	cout << "StrideSkipList comparator count = " << cpr_cnt << endl;
+
+}
+void StrideSkipList::ResetStat()
+{
+	cpr_cnt = 0;
+}
+
+
+StrideSkipList::StrideSkipList()
+{
+	string key = "!";
+	string val = "!";
+	head_ = AllocateNode(key, val, MAX_LEVEL); 
+	kMaxHeight_ = MAX_LEVEL;	
+	max_height_ = 1; 
+	seq_splice = AllocateSplice(); 
+
+    srand((unsigned)time(NULL));
+	cpr_cnt = 0;
 }

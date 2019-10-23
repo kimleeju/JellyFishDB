@@ -66,13 +66,26 @@ public:
     virtual void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before)=0;
     virtual bool KeyIsAfterNode(const string& key, Node* n)=0;
     virtual Node* AllocateNode(const string& key, const string& value, int height)=0;
-    virtual int RandomHeight()=0;
+    //virtual int RandomHeight()=0;
     virtual bool Insert(string key, string value, Iterator iterator)=0;
 	virtual void SetThreadNum(int t_num){}		
 	virtual void PrintStat(){}
 	virtual void ResetStat(){}
 	
 public:
+	int RandomHeight(){
+		int height = 1;
+		int rnum = rand();
+
+		if(rnum & 0x3) { // 둘다 0 이어야 동작. 
+			while(rnum & 1 << 30 && height < kMaxHeight_) {
+				height++;
+				rnum <<= 1;
+			} 
+		}
+		return height;
+	};
+
     SkipList(int kMaxHeight, Node* head, int max_height, Splice* seq_splice_) : 
         head_(head),
         kMaxHeight_(kMaxHeight),
