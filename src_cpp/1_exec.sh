@@ -6,7 +6,7 @@ make -j4
 THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 
-num="100000"
+num="1000000"
 #num="100"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
@@ -14,7 +14,7 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 OP="put"
-CONF="uni zipf_1.4"
+CONF="uni zipf_1.2"
 #CONF="uni"
 #CONF="zipf_1.4"
 #CONF="zipf_1.4"
