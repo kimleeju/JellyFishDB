@@ -7,14 +7,17 @@ THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 
 num="1000000"
+#SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
 
 TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-OP="put"
 CONF="uni zipf_1.2"
+#OP="put"
+#OP="range_query"
+#CONF="uni zipf_1.4"
 #CONF="uni"
 #CONF="zipf_1.4"
 #CONF="zipf_1.4"
@@ -48,7 +51,7 @@ for op in $OP; do
 		touch $rfname
 		echo "$rfname ...."
 
-		th=1
+		th=16
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
 				iter=5
