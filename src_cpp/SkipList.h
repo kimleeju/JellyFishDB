@@ -19,11 +19,11 @@ using namespace std;
 #define MAX_LEVEL 32
 
 #define DEBUG(x) do {\
-	if(1) { std::cout << x << std::endl; } \
+	if(0) { std::cout << x << std::endl; } \
 } while (0)
 
 #define OP_EXEC
-#define PRINT_LATENCY
+//#define PRINT_LATENCY
 //#define PRINT_HEIGHT
 #define PRINT_STAT
 #define PRINT_PERF
