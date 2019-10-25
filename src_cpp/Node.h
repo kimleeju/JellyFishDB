@@ -11,9 +11,11 @@ using namespace std;
 
 //#ifdef JELLYFISH_SKIPLIST_H
 typedef struct VNode {
-     VNode* NoBarrier_Next() {
-	return next;
-  //	return (&next)->load(std::memory_order_relaxed);
+	VNode* NoBarrier_Next() {
+	
+//  	return (&next)->load(std::memory_order_release);
+//	return next;
+		return (&next)->load(std::memory_order_relaxed);
   }
 
   void NoBarrier_SetNext(VNode* x) {
@@ -140,9 +142,9 @@ public:
   }
 
   void Set_vqueue(VNode* n){
-	vqueue = n;
-	//(&vqueue)->store(n, std::memory_order_relaxed);
-	vqueue_num++;
+	//vqueue = n;
+	(&vqueue)->store(n, std::memory_order_relaxed);
+	//vqueue_num++;
   }
 
   VNode* Get_vqueue(){
@@ -181,6 +183,7 @@ public:
 			}
 #ifdef JELLYFISH_SKIPLIST_H
 			//	 vqueue=nullptr;
+			Set_vqueue(nullptr);
 			vqueue_num = 0;
 #endif	
 #ifdef STRIDE_SKIPLIST_H

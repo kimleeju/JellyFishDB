@@ -44,7 +44,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 		if(temp_->Next(0)==nullptr)
 			return;
        	temp_=temp_->Next(0);
-		--i;
+//		--i;
     } 
 	return;
 }
@@ -247,17 +247,22 @@ found:
 		while(1) {
 			// first node 
 			VNode* vq = fnode->Get_vqueue();
-	
+			
+//			int vq_num = fnode->Get_vqueue();
+		
 			if(vq == nullptr) {
+//			if(vq_num != 0){
 				if(fnode->CAS_vqueue(vq, nvnode))
 					return true;
+				continue;
 			}
-	
-			// not first node  
-			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
-	
-			if(fnode->CAS_vqueue(vq, nvnode))
-				return true;
+			// not first node 
+//			cout<<"vq = "<<vq<<endl;
+//			cout<<"vq->NoBarrier_Next() = "<<vq->NoBarrier_Next()<<endl;
+				nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
+//			nvnode->NoBarrier_SetNext(vq->next);	
+				if(fnode->CAS_vqueue(vq, nvnode))
+					return true;
 		}
 	}
 #endif
