@@ -1,0 +1,23 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.341189 IOPS = 293095.615627
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.070898 IOPS = 1410491.128100
+BlockedSkipList comparator count = 3013255
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.399517 IOPS = 250304.742977
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.061724 IOPS = 1620131.553367
+CVSkipList comparator count = 2850092
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.156575 IOPS = 638677.949864
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.067619 IOPS = 1478889.069640
+ConcurrentSkipList comparator count = 1933559
+StrideSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.145392 IOPS = 687802.630131
+StrideSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.064037 IOPS = 1561612.817590
+StrideSkipList comparator count = 3003911
+JDKSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.132536 IOPS = 754519.526770
+JDKSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.101008 IOPS = 990030.492634
+PrintStat
+print_stat..
+JDKSkipList comparator count = 4519762
+SimpleSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.219898 IOPS = 454760.843664
+SimpleSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.18818 IOPS = 531411.414603
+SimpleSkipList comparator count = 0
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.16261 IOPS = 614974.478814
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.029865 IOPS = 3348434.622468
+JellyFishSkipList comparator count = 3213643
