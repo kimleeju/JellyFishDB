@@ -1,7 +1,7 @@
 
 num="1000000"
 ops="put get"
-workloads="uni zipf_1.4"
+workloads="uni zipf_1.2"
 
 for op in $ops; do
 	for wk in $workloads; do
