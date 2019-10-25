@@ -88,7 +88,7 @@ public:
 
 //#ifdef JELLYFISH_SKIPLIST_H
 	atomic<VNode*> vqueue;
-	atomic<int> vqueue_num;
+//	atomic<int> vqueue_num;
 
 
 	bool CAS_vqueue(VNode* expected, VNode* n){
@@ -102,7 +102,7 @@ public:
 	VNode* Get_vqueue(){
 		return vqueue;
 	}
-
+#if 0
 	void Set_vqueue_num(){
 		vqueue_num++;
 	}
@@ -110,6 +110,7 @@ public:
 	int Get_vqueue_num(){
 		return vqueue_num;
 	}
+#endif
 //#endif
 
 //#ifdef STRIDE_SKIPLIST_H
@@ -152,7 +153,7 @@ public:
 
 //#ifdef JELLYFISH_SKIPLIST_H
 		Set_vqueue(nullptr);
-		vqueue_num = 0;
+	//	vqueue_num = 0;
 //#endif	
 //#ifdef STRIDE_SKIPLIST_H
 		stride_next =nullptr;

@@ -14,7 +14,7 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
 	iterator.Seek(key);
 	Node* temp = iterator.Node();
-	  if(temp -> Get_vqueue_num() != 0){
+	  if(temp -> Get_vqueue() != nullptr){
 		return temp -> Get_vqueue() -> value; 
     }
     else	
@@ -35,7 +35,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 	int i = count;
 	while(i > 0){
       //for(int i=count; i > 0; --i) {
-		if(temp_->Get_vqueue_num() != 0){
+		if(temp_->Get_vqueue() != nullptr){
 			--i;
 		}
 		else{
@@ -156,7 +156,7 @@ bool JellyFishSkipList::KeyIsAfterNode(const string& key, Node* n)
 	if(n == nullptr)
 		return false;
 
-	cpr_cnt++;
+	//cpr_cnt++;
 	return key.compare(n->Get_key()) > 0;
 }
 

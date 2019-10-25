@@ -5,7 +5,7 @@ make -j4
 
 THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-SKIPLISTS="JellyFishSkipList"
+#SKIPLISTS="JellyFishSkipList"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 num="100000"

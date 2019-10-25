@@ -105,14 +105,13 @@ int BenchManager::run_trc(string fname)
 	tot_ops = _read_trc_file(fname);
 	if(tot_ops < 0)
 		return -1;
-
+	
 	// timer start 
 	timer.start();
 	// create and run threads 
 	for(int i = 0; i < th; i++){
 		workers[i].create(i);
 	}
-
 	// join thread
 	for(int i = 0; i < th; i++){
 		workers[i].join();
@@ -135,7 +134,6 @@ int BenchManager::run_trc(string fname)
 //		<< " IOPS = %.6f", tot_ops / lat 
 	printf(" IOPS = %.6f\n",tot_ops / lat);
 #endif
-
 	return 0;
 }
 
