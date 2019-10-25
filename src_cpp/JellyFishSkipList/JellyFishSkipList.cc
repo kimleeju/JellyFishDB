@@ -14,7 +14,7 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
 	iterator.Seek(key);
 	Node* temp = iterator.Node();
-	  if(temp -> Get_vqueue_num() != 0){
+	  if(temp -> Get_vqueue() != nullptr){
 		return temp -> Get_vqueue() -> value; 
     }
     else	
@@ -35,7 +35,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 	int i = count;
 	while(i > 0){
       //for(int i=count; i > 0; --i) {
-		if(temp_->Get_vqueue_num() != 0){
+		if(temp_->Get_vqueue() != nullptr){
 			--i;
 		}
 		else{
@@ -44,7 +44,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 		if(temp_->Next(0)==nullptr)
 			return;
        	temp_=temp_->Next(0);
-		--i;
+//		--i;
     } 
 	return;
 }
@@ -156,7 +156,7 @@ bool JellyFishSkipList::KeyIsAfterNode(const string& key, Node* n)
 	if(n == nullptr)
 		return false;
 
-	cpr_cnt++;
+	//cpr_cnt++;
 	return key.compare(n->Get_key()) > 0;
 }
 
@@ -184,13 +184,16 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 	// head 
 	int i = MAX_LEVEL-1;
 	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
+
 	while(i > to_level) {
 		--i;
 		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
+#ifdef JELLYFISH
 		if(splice->next_[i] && (Comparator(key, splice->next_[i]->Get_key())==0)){
 			DEBUG( __func__ << " " << key << " " << splice->next_[i]->Get_key());
 			return i;	
 		}
+#endif
 	}
 	return -1;
 }
@@ -242,20 +245,24 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 found:
 		Node* fnode = iterator.splice->next_[fl];
 		VNode* nvnode = AllocateVNode(value);
+		DEBUG("nvnode = " << nvnode);
 
 
 		while(1) {
 			// first node 
 			VNode* vq = fnode->Get_vqueue();
-	
-			if(vq == nullptr) {
+		
+			if(vq == nullptr) { // empty, and it's the first node 
 				if(fnode->CAS_vqueue(vq, nvnode))
 					return true;
+				continue;
 			}
-	
-			// not first node  
+
+			// not first node
+			assert(fnode->Get_key() == key);
+			DEBUG("Insert into vqueue: key = " + key);
+			DEBUG(" vq = " << vq );
 			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
-	
 			if(fnode->CAS_vqueue(vq, nvnode))
 				return true;
 		}

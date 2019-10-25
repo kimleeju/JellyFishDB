@@ -148,7 +148,7 @@ void CVSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev
 bool CVSkipList::KeyIsAfterNode(const string& key, Node* n){
 	if(n == nullptr)
 		return false;
-	cpr_cnt++;
+	//cpr_cnt++;
 	return key.compare(n->Get_key()) > 0;
 }
 

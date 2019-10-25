@@ -89,30 +89,22 @@ int main(int argc, char* argv[])
 		cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
 		return -1;
 	} 
-
 	// create a bench manager 	
 	BenchManager bm(thread_num, sl, type);
-
 	rv = bm.run_trc(load_trc_fname); 
 	if (rv < 0){
 		cout << "Failed to load trc" << endl;
 		return 0;
 	}
-
 	rv = bm.run_trc(run_trc_fname);
 	if (rv < 0) {
 		cout << "Failed to load trc" << endl;
 		return 0;
 	}
 
-//	cout<<"IOPS = "<<bm.run_trc()<<endl;	
-//	cout<<", cnt = "<<sl->cnt<<endl;
-	//	cout<<bm.run_trc()<<endl;
-
 #ifdef PRINT_STAT
 	sl->PrintStat();
 #endif
-
 	return 0;
 }
 #endif

@@ -19,7 +19,7 @@ using namespace std;
 #define MAX_LEVEL 32
 
 #define DEBUG(x) do {\
-	if(0) { std::cerr << x << std::endl; } \
+	if(0) { std::cout << x << std::endl; } \
 } while (0)
 
 #define OP_EXEC
@@ -75,9 +75,10 @@ public:
 public:
 	int RandomHeight(){
 		int height = 1;
-		int rnum = rand();
 
-		if(rnum & 0x3) { // 둘다 0 이어야 동작. 
+		int rnum = rand();
+		//if(!(rnum & 0x3)) { // 둘다 0 이어야 동작. 
+		if(1) {
 			while(rnum & 1 << 30 && height < kMaxHeight_) {
 				height++;
 				rnum <<= 1;

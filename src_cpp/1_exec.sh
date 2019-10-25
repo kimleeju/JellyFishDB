@@ -3,8 +3,9 @@ make -j4
 #CLASSPATH=$CLASSPATH:~/JDKSkipList/
 #export $CLASSPATH
 
-THREADS=16
+THREADS=1
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
+#SKIPLISTS="JellyFishSkipList"
 
 num="1000000"
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
@@ -18,6 +19,8 @@ CONF="uni zipf_1.2"
 #OP="put"
 #OP="range_query"
 #CONF="uni zipf_1.4"
+CONF="uni zipf_1.2"
+CONF="zipf_1.2"
 #CONF="uni"
 #CONF="zipf_1.4"
 #CONF="zipf_1.4"

@@ -1,0 +1,23 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.337283 IOPS = 296489.891278
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.093461 IOPS = 1069975.711794
+BlockedSkipList comparator count = 2751687
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.397305 IOPS = 251698.317414
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.103071 IOPS = 970214.706367
+CVSkipList comparator count = 2943945
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.145658 IOPS = 686546.567988
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.09741 IOPS = 1026598.911816
+ConcurrentSkipList comparator count = 1927293
+StrideSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.143831 IOPS = 695267.362391
+StrideSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.060503 IOPS = 1652827.132539
+StrideSkipList comparator count = 2885052
+JDKSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.145443 IOPS = 687561.450190
+JDKSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.01272 IOPS = 7861713.836478
+PrintStat
+print_stat..
+JDKSkipList comparator count = 2295946
+SimpleSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.227568 IOPS = 439433.488012
+SimpleSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.746426 IOPS = 133973.093113
+SimpleSkipList comparator count = 0
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.16969 IOPS = 589315.811185
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.028356 IOPS = 3526625.758217
+JellyFishSkipList comparator count = 3159084
