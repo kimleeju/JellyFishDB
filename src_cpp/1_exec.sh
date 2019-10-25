@@ -3,11 +3,13 @@ make -j4
 #CLASSPATH=$CLASSPATH:~/JDKSkipList/
 #export $CLASSPATH
 
-THREADS=1
+THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
+SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="JellyFishSkipList"
 
 num="1000000"
+
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
 
@@ -20,13 +22,18 @@ CONF="uni zipf_1.2"
 #OP="range_query"
 #CONF="uni zipf_1.4"
 CONF="uni zipf_1.2"
-CONF="zipf_1.2"
+#CONF="zipf_1.2"
 #CONF="uni"
 #CONF="zipf_1.4"
 #CONF="zipf_1.4"
 
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
+RSLT_DIR="./perf_result_191025"
+
+if [[ ! -f $RSLT_DIR ]]; then
+	mkdir $RSLT_DIR
+fi
 
 th=$THREADS
 
@@ -54,7 +61,7 @@ for op in $OP; do
 		touch $rfname
 		echo "$rfname ...."
 
-		th=16
+		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
 				iter=5
