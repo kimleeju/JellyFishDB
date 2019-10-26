@@ -102,9 +102,9 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-#ifdef PRINT_STAT
+//#ifdef PRINT_STAT
 	sl->PrintStat();
-#endif
+//#endif
 	return 0;
 }
 #endif

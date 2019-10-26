@@ -29,11 +29,14 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     implements ConcurrentNavigableMap<K,V>, Cloneable, Serializable {
     private static final long serialVersionUID = -8627078645895051609L;
 	
-	/* stat vars */ 
+	/* stat vars */
+	private static int pointer_cnt = 0;
+	private static int cnt = 0; 
 	private static long cpr_cnt = 0;
 	public void print_stat() {
 //		System.out.println("compartor_cnt = %d", cpr_cnt); 
-		System.out.format("JDKSkipList comparator count = %d\n", cpr_cnt); 
+		System.out.format("JDKSkipList comparator count = %d\n", cnt); 	
+		System.out.format("JDKSkipList pointer update count = %d\n", pointer_cnt); 
 	}
 
     /**
@@ -337,7 +340,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     static final int cpr(Comparator c, Object x, Object y) {
-		cpr_cnt++; // EUNJI
+		//cpr_cnt++; // EUNJI
         return (c != null) ? c.compare(x, y) : ((Comparable)x).compareTo(y);
     }
 
@@ -362,10 +365,12 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                     if (n.value == null) {
                         if (!q.unlink(r))
                             break;           // restart
+						pointer_cnt++;
                         r = q.right;         // reread r
                         continue;
                     }
                     if (cpr(cmp, key, k) > 0) {
+						pointer_cnt+=2;
                         q = r;
                         r = r.right;
                         continue;
@@ -373,6 +378,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                 }
                 if ((d = q.down) == null)
                     return q.node;
+				pointer_cnt+=2;
                 q = d;
                 r = d.right;
             }
@@ -465,7 +471,8 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         Comparator<? super K> cmp = comparator;
         outer: for (;;) {
             for (Node<K,V> b = findPredecessor(key, cmp), n = b.next;;) {
-                Object v; int c;
+                cnt++;
+				Object v; int c;
                 if (n == null)
                     break outer;
                 Node<K,V> f = n.next;
@@ -519,7 +526,8 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                     if (b.value == null || v == n) // b is deleted
                         break;
                     if ((c = cpr(cmp, key, n.key)) > 0) {
-                        b = n;
+                      	pointer_cnt+=2;
+						b = n;
                         n = f;
                         continue;
                     }

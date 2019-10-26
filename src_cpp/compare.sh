@@ -4,12 +4,10 @@ make -j4
 #export $CLASSPATH
 
 THREADS=16
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
-SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
+#SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 num="1000000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
@@ -19,7 +17,7 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-
+OP="get"
 CONF="uni zipf_1.2"
 #OP="put"
 #OP="range_query"
@@ -32,8 +30,8 @@ CONF="uni zipf_1.2"
 
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
-RSLT_DIR="./perf_result_191025"
-
+RSLT_DIR="./perf_result_191026"
+#RLST_DIR="./perf_result_191026"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi
@@ -52,15 +50,16 @@ suffix=`date +%y%m%d_%H%M_%s`
 #touch $rfname
 #echo "" > $rfname
 #
+rm $RSLT_DIR/perf_*
 
 for op in $OP; do
 	#rfname="$RSLT_DIR/perf_"$suffix"_"$op".rslt"
 	echo "$op ....."
 	for cf in $CONF; do
 		rfname="$RSLT_DIR/perf_"$op"_"$cf"_"$num".rslt"
-		if [[ -f $rfname ]];then
-			mv $rfname $rfname.bak
-		fi
+#		if [[ -f $rfname ]];then
+#			mv $rfname $rfname.bak
+#		fi
 		touch $rfname
 		echo "$rfname ...."
 
@@ -83,7 +82,9 @@ for op in $OP; do
 			th=$((th+th))
 		done
 		cat $rfname | grep "run" | awk '{print $1, $NF}'
-		cat $rfname | grep "comparator" 
+		cat $rfname | grep "comparator"
+		cat $rfname | grep "pointer"
+ 
 	done
 done
 

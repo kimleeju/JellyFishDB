@@ -86,6 +86,7 @@ Node* BlockedSkipList::FindLessThan(const string& key, Node** prev){
     Node* last_not_after = nullptr;
     while(true){
         Node* next = x->Next(level);
+		cnt++;
         if(next != last_not_after && KeyIsAfterNode(key,next)){
             x = next;
         }
@@ -110,7 +111,8 @@ Node* BlockedSkipList::FindGreaterorEqual(const string& key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-        int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(next->Get_key(),key);
+       	cnt++;
+		int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(next->Get_key(),key);
 
         if(cmp >= 0 &&level ==0){
             return next;
@@ -145,13 +147,16 @@ int BlockedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Spli
 
 void BlockedSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){
 	assert(before != nullptr);
+	pointer_cnt++;
 	Node* after = before ->Next(level);
 	while(true){
         if(!KeyIsAfterNode(key, after)){
+			pointer_cnt+=2;
 			*sp_prev = before;
             *sp_next = after;
             return;
         }
+			pointer_cnt+=2;
         	before = after;
             after = after->Next(level);
     }
@@ -211,7 +216,7 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, seq_splice->next_[i]);
         seq_splice->prev_[i]->SetNext(i,nnode);
-
+		pointer_cnt+=2;
       }
 #if 0
 	// debug
@@ -227,8 +232,8 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 
 void BlockedSkipList::PrintStat()
 {
-	cout << "BlockedSkipList comparator count = " << cpr_cnt << endl;
-
+	cout << "BlockedSkipList comparator count = " << cnt << endl;
+	cout << "BlockedSkipList pointer update count = " << pointer_cnt << endl;
 }
 void BlockedSkipList::ResetStat()
 {

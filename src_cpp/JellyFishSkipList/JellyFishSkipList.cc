@@ -14,7 +14,7 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
     t_global_committed.get_and_inc();
 	iterator.Seek(key);
 	Node* temp = iterator.Node();
-	  if(temp -> Get_vqueue() != nullptr){
+	if(temp -> Get_vqueue() != nullptr){
 		return temp -> Get_vqueue() -> value; 
     }
     else	
@@ -124,6 +124,7 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     while(true){
 
         Node* next = x->Next(level);
+		cnt++;
 		int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
 		if(cmp==0){
 			return next;
@@ -166,13 +167,15 @@ void JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node**
 	assert(before != NULL);
 
     Node* after = before->Next(level);
-
+	pointer_cnt++;
 	while(true){
 		if(!KeyIsAfterNode(key, after)){
+			pointer_cnt+=2;
 			*sp_prev = before;
 			*sp_next = after;
 			return;
 		}
+		pointer_cnt+=2;
         before = after;
         after = after->Next(level);
 	}
@@ -253,8 +256,10 @@ found:
 			VNode* vq = fnode->Get_vqueue();
 		
 			if(vq == nullptr) { // empty, and it's the first node 
-				if(fnode->CAS_vqueue(vq, nvnode))
+				if(fnode->CAS_vqueue(vq, nvnode)){
+					pointer_cnt++;
 					return true;
+				}
 				continue;
 			}
 
@@ -263,8 +268,11 @@ found:
 			DEBUG("Insert into vqueue: key = " + key);
 			DEBUG(" vq = " << vq );
 			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
-			if(fnode->CAS_vqueue(vq, nvnode))
+			pointer_cnt++;
+			if(fnode->CAS_vqueue(vq, nvnode)){
+				pointer_cnt++;
 				return true;
+			}
 		}
 	}
 #endif
@@ -275,9 +283,10 @@ found:
 	for(int i = 0; i < height; ++i){
 		while(true){
 			nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
-
+			pointer_cnt++;
 			if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
 				// success 
+				pointer_cnt++;
 				break;
 	   		}
 			
@@ -299,8 +308,8 @@ found:
 
 void JellyFishSkipList::PrintStat()
 {
-	cout << "JellyFishSkipList comparator count = " << cpr_cnt << endl;
-
+	cout << "JellyFishSkipList comparator count = " << cnt << endl;
+	cout << "JellyFishSkipList pointer update count = " << pointer_cnt << endl;
 }
 void JellyFishSkipList::ResetStat()
 {

@@ -25,16 +25,13 @@ string ConcurrentSkipList::Get(string key, Iterator iterator){
 
 void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     t_global_committed.get_and_inc();
-//    cout<<"-----------------------------"<<endl;
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
-    //  for(int i=count; i > 0; --i) {
 	int i = count;
 	while(i>0){
 		if(temp_->Next(0)==nullptr)
 			return;
 		if(temp_->Next(0)->Get_key() != temp_->Get_key()){
-			//cout<<temp_->Get_key()<<" -> ";
 			--i;
 		}
 		else{
@@ -42,7 +39,6 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 		}
        	temp_=temp_->Next(0);
     } 	
-//	cout<<endl;
 }
 
 Node* ConcurrentSkipList::FindLast(){
@@ -94,6 +90,7 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
+		cnt++;
         int cmp = (next == nullptr || next == last_bigger) ? 1 :Comparator(next->Get_key(),key);
        
 		 if(cmp >= 0 &&level ==0){
@@ -133,13 +130,15 @@ void ConcurrentSkipList::FindSpliceForLevel(const string& key, int level,
 	assert(before != NULL);
 
 	Node* after = before->Next(level);
-
+	pointer_cnt++;
 	while(true){
-		if(!KeyIsAfterNode(key, after)){
+		if(!KeyIsAfterNode(key, after)){	
+			pointer_cnt+=2;
 			*sp_prev = before;
 			*sp_next = after;
 			return;
 		}
+		pointer_cnt+=2;
         before = after;
         after = after->Next(level);
 	}
@@ -197,9 +196,10 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 
 	for(int i=0; i < height; i++){
 		while(true){
-			nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);
-	
+			nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);	
+			pointer_cnt++;
 			if(iterator.splice->prev_[i]->CASNext(i,iterator.splice->next_[i],nnode)){
+				pointer_cnt++;
 				break; // success 
 			}	
 			// failure
@@ -213,8 +213,8 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 
 void ConcurrentSkipList::PrintStat()
 {
-	cout << "ConcurrentSkipList comparator count = " << cpr_cnt << endl;
-
+	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
+	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
 }
 void ConcurrentSkipList::ResetStat()
 {

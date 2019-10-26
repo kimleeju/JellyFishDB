@@ -44,7 +44,7 @@ public:
 	    
     Node* head_;
 	atomic<int> cnt;
-
+	atomic<int> pointer_cnt;
 protected:
     uint16_t kMaxHeight_;
     atomic<int>max_height_; 
