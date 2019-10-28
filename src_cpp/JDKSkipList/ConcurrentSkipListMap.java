@@ -33,10 +33,12 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
 	private static int pointer_cnt = 0;
 	private static int cnt = 0; 
 	private static long cpr_cnt = 0;
+	private static int CAS_failure_cnt = 0;
 	public void print_stat() {
 //		System.out.println("compartor_cnt = %d", cpr_cnt); 
 		System.out.format("JDKSkipList comparator count = %d\n", cnt); 	
 		System.out.format("JDKSkipList pointer update count = %d\n", pointer_cnt); 
+		System.out.format("JDKSkipList CAS failure count = %d\n",CAS_failure_cnt);
 	}
 
     /**
@@ -972,7 +974,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             if (e != null)
                 return e;
         }
-    }
+   }
 
     /* ---------------- Constructors -------------- */
 

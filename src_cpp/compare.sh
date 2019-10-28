@@ -3,7 +3,7 @@ make -j4
 #CLASSPATH=$CLASSPATH:~/JDKSkipList/
 #export $CLASSPATH
 
-THREADS=16
+THREADS=4
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
@@ -63,7 +63,7 @@ for op in $OP; do
 		touch $rfname
 		echo "$rfname ...."
 
-		th=16
+		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
 				iter=5
@@ -74,6 +74,7 @@ for op in $OP; do
 					echo "./Run $sk $th $load_trc $run_trc"
 					#./Run $sk $th $load_trc $run_trc
 					#./Run $sk $th $load_trc $run_trc 
+					echo "$th"threads | tr "\n" " " >> $rfname
 					./Run $sk $th $load_trc $run_trc >> $rfname
 					#./Run $sk $th $load_trc $run_trc > con.level
 					iter=$((iter+1))

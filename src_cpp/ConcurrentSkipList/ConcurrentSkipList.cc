@@ -203,6 +203,7 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 				break; // success 
 			}	
 			// failure
+			CAS_failure_cnt++;
 			rv = RecomputeSpliceLevels(key, i, iterator.splice);
 			assert(rv < 0);
 		}
@@ -215,6 +216,7 @@ void ConcurrentSkipList::PrintStat()
 {
 	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
 	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
+	cout << "ConcurrentSkipList CAS failure count = " << CAS_failure_cnt << endl; 
 }
 void ConcurrentSkipList::ResetStat()
 {

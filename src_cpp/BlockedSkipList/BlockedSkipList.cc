@@ -234,6 +234,7 @@ void BlockedSkipList::PrintStat()
 {
 	cout << "BlockedSpinSkipList comparator count = " << cnt << endl;
 	cout << "BlockedSpinSkipList pointer update count = " << pointer_cnt << endl;
+	cout << "BlockedSpinSkipList CAS failure count = " << CAS_failure_cnt << endl;
 }
 void BlockedSkipList::ResetStat()
 {

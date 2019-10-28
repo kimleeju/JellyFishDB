@@ -260,6 +260,7 @@ found:
 					pointer_cnt++;
 					return true;
 				}
+				CAS_failure_cnt++;
 				continue;
 			}
 
@@ -273,6 +274,7 @@ found:
 				pointer_cnt++;
 				return true;
 			}
+			CAS_failure_cnt++;
 		}
 	}
 #endif
@@ -290,7 +292,8 @@ found:
 				break;
 	   		}
 			
-			// failure 	
+			// failure 
+			CAS_failure_cnt++;	
 			fl = RecomputeSpliceLevels(key, i, iterator.splice);
 #ifdef JELLYFISH
 			// if an insert fails in a bottom layer and a new node with a same key 
@@ -310,6 +313,7 @@ void JellyFishSkipList::PrintStat()
 {
 	cout << "JellyFishSkipList comparator count = " << cnt << endl;
 	cout << "JellyFishSkipList pointer update count = " << pointer_cnt << endl;
+	cout << "JellyFishSkipList CAS failure count = " << CAS_failure_cnt << endl;
 }
 void JellyFishSkipList::ResetStat()
 {
