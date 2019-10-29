@@ -1,50 +1,50 @@
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.8018 IOPS = 263033.632236
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.90392 IOPS = 203918.577025
-ConcurrentSkipList comparator count = 51381506
-ConcurrentSkipList pointer update count = 134755924
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.03931 IOPS = 247567.037373
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 6.11706 IOPS = 163477.336015
+ConcurrentSkipList comparator count = 51190338
+ConcurrentSkipList pointer update count = 135072020
 ConcurrentSkipList CAS failure count = 0
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.40287 IOPS = 227124.961985
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 1.01072 IOPS = 989390.773347
-JellyFishSkipList comparator count = 31859080
-JellyFishSkipList pointer update count = 137174064
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.70172 IOPS = 212688.199624
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.847687 IOPS = 1179681.887300
+JellyFishSkipList comparator count = 18863744
+JellyFishSkipList pointer update count = 133583474
 JellyFishSkipList CAS failure count = 0
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 3.03602 IOPS = 329378.489762
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 2.65273 IOPS = 376970.517165
-ConcurrentSkipList comparator count = 51275891
-ConcurrentSkipList pointer update count = 133985109
-ConcurrentSkipList CAS failure count = 2
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 3.60288 IOPS = 277555.702598
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 0.639768 IOPS = 1563068.174713
-JellyFishSkipList comparator count = 16740128
-JellyFishSkipList pointer update count = 134439487
-JellyFishSkipList CAS failure count = 3
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 2.8545 IOPS = 350324.031889
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 1.65669 IOPS = 603615.289801
-ConcurrentSkipList comparator count = 51381898
-ConcurrentSkipList pointer update count = 135201801
-ConcurrentSkipList CAS failure count = 13
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 3.0583 IOPS = 326979.795285
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 0.75031 IOPS = 1332783.782703
-JellyFishSkipList comparator count = 25302518
-JellyFishSkipList pointer update count = 136282318
-JellyFishSkipList CAS failure count = 14
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 3.11184 IOPS = 321353.604298
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 1.55993 IOPS = 641055.458293
-ConcurrentSkipList comparator count = 52364702
-ConcurrentSkipList pointer update count = 136812080
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 4.54678 IOPS = 219936.183381
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 3.4198 IOPS = 292415.139018
+ConcurrentSkipList comparator count = 50121139
+ConcurrentSkipList pointer update count = 134821866
 ConcurrentSkipList CAS failure count = 1
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 3.32557 IOPS = 300700.993455
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.571464 IOPS = 1749893.256618
-JellyFishSkipList comparator count = 18950760
-JellyFishSkipList pointer update count = 134586400
-JellyFishSkipList CAS failure count = 113
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 3.17988 IOPS = 314477.689245
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 1.55509 IOPS = 643051.482007
-ConcurrentSkipList comparator count = 52462260
-ConcurrentSkipList pointer update count = 135694257
-ConcurrentSkipList CAS failure count = 9
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 3.28962 IOPS = 303986.875076
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.757343 IOPS = 1320407.001847
-JellyFishSkipList comparator count = 25891018
-JellyFishSkipList pointer update count = 131659178
-JellyFishSkipList CAS failure count = 219
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 5.38294 IOPS = 185772.376678
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 1.21752 IOPS = 821343.914423
+JellyFishSkipList comparator count = 28696748
+JellyFishSkipList pointer update count = 134566601
+JellyFishSkipList CAS failure count = 1
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 4.82782 IOPS = 207132.990225
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 2.59274 IOPS = 385692.890800
+ConcurrentSkipList comparator count = 52526533
+ConcurrentSkipList pointer update count = 136962784
+ConcurrentSkipList CAS failure count = 8
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 5.26022 IOPS = 190106.451902
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 1.29141 IOPS = 774349.392291
+JellyFishSkipList comparator count = 28098420
+JellyFishSkipList pointer update count = 133819575
+JellyFishSkipList CAS failure count = 7
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 4.45698 IOPS = 224367.447098
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 2.3117 IOPS = 432582.515032
+ConcurrentSkipList comparator count = 51220652
+ConcurrentSkipList pointer update count = 135176487
+ConcurrentSkipList CAS failure count = 15
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 5.44553 IOPS = 183636.970639
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 1.18558 IOPS = 843467.728535
+JellyFishSkipList comparator count = 21041780
+JellyFishSkipList pointer update count = 133977647
+JellyFishSkipList CAS failure count = 22
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 4.85884 IOPS = 205810.519089
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 2.33622 IOPS = 428043.223762
+ConcurrentSkipList comparator count = 49773558
+ConcurrentSkipList pointer update count = 134452720
+ConcurrentSkipList CAS failure count = 34
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 5.6987 IOPS = 175478.793409
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_range_query_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 1.58419 IOPS = 631238.842865
+JellyFishSkipList comparator count = 31128185
+JellyFishSkipList pointer update count = 134862966
+JellyFishSkipList CAS failure count = 38
