@@ -1,110 +1,70 @@
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.16055 IOPS = 316401.143093
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.42015 IOPS = 413197.430080
-BlockedSpinSkipList comparator count = 47093105
-BlockedSpinSkipList pointer update count = 127778076
+BlockedSpinSkipList comparator count = 48248651
+BlockedSpinSkipList pointer update count = 129222660
 BlockedSpinSkipList CAS failure count = 0
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.13699 IOPS = 318777.032265
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.34895 IOPS = 425723.281846
-ConcurrentSkipList comparator count = 46464510
-ConcurrentSkipList pointer update count = 130515936
+ConcurrentSkipList comparator count = 49310317
+ConcurrentSkipList pointer update count = 129938120
 ConcurrentSkipList CAS failure count = 0
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.15441 IOPS = 464165.528689
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.78538 IOPS = 208970.029548
 PrintStat
 print_stat..
-JDKSkipList comparator count = 2934630
-JDKSkipList pointer update count = 103500332
+JDKSkipList comparator count = 3261256
+JDKSkipList pointer update count = 99338740
 JDKSkipList CAS failure count = 0
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.19029 IOPS = 313451.736474
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.737359 IOPS = 1356192.845005
-JellyFishSkipList comparator count = 26448021
-JellyFishSkipList pointer update count = 117480780
+JellyFishSkipList comparator count = 17384486
+JellyFishSkipList pointer update count = 116346867
 JellyFishSkipList CAS failure count = 0
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 4.56712 IOPS = 218956.393564
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 2.28015 IOPS = 438567.691978
-BlockedSpinSkipList comparator count = 48439629
-BlockedSpinSkipList pointer update count = 129131912
+BlockedSpinSkipList comparator count = 48769538
+BlockedSpinSkipList pointer update count = 130715670
 BlockedSpinSkipList CAS failure count = 0
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 4.31293 IOPS = 231861.063425
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 2.15581 IOPS = 463863.234701
-ConcurrentSkipList comparator count = 48343596
-ConcurrentSkipList pointer update count = 130513839
-ConcurrentSkipList CAS failure count = 215
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 1.30264 IOPS = 767674.340588
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 2.25057 IOPS = 444333.114425
+ConcurrentSkipList comparator count = 47526518
+ConcurrentSkipList pointer update count = 130319261
+ConcurrentSkipList CAS failure count = 257
 PrintStat
 print_stat..
-JDKSkipList comparator count = 2945202
-JDKSkipList pointer update count = 88940456
+JDKSkipList comparator count = 3848782
+JDKSkipList pointer update count = 88410288
 JDKSkipList CAS failure count = 0
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 2 tot_ops = 1000001 exec_time(s) = 4.27405 IOPS = 233970.191759
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 1.2207 IOPS = 819204.258547
-JellyFishSkipList comparator count = 28117016
-JellyFishSkipList pointer update count = 119687065
-JellyFishSkipList CAS failure count = 213
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 5.10046 IOPS = 196061.135722
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 2.32013 IOPS = 431010.019249
-BlockedSpinSkipList comparator count = 47901511
-BlockedSpinSkipList pointer update count = 129283316
+JellyFishSkipList comparator count = 25132583
+JellyFishSkipList pointer update count = 120075539
+JellyFishSkipList CAS failure count = 231
+BlockedSpinSkipList comparator count = 46856030
+BlockedSpinSkipList pointer update count = 130754900
 BlockedSpinSkipList CAS failure count = 0
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 5.01151 IOPS = 199540.896764
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 2.28315 IOPS = 437991.042216
-ConcurrentSkipList comparator count = 49682693
-ConcurrentSkipList pointer update count = 129874562
-ConcurrentSkipList CAS failure count = 5115
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 0.803334 IOPS = 1244813.489781
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 0.957306 IOPS = 1044599.114599
+ConcurrentSkipList comparator count = 49450685
+ConcurrentSkipList pointer update count = 132185910
+ConcurrentSkipList CAS failure count = 5160
 PrintStat
 print_stat..
-JDKSkipList comparator count = 2767981
-JDKSkipList pointer update count = 70679472
+JDKSkipList comparator count = 2735897
+JDKSkipList pointer update count = 69629306
 JDKSkipList CAS failure count = 0
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 4 tot_ops = 1000001 exec_time(s) = 4.74902 IOPS = 210569.748527
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 1.03356 IOPS = 967531.606807
-JellyFishSkipList comparator count = 19045963
-JellyFishSkipList pointer update count = 118521670
-JellyFishSkipList CAS failure count = 2192
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 4.69856 IOPS = 212831.468719
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 2.12174 IOPS = 471311.753561
-BlockedSpinSkipList comparator count = 49143096
-BlockedSpinSkipList pointer update count = 130479550
+JellyFishSkipList comparator count = 19351626
+JellyFishSkipList pointer update count = 121458897
+JellyFishSkipList CAS failure count = 1952
+BlockedSpinSkipList comparator count = 48225414
+BlockedSpinSkipList pointer update count = 128591408
 BlockedSpinSkipList CAS failure count = 0
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 4.96028 IOPS = 201601.724096
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 2.30333 IOPS = 434155.217281
-ConcurrentSkipList comparator count = 47184919
-ConcurrentSkipList pointer update count = 130096418
-ConcurrentSkipList CAS failure count = 14935
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.557905 IOPS = 1792421.648847
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.547437 IOPS = 1826696.039910
+ConcurrentSkipList comparator count = 47798424
+ConcurrentSkipList pointer update count = 132418534
+ConcurrentSkipList CAS failure count = 14838
 PrintStat
 print_stat..
-JDKSkipList comparator count = 2580155
-JDKSkipList pointer update count = 53392294
+JDKSkipList comparator count = 2351059
+JDKSkipList pointer update count = 51256082
 JDKSkipList CAS failure count = 0
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 4.80764 IOPS = 208002.687392
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 1.40975 IOPS = 709346.338003
-JellyFishSkipList comparator count = 27059936
-JellyFishSkipList pointer update count = 119774674
-JellyFishSkipList CAS failure count = 4394
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 4.82671 IOPS = 207180.839272
-BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 2.31701 IOPS = 431591.145485
-BlockedSpinSkipList comparator count = 48139337
-BlockedSpinSkipList pointer update count = 129288740
+JellyFishSkipList comparator count = 26444740
+JellyFishSkipList pointer update count = 117945282
+JellyFishSkipList CAS failure count = 4412
+BlockedSpinSkipList comparator count = 46000054
+BlockedSpinSkipList pointer update count = 127490726
 BlockedSpinSkipList CAS failure count = 0
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 5.08992 IOPS = 196467.015775
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 2.08509 IOPS = 479595.854569
-ConcurrentSkipList comparator count = 48250037
-ConcurrentSkipList pointer update count = 132050497
-ConcurrentSkipList CAS failure count = 33613
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.545157 IOPS = 1834335.796844
-JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.393987 IOPS = 2538157.350369
+ConcurrentSkipList comparator count = 47871748
+ConcurrentSkipList pointer update count = 133430155
+ConcurrentSkipList CAS failure count = 35685
 PrintStat
 print_stat..
-JDKSkipList comparator count = 1856608
-JDKSkipList pointer update count = 40283302
+JDKSkipList comparator count = 1989745
+JDKSkipList pointer update count = 43165208
 JDKSkipList CAS failure count = 0
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 4.85471 IOPS = 205985.563722
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_get_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 1.15258 IOPS = 867621.106771
-JellyFishSkipList comparator count = 20735579
-JellyFishSkipList pointer update count = 117927270
-JellyFishSkipList CAS failure count = 8808
+JellyFishSkipList comparator count = 27664864
+JellyFishSkipList pointer update count = 118434921
+JellyFishSkipList CAS failure count = 8224
