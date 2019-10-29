@@ -36,11 +36,11 @@ public:
 	void SetThreadNum(int t_num) override;
    
 public:
-    Splice* AllocateSplice(){}
-    Node* FindLast(){}
-    Node* FindLessThan(const string& key, Node** prev){}
-    Node* FindGreaterorEqual(const string& key){}
-    int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0){}
+    Splice* AllocateSplice(){return NULL;}
+    Node* FindLast(){return NULL;}
+    Node* FindLessThan(const string& key, Node** prev){return NULL;}
+    Node* FindGreaterorEqual(const string& key){return NULL;}
+    int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0){return 0;}
     void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){}
     bool KeyIsAfterNode(const string& key, Node* n){return true;}
     Node* AllocateNode(const string& key, const string& value, int height); 
