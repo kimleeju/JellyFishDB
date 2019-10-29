@@ -26,7 +26,7 @@ using namespace std;
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
 //#define PRINT_STAT
-//#define PRINT_PERF
+#define PRINT_PERF
 #define JELLYFISH
 
 
