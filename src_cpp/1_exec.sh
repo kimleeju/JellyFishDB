@@ -19,20 +19,20 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-
+OP="range_query"
 CONF="uni zipf_1.2"
 #OP="put"
 #OP="range_query"
 #CONF="uni zipf_1.4"
 CONF="uni zipf_1.2"
 #CONF="zipf_1.2"
-#CONF="uni"
+CONF="uni"
 #CONF="zipf_1.4"
 #CONF="zipf_1.4"
 
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
-RSLT_DIR="./perf_result_191025"
+RSLT_DIR="./perf_result_191027"
 
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
