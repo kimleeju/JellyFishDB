@@ -64,7 +64,7 @@ for op in $OP; do
 		touch $rfname
 		echo "$rfname ...."
 
-		th=16
+		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
 				iter=5
