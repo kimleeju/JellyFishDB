@@ -22,10 +22,17 @@ using namespace std;
 	if(0) { std::cout << x << std::endl; } \
 } while (0)
 
+
+#define COUNT(x) do{\
+	if(0) {x++;} \
+} while (0)
+
+
+
 #define OP_EXEC
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
-//#define PRINT_STAT
+//#define PRINT_STAT 
 #define PRINT_PERF
 #define JELLYFISH
 

@@ -124,7 +124,7 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     while(true){
 
         Node* next = x->Next(level);
-		cnt++;
+		COUNT(cnt);
 		int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
 		if(cmp==0){
 			return next;
@@ -167,16 +167,18 @@ void JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node**
 	assert(before != NULL);
 
     Node* after = before->Next(level);
-	pointer_cnt++;
+	COUNT(pointer_cnt);
 	while(true){
 		if(!KeyIsAfterNode(key, after)){
-			pointer_cnt+=2;
+			COUNT(pointer_cnt);
+			COUNT(pointer_cnt);
 			*sp_prev = before;
 			*sp_next = after;
 			return;
 		}
-		pointer_cnt+=2;
-        before = after;
+		COUNT(pointer_cnt);
+        COUNT(pointer_cnt);
+		before = after;
         after = after->Next(level);
 	}
 }
@@ -257,10 +259,10 @@ found:
 		
 			if(vq == nullptr) { // empty, and it's the first node 
 				if(fnode->CAS_vqueue(vq, nvnode)){
-					pointer_cnt++;
+					COUNT(pointer_cnt);
 					return true;
 				}
-				CAS_failure_cnt++;
+				COUNT(CAS_failure_cnt);
 				continue;
 			}
 
@@ -269,12 +271,12 @@ found:
 			DEBUG("Insert into vqueue: key = " + key);
 			DEBUG(" vq = " << vq );
 			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
-			pointer_cnt++;
+			COUNT(pointer_cnt);
 			if(fnode->CAS_vqueue(vq, nvnode)){
-				pointer_cnt++;
+				COUNT(pointer_cnt);
 				return true;
 			}
-			CAS_failure_cnt++;
+			COUNT(CAS_failure_cnt);
 		}
 	}
 #endif
@@ -285,15 +287,16 @@ found:
 	for(int i = 0; i < height; ++i){
 		while(true){
 			nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
-			pointer_cnt++;
+			COUNT(pointer_cnt);
 			if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
-				// success 
-				pointer_cnt++;
+				// success
+				COUNT(pointer_cnt); 
+				//pointer_cnt++;
 				break;
 	   		}
 			
 			// failure 
-			CAS_failure_cnt++;	
+			COUNT(CAS_failure_cnt);	
 			fl = RecomputeSpliceLevels(key, i, iterator.splice);
 #ifdef JELLYFISH
 			// if an insert fails in a bottom layer and a new node with a same key 

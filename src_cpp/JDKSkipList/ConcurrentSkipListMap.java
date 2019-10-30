@@ -367,12 +367,12 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                     if (n.value == null) {
                         if (!q.unlink(r))
                             break;           // restart
-						pointer_cnt++;
+						//pointer_cnt++;
                         r = q.right;         // reread r
                         continue;
                     }
                     if (cpr(cmp, key, k) > 0) {
-						pointer_cnt+=2;
+						//pointer_cnt+=2;
                         q = r;
                         r = r.right;
                         continue;
@@ -380,7 +380,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                 }
                 if ((d = q.down) == null)
                     return q.node;
-				pointer_cnt+=2;
+				//pointer_cnt+=2;
                 q = d;
                 r = d.right;
             }
@@ -473,7 +473,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         Comparator<? super K> cmp = comparator;
         outer: for (;;) {
             for (Node<K,V> b = findPredecessor(key, cmp), n = b.next;;) {
-                cnt++;
+                //cnt++;
 				Object v; int c;
                 if (n == null)
                     break outer;
@@ -528,7 +528,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                     if (b.value == null || v == n) // b is deleted
                         break;
                     if ((c = cpr(cmp, key, n.key)) > 0) {
-                      	pointer_cnt+=2;
+                  //    	pointer_cnt+=2;
 						b = n;
                         n = f;
                         continue;

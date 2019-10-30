@@ -90,7 +90,7 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-		cnt++;
+		COUNT(cnt);
         int cmp = (next == nullptr || next == last_bigger) ? 1 :Comparator(next->Get_key(),key);
        
 		 if(cmp >= 0 &&level ==0){
@@ -130,15 +130,17 @@ void ConcurrentSkipList::FindSpliceForLevel(const string& key, int level,
 	assert(before != NULL);
 
 	Node* after = before->Next(level);
-	pointer_cnt++;
+	COUNT(pointer_cnt);
 	while(true){
 		if(!KeyIsAfterNode(key, after)){	
-			pointer_cnt+=2;
+			COUNT(pointer_cnt);
+			COUNT(pointer_cnt);
 			*sp_prev = before;
 			*sp_next = after;
 			return;
 		}
-		pointer_cnt+=2;
+		COUNT(pointer_cnt);
+		COUNT(pointer_cnt);
         before = after;
         after = after->Next(level);
 	}
@@ -197,13 +199,13 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 	for(int i=0; i < height; i++){
 		while(true){
 			nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);	
-			pointer_cnt++;
+			COUNT(pointer_cnt);
 			if(iterator.splice->prev_[i]->CASNext(i,iterator.splice->next_[i],nnode)){
-				pointer_cnt++;
+				COUNT(pointer_cnt);
 				break; // success 
 			}	
 			// failure
-			CAS_failure_cnt++;
+			COUNT(CAS_failure_cnt);
 			rv = RecomputeSpliceLevels(key, i, iterator.splice);
 			assert(rv < 0);
 		}
