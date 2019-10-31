@@ -236,6 +236,7 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 void BlockedSkipList::PrintStat()
 {
 	cout << "BlockedSpinSkipList comparator count = " << cnt << endl;
+	cout << "BlockedSpinSkipList CAS count = "<< CAS_cnt << endl;
 	cout << "BlockedSpinSkipList pointer update count = " << pointer_cnt << endl;
 	cout << "BlockedSpinSkipList CAS failure count = " << CAS_failure_cnt << endl;
 }

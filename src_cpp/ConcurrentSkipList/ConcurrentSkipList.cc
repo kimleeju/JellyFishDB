@@ -201,7 +201,7 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 			nnode->NoBarrier_SetNext(i, iterator.splice->next_[i]);	
 			COUNT(pointer_cnt);
 			if(iterator.splice->prev_[i]->CASNext(i,iterator.splice->next_[i],nnode)){
-				COUNT(pointer_cnt);
+				COUNT(CAS_cnt);
 				break; // success 
 			}	
 			// failure
@@ -217,6 +217,7 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 void ConcurrentSkipList::PrintStat()
 {
 	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
+	cout << "ConcurrentSkipList CAS count = "<< CAS_cnt << endl;
 	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
 	cout << "ConcurrentSkipList CAS failure count = " << CAS_failure_cnt << endl; 
 }

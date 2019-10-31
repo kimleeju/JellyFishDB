@@ -259,7 +259,7 @@ found:
 		
 			if(vq == nullptr) { // empty, and it's the first node 
 				if(fnode->CAS_vqueue(vq, nvnode)){
-					COUNT(pointer_cnt);
+					COUNT(CAS_cnt);
 					return true;
 				}
 				COUNT(CAS_failure_cnt);
@@ -273,7 +273,7 @@ found:
 			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
 			COUNT(pointer_cnt);
 			if(fnode->CAS_vqueue(vq, nvnode)){
-				COUNT(pointer_cnt);
+				COUNT(CAS_cnt);
 				return true;
 			}
 			COUNT(CAS_failure_cnt);
@@ -290,8 +290,7 @@ found:
 			COUNT(pointer_cnt);
 			if(iterator.splice->prev_[i]->CASNext(i, iterator.splice->next_[i], nnode)){
 				// success
-				COUNT(pointer_cnt); 
-				//pointer_cnt++;
+				COUNT(CAS_cnt); 
 				break;
 	   		}
 			
@@ -315,6 +314,7 @@ found:
 void JellyFishSkipList::PrintStat()
 {
 	cout << "JellyFishSkipList comparator count = " << cnt << endl;
+	cout << "JellyFishSkipList CAS count = "<< CAS_cnt << endl;
 	cout << "JellyFishSkipList pointer update count = " << pointer_cnt << endl;
 	cout << "JellyFishSkipList CAS failure count = " << CAS_failure_cnt << endl;
 }

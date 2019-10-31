@@ -24,7 +24,7 @@ using namespace std;
 
 
 #define COUNT(x) do{\
-	if(0) {x++;} \
+	if(1) {x++;} \
 } while (0)
 
 
@@ -53,6 +53,7 @@ public:
 	atomic<int> cnt;
 	atomic<int> pointer_cnt;
 	atomic<int> CAS_failure_cnt;
+	atomic<int> CAS_cnt;
 protected:
     uint16_t kMaxHeight_;
     atomic<int>max_height_; 
