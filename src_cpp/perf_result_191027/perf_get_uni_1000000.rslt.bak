@@ -1,0 +1,8 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.07276 IOPS = 245534.167641
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.68303 IOPS = 271515.549408
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.09026 IOPS = 244483.719356
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.7211 IOPS = 268737.790918
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.48834 IOPS = 222799.495137
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.8477 IOPS = 351160.813583
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 1 tot_ops = 1000001 exec_time(s) = 4.69715 IOPS = 212895.084981
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 0.521202 IOPS = 1918643.827153

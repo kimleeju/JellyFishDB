@@ -3,7 +3,7 @@ make -j4
 #CLASSPATH=$CLASSPATH:~/JDKSkipList/
 #export $CLASSPATH
 
-THREADS=4
+THREADS=16
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"

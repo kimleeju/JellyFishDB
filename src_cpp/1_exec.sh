@@ -9,7 +9,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList 
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
-SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
+#SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 num="1000000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
@@ -19,7 +19,8 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-
+OP="range_query"
+OP="put get"
 CONF="uni zipf_1.2"
 #OP="put"
 #OP="range_query"
@@ -32,7 +33,7 @@ CONF="uni zipf_1.2"
 
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
-RSLT_DIR="./perf_result_191025"
+RSLT_DIR="./perf_result_191027"
 
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
@@ -64,7 +65,7 @@ for op in $OP; do
 		touch $rfname
 		echo "$rfname ...."
 
-		th=16
+		th=1
 		while [[ $th -le $THREADS ]]; do
 			for sk in $SKIPLISTS; do
 				iter=5
