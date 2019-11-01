@@ -32,7 +32,7 @@ using namespace std;
 #define OP_EXEC
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
-//#define PRINT_STAT 
+#define PRINT_STAT 
 #define PRINT_PERF
 #define JELLYFISH
 
