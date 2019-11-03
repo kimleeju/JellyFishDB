@@ -60,53 +60,6 @@ BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
     return splice;
 }
 
-#if 0
-
-Node* BlockedSkipList::FindLast(){
-    Node* x = head_;
-    int level = kMaxHeight_ - 1;
-    while(true){
-        Node* next = x->Next(level);
-        if(next == nullptr){
-            if(level == 0){
-                return x;
-            }
-            else{
-                level--;
-            }
-        }
-        else{
-            x = next;
-        }
-    }
-}
-
-Node* BlockedSkipList::FindLessThan(const string& key, Node** prev){
-    int level = kMaxHeight_ -1 ;
-    Node* x = head_;
-    Node* last_not_after = nullptr;
-    while(true){
-        Node* next = x->Next(level);
-		//COUNT(cnt);
-        if(next != last_not_after && KeyIsAfterNode(key,next) > 0){
-            x = next;
-        }
-        else{
-            if(prev != nullptr){
-                prev[level] = x;
-            } 
-            if(level==0){
-                return x;
-            }
-            else{
-                last_not_after = next;
-                level--;
-            }
-        }
-    }
-}
-
-#endif
 
 Node* BlockedSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
@@ -115,9 +68,9 @@ Node* BlockedSkipList::FindGreaterorEqual(const string& key){
     while(true){
         Node* next = x->Next(level);
        	COUNT(cnt);
-		int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
-
-        if(cmp <= 0 &&level ==0){
+		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
+		
+		if(cmp <= 0 &&level ==0){
             return next;
         }
         else if (cmp > 0){
@@ -133,31 +86,29 @@ Node* BlockedSkipList::FindGreaterorEqual(const string& key){
 
 
 int BlockedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
+
 	// head 
 	int i = MAX_LEVEL-1;
 	int cmp; 
 	Node* start = head_;
-
+	
 	while(1){
-		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
+		cmp = FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], start);
 		// continue searching 
 		if(i <= to_level)
 			break; 
 		--i; 
-		start = splice->prev_[i+1];
+		start = seq_splice->prev_[i+1];
 	}
 	return -1;
-
 }
 
 
 
 int BlockedSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){
 
-
-	assert(before != NULL);
+	//assert(before != nullptr);
 	int cmp;
-
     Node* after = before->Next(level);
 	COUNT(pointer_cnt);
 	while(true){

@@ -49,7 +49,7 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
     while(true){
         Node* next = x->Next(level);
 		COUNT(cnt);
-        int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
+        int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
        
 		 if(cmp <= 0 &&level ==0){
             return next;
