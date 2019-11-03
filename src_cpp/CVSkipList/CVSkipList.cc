@@ -50,66 +50,19 @@ CVSkipList::Splice* CVSkipList::AllocateSplice(){
     return splice;
 }
 
-
-Node* CVSkipList::FindLast(){
-    Node* x = head_;
-    int level = kMaxHeight_ - 1;
-    while(true){
-        Node* next = x->Next(level);
-        if(next == nullptr){
-            if(level == 0){
-                return x;
-            }
-            else{
-                level--;
-            }
-        }
-        else{
-            x = next;
-        }
-    }
-}
-
-Node* CVSkipList::FindLessThan(const string& key, Node** prev){
-    int level = kMaxHeight_ -1 ;
-    Node* x = head_;
-    Node* last_not_after = nullptr;
-    while(true){
-        Node* next = x->Next(level);
-        if(next != last_not_after && KeyIsAfterNode(key,next)){
-            x = next;
-        }
-        else{
-            if(prev != nullptr){
-                prev[level] = x;
-            } 
-            if(level==0){
-                return x;
-            }
-            else{
-                last_not_after = next;
-                level--;
-            }
-        }
-    }
-}
-
 Node* CVSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-        int cmp = (next == nullptr || next == last_bigger) ? 1 : next->Get_key().compare(key);
+        int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
 
-        if(cmp >= 0 &&level ==0){
+        if(cmp <= 0 &&level ==0){
             return next;
         }
-        else if (cmp < 0){
-//	 if(next->Next(level) !=nullptr)	
+        else if (cmp > 0){
             x= next;
-//	 else
-//	    return nullptr;
         }
         else{
             last_bigger = next;
@@ -121,35 +74,55 @@ Node* CVSkipList::FindGreaterorEqual(const string& key){
 
 
 int CVSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
- 	// head 
+
+// head 
 	int i = MAX_LEVEL-1;
-	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
-	while(i > to_level) {
-		--i;
-		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
+	int cmp; 
+	Node* start = head_;
+
+	while(1){
+		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
+		// continue searching 
+		if(i <= to_level)
+			break; 
+		--i; 
+		start = splice->prev_[i+1];
 	}
-	return -1; 
+	return -1;
+
 }
 
-void CVSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){
-	assert(before != nullptr);
-	Node* after = before ->Next(level);
+int CVSkipList::FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){
+	
+
+	assert(before != NULL);
+	int cmp;
+
+    Node* after = before->Next(level);
+	COUNT(pointer_cnt);
 	while(true){
-        if(!KeyIsAfterNode(key, after)){
+		if(after) 
+			cmp = KeyIsAfterNode(key, after);	
+
+		if(!after || cmp <= 0) {
+			COUNT(pointer_cnt);
+			COUNT(pointer_cnt);
 			*sp_prev = before;
-            *sp_next = after;
-            return;
-        }
-        	before = after;
-            after = after->Next(level);
-    }
+			*sp_next = after;
+			return cmp;
+		}
+		COUNT(pointer_cnt);
+        COUNT(pointer_cnt);
+		before = after;
+        after = after->Next(level);
+	}
 }
 
-bool CVSkipList::KeyIsAfterNode(const string& key, Node* n){
+int CVSkipList::KeyIsAfterNode(const string& key, Node* n){
 	if(n == nullptr)
-		return false;
+		return -1;
 	//cpr_cnt++;
-	return key.compare(n->Get_key()) > 0;
+	return key.compare(n->Get_key());
 }
 
 

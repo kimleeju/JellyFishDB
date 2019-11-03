@@ -49,52 +49,6 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 	return;
 }
 
-Node* JellyFishSkipList::FindLast(){
-    Node* x = head_;
-    int level = kMaxHeight_ - 1;
-    while(true){
-        Node* next = x->Next(level);
-        if(next == nullptr){
-            if(level == 0){
-                return x;
-            }
-            else{
-                level--;
-            }
-        }
-        else{
-            x = next;
-        }
-    }
-}
-
-
-#if 0
-Node* JellyFishSkipList::FindEqual(string key){ 
-    Node* x= head_;
-    int level = kMaxHeight_ -1;
-    Node* last_bigger = nullptr;
-    while(true){
-	Node* next = x->Next(level);
-	int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(key,next->Get_key());
-	
-	if(cmp == 0) {
-		return next;
-	}
-	else if(cmp > 0 && level == 0){
-		return nullptr;
-	}
-
-	else if(cmp < 0){
-	    x= next;
-	}
-	else{
-	   last_bigger = next;
-	    level--;
- 	}
-    }
-}
-#endif
 
 Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
@@ -105,16 +59,15 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
 
         Node* next = x->Next(level);
 		COUNT(cnt);
-		int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(key, next->Get_key());
-		//int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
+		int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
 
 		if(cmp==0){
 			return next;
 		}
-        else if(cmp > 0 && level ==0){
+        else if(cmp < 0 && level ==0){
             return next;
         }
-        else if (cmp < 0){
+        else if (cmp > 0){
             x= next;
         }
         else{
@@ -134,13 +87,13 @@ JellyFishSkipList::Splice* JellyFishSkipList::AllocateSplice(){
 }
 
 
-bool JellyFishSkipList::KeyIsAfterNode(const string& key, Node* n)
+int JellyFishSkipList::KeyIsAfterNode(const string& key, Node* n)
 {
 	if(n == nullptr)
-		return false;
+		return -1;
 
 	//cpr_cnt++;
-	return key.compare(n->Get_key()) > 0;
+	return key.compare(n->Get_key());
 }
 
 
@@ -153,9 +106,8 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
     Node* after = before->Next(level);
 	COUNT(pointer_cnt);
 	while(true){
-		//if(!KeyIsAfterNode(key, after)){
 		if(after) 
-			cmp = Comparator(key, after->Get_key());	
+			cmp = KeyIsAfterNode(key, after);	
 
 		if(!after || cmp <= 0) {
 			COUNT(pointer_cnt);
@@ -164,15 +116,6 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
 			*sp_next = after;
 			return cmp;
 		}
-#if 0
-		if(!KeyIsAfterNode(key, after)){
-			COUNT(pointer_cnt);
-			COUNT(pointer_cnt);
-			*sp_prev = before;
-			*sp_next = after;
-			return;
-		}
-#endif
 		COUNT(pointer_cnt);
         COUNT(pointer_cnt);
 		before = after;
@@ -201,45 +144,11 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 		--i; 
 		start = splice->prev_[i+1];
 	}
-
-#if 0
-#ifdef JELLYFISH
-	if(splice->next_[i] && (Comparator(key, splice->next_[i]->Get_key())==0)){
-		DEBUG( __func__ << " " << key << " " << splice->next_[i]->Get_key());
-		return i;	
-	}
-#endif
-#endif
 	return -1;
 }
 
-#if 0
-int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
-{
-	// head 
-	int i = MAX_LEVEL-1;
-	int cmp; 
-	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
-
-	while(i > to_level) {
-		--i;
-		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
-
-#ifdef JELLYFISH
-		if(splice->next_[i] && (Comparator(key, splice->next_[i]->Get_key())==0)){
-			DEBUG( __func__ << " " << key << " " << splice->next_[i]->Get_key());
-			return i;	
-		}
-#endif
-	}
-	return -1;
-}
-#endif
 
 
-int JellyFishSkipList::Comparator(string& key1, string& key2){
-  return key1.compare(key2);
-}
 
 
 VNode* JellyFishSkipList::AllocateVNode(const string& value){

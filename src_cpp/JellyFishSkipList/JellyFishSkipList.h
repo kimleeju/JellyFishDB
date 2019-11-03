@@ -23,13 +23,10 @@ public:
 public:
     void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
-    Node* FindLast();
-    Node* FindEqual(string key);
     Node* FindGreaterorEqual(const string& key);
 	int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice);
-    void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before);
-	int Comparator(string& key1, string& key2); 
-     bool KeyIsAfterNode(const string& key, Node* n);
+    int FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before);
+    int KeyIsAfterNode(const string& key, Node* n);
     VNode* AllocateVNode(const string& value);
     Node* AllocateNode(const string& key, const string& value, int height); 
     bool Insert(string key, string value ,Iterator iterator); 

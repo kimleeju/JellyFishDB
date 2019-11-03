@@ -24,7 +24,7 @@ using namespace std;
 
 
 #define COUNT(x) do{\
-	if(1) {x++;} \
+	if(0) {x++;} \
 } while (0)
 
 
@@ -32,7 +32,7 @@ using namespace std;
 #define OP_EXEC
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
-#define PRINT_STAT 
+//#define PRINT_STAT 
 #define PRINT_PERF
 #define JELLYFISH
 
@@ -68,12 +68,10 @@ public:
     virtual void RangeQuery(string start_key, int count, Iterator iterator) = 0;
 
     virtual Splice* AllocateSplice() =0;
-    virtual Node* FindLast() =0;
-    virtual Node* FindLessThan(const string& key, Node** prev)=0;
     virtual Node* FindGreaterorEqual(const string& key)=0;
     virtual int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0)=0;
-    virtual void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before)=0;
-    virtual bool KeyIsAfterNode(const string& key, Node* n)=0;
+    virtual int FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before)=0;
+    virtual int KeyIsAfterNode(const string& key, Node* n)=0;
     virtual Node* AllocateNode(const string& key, const string& value, int height)=0;
     //virtual int RandomHeight()=0;
     virtual bool Insert(string key, string value, Iterator iterator)=0;

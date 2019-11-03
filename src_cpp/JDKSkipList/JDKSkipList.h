@@ -37,12 +37,10 @@ public:
    
 public:
     Splice* AllocateSplice(){return NULL;}
-    Node* FindLast(){return NULL;}
-    Node* FindLessThan(const string& key, Node** prev){return NULL;}
     Node* FindGreaterorEqual(const string& key){return NULL;}
     int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0){return 0;}
-    void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){}
-    bool KeyIsAfterNode(const string& key, Node* n){return true;}
+    int FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before){}
+    int KeyIsAfterNode(const string& key, Node* n){return 0;}
     Node* AllocateNode(const string& key, const string& value, int height); 
     //Node* AllocateNode(string key, string value, int height); 
     bool Insert(string key, string value, Iterator iterator);
