@@ -5,12 +5,13 @@ skiplists="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 skiplists="ConcurrentSkipList JellyFishSkipList"
 threads="1 2 4 8 16"
 ops="put get range_query"
+ops="put get"
 #ops="range_query"
 
 
 num="1000000"
 workloads="uni zipf_1.4"
-workloads="uni"
+workloads="uni zipf_1.2"
 
 for op in $ops; do
 	for wk in $workloads; do
