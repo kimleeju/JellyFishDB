@@ -68,30 +68,8 @@ Node* JellyFishSkipList::FindLast(){
     }
 }
 
-Node* JellyFishSkipList::FindLessThan(const string& key, Node** prev){
-    int level = kMaxHeight_ -1 ;
-    Node* x = head_;
-    Node* last_not_after = nullptr;
-    while(true){
-        Node* next = x->Next(level);
-        if(next != last_not_after && KeyIsAfterNode(key,next)){
-            x = next;
-        }
-        else{
-            if(prev != nullptr){
-                prev[level] = x;
-            } 
-            if(level==0){
-                return x;
-            }
-            else{
-                last_not_after = next;
-                level--;
-            }
-        }
-    }
-}
 
+#if 0
 Node* JellyFishSkipList::FindEqual(string key){ 
     Node* x= head_;
     int level = kMaxHeight_ -1;
@@ -116,20 +94,24 @@ Node* JellyFishSkipList::FindEqual(string key){
  	}
     }
 }
+#endif
 
 Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
+
     while(true){
 
         Node* next = x->Next(level);
 		COUNT(cnt);
-		int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
+		int cmp = (next == nullptr || next == last_bigger) ? 1 : Comparator(key, next->Get_key());
+		//int cmp = (next == nullptr || next == last_bigger) ? 1 : KeyIsAfterNode(key,next);
+
 		if(cmp==0){
 			return next;
 		}
-        else if(cmp > 0 &&level ==0){
+        else if(cmp > 0 && level ==0){
             return next;
         }
         else if (cmp < 0){
@@ -162,13 +144,27 @@ bool JellyFishSkipList::KeyIsAfterNode(const string& key, Node* n)
 }
 
 
-void JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** sp_prev, Node** sp_next, Node* before)
+//void JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** sp_prev, Node** sp_next, Node* before)
+int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** sp_prev, Node** sp_next, Node* before)
 {
 	assert(before != NULL);
+	int cmp;
 
     Node* after = before->Next(level);
 	COUNT(pointer_cnt);
 	while(true){
+		//if(!KeyIsAfterNode(key, after)){
+		if(after) 
+			cmp = Comparator(key, after->Get_key());	
+
+		if(!after || cmp <= 0) {
+			COUNT(pointer_cnt);
+			COUNT(pointer_cnt);
+			*sp_prev = before;
+			*sp_next = after;
+			return cmp;
+		}
+#if 0
 		if(!KeyIsAfterNode(key, after)){
 			COUNT(pointer_cnt);
 			COUNT(pointer_cnt);
@@ -176,6 +172,7 @@ void JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node**
 			*sp_next = after;
 			return;
 		}
+#endif
 		COUNT(pointer_cnt);
         COUNT(pointer_cnt);
 		before = after;
@@ -188,11 +185,46 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 {
 	// head 
 	int i = MAX_LEVEL-1;
+	int cmp; 
+	Node* start = head_;
+
+	while(1){
+		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
+
+		// check if the value is found 
+		if(cmp == 0)
+			return i;
+
+		// continue searching 
+		if(i <= to_level)
+			break; 
+		--i; 
+		start = splice->prev_[i+1];
+	}
+
+#if 0
+#ifdef JELLYFISH
+	if(splice->next_[i] && (Comparator(key, splice->next_[i]->Get_key())==0)){
+		DEBUG( __func__ << " " << key << " " << splice->next_[i]->Get_key());
+		return i;	
+	}
+#endif
+#endif
+	return -1;
+}
+
+#if 0
+int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
+{
+	// head 
+	int i = MAX_LEVEL-1;
+	int cmp; 
 	FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], head_);
 
 	while(i > to_level) {
 		--i;
 		FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], splice->prev_[i+1]);
+
 #ifdef JELLYFISH
 		if(splice->next_[i] && (Comparator(key, splice->next_[i]->Get_key())==0)){
 			DEBUG( __func__ << " " << key << " " << splice->next_[i]->Get_key());
@@ -202,10 +234,10 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 	}
 	return -1;
 }
+#endif
 
 
-
-int JellyFishSkipList::Comparator(string key1, string key2){
+int JellyFishSkipList::Comparator(string& key1, string& key2){
   return key1.compare(key2);
 }
 
