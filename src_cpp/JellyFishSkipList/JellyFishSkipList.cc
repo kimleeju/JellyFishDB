@@ -101,7 +101,7 @@ int JellyFishSkipList::KeyIsAfterNode(const string& key, Node* n)
 int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** sp_prev, Node** sp_next, Node* before)
 {
 	assert(before != NULL);
-	int cmp;
+	int cmp = 1;
 
     Node* after = before->Next(level);
 	COUNT(pointer_cnt);
