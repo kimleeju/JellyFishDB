@@ -52,11 +52,52 @@ def make_trc_zipf(op_num, op_type, skewness):
 	for w in workload:
 		ofile.write(op_type + " " + str(w) + "\n")
 
+def make_trc_dup(op_num, op_type, degree):
+
+	if op_num % degree != 0:
+		print("op_num should be a multiple of degree")
+		return;
+
+	sop_num = op_num / degree
+	workload = [x for x in range(sop_num)]
+
+	## make load.trc
+	random.shuffle(workload)
+	fname = "dup_" + str(degree) + "_" + op_type + "_load.trc"
+	ofile = open(fname, "w")
+
+	if op_type == "put":
+		ofile.write("put" + " " + str(0) + "\n")
+	else:
+		for n in degree:
+			for w in workload:
+				ofile.write("put" + " " + str(w) + "\n")
+			
+
+	ofile.close()
+
+	## make run.trc
+	random.shuffle(workload)
+	fname = "dup_" + str(degree) + "_" + op_type + "_run.trc"
+	ofile = open(fname, "w")
+
+	for n in degree:
+		for w in workload:
+			ofile.write(op_type + " " + str(w) + "\n")
+
+	ofile.close()
+
+
 def gen():
 	# th = int(sys.argv[1])
 	op_num = int(sys.argv[1])
 	op_types = ["put", "get", "range_query"]
 
+	## dup distribution 
+	for op_type in op_types:
+		degree = 3
+		make_trc_dup(op_num, op_type, degree)
+'''
 	## uniform distribution
 	for op_type in op_types:
 		make_trc_uni(op_num, op_type)
@@ -67,7 +108,7 @@ def gen():
 		while skewness <= 2.0:
 			make_trc_zipf(op_num, op_type, skewness)
 			skewness += 0.2
-
+'''
 
 
 if __name__ == "__main__":

@@ -1,0 +1,17 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.000449 IOPS = 4454.342984
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 3.72378 IOPS = 268544.236576
+BlockedSkipList comparator count = 28984507
+BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.000446 IOPS = 4484.304933
+BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 5.73552 IOPS = 174352.433914
+CVSkipList comparator count = 31420444
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.000438 IOPS = 4566.210046
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 2.05897 IOPS = 485680.218750
+ConcurrentSkipList comparator count = 3455607
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.000433 IOPS = 4618.937644
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 2.0265 IOPS = 493462.126820
+StrideSkipList comparator count = 31475038
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.002229 IOPS = 897.263347
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.4_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.435967 IOPS = 2293753.885042
+PrintStat
+print_stat..
+JDKSkipList comparator count = 11463003

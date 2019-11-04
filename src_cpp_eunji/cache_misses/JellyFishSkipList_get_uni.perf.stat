@@ -1,0 +1,18 @@
+# started on Wed Oct 16 16:19:42 2019
+
+
+ Performance counter stats for './Run JellyFishSkipList 1 ../trc/micro_trc/backup1000000trc/uni_get_load.trc ../trc/micro_trc/backup1000000trc/uni_get_run.trc':
+
+       8914.518933      task-clock (msec)         #    1.000 CPUs utilized          
+                19      context-switches          #    0.002 K/sec                  
+                 2      cpu-migrations            #    0.000 K/sec                  
+            83,691      page-faults               #    0.009 M/sec                  
+    34,471,558,949      cycles                    #    3.867 GHz                    
+   <not supported>      stalled-cycles-frontend  
+   <not supported>      stalled-cycles-backend   
+    71,860,656,200      instructions              #    2.08  insns per cycle        
+    16,722,649,103      branches                  # 1875.889 M/sec                  
+        47,596,316      branch-misses             #    0.28% of all branches        
+
+       8.914745760 seconds time elapsed
+

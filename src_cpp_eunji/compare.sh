@@ -4,12 +4,7 @@ make -j4
 #export $CLASSPATH
 
 THREADS=16
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
-##SKIPLISTS="BlockedCVSkipList"
-
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
@@ -22,13 +17,12 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-OP="range_query"
-OP="put"
+OP="get"
 CONF="uni zipf_1.2"
 #OP="put"
 #OP="range_query"
 #CONF="uni zipf_1.4"
-#CONF="uni"
+CONF="uni zipf_1.2"
 #CONF="zipf_1.2"
 #CONF="uni"
 #CONF="zipf_1.4"
@@ -36,8 +30,8 @@ CONF="uni zipf_1.2"
 
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
-RSLT_DIR="./perf_result_191104_eun"
-
+RSLT_DIR="./perf_result_191026"
+#RLST_DIR="./perf_result_191026"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi
@@ -56,15 +50,16 @@ suffix=`date +%y%m%d_%H%M_%s`
 #touch $rfname
 #echo "" > $rfname
 #
+rm $RSLT_DIR/perf_*
 
 for op in $OP; do
 	#rfname="$RSLT_DIR/perf_"$suffix"_"$op".rslt"
 	echo "$op ....."
 	for cf in $CONF; do
 		rfname="$RSLT_DIR/perf_"$op"_"$cf"_"$num".rslt"
-		if [[ -f $rfname ]];then
-			mv $rfname $rfname.bak
-		fi
+#		if [[ -f $rfname ]];then
+#			mv $rfname $rfname.bak
+#		fi
 		touch $rfname
 		echo "$rfname ...."
 
@@ -79,6 +74,7 @@ for op in $OP; do
 					echo "./Run $sk $th $load_trc $run_trc"
 					#./Run $sk $th $load_trc $run_trc
 					#./Run $sk $th $load_trc $run_trc 
+					echo "$th"threads | tr "\n" " " >> $rfname
 					./Run $sk $th $load_trc $run_trc >> $rfname
 					#./Run $sk $th $load_trc $run_trc > con.level
 					iter=$((iter+1))
@@ -87,7 +83,9 @@ for op in $OP; do
 			th=$((th+th))
 		done
 		cat $rfname | grep "run" | awk '{print $1, $NF}'
-		cat $rfname | grep "comparator" 
+		cat $rfname | grep "comparator"
+		cat $rfname | grep "pointer"
+ 
 	done
 done
 
