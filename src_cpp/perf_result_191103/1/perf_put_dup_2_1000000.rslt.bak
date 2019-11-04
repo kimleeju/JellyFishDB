@@ -1,0 +1,90 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000147 IOPS = 13605.442177
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.81361 IOPS = 262218.793569
+BlockedSpinSkipList comparator count = 0
+BlockedSpinSkipList CAS count = 0
+BlockedSpinSkipList pointer update count = 134212168
+BlockedSpinSkipList CAS failure count = 0
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000122 IOPS = 16393.442623
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.72569 IOPS = 268406.998008
+ConcurrentSkipList comparator count = 0
+ConcurrentSkipList CAS count = 2001313
+ConcurrentSkipList pointer update count = 132475807
+ConcurrentSkipList CAS failure count = 0
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000141 IOPS = 14184.397163
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.45074 IOPS = 289793.119797
+JellyFishSkipList comparator count = 0
+JellyFishSkipList CAS count = 1498877
+JellyFishSkipList pointer update count = 128604049
+JellyFishSkipList CAS failure count = 0
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 8.3e-05 IOPS = 24096.385542
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 4.86058 IOPS = 205737.096645
+BlockedSpinSkipList comparator count = 0
+BlockedSpinSkipList CAS count = 0
+BlockedSpinSkipList pointer update count = 134350002
+BlockedSpinSkipList CAS failure count = 0
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 7.6e-05 IOPS = 26315.789474
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 3.64676 IOPS = 274216.290625
+ConcurrentSkipList comparator count = 0
+ConcurrentSkipList CAS count = 1999419
+ConcurrentSkipList pointer update count = 131677351
+ConcurrentSkipList CAS failure count = 0
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 0.000153 IOPS = 13071.895425
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 3.50912 IOPS = 284972.259403
+JellyFishSkipList comparator count = 0
+JellyFishSkipList CAS count = 1499228
+JellyFishSkipList pointer update count = 127771514
+JellyFishSkipList CAS failure count = 2
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.000505 IOPS = 3960.396040
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 4.9917 IOPS = 200332.551703
+BlockedSpinSkipList comparator count = 0
+BlockedSpinSkipList CAS count = 0
+BlockedSpinSkipList pointer update count = 135027176
+BlockedSpinSkipList CAS failure count = 0
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.000325 IOPS = 6153.846154
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 3.75003 IOPS = 266664.871125
+ConcurrentSkipList comparator count = 0
+ConcurrentSkipList CAS count = 1998901
+ConcurrentSkipList pointer update count = 133584908
+ConcurrentSkipList CAS failure count = 2
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.000306 IOPS = 6535.947712
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 3.49176 IOPS = 286388.566463
+JellyFishSkipList comparator count = 0
+JellyFishSkipList CAS count = 1499684
+JellyFishSkipList pointer update count = 127168153
+JellyFishSkipList CAS failure count = 7
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000734 IOPS = 2724.795640
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 5.21017 IOPS = 191932.508920
+BlockedSpinSkipList comparator count = 0
+BlockedSpinSkipList CAS count = 0
+BlockedSpinSkipList pointer update count = 132442238
+BlockedSpinSkipList CAS failure count = 0
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000257 IOPS = 7782.101167
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 3.77092 IOPS = 265187.470117
+ConcurrentSkipList comparator count = 0
+ConcurrentSkipList CAS count = 2000112
+ConcurrentSkipList pointer update count = 131312042
+ConcurrentSkipList CAS failure count = 2
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000554 IOPS = 3610.108303
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 3.63438 IOPS = 275150.369527
+JellyFishSkipList comparator count = 0
+JellyFishSkipList CAS count = 1501588
+JellyFishSkipList pointer update count = 126586254
+JellyFishSkipList CAS failure count = 77
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.001089 IOPS = 1836.547291
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 5.28705 IOPS = 189141.581789
+BlockedSpinSkipList comparator count = 0
+BlockedSpinSkipList CAS count = 0
+BlockedSpinSkipList pointer update count = 138398132
+BlockedSpinSkipList CAS failure count = 0
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.0003 IOPS = 6666.666667
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 3.82133 IOPS = 261689.117826
+ConcurrentSkipList comparator count = 0
+ConcurrentSkipList CAS count = 1999993
+ConcurrentSkipList pointer update count = 132912772
+ConcurrentSkipList CAS failure count = 3
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.010254 IOPS = 195.045836
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 3.81693 IOPS = 261991.056682
+JellyFishSkipList comparator count = 0
+JellyFishSkipList CAS count = 1499763
+JellyFishSkipList pointer update count = 130066863
+JellyFishSkipList CAS failure count = 191

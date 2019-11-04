@@ -7,20 +7,13 @@ THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
-<<<<<<< Updated upstream
-
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
 ##SKIPLISTS="BlockedCVSkipList"
-#SKIPLISTS="BlockedCVSkipList"
-=======
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
-##SKIPLISTS="BlockedCVSkipList"
->>>>>>> Stashed changes
 
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
-num="10000"
+num="1000000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
@@ -30,11 +23,7 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 OP="range_query"
-OP="put get"
-OP="range_query"
-#OP="get"
-
-OP="put"
+#OP="put get"
 CONF="uni zipf_1.2"
 CONF="dup_2 dup_4"
 #OP="put"
@@ -49,18 +38,12 @@ CONF="dup_2 dup_4"
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
 RSLT_DIR="./perf_result_191104_eun"
-<<<<<<< Updated upstream
-RSLT_DIR="./perf_result_191103"
-=======
->>>>>>> Stashed changes
 
-RSLT_DIR="./perf_result_range_query"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi
 
 th=$THREADS
-
 ## uniform 
 	#Usage: ./Run Options thread_count run_trc load_trc 
 #for i in {1..1}; do
@@ -76,7 +59,6 @@ suffix=`date +%y%m%d_%H%M_%s`
 
 
 for nu in {1..1}; do
-	RSLT_DIR="./perf_result_range_query/$nu"
 	if [[ ! -f $RSLT_DIR ]]; then
 		mkdir $RSLT_DIR
 	fi
@@ -102,11 +84,8 @@ for nu in {1..1}; do
 						run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
 						echo "./Run $sk $th $load_trc $run_trc"
 						#./Run $sk $th $load_trc $run_trc
-						#./Run $sk $th $load_trc $run_trc
-#						echo 3 > /proc/sys/vm/drop_caches
-#						sleep .5
+						#./Run $sk $th $load_trc $run_trc 
 						./Run $sk $th $load_trc $run_trc >> $rfname
-#						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
 						iter=$((iter+1))
 					done

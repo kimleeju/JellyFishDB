@@ -32,7 +32,11 @@ using namespace std;
 #define OP_EXEC
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
+<<<<<<< Updated upstream
 //#define PRINT_STAT 
+=======
+//:#define PRINT_STAT 
+>>>>>>> Stashed changes
 #define PRINT_PERF
 #define JELLYFISH
 

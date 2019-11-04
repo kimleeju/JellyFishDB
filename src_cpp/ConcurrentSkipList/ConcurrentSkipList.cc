@@ -141,7 +141,6 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 {
 	// update current max height
 	int height = RandomHeight();
-
 	int max_height = max_height_.load(std::memory_order_relaxed);
 
 	while(height > max_height){
