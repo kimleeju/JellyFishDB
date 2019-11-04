@@ -174,17 +174,22 @@ int BlockedSkipList::RandomHeight()
 bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 
  // Node* nnode = AllocateNode(key, value, RandomHeight());
-  int height = RandomHeight();
-  int max_height = max_height_.load(std::memory_order_relaxed);
-    if(height > max_height){
+  
+	int height = RandomHeight();
+	int max_height = max_height_.load(std::memory_order_relaxed);
+
+	if(height > max_height){
 		max_height_ = height;
 		max_height = height;   
     }
-    int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	Node* nnode = AllocateNode(key, value, height);
-     for(int i=0;i<height;++i){  
-        nnode->SetNext(i, iterator.splice->next_[i]);
-       	iterator.splice->prev_[i]->SetNext(i,nnode);
+
+    int rv = RecomputeSpliceLevels(key, 0);
+     
+	for(int i=0;i<height;++i){  
+
+        nnode->SetNext(i, seq_splice->next_[i]);
+        seq_splice->prev_[i]->SetNext(i,nnode);
 		COUNT(pointer_cnt);
 		COUNT(pointer_cnt);
       }
