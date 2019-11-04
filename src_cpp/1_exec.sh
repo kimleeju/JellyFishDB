@@ -59,10 +59,10 @@ suffix=`date +%y%m%d_%H%M_%s`
 
 for nu in {1..5}; do
 	RSLT_DIR="./perf_result_191103/$nu"
-
 	if [[ ! -f $RSLT_DIR ]]; then
 		mkdir $RSLT_DIR
 	fi
+
 	for op in $OP; do
 		#rfname="$RSLT_DIR/perf_"$suffix"_"$op".rslt"
 		echo "$op ....."
@@ -73,7 +73,7 @@ for nu in {1..5}; do
 			fi
 			touch $rfname
 			echo "$rfname ...."
-
+	
 			th=1
 			while [[ $th -le $THREADS ]]; do
 				for sk in $SKIPLISTS; do
