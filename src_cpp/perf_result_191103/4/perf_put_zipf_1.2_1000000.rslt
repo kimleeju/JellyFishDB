@@ -1,0 +1,56 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 6.7e-05 IOPS = 29850.746269
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.82521 IOPS = 353956.217783
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 7.3e-05 IOPS = 27397.260274
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.77868 IOPS = 359883.858397
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.001505 IOPS = 1328.903654
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.10982 IOPS = 473975.455680
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 7e-05 IOPS = 28571.428571
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.28007 IOPS = 438583.272188
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 8.1e-05 IOPS = 24691.358025
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 3.86476 IOPS = 258748.738925
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 8.2e-05 IOPS = 24390.243902
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 1.60121 IOPS = 624529.495562
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 0.001643 IOPS = 1217.285453
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 1.18141 IOPS = 846447.758566
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 8.8e-05 IOPS = 22727.272727
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 1000001 exec_time(s) = 1.36397 IOPS = 733154.688153
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.000117 IOPS = 17094.017094
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 3.98262 IOPS = 251091.367538
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.000143 IOPS = 13986.013986
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 0.899908 IOPS = 1111225.814194
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.001663 IOPS = 1202.645821
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 1.06176 IOPS = 941834.258057
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.000113 IOPS = 17699.115044
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 1000001 exec_time(s) = 0.785498 IOPS = 1273078.989380
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000228 IOPS = 8771.929825
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 4.04685 IOPS = 247106.326039
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000236 IOPS = 8474.576271
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.555489 IOPS = 1800217.466052
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.001808 IOPS = 1106.194690
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.564112 IOPS = 1772699.393028
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000197 IOPS = 10152.284264
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.521749 IOPS = 1916632.327038
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.000423 IOPS = 4728.132388
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 4.15577 IOPS = 240629.765969
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.00041 IOPS = 4878.048780
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.462607 IOPS = 2161664.220386
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f15f6e7de10, pid=15574, tid=0x00007f159f7fe700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_222-b10) (build 1.8.0_222-8u222-b10-1ubuntu1~16.04.1-b10)
+# Java VM: OpenJDK 64-Bit Server VM (25.222-b10 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# V  [libjvm.so+0x675e10]
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# An error report file with more information is saved as:
+# /home/ubuntu/datos/skip_vchain/src_cpp/hs_err_pid15574.log
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.00039 IOPS = 5128.205128
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.488863 IOPS = 2045564.912869

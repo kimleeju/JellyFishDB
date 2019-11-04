@@ -10,8 +10,8 @@ int CVSkipList::Put(string key, string value, Iterator iterator){
 string CVSkipList::Get(string key , Iterator iterator){
     t_global_committed.get_and_inc();
     iterator.Seek(key);
-    string get_value = iterator.Node()->Get_value();
-    return get_value;
+    return iterator.Node()->Get_value();
+
 }
     
 

@@ -13,8 +13,8 @@ string ConcurrentSkipList::Get(string key, Iterator iterator){
 #ifdef OP_EXEC
     t_global_committed.get_and_inc();
     iterator.Seek(key);
-    string get_value = iterator.Node()->Get_value();
-    return get_value;
+    return iterator.Node()->Get_value();
+
 #else
 	string get_value("deadbeaf");
 	return get_value;

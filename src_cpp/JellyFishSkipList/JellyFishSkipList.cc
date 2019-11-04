@@ -13,12 +13,11 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
 #ifdef OP_EXEC
     t_global_committed.get_and_inc();
 	iterator.Seek(key);
-	Node* temp = iterator.Node();
-	if(temp -> Get_vqueue() != nullptr){
-		return temp -> Get_vqueue() -> value; 
+	if(iterator.Node() -> Get_vqueue() != nullptr){
+		return iterator.Node() -> Get_vqueue() -> value; 
     }
     else	
-		return temp->Get_value();
+		return iterator.Node()->Get_value();
 #else
 	string val("deadbeaf");
 	return val; 
