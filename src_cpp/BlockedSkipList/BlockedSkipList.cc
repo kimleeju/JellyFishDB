@@ -182,7 +182,6 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 		max_height_ = height;
 		max_height = height;   
     }
-	Node* nnode = AllocateNode(key, value, height);
     int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	Node* nnode = AllocateNode(key, value, height);
      for(int i=0;i<height;++i){  
