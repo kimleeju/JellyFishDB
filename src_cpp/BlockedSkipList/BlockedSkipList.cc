@@ -17,9 +17,8 @@ string BlockedSkipList::Get(string key, Iterator iterator){
 //    t_global_committed.mlock.lock();
     t_global_committed.get_and_inc();
     iterator.Seek(key);
-    string get_value = iterator.Node()->Get_value();
 //    t_global_committed.mlock.unlock();
-    return get_value;
+    return iterator.Node()->Get_value();
 }
     
 
