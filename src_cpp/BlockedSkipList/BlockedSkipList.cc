@@ -31,7 +31,7 @@ void BlockedSkipList::RangeQuery(string start_key, int count, Iterator iterator 
     Node* temp_ = iterator.Node();
       //for(int i=count; i > 0; --i) {
     int i =count;  
-	 while(i>0){
+	 while(i>1){
 		// cout<<"str_key, str_value = "<<temp_->Get_key()<<", "<<temp_->Get_value()<<endl;
 		if(temp_->Next(0)==nullptr)
 			return;
@@ -92,12 +92,12 @@ int BlockedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Spli
 	Node* start = head_;
 	
 	while(1){
-		cmp = FindSpliceForLevel(key, i, &seq_splice->prev_[i], &seq_splice->next_[i], start);
+		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
 		// continue searching 
 		if(i <= to_level)
 			break; 
 		--i; 
-		start = seq_splice->prev_[i+1];
+		start = splice->prev_[i+1];
 	}
 	return -1;
 }
@@ -180,11 +180,11 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 		max_height_ = height;
 		max_height = height;   
     }
-    int rv = RecomputeSpliceLevels(key, 0);
+    int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	Node* nnode = AllocateNode(key, value, height);
      for(int i=0;i<height;++i){  
-        nnode->SetNext(i, seq_splice->next_[i]);
-        seq_splice->prev_[i]->SetNext(i,nnode);
+        nnode->SetNext(i, iterator.splice->next_[i]);
+       	iterator.splice->prev_[i]->SetNext(i,nnode);
 		COUNT(pointer_cnt);
 		COUNT(pointer_cnt);
       }

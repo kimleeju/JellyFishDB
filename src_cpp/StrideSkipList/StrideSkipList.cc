@@ -22,7 +22,7 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
     int i = count;
-	while(i>0){  
+	while(i>1){  
 		if(temp_->Get_stride_next()==nullptr){
 			if(temp_->Next(0)==nullptr);
 				return;
