@@ -69,7 +69,7 @@ def make_trc_dup(op_num, op_type, degree):
 	if op_type == "put":
 		ofile.write("put" + " " + str(0) + "\n")
 	else:
-		for n in degree:
+		for n in range(degree):
 			for w in workload:
 				ofile.write("put" + " " + str(w) + "\n")
 			
@@ -81,7 +81,7 @@ def make_trc_dup(op_num, op_type, degree):
 	fname = "dup_" + str(degree) + "_" + op_type + "_run.trc"
 	ofile = open(fname, "w")
 
-	for n in degree:
+	for n in range(degree):
 		for w in workload:
 			ofile.write(op_type + " " + str(w) + "\n")
 
@@ -95,7 +95,9 @@ def gen():
 
 	## dup distribution 
 	for op_type in op_types:
-		degree = 3
+		degree = 2
+		make_trc_dup(op_num, op_type, degree)
+		degree = 4
 		make_trc_dup(op_num, op_type, degree)
 '''
 	## uniform distribution
