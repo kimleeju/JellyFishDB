@@ -1,0 +1,242 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ADD_TO	garbagecoll.c	44;"	d	file:
+ALIGNED_ALLOC	common.h	23;"	d
+ALLOC_CHUNKS_PER_LIST	garbagecoll.c	42;"	d	file:
+ATOMIC_CAS_MB	test.c	57;"	d	file:
+ATOMIC_FETCH_AND_INC_FULL	test.c	58;"	d	file:
+BACKGROUND_H_	background.h	7;"	d
+BARRIER	common.h	10;"	d
+BINS	Makefile	/^BINS = $(BINDIR)\/lockfree-nohotspot-skiplist$/;"	m
+BLKS_PER_CHUNK	garbagecoll.c	41;"	d	file:
+CACHE_LINE_SIZE	common.h	27;"	d
+CACHE_PAD	common.h	22;"	d
+CAS	common.h	12;"	d
+CHUNKS_PER_ALLOC	garbagecoll.c	40;"	d	file:
+COMMON_H_	common.h	5;"	d
+CONTAINS	nohotspot_ops.h	/^        CONTAINS,$/;"	e	enum:sl_optype
+DEFAULT_ALTERNATE	test.c	49;"	d	file:
+DEFAULT_DURATION	test.c	42;"	d	file:
+DEFAULT_EFFECTIVE	test.c	50;"	d	file:
+DEFAULT_ELASTICITY	test.c	48;"	d	file:
+DEFAULT_INITIAL	test.c	43;"	d	file:
+DEFAULT_NB_THREADS	test.c	44;"	d	file:
+DEFAULT_RANGE	test.c	45;"	d	file:
+DEFAULT_SEED	test.c	46;"	d	file:
+DEFAULT_UNBALANCED	test.c	52;"	d	file:
+DEFAULT_UPDATE	test.c	47;"	d	file:
+DELETE	nohotspot_ops.h	/^        DELETE,$/;"	e	enum:sl_optype
+FAD	common.h	16;"	d
+FAI	common.h	15;"	d
+GARBAGECOLL_H_	garbagecoll.h	6;"	d
+INODE_LEVEL	skiplist.h	20;"	d
+INSERT	nohotspot_ops.h	/^        INSERT$/;"	e	enum:sl_optype
+INTSET_T_	intset.h	25;"	d
+MAXLEVEL	intset.c	28;"	d	file:
+MAX_HOOKS	garbagecoll.c	38;"	d	file:
+MAX_LEVELS	skiplist.h	16;"	d
+MAX_SIZES	garbagecoll.c	35;"	d	file:
+MINIMAL_GC	garbagecoll.c	51;"	d	file:
+NODE_LEVEL	skiplist.h	19;"	d
+NOHOTSPOT_OPS_H_	nohotspot_ops.h	9;"	d
+NUM_EPOCHS	garbagecoll.c	37;"	d	file:
+NUM_LEVELS	skiplist.h	18;"	d
+PTST_H_	ptst.h	5;"	d
+ROOT	Makefile	/^ROOT = ..\/..\/..$/;"	m
+SKIPLIST_H_	skiplist.h	8;"	d
+STR	test.c	55;"	d	file:
+TRANSACTIONAL	test.c	60;"	d	file:
+USE_GC	garbagecoll.h	9;"	d
+VAL_MAX	test.c	63;"	d	file:
+VAL_MIN	test.c	62;"	d	file:
+VOLATILE	common.h	9;"	d
+XSTR	test.c	54;"	d	file:
+alloc	garbagecoll.c	/^        gc_chunk * VOLATILE alloc[MAX_SIZES];$/;"	m	struct:gc_global	file:
+alloc	garbagecoll.c	/^        gc_chunk *alloc[MAX_SIZES];$/;"	m	struct:gc_st	file:
+alloc_chunk_num	garbagecoll.c	/^        VOLATILE unsigned long alloc_chunk_num;$/;"	m	struct:gc_global	file:
+alloc_chunks	garbagecoll.c	/^        unsigned int alloc_chunks[MAX_SIZES];$/;"	m	struct:gc_st	file:
+alloc_size	garbagecoll.c	/^        VOLATILE unsigned long alloc_size[MAX_SIZES];$/;"	m	struct:gc_global	file:
+allocations	garbagecoll.c	/^        VOLATILE unsigned long allocations;$/;"	m	struct:gc_global	file:
+alternate	test.c	/^	int alternate;$/;"	m	struct:thread_data	file:
+async_page	garbagecoll.c	/^        void *async_page;$/;"	m	struct:gc_st	file:
+async_page_state	garbagecoll.c	/^        int async_page_state;$/;"	m	struct:gc_st	file:
+barrier	test.c	/^	barrier_t *barrier;$/;"	m	struct:thread_data	file:
+barrier	test.c	/^typedef struct barrier {$/;"	s	file:
+barrier_cross	test.c	/^void barrier_cross(barrier_t *b)$/;"	f
+barrier_init	test.c	/^void barrier_init(barrier_t *b, int n)$/;"	f
+barrier_t	test.c	/^} barrier_t;$/;"	t	typeref:struct:barrier	file:
+bg_finished	background.c	/^static int bg_finished;$/;"	v	file:
+bg_help_remove	background.c	/^void bg_help_remove(node_t *prev, node_t *node, ptst_t *ptst)$/;"	f
+bg_init	background.c	/^void bg_init(set_t *s)$/;"	f
+bg_loop	background.c	/^static void* bg_loop(void *args)$/;"	f	file:
+bg_lower_ilevel	background.c	/^void bg_lower_ilevel(inode_t *new_low, ptst_t *ptst)$/;"	f
+bg_non_deleted	background.c	/^static int bg_non_deleted;$/;"	v	file:
+bg_print_stats	background.c	/^void bg_print_stats(void)$/;"	f
+bg_raise_ilevel	background.c	/^static int bg_raise_ilevel(inode_t *iprev, inode_t *iprev_tall,$/;"	f	file:
+bg_raise_nlevel	background.c	/^static int bg_raise_nlevel(inode_t *inode, ptst_t *ptst)$/;"	f	file:
+bg_remove	background.c	/^void bg_remove(node_t *prev, node_t *node, ptst_t *ptst)$/;"	f
+bg_running	background.c	/^static int bg_running;$/;"	v	file:
+bg_sleep_time	background.c	/^static int bg_sleep_time;$/;"	v	file:
+bg_start	background.c	/^void bg_start(int sleep_time)$/;"	f
+bg_stats	background.c	/^static struct bg_stats {$/;"	s	file:
+bg_stats	background.c	/^} bg_stats;$/;"	v	typeref:struct:bg_stats	file:
+bg_stats_t	background.c	/^typedef struct bg_stats bg_stats_t;$/;"	t	typeref:struct:bg_stats	file:
+bg_stop	background.c	/^void bg_stop(void)$/;"	f
+bg_tall_deleted	background.c	/^static int bg_tall_deleted;$/;"	v	file:
+bg_thread	background.c	/^static pthread_t bg_thread;	\/* background thread *\/$/;"	v	file:
+bg_trav_nodes	background.c	/^static void bg_trav_nodes(ptst_t *ptst)$/;"	f	file:
+blk	garbagecoll.c	/^        void *blk[BLKS_PER_CHUNK];$/;"	m	struct:gc_chunk	file:
+blk_sizes	garbagecoll.c	/^        int blk_sizes[MAX_SIZES];$/;"	m	struct:gc_global	file:
+catcher	test.c	/^void catcher(int sig)$/;"	f
+chunk_cache	garbagecoll.c	/^        gc_chunk *chunk_cache;$/;"	m	struct:gc_st	file:
+complete	test.c	/^	pthread_cond_t complete;$/;"	m	struct:barrier	file:
+count	ptst.h	/^        unsigned int   count;$/;"	m	struct:sl_ptst
+count	test.c	/^	int count;$/;"	m	struct:barrier	file:
+crossing	test.c	/^	int crossing;$/;"	m	struct:barrier	file:
+current	garbagecoll.c	/^        VOLATILE int current;           \/* the current epoch *\/$/;"	m	struct:gc_global	file:
+delete_succeeds	background.c	/^        int delete_succeeds;$/;"	m	struct:bg_stats	file:
+down	skiplist.h	/^        struct sl_inode *down;$/;"	m	struct:sl_inode	typeref:struct:sl_inode::sl_inode
+effective	test.c	/^	int effective;$/;"	m	struct:thread_data	file:
+entries_since_reclaim	garbagecoll.c	/^        unsigned int entries_since_reclaim;$/;"	m	struct:gc_st	file:
+epoch	garbagecoll.c	/^        unsigned int epoch;     \/* epoch seen by this thread *\/$/;"	m	struct:gc_st	file:
+failures_because_contention	test.c	/^	unsigned long failures_because_contention;$/;"	m	struct:thread_data	file:
+first	test.c	/^	unsigned int first;$/;"	m	struct:thread_data	file:
+floor_log_2	test.c	/^int floor_log_2(unsigned int n) {$/;"	f
+free_chunks	garbagecoll.c	/^        gc_chunk * VOLATILE free_chunks; \/* free, empty chunks *\/$/;"	m	struct:gc_global	file:
+garbage	garbagecoll.c	/^        gc_chunk *garbage[NUM_EPOCHS][MAX_SIZES];$/;"	m	struct:gc_st	file:
+garbage_tail	garbagecoll.c	/^        gc_chunk *garbage_tail[NUM_EPOCHS][MAX_SIZES];$/;"	m	struct:gc_st	file:
+gc	ptst.h	/^        gc_st *gc;$/;"	m	struct:sl_ptst
+gc_add_allocator	garbagecoll.c	/^int gc_add_allocator(int alloc_size)$/;"	f
+gc_add_chunks_to_list	garbagecoll.c	/^static void gc_add_chunks_to_list(gc_chunk *ch, gc_chunk *head)$/;"	f	file:
+gc_add_hook	garbagecoll.c	/^int gc_add_hook(gc_hookfn fn)$/;"	f
+gc_add_ptr_to_hook_list	garbagecoll.c	/^void gc_add_ptr_to_hook_list(ptst_t *ptst, void *p, int hook_id)$/;"	f
+gc_alloc	garbagecoll.c	/^void* gc_alloc(ptst_t *ptst, int alloc_id)$/;"	f
+gc_alloc_more_chunks	garbagecoll.c	/^static struct gc_chunk* gc_alloc_more_chunks(void)$/;"	f	file:
+gc_chunk	garbagecoll.c	/^struct gc_chunk {$/;"	s	file:
+gc_chunk	garbagecoll.c	/^typedef struct gc_chunk gc_chunk;$/;"	t	typeref:struct:gc_chunk	file:
+gc_chunk_from_cache	garbagecoll.c	/^static gc_chunk* gc_chunk_from_cache(gc_st *gc)$/;"	f	file:
+gc_enter	garbagecoll.c	/^void gc_enter(ptst_t *ptst)$/;"	f
+gc_exit	garbagecoll.c	/^void gc_exit(ptst_t *ptst)$/;"	f
+gc_free	garbagecoll.c	/^void gc_free(ptst_t *ptst, void *p, int alloc_id)$/;"	f
+gc_get_alloc_chunk	garbagecoll.c	/^static gc_chunk* gc_get_alloc_chunk(gc_st *gc, int i)$/;"	f	file:
+gc_get_empty_chunks	garbagecoll.c	/^static gc_chunk* gc_get_empty_chunks(int n)$/;"	f	file:
+gc_get_filled_chunks	garbagecoll.c	/^static gc_chunk* gc_get_filled_chunks(int n, int sz)$/;"	f	file:
+gc_global	garbagecoll.c	/^static struct gc_global {$/;"	s	file:
+gc_global	garbagecoll.c	/^} gc_global;$/;"	v	typeref:struct:gc_global	file:
+gc_hookfn	garbagecoll.h	/^typedef void (*gc_hookfn)(ptst_t*, void*);$/;"	t
+gc_id	skiplist.c	/^static int gc_id[NUM_LEVELS];$/;"	v	file:
+gc_init	garbagecoll.c	/^gc_st* gc_init(void)$/;"	f
+gc_reclaim	garbagecoll.c	/^static void gc_reclaim(void)$/;"	f	file:
+gc_remove_allocator	garbagecoll.c	/^void gc_remove_allocator(int alloc_id)$/;"	f
+gc_remove_hook	garbagecoll.c	/^void gc_remove_hook(int hook_id)$/;"	f
+gc_st	garbagecoll.c	/^struct gc_st {$/;"	s	file:
+gc_st	garbagecoll.h	/^typedef struct gc_st gc_st;$/;"	t	typeref:struct:gc_st
+gc_subsystem_destroy	garbagecoll.c	/^void gc_subsystem_destroy(void)$/;"	f
+gc_subsystem_init	garbagecoll.c	/^void gc_subsystem_init(void)$/;"	f
+gc_unsafe_free	garbagecoll.c	/^void gc_unsafe_free(ptst_t *ptst, void *p, int alloc_id)$/;"	f
+global_seed	test.c	/^unsigned int global_seed;$/;"	v
+head	skiplist.h	/^        node_t  *head;$/;"	m	struct:sl_set
+hook	garbagecoll.c	/^        gc_chunk *hook[NUM_EPOCHS][MAX_HOOKS];$/;"	m	struct:gc_st	file:
+hook_fns	garbagecoll.c	/^        gc_hookfn hook_fns[MAX_HOOKS];$/;"	m	struct:gc_global	file:
+hooks	garbagecoll.c	/^        unsigned long hooks;$/;"	m	struct:gc_global	file:
+i	garbagecoll.c	/^        unsigned int i;              \/* next entry in blk to use *\/$/;"	m	struct:gc_chunk	file:
+id	ptst.h	/^        unsigned int id;$/;"	m	struct:sl_ptst
+inode_delete	skiplist.c	/^void inode_delete(inode_t *inode, ptst_t *ptst)$/;"	f
+inode_new	skiplist.c	/^inode_t* inode_new(inode_t *right, inode_t *down, node_t *node, ptst_t *ptst)$/;"	f
+inode_t	skiplist.h	/^typedef VOLATILE struct sl_inode inode_t;$/;"	t	typeref:struct:sl_inode
+inreclaim	garbagecoll.c	/^        VOLATILE unsigned long inreclaim;\/* excl access to gc_reclaim() *\/$/;"	m	struct:gc_global	file:
+key	skiplist.h	/^        sl_key_t key;$/;"	m	struct:sl_node
+level	skiplist.h	/^        unsigned int level;$/;"	m	struct:sl_node
+levelmax	test.c	/^unsigned int levelmax;$/;"	v
+loops	background.c	/^        int loops;$/;"	m	struct:bg_stats	file:
+lowers	background.c	/^        int lowers;$/;"	m	struct:bg_stats	file:
+main	test.c	/^int main(int argc, char **argv)$/;"	f
+marker	skiplist.h	/^        unsigned int marker;$/;"	m	struct:sl_node
+max_retries	test.c	/^	unsigned long max_retries;$/;"	m	struct:thread_data	file:
+mutex	test.c	/^	pthread_mutex_t mutex;$/;"	m	struct:barrier	file:
+nb_aborts	test.c	/^	unsigned long nb_aborts;$/;"	m	struct:thread_data	file:
+nb_aborts_double_write	test.c	/^	unsigned long nb_aborts_double_write;$/;"	m	struct:thread_data	file:
+nb_aborts_invalid_memory	test.c	/^	unsigned long nb_aborts_invalid_memory;$/;"	m	struct:thread_data	file:
+nb_aborts_locked_read	test.c	/^	unsigned long nb_aborts_locked_read;$/;"	m	struct:thread_data	file:
+nb_aborts_locked_write	test.c	/^	unsigned long nb_aborts_locked_write;$/;"	m	struct:thread_data	file:
+nb_aborts_validate_commit	test.c	/^	unsigned long nb_aborts_validate_commit;$/;"	m	struct:thread_data	file:
+nb_aborts_validate_read	test.c	/^	unsigned long nb_aborts_validate_read;$/;"	m	struct:thread_data	file:
+nb_aborts_validate_write	test.c	/^	unsigned long nb_aborts_validate_write;$/;"	m	struct:thread_data	file:
+nb_add	test.c	/^	unsigned long nb_add;$/;"	m	struct:thread_data	file:
+nb_added	test.c	/^	unsigned long nb_added;$/;"	m	struct:thread_data	file:
+nb_contains	test.c	/^	unsigned long nb_contains;$/;"	m	struct:thread_data	file:
+nb_found	test.c	/^	unsigned long nb_found;$/;"	m	struct:thread_data	file:
+nb_remove	test.c	/^	unsigned long nb_remove;$/;"	m	struct:thread_data	file:
+nb_removed	test.c	/^	unsigned long nb_removed;$/;"	m	struct:thread_data	file:
+next	garbagecoll.c	/^        struct gc_chunk *next;       \/* chunk chaining *\/$/;"	m	struct:gc_chunk	typeref:struct:gc_chunk::gc_chunk	file:
+next	ptst.h	/^        struct sl_ptst *next;$/;"	m	struct:sl_ptst	typeref:struct:sl_ptst::sl_ptst
+next	skiplist.h	/^        struct sl_node *next;$/;"	m	struct:sl_node	typeref:struct:sl_node::sl_node
+next_id	ptst.c	/^static unsigned int next_id;$/;"	v	file:
+node	skiplist.h	/^        struct sl_node  *node;$/;"	m	struct:sl_inode	typeref:struct:sl_inode::sl_node
+node_delete	skiplist.c	/^void node_delete(node_t *node, ptst_t *ptst)$/;"	f
+node_new	skiplist.c	/^node_t* node_new(sl_key_t key, val_t val, node_t *prev, node_t *next,$/;"	f
+node_sizes	garbagecoll.c	/^        unsigned long node_sizes;$/;"	m	struct:gc_global	file:
+node_t	skiplist.h	/^typedef VOLATILE struct sl_node node_t;$/;"	t	typeref:struct:sl_node
+num_frees	garbagecoll.c	/^        VOLATILE unsigned long num_frees;$/;"	m	struct:gc_global	file:
+num_reclaims	garbagecoll.c	/^        VOLATILE unsigned long num_reclaims;$/;"	m	struct:gc_global	file:
+page_size	garbagecoll.c	/^        int page_size;                  \/* memory page size in bytes *\/$/;"	m	struct:gc_global	file:
+prev	skiplist.h	/^        struct sl_node *prev;$/;"	m	struct:sl_node	typeref:struct:sl_node::sl_node
+print_skiplist	test.c	/^void print_skiplist(struct sl_set *set) {$/;"	f
+ptst_critical_enter	ptst.c	/^ptst_t* ptst_critical_enter(void)$/;"	f
+ptst_critical_exit	ptst.h	33;"	d
+ptst_destructor	ptst.c	/^static void ptst_destructor(ptst_t *ptst)$/;"	f	file:
+ptst_first	ptst.h	37;"	d
+ptst_key	ptst.c	/^pthread_key_t   ptst_key;$/;"	v
+ptst_list	ptst.c	/^ptst_t  *ptst_list;$/;"	v
+ptst_next	ptst.h	38;"	d
+ptst_subsystem_init	ptst.c	/^void ptst_subsystem_init(void)$/;"	f
+ptst_t	ptst.h	/^typedef struct sl_ptst ptst_t;$/;"	t	typeref:struct:sl_ptst
+raises	background.c	/^        int raises;$/;"	m	struct:bg_stats	file:
+raises	skiplist.h	/^        int raises;$/;"	m	struct:sl_set
+rand	ptst.h	/^        unsigned long rand;$/;"	m	struct:sl_ptst
+rand_range	test.c	/^inline long rand_range(long r) {$/;"	f
+rand_range_re	test.c	/^inline long rand_range_re(unsigned int *seed, long r) {$/;"	f
+range	test.c	/^	long range;$/;"	m	struct:thread_data	file:
+right	skiplist.h	/^        struct sl_inode *right;$/;"	m	struct:sl_inode	typeref:struct:sl_inode::sl_inode
+rng_seed	test.c	/^__thread unsigned int *rng_seed;$/;"	v
+rng_seed_key	test.c	/^pthread_key_t rng_seed_key;$/;"	v
+seed	test.c	/^	unsigned int seed;$/;"	m	struct:thread_data	file:
+set	background.c	/^static set_t *set;	        \/* the set to maintain *\/$/;"	v	file:
+set	test.c	/^	struct sl_set *set;$/;"	m	struct:thread_data	typeref:struct:thread_data::sl_set	file:
+set_delete	skiplist.c	/^void set_delete(set_t *set)$/;"	f
+set_new	skiplist.c	/^set_t* set_new(int start)$/;"	f
+set_print	skiplist.c	/^void set_print(set_t *set, int flag)$/;"	f
+set_size	skiplist.c	/^int set_size(set_t *set, int flag)$/;"	f
+set_subsystem_init	skiplist.c	/^void set_subsystem_init(void)$/;"	f
+set_t	skiplist.h	/^typedef VOLATILE struct sl_set set_t;$/;"	t	typeref:struct:sl_set
+sl_add_old	intset.c	/^int sl_add_old(set_t *set, unsigned int key, int transactional)$/;"	f
+sl_contains	nohotspot_ops.h	23;"	d
+sl_contains_old	intset.c	/^int sl_contains_old(set_t *set, unsigned int key, int transactional)$/;"	f
+sl_delete	nohotspot_ops.h	24;"	d
+sl_do_operation	nohotspot_ops.c	/^int sl_do_operation(set_t *set, sl_optype_t optype, sl_key_t key, val_t val)$/;"	f
+sl_finish_contains	nohotspot_ops.c	/^static int sl_finish_contains(sl_key_t key, node_t *node, val_t node_val,$/;"	f	file:
+sl_finish_delete	nohotspot_ops.c	/^static int sl_finish_delete(sl_key_t key, node_t *node, val_t node_val,$/;"	f	file:
+sl_finish_insert	nohotspot_ops.c	/^static int sl_finish_insert(sl_key_t key, val_t val, node_t *node,$/;"	f	file:
+sl_inode	skiplist.h	/^struct sl_inode {$/;"	s
+sl_insert	nohotspot_ops.h	25;"	d
+sl_key_t	skiplist.h	/^typedef unsigned long sl_key_t;$/;"	t
+sl_node	skiplist.h	/^struct sl_node {$/;"	s
+sl_optype	nohotspot_ops.h	/^enum sl_optype {$/;"	g
+sl_optype_t	nohotspot_ops.h	/^typedef enum sl_optype sl_optype_t;$/;"	t	typeref:enum:sl_optype
+sl_ptst	ptst.h	/^struct sl_ptst {$/;"	s
+sl_remove_old	intset.c	/^int sl_remove_old(set_t *set, unsigned int key, int transactional)$/;"	f
+sl_set	skiplist.h	/^struct sl_set {$/;"	s
+stop	test.c	/^VOLATILE AO_t stop;$/;"	v
+test	test.c	/^void *test(void *data) {$/;"	f
+thread_data	test.c	/^typedef struct thread_data {$/;"	s	file:
+thread_data_t	test.c	/^} thread_data_t;$/;"	t	typeref:struct:thread_data	file:
+top	skiplist.h	/^        inode_t *top;$/;"	m	struct:sl_set
+total_size	garbagecoll.c	/^        VOLATILE unsigned long total_size;$/;"	m	struct:gc_global	file:
+unit_tx	test.c	/^	int unit_tx;$/;"	m	struct:thread_data	file:
+update	test.c	/^	int update;$/;"	m	struct:thread_data	file:
+val	skiplist.h	/^        val_t val;$/;"	m	struct:sl_node
+val_t	skiplist.h	/^typedef void* val_t;$/;"	t

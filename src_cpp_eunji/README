@@ -1,0 +1,7 @@
+BlockedSkipList : original skip list (lock)
+ConcurrentSkipList : concurrent skip list (lock-free)
+
+JellyFishSkipList : value-chain concurrent skip list (lock-free, no duplicated keys)
+
+"Usage: ./Run ConcurrentSkipList max_level node_count"
+"Options: BlockedSkipList ConcurrentSkipList JellyFishSkipList"

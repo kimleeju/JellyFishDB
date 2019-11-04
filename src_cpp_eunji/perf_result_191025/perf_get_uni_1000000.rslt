@@ -1,0 +1,4 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 16 tot_ops = 1000001 exec_time(s) = 2.8721 IOPS = 348177.640054
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 1.35006 IOPS = 740710.207051
+ConcurrentSkipList comparator count = 51524048
+ConcurrentSkipList pointer update count = 133729178

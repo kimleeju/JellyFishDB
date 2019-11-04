@@ -7,9 +7,17 @@ THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
+<<<<<<< HEAD
 
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
+=======
+<<<<<<< HEAD
+SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
+##SKIPLISTS="BlockedCVSkipList"
+=======
+>>>>>>> 4be1f20c017776add17ab668111a44c4a363be8e
 #SKIPLISTS="BlockedCVSkipList"
+>>>>>>> f7d71e77ff4472257e1e8076d33a668b27bb3e34
 
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
@@ -24,15 +32,19 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 OP="range_query"
+<<<<<<< HEAD
 OP="put get"
 OP="range_query"
 #OP="get"
 
+=======
+OP="put"
+>>>>>>> 4be1f20c017776add17ab668111a44c4a363be8e
 CONF="uni zipf_1.2"
 #OP="put"
 #OP="range_query"
 #CONF="uni zipf_1.4"
-CONF="uni zipf_1.2"
+#CONF="uni"
 #CONF="zipf_1.2"
 #CONF="uni"
 #CONF="zipf_1.4"
@@ -40,7 +52,11 @@ CONF="uni zipf_1.2"
 
 RSLT_DIR="./perf_result"
 RSLT_DIR="./perf_result_tmp"
+<<<<<<< HEAD
+RSLT_DIR="./perf_result_191104_eun"
+=======
 RSLT_DIR="./perf_result_191103"
+>>>>>>> f7d71e77ff4472257e1e8076d33a668b27bb3e34
 
 RSLT_DIR="./perf_result_range_query"
 if [[ ! -f $RSLT_DIR ]]; then

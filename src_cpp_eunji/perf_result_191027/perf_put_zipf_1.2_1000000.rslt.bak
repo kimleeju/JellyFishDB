@@ -1,0 +1,8 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 7.1e-05 IOPS = 28169.014085
+BlockedSpinSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.21079 IOPS = 311449.947552
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 8e-05 IOPS = 25000.000000
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.16851 IOPS = 315606.073517
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.00161 IOPS = 1242.236025
+JDKSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 2.14724 IOPS = 465713.724197
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 7.4e-05 IOPS = 27027.027027
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 1000001 exec_time(s) = 3.11706 IOPS = 320815.344968

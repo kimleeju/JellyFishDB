@@ -1,9 +1,10 @@
 
 num="1000000"
 ops="put get"
-ops="range_query"
+#ops="range_query"
 workloads="uni zipf_1.2"
 workloads="uni"
+ops="get"
 
 for op in $ops; do
 	for wk in $workloads; do
@@ -16,7 +17,8 @@ for op in $ops; do
     	opt_list="$opt_list `echo '-'``echo 'e'` `echo gtitle=\'$graphtitle\'`"
 
     	echo "gnuplot $opt_list perf_histogram.cfg" 
-    	gnuplot $opt_list perf.cfg
+    	gnuplot $opt_list perf_histogram.cfg
+    	#gnuplot $opt_list perf.cfg
     	open $outfile
 	done
 done
