@@ -28,24 +28,11 @@ OP="put get range_query"
 #OP="put get"
 #OP="range_query"
 #OP="get"
-
-OP="put"
-CONF="uni zipf_1.2"
-#OP="put"
-#OP="range_query"
-#CONF="uni zipf_1.4"
-#CONF="uni"
-#CONF="zipf_1.2"
-#CONF="uni"
-#CONF="zipf_1.4"
-#CONF="zipf_1.4"
-
-RSLT_DIR="./perf_result"
-RSLT_DIR="./perf_result_tmp"
-RSLT_DIR="./perf_result_191104_eun"
 RSLT_DIR="./perf_result_191103"
 
-RSLT_DIR="./perf_result_range_query"
+OP="put"
+CONF="uni"
+
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi

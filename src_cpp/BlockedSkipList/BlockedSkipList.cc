@@ -160,6 +160,7 @@ bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, iterator.splice->next_[i]);
        	iterator.splice->prev_[i]->SetNext(i,nnode);
+     
 		COUNT(pointer_cnt);
 		COUNT(pointer_cnt);
       }

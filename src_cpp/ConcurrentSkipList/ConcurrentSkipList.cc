@@ -141,7 +141,6 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 {
 	// update current max height
 	int height = RandomHeight();
-
 #ifdef PRINT_HEIGHT
 	cout << height << endl;
 #endif
