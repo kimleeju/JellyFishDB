@@ -150,36 +150,11 @@ int BlockedSkipList::KeyIsAfterNode(const string& key, Node* n){
 	return key.compare(n->Get_key());
 }
 
-#if 0
-int BlockedSkipList::RandomHeight()
-{
-	int height = 1;
-	
-	int rnum = rand();
-
-	if(rnum & 0x3) { // 둘다 0 이어야 동작. 
-		while(rnum & 1 << 30 && height < kMaxHeight_) {
-			height++;
-			rnum <<= 1;
-		} 
-	}
-	return height;
-
-}
-#endif
-
-
-
 
 bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 
  // Node* nnode = AllocateNode(key, value, RandomHeight());
-  int height = RandomHeight();
-  int max_height = max_height_.load(std::memory_order_relaxed);
-    if(height > max_height){
-		max_height_ = height;
-		max_height = height;   
-    }
+	int height = RandomHeight();
     int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	Node* nnode = AllocateNode(key, value, height);
      for(int i=0;i<height;++i){  
@@ -218,7 +193,6 @@ BlockedSkipList::BlockedSkipList()
 	string val = "!";
 	head_ = AllocateNode(key, val, MAX_LEVEL); 
 	kMaxHeight_ = MAX_LEVEL;	
-	max_height_ = 1; 
 	seq_splice = AllocateSplice(); 
 
     srand((unsigned)time(NULL));

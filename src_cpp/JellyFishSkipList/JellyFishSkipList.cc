@@ -173,14 +173,6 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 #ifdef PRINT_HEIGHT
 	cout << height << endl;
 #endif
-	int max_height = max_height_.load(std::memory_order_relaxed);
-	while(height > max_height){
-		if(max_height_.compare_exchange_weak(max_height, height)){
-			max_height = height;
-			break;
-		}
-	}
-
 	// fl : found_level
 	int fl = RecomputeSpliceLevels(key, 0, iterator.splice);
 
@@ -270,7 +262,6 @@ JellyFishSkipList::JellyFishSkipList()
 	string val = "!";
 	head_ = AllocateNode(key, val, MAX_LEVEL); 
 	kMaxHeight_ = MAX_LEVEL;	
-	max_height_ = 1; 
 	seq_splice = AllocateSplice(); 
 
     srand((unsigned)time(NULL));

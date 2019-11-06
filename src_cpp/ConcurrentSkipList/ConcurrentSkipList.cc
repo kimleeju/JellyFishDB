@@ -142,15 +142,6 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 	// update current max height
 	int height = RandomHeight();
 
-	int max_height = max_height_.load(std::memory_order_relaxed);
-
-	while(height > max_height){
-		height = max_height+1;
-		if(max_height_.compare_exchange_weak(max_height, height)){
-			max_height = height; // EUNJI: what's this? 
-			break;
-		}
-	}	 
 #ifdef PRINT_HEIGHT
 	cout << height << endl;
 #endif
@@ -199,7 +190,6 @@ ConcurrentSkipList::ConcurrentSkipList()
 	string val = "!";
 	head_ = AllocateNode(key, val, MAX_LEVEL); 
 	kMaxHeight_ = MAX_LEVEL;	
-	max_height_ = 1; 
 	seq_splice = AllocateSplice(); 
 
     srand((unsigned)time(NULL));

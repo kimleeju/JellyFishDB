@@ -56,7 +56,6 @@ public:
 	atomic<int> CAS_cnt;
 protected:
     uint16_t kMaxHeight_;
-    atomic<int>max_height_; 
     Splice* seq_splice;
     TimeStamp t_global_committed;
 	atomic<long> cpr_cnt; 	    
@@ -94,10 +93,9 @@ public:
 		return height;
 	};
 
-    SkipList(int kMaxHeight, Node* head, int max_height, Splice* seq_splice_) : 
+    SkipList(int kMaxHeight, Node* head, Splice* seq_splice_) : 
         head_(head),
         kMaxHeight_(kMaxHeight),
-        max_height_(max_height),
         seq_splice(seq_splice_)
     {}
 

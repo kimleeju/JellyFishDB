@@ -90,7 +90,6 @@ JDKSkipList::JDKSkipList(int t_num)
 	string val = "!";
 	head_ = AllocateNode(key, val, MAX_LEVEL); 
 	kMaxHeight_ = MAX_LEVEL;	
-	max_height_ = 1; 
 	seq_splice = AllocateSplice(); 
 
 	DEBUG(__func__ << " " << t_num );

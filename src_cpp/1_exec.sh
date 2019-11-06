@@ -8,14 +8,14 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipLi
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
-##SKIPLISTS="BlockedCVSkipList"
+#SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
+SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
-num="10000"
+num="1000000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
@@ -24,9 +24,9 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
-OP="range_query"
-OP="put get"
-OP="range_query"
+#OP="range_query"
+#OP="put get"
+#OP="range_query"
 #OP="get"
 
 OP="put"
@@ -96,7 +96,9 @@ for nu in {1..1}; do
 						#./Run $sk $th $load_trc $run_trc
 #						echo 3 > /proc/sys/vm/drop_caches
 #						sleep .5
-						./Run $sk $th $load_trc $run_trc >> $rfname
+						
+						./Run $sk $th $load_trc $run_trc
+			#			./Run $sk $th $load_trc $run_trc >> $rfname
 #						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
 						iter=$((iter+1))

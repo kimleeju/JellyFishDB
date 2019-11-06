@@ -142,8 +142,6 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 {
 	int height = RandomHeight();
 	Node* nnode = AllocateNode(key, value, height);
-	//std::deque<T> myreq_q;
-	// enqueue a new node
 	pthread_mutex_lock(&req_q.lock);
 	req_q.push_back(nnode);
 
@@ -173,12 +171,9 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		Node* ready_node = req_q.front();
 //		pthread_mutex_unlock(&req_q.lock);
 
-		// insert a new node into the skip list 
-		int max_height = max_height_.load(std::memory_order_relaxed);
-		if(ready_node->Get_height() > max_height){
-			max_height_ = ready_node->Get_height();
-			max_height = ready_node->Get_height();   
- 		}
+		// insert a new node into the skip list
+		if(ready_node == nullptr)
+			return true; 
 
 		int rv = RecomputeSpliceLevels(ready_node->Get_key(), 0, iterator.splice);
 		for(int i=0;i<ready_node->Get_height();++i){ 
@@ -188,7 +183,6 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		// insert completes. 
 		pthread_mutex_lock(&req_q.lock);
 		// release ready_node 
-	//	assert(ready_node == req_q.front());
 		req_q.pop_front();
 
 		// wake up
@@ -227,7 +221,6 @@ CVSkipList::CVSkipList()
 	string val = "!";
 	head_ = AllocateNode(key, val, MAX_LEVEL); 
 	kMaxHeight_ = MAX_LEVEL;	
-	max_height_ = 1; 
 	seq_splice = AllocateSplice(); 
 	pthread_mutex_init(&req_q.lock,NULL);
     srand((unsigned)time(NULL));
