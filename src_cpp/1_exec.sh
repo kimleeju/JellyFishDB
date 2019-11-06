@@ -7,54 +7,11 @@ THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
-<<<<<<< Updated upstream
-
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
-##SKIPLISTS="BlockedCVSkipList"
-#SKIPLISTS="BlockedCVSkipList"
-=======
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
-##SKIPLISTS="BlockedCVSkipList"
->>>>>>> Stashed changes
-
-#SKIPLISTS="BlockedCVSkipList"
-#SKIPLISTS="JellyFishSkipList"
-#SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
-num="10000"
-
-#SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-#num="100"
-
-TRC_DIR="../trc/micro_trc/backup"$num"trc"
-#TRC_DIR="backup"$num"trc"
-#TRC_DIR="../trc/micro_trc/backup100000trc/result"
-OP="put get range_query"
-OP="range_query"
-OP="put get"
-OP="range_query"
-#OP="get"
+RSLT_DIR="./perf_result_191103"
 
 OP="put"
-CONF="uni zipf_1.2"
-CONF="dup_2 dup_4"
-#OP="put"
-#OP="range_query"
-#CONF="uni zipf_1.4"
-#CONF="uni"
-#CONF="zipf_1.2"
-#CONF="uni"
-#CONF="zipf_1.4"
-#CONF="zipf_1.4"
+CONF="uni"
 
-RSLT_DIR="./perf_result"
-RSLT_DIR="./perf_result_tmp"
-RSLT_DIR="./perf_result_191104_eun"
-<<<<<<< Updated upstream
-RSLT_DIR="./perf_result_191103"
-=======
->>>>>>> Stashed changes
-
-RSLT_DIR="./perf_result_range_query"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi

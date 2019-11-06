@@ -1,11 +1,11 @@
 #include "SkipList.h"
 #include "BlockedSkipList/BlockedSkipList.h"
-#include "CVSkipList/CVSkipList.h"
+//#include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
 //#include "StrideSkipList/StrideSkipList.h"
-#include "JDKSkipList/JDKSkipList.h"
+//#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
-#include "SimpleSkipList/SimpleSkipList.h"
+//#include "SimpleSkipList/SimpleSkipList.h"
 //#include "Iterator.h"
 #include "Bench/BenchManager.h"
 
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
 	}
-	
+#if 0	
 	else if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 	}
@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
 	else if(type =="SimpleSkipList"){
 		sl = new SimpleSkipList;
 	}
+#endif
 
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
