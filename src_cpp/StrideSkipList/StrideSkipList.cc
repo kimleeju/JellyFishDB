@@ -22,7 +22,7 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     iterator.Seek(start_key);
     Node* temp_ = iterator.Node();
     int i = count;
-	while(i>0){  
+	while(i>1){  
 		if(temp_->Get_stride_next()==nullptr){
 			if(temp_->Next(0)==nullptr);
 				return;
@@ -168,15 +168,6 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
   //Node* nnode = AllocateNode(key, value, RandomHeight());
 //  Splice* splice = AllocateSplice();
 	int height = RandomHeight();  
-	int max_height = max_height_.load(std::memory_order_relaxed);
-   
-	while(height > max_height){
-		if(max_height_.compare_exchange_weak(max_height, height)){
-			max_height = height;
-			break;
-		}
-	} 
-	 
 	Node* nnode = AllocateNode(key, value, height);
 
 	int rv = RecomputeSpliceLevels(nnode->Get_key(), 0,iterator.splice);
@@ -218,7 +209,6 @@ StrideSkipList::StrideSkipList()
 	string val = "!";
 	head_ = AllocateNode(key, val, MAX_LEVEL); 
 	kMaxHeight_ = MAX_LEVEL;	
-	max_height_ = 1; 
 	seq_splice = AllocateSplice(); 
 
     srand((unsigned)time(NULL));

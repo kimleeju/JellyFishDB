@@ -22,14 +22,10 @@ public:
 
 public:
     Splice* AllocateSplice();
-    Node* FindLast();
-    Node* FindLessThan(const string& key, Node** prev);
     Node* FindGreaterorEqual(const string& key);
-
-	void FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before);
+	int FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before);
     int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice);
-	int Comparator(string key1, string key2);
-    bool KeyIsAfterNode(const string& key, Node* n);
+   	int KeyIsAfterNode(const string& key, Node* n);
     Node* AllocateNode(const string& key, const string& value, int height); 
     bool Insert(string key, string value , Iterator iterator);
 	void PrintStat();

@@ -13,18 +13,14 @@ CXXFLAGS=-std=c++11 -g -Wall \
 LDFLAGS=-pthread
 
 SRCS +=\
-	CVSkipList/CVSkipList.cc\
-	Bench/BenchManager.cc
-
-SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
 	CVSkipList/CVSkipList.cc\
 	JDKSkipList/JDKSkipList.cc\
-	StrideSkipList/StrideSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
-	JellyFishSkipList/JellyFishSkipList.cc\
 	SimpleSkipList/SimpleSkipList.cc\
+	JellyFishSkipList/JellyFishSkipList.cc\
 	Bench/BenchManager.cc
+	#StrideSkipList/StrideSkipList.cc\
 
 OBJS = $(SRCS:.cc=.o)
 
@@ -39,15 +35,15 @@ $(TARG): Main.cc ./bin/libskiplist.a
 ./bin/libskiplist.a: $(SRCS)
 	mkdir -p bin
 	cd ./BlockedSkipList && $(MAKE) clean && $(MAKE) && cd ..
-	cd ./CVSkipList && $(MAKE) clean && $(MAKE) && cd ..	
+	cd ./CVSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
-	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
-	cd ./StrideSkipList && $(MAKE) clean && $(MAKE) && cd ..  
-	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./SimpleSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./JDKSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
 	$(AR) r $(@) $(OBJS)
 
+	#cd ./StrideSkipList && $(MAKE) clean && $(MAKE) && cd ..
 clean:
 	rm -f $(TARG) $(OBJS) ./bin/*.o ./bin/libskiplist.a
 	rm -f *.class

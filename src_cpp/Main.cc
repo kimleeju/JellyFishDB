@@ -2,10 +2,10 @@
 #include "BlockedSkipList/BlockedSkipList.h"
 #include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
-#include "StrideSkipList/StrideSkipList.h"
-#include "JDKSkipList/JDKSkipList.h"
+//#include "StrideSkipList/StrideSkipList.h"
+//#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
-#include "SimpleSkipList/SimpleSkipList.h"
+//#include "SimpleSkipList/SimpleSkipList.h"
 //#include "Iterator.h"
 #include "Bench/BenchManager.h"
 
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	else if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 	}
-
+#if 0
 	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);
 	}
@@ -46,15 +46,16 @@ int main(int argc, char* argv[])
 	else if(type =="SimpleSkipList"){
 		sl = new SimpleSkipList;
 	}
+#endif
 
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
 	}
-	
+#if 0	
 	else if(type =="StrideSkipList"){
 		sl = new StrideSkipList;
 	}
-	
+#endif	
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
 	}
@@ -102,9 +103,9 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-//#ifdef PRINT_STAT
+#ifdef PRINT_STAT
 	sl->PrintStat();
-//#endif
+#endif
 	return 0;
 }
 #endif

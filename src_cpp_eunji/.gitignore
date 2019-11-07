@@ -1,0 +1,6 @@
+*.o
+*.log
+*.a
+Run
+perf*.data
+*.class

@@ -35,9 +35,8 @@ public:
 			
 			T front(){
 				//pthread_mutex_lock(&lock);
-				T tmp = m_que.front();
+				return m_que.front();
 				//pthread_mutex_unlock(&lock);
-				return tmp;
 			}
 
 			T back(){
@@ -55,10 +54,7 @@ public:
 
 	
 			bool empty(){
-//				pt
-        		int result = m_que.empty();
-//				pthread_mutex_unlock(&lock);
-				return result;
+        		return m_que.empty();
     		}
 
 	//		void swap(std::deque<T>& x) {
@@ -69,17 +65,14 @@ public:
     			std::queue<T> m_que;
     			//mutable std::mutex m_mutex;
 	};
-std::atomic<int> cnt ;
 	pthread_mutex_t mu_lock;
 	Queue<Node*> req_q;	
 	void RangeQuery(string start_key, int count, Iterator iterator);
     Splice* AllocateSplice();
-    Node* FindLast();
-    Node* FindLessThan(const string& key, Node** prev);
     Node* FindGreaterorEqual(const string& key);
     int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice);
-    void FindSpliceForLevel(const string& key, int to_level, Node** sp_prev, Node** sp_next, Node* before);
-    bool KeyIsAfterNode(const string& key, Node* n);
+    int FindSpliceForLevel(const string& key, int to_level, Node** sp_prev, Node** sp_next, Node* before);
+    int KeyIsAfterNode(const string& key, Node* n);
     Node* AllocateNode(const string& key, const string& value, int height); 
     bool Insert(string key, string value, Iterator iterator);
 	void PrintStat();
