@@ -1,6 +1,6 @@
 
-num="1000000"
-ops="put get"
+num="100000"
+ops="range_query"
 workloads="uni zipf_1.2 dup_2"
 
 for op in $ops; do

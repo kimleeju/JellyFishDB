@@ -1,4 +1,0 @@
-thread BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList
-1 81.6446 150.856 162.501 453.194 423.207
-2 79.1472 139.596 310.838 858.262 770.73
-4 82.344 21.0526 601.432 1451.24 1396.43
