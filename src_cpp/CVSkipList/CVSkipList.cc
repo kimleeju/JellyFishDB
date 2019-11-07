@@ -155,48 +155,36 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 	}
 #endif
 	// check if the request is finished 
-#if 0	
-	if(nnode->done){
-		cout<<"return ( node = "<<nnode<<" ) "<<endl;
-		pthread_mutex_unlock(&req_q.lock);
-		return true;
-	}
-#endif
 
 	pthread_mutex_unlock(&req_q.lock);
 	
 	Node* last_node = req_q.back();
 
+	pthread_mutex_lock(&req_q.lock);
 	while(true){
 		Node* ready_node = req_q.front();
-//		pthread_mutex_unlock(&req_q.lock);
-
+		pthread_mutex_unlock(&req_q.lock);
 		// insert a new node into the skip list
-		if(ready_node == nullptr)
-			return true; 
-
 		int rv = RecomputeSpliceLevels(ready_node->Get_key(), 0, iterator.splice);
 		for(int i=0;i<ready_node->Get_height();++i){ 
 			ready_node->SetNext(i, iterator.splice->next_[i]);
         	iterator.splice->prev_[i]->SetNext(i,ready_node);
 		}
 		// insert completes. 
-		pthread_mutex_lock(&req_q.lock);
 		// release ready_node 
+		pthread_mutex_lock(&req_q.lock);
 		req_q.pop_front();
-
 		// wake up
-	 
+//		pthread_mutex_lock(&req_q.lock);
 		ready_node->done = true;	
 		pthread_cond_signal(&ready_node->cond);
-
-		pthread_mutex_unlock(&req_q.lock);
+//		pthread_mutex_unlock(&req_q.lock);
 		if(ready_node == last_node) {
 			break;
 		}
 	}
 	// make the next thread progress 
-	pthread_mutex_lock(&req_q.lock);
+//	pthread_mutex_lock(&req_q.lock);
 	if(!req_q.empty()){
 		pthread_cond_signal(&req_q.front()->cond);
 	}
@@ -226,4 +214,3 @@ CVSkipList::CVSkipList()
     srand((unsigned)time(NULL));
 	cpr_cnt = 0;
 }
-

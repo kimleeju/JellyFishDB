@@ -1,6 +1,6 @@
 #include "SkipList.h"
 #include "BlockedSkipList/BlockedSkipList.h"
-//#include "CVSkipList/CVSkipList.h"
+#include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
 //#include "StrideSkipList/StrideSkipList.h"
 //#include "JDKSkipList/JDKSkipList.h"
@@ -34,11 +34,11 @@ int main(int argc, char* argv[])
 	if(type == "BlockedSpinSkipList"){
 		sl = new BlockedSkipList;
 	}
-#if 0	
+	
 	else if(type == "BlockedCVSkipList"){
 		sl = new CVSkipList;
 	}
-
+#if 0
 	else if(type == "JDKSkipList"){
 		sl = new JDKSkipList(thread_num);
 	}

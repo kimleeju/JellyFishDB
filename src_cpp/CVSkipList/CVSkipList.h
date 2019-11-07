@@ -35,9 +35,8 @@ public:
 			
 			T front(){
 				//pthread_mutex_lock(&lock);
-				T tmp = m_que.front();
+				return m_que.front();
 				//pthread_mutex_unlock(&lock);
-				return tmp;
 			}
 
 			T back(){
@@ -55,10 +54,7 @@ public:
 
 	
 			bool empty(){
-//				pt
-        		int result = m_que.empty();
-//				pthread_mutex_unlock(&lock);
-				return result;
+        		return m_que.empty();
     		}
 
 	//		void swap(std::deque<T>& x) {

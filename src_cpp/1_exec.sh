@@ -25,13 +25,13 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 #OP="range_query"
-#OP="put get"
+OP="put get"
 #OP="range_query"
 #OP="get"
 RSLT_DIR="./perf_result_191103"
 
-OP="put"
-CONF="uni"
+#OP="put"
+CONF="uni zipf_1.2"
 
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
