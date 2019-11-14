@@ -5,11 +5,11 @@ make -j4
 
 THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
-SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
-SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
+SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
+#SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
 
 #SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
-SKIPLISTS="BlockedCVSkipList"
+#SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 
 #SKIPLISTS="BlockedCVSkipList"
@@ -25,14 +25,15 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 #OP="range_query"
-OP="put get"
+OP="get"
 #OP="range_query"
 #OP="get"
 RSLT_DIR="./perf_result_191103"
+RSLT_DIR="./perf_result_count"
 
 #OP="put"
 CONF="uni zipf_1.2"
-
+#CONF="zipf_1.2"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi
@@ -54,7 +55,7 @@ suffix=`date +%y%m%d_%H%M_%s`
 
 
 for nu in {1..1}; do
-	RSLT_DIR="./perf_result_range_query/$nu"
+#	RSLT_DIR="./perf_result_range_query/$nu"
 	if [[ ! -f $RSLT_DIR ]]; then
 		mkdir $RSLT_DIR
 	fi
@@ -84,8 +85,8 @@ for nu in {1..1}; do
 #						echo 3 > /proc/sys/vm/drop_caches
 #						sleep .5
 						
-						./Run $sk $th $load_trc $run_trc
-			#			./Run $sk $th $load_trc $run_trc >> $rfname
+		#				./Run $sk $th $load_trc $run_trc
+						./Run $sk $th $load_trc $run_trc >> $rfname
 #						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
 						iter=$((iter+1))

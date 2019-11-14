@@ -56,7 +56,8 @@ Node* CVSkipList::FindGreaterorEqual(const string& key){
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
-        int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
+        COUNT(cnt);
+		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
 
         if(cmp <= 0 &&level ==0){
             return next;
@@ -169,6 +170,9 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		for(int i=0;i<ready_node->Get_height();++i){ 
 			ready_node->SetNext(i, iterator.splice->next_[i]);
         	iterator.splice->prev_[i]->SetNext(i,ready_node);
+		
+			COUNT(pointer_cnt);
+			COUNT(pointer_cnt);	
 		}
 		// insert completes. 
 		// release ready_node 
@@ -195,7 +199,10 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 
 void CVSkipList::PrintStat()
 {
-	cout << "CVSkipList comparator count = " << cpr_cnt << endl;
+	cout << "BlockedCVSkipList comparator count = " << cnt << endl;
+	cout << "BlockedCVSkipList CAS count = "<< CAS_cnt << endl;
+	cout << "BlockedCVSkipList pointer update count = " << pointer_cnt << endl;
+	cout << "BlockedCVSkipList CAS failure count = " << CAS_failure_cnt << endl;
 
 }
 void CVSkipList::ResetStat()

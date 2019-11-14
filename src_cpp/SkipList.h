@@ -24,7 +24,7 @@ using namespace std;
 
 
 #define COUNT(x) do{\
-	if(0) {x++;} \
+	if(1) {x++;} \
 } while (0)
 
 
@@ -32,7 +32,7 @@ using namespace std;
 #define OP_EXEC
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
-//#define PRINT_STAT 
+#define PRINT_STAT 
 #define PRINT_PERF
 #define JELLYFISH
 
