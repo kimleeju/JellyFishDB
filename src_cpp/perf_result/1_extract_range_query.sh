@@ -1,13 +1,13 @@
 #srcfile="perf_1000000_uni.rslt"
 
-skiplists="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
-threads="16"
-ops="put get range_query"
-ops="put get"
-ops="get"
+skiplists="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
+threads="1 2 4 8 16 "
+#ops="put get range_query"
+#ops="put get"
+ops="range_query"
 
-num="1000000"
-workloads="uni zipf_1.2"
+num="100000"
+workloads="uni zipf_1.2 dup_2"
 
 for op in $ops; do
 	for wk in $workloads; do
