@@ -1,7 +1,7 @@
 #srcfile="perf_1000000_uni.rslt"
 
-skiplists="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
-skiplists="ConcurrentSkipList JellyFishSkipList"
+skiplists="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
+#skiplists="ConcurrentSkipList JellyFishSkipList"
 threads="1 2 4 8 16"
 ops="put get range_query"
 ops="put get"
@@ -26,15 +26,15 @@ for op in $ops; do
 				#cat "$srcfile" | awk '{if($5 == "th=$th")}'
 				
 				if [ "$th" -eq 1 ]; then
-					head -n 26 "$srcfile" | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile
+					head -n 24 "$srcfile" | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile
 				elif [ "$th" -eq 2 ]; then
-					head -n 52 "$srcfile" | tail -n 26 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile 
+					head -n 48 "$srcfile" | tail -n 24 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile 
 				elif [ "$th" -eq 4 ]; then
-					head -n 78 "$srcfile" | tail -n 26 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile
+					head -n 72 "$srcfile" | tail -n 24 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile
 				elif [ "$th" -eq 8 ]; then
-					head -n 104 "$srcfile" | tail -n 26 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile
+					head -n 96 "$srcfile" | tail -n 24 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile
 				elif [ "$th" -eq 16 ]; then
-					head -n 130 "$srcfile" | tail -n 26 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile						
+					head -n 120 "$srcfile" | tail -n 24 | grep "CAS count" |  grep "$sk" |awk '{print $5}' | tr "\n" " " >> $datafile						
 				fi	
 				#cat "$srcfile" | grep "comparator" | grep "$sk" |  awk '{print $5}' | tr "\n" " " >> $datafile
 				#line+= cat "$srcfile" | grep "comparator" | awk '{print $1 $5}'
