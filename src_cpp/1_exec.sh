@@ -15,7 +15,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
-num="1000000"
+num="100000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
@@ -26,14 +26,15 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 OP="put get range_query"
 #OP="range_query"
 OP="get"
-#OP="range_query"
+OP="range_query"
 #OP="get"
-RSLT_DIR="./perf_result_191103"
-RSLT_DIR="./perf_result_count"
+RSLT_DIR="./perf_result_191117"
+#RSLT_DIR="./perf_result_count"
 
 #OP="put"
 CONF="uni zipf_1.2"
 #CONF="zipf_1.2"
+CONF="uni"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi
