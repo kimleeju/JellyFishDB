@@ -32,9 +32,10 @@ RSLT_DIR="./perf_result_191117"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
-CONF="uni zipf_1.2"
+#CONF="uni zipf_1.2"
+CONF="dup_2"
 #CONF="zipf_1.2"
-CONF="uni"
+#CONF="uni"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
 fi

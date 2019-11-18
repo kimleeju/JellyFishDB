@@ -29,7 +29,7 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 	Node* temp_ = iterator.Node();
 	int i = count;
 	
-	if(temp_->Get_key() == nullptr)
+	if(temp_== nullptr)
 		return;
 	string str_key(temp_->Get_key());
 	while(i>1){

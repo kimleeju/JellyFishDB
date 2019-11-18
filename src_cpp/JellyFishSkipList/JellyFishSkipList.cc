@@ -32,6 +32,8 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 	iterator.Seek(start_key);
 	Node* temp_ = iterator.Node();
 	int i = count;
+	if(temp_ == nullptr)
+		return;
 	while(i > 1){
       //for(int i=count; i > 0; --i) {
 		if(temp_->Next(0)==nullptr)
