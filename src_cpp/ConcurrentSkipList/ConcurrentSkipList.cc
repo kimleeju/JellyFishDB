@@ -24,14 +24,19 @@ string ConcurrentSkipList::Get(string key, Iterator iterator){
 
 
 void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterator){
-    t_global_committed.get_and_inc();
-    iterator.Seek(start_key);
-    Node* temp_ = iterator.Node();
+	t_global_committed.get_and_inc();
+	iterator.Seek(start_key);
+	Node* temp_ = iterator.Node();
 	int i = count;
+	
+	if(temp_->Get_key() == nullptr)
+		return;
+	string str_key(temp_->Get_key());
 	while(i>1){
 		if(temp_->Next(0)==nullptr)
 			return;
-		if(temp_->Next(0)->Get_key() != temp_->Get_key()){
+		if(temp_->Next(0)->Get_key() != str_key){
+			str_key = temp_->Next(0)->Get_key();
 			--i;
 		}
 		else{

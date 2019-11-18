@@ -17,20 +17,26 @@ string CVSkipList::Get(string key , Iterator iterator){
 
 
 void CVSkipList::RangeQuery(string start_key, int count, Iterator iterator ){
-//    t_global_committed.mlock.lock();
-    t_global_committed.get_and_inc();
-//    cout<<"-----------------------------"<<endl;
-    iterator.Seek(start_key);
-    Node* temp_ = iterator.Node();
+	t_global_committed.get_and_inc();
+	iterator.Seek(start_key);
+	Node* temp_ = iterator.Node();
 	int i = count;
+	
+	if(temp_->Get_key() == nullptr)
+		return;
+	string str_key(temp_->Get_key());
 	while(i>1){
 		if(temp_->Next(0)==nullptr)
 			return;
-		if(temp_->Next(0)->Get_key() != temp_->Get_key())
+		if(temp_->Next(0)->Get_key() != str_key){
+			str_key = temp_->Next(0)->Get_key();
 			--i;
+		}
+		else{
+		//	++cnt;
+		}
        	temp_=temp_->Next(0);
-     } 
-//    t_global_committed.mlock.unlock();
+    } 	
 }
 
 

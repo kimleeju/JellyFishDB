@@ -29,19 +29,19 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
 void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     t_global_committed.get_and_inc();
 //    cout<<"-----------------------------"<<endl;
-    iterator.Seek(start_key);
-    Node* temp_ = iterator.Node();
+	iterator.Seek(start_key);
+	Node* temp_ = iterator.Node();
 	int i = count;
 	while(i > 1){
       //for(int i=count; i > 0; --i) {
+		if(temp_->Next(0)==nullptr)
+			return;
 		if(temp_->Get_vqueue() != nullptr){
 			--i;
 		}
 		else{
 			--i;
 		}
-		if(temp_->Next(0)==nullptr)
-			return;
        	temp_=temp_->Next(0);
 //		--i;
     } 
