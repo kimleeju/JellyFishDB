@@ -106,6 +106,10 @@ int main(int argc, char* argv[])
 #ifdef PRINT_STAT
 	sl->PrintStat();
 #endif
+
+#ifdef PRINT_LEVEL
+	sl->PrintLevel();
+#endif
 	return 0;
 }
 #endif

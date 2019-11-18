@@ -22,6 +22,14 @@ using namespace std;
 	if(0) { std::cout << x << std::endl; } \
 } while (0)
 
+#define PUT_LEVEL(x) do{\
+	if(0) {PUT_LEVEL[x-1]++;}\
+} while(0)
+
+
+#define GET_LEVEL(x) do{\
+	if(0) {GET_LEVEL[x-1]++;}\
+} while(0)
 
 #define COUNT(x) do{\
 	if(0) {x++;} \
@@ -33,6 +41,7 @@ using namespace std;
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
 //#define PRINT_STAT 
+//#define PRINT_LEVEL
 #define PRINT_PERF
 #define JELLYFISH
 
@@ -54,6 +63,8 @@ public:
 	atomic<int> pointer_cnt;
 	atomic<int> CAS_failure_cnt;
 	atomic<int> CAS_cnt;
+	atomic<int> PUT_LEVEL[MAX_LEVEL];
+	atomic<int> GET_LEVEL[MAX_LEVEL];
 protected:
     uint16_t kMaxHeight_;
     Splice* seq_splice;
@@ -75,6 +86,7 @@ public:
     //virtual int RandomHeight()=0;
     virtual bool Insert(string key, string value, Iterator iterator)=0;
 	virtual void SetThreadNum(int t_num){}		
+	virtual void PrintLevel(){}
 	virtual void PrintStat(){}
 	virtual void ResetStat(){}
 	

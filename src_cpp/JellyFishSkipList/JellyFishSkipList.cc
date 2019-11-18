@@ -63,6 +63,7 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
 		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
 
 		if(cmp==0){
+			GET_LEVEL(level);
 			return next;
 		}
         else if(cmp < 0 && level ==0){
@@ -136,8 +137,10 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
 
 		// check if the value is found 
-		if(cmp == 0)
+		if(cmp == 0){
+			PUT_LEVEL(i);
 			return i;
+		}
 
 		// continue searching 
 		if(i <= to_level)
@@ -145,6 +148,7 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 		--i; 
 		start = splice->prev_[i+1];
 	}
+	PUT_LEVEL(0);
 	return -1;
 }
 
@@ -244,7 +248,17 @@ found:
 	return true; 
 }
 
+void JellyFishSkipList::PrintLevel(){
+	cout<<"PUT"<<endl;
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< PUT_LEVEL[i-1] <<endl; 
+	}
 
+	cout<<"GET"<<endl;
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< GET_LEVEL[i-1] <<endl; 
+	}
+}
 void JellyFishSkipList::PrintStat()
 {
 	cout << "JellyFishSkipList comparator count = " << cnt << endl;
