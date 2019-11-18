@@ -28,6 +28,7 @@ public:
    	int KeyIsAfterNode(const string& key, Node* n);
     Node* AllocateNode(const string& key, const string& value, int height); 
     bool Insert(string key, string value , Iterator iterator);
+	void PrintSetLevel();
 	void PrintStat();
 	void ResetStat();
 

@@ -31,6 +31,7 @@ public:
     Node* AllocateNode(const string& key, const string& value, int height); 
     bool Insert(string key, string value ,Iterator iterator); 
 //	void SetThreadNum(int t_num){}		
+	void PrintSetLevel();
 	void PrintLevel();
 	void PrintStat();
 	void ResetStat();

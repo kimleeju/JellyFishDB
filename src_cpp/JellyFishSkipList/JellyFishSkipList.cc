@@ -8,7 +8,7 @@ int JellyFishSkipList::Put(string key, string value, Iterator iterator){
     return 0;
 }
 
-
+#if 1
 string JellyFishSkipList::Get(string key, Iterator iterator){
 #ifdef OP_EXEC
     t_global_committed.get_and_inc();
@@ -23,7 +23,7 @@ string JellyFishSkipList::Get(string key, Iterator iterator){
 	return val; 
 #endif
 }
-
+#endif
 
 
 void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterator){
@@ -50,7 +50,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 	return;
 }
 
-
+#if 1
 Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
@@ -66,8 +66,8 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
 			GET_LEVEL(level);
 			return next;
 		}
-        else if(cmp < 0 && level ==0){
-            return next;
+		else if(cmp < 0 && level ==0){
+	          return next;
         }
         else if (cmp > 0){
             x= next;
@@ -78,6 +78,8 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
         }
     }
 }
+#endif
+
 
 JellyFishSkipList::Splice* JellyFishSkipList::AllocateSplice(){
 	
@@ -175,7 +177,6 @@ Node* JellyFishSkipList::AllocateNode(const string& key, const string& value, in
 bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 {
 	int height = RandomHeight();
-
 #ifdef PRINT_HEIGHT
 	cout << height << endl;
 #endif
@@ -245,7 +246,15 @@ found:
 #endif
 		}
 	}
+	
+	SET_LEVEL(height-1);
 	return true; 
+}
+
+void JellyFishSkipList::PrintSetLevel(){
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< SET_LEVEL[i-1] <<endl; 
+	}
 }
 
 void JellyFishSkipList::PrintLevel(){

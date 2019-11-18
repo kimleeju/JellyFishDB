@@ -16,16 +16,19 @@
 #include "Util.h"
 
 using namespace std;
-#define MAX_LEVEL 32
+#define MAX_LEVEL 16
 
 #define DEBUG(x) do {\
 	if(0) { std::cout << x << std::endl; } \
 } while (0)
 
+#define SET_LEVEL(x) do{\
+	if(0) {SET_LEVEL[x-1]++;}\
+} while(0)
+
 #define PUT_LEVEL(x) do{\
 	if(0) {PUT_LEVEL[x-1]++;}\
 } while(0)
-
 
 #define GET_LEVEL(x) do{\
 	if(0) {GET_LEVEL[x-1]++;}\
@@ -42,6 +45,7 @@ using namespace std;
 //#define PRINT_HEIGHT
 //#define PRINT_STAT 
 //#define PRINT_LEVEL
+//#define PRINT_SET_LEVEL
 #define PRINT_PERF
 #define JELLYFISH
 
@@ -65,6 +69,7 @@ public:
 	atomic<int> CAS_cnt;
 	atomic<int> PUT_LEVEL[MAX_LEVEL];
 	atomic<int> GET_LEVEL[MAX_LEVEL];
+	atomic<int> SET_LEVEL[MAX_LEVEL];
 protected:
     uint16_t kMaxHeight_;
     Splice* seq_splice;
@@ -86,6 +91,7 @@ public:
     //virtual int RandomHeight()=0;
     virtual bool Insert(string key, string value, Iterator iterator)=0;
 	virtual void SetThreadNum(int t_num){}		
+	virtual void PrintSetLevel(){}
 	virtual void PrintLevel(){}
 	virtual void PrintStat(){}
 	virtual void ResetStat(){}

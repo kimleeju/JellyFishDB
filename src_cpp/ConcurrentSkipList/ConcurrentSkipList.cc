@@ -180,9 +180,16 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 		}
 	}
 	
+	SET_LEVEL(height-1);
+	
 	return true;
 }
 
+void ConcurrentSkipList::PrintSetLevel(){
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< SET_LEVEL[i-1] <<endl; 
+	}
+}
 void ConcurrentSkipList::PrintStat()
 {
 	cout << "ConcurrentSkipList comparator count = " << cnt << endl;

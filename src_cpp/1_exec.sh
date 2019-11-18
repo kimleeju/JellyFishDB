@@ -14,7 +14,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
-#SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
+SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 num="1000000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
@@ -25,9 +25,9 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 #OP="range_query"
-OP="put get"
+#OP="put"
 #OP="range_query"
-#OP="get"
+OP="get"
 RSLT_DIR="./perf_result_191118"
 #RSLT_DIR="./perf_result_count"
 
@@ -81,14 +81,14 @@ for nu in {1..1}; do
 						#rfname="latency/$sk.lat"
 						load_trc=$TRC_DIR/"$cf"_"$op"_load.trc
 						run_trc=$TRC_DIR/"$cf"_"$op"_run.trc
-						echo "./Run $sk $th $load_trc $run_trc"
+#						echo "./Run $sk $th $load_trc $run_trc"
 						#./Run $sk $th $load_trc $run_trc
 						#./Run $sk $th $load_trc $run_trc
 #						echo 3 > /proc/sys/vm/drop_caches
 #						sleep .5
 						
-#						./Run $sk $th $load_trc $run_trc
-						./Run $sk $th $load_trc $run_trc >> $rfname
+						./Run $sk $th $load_trc $run_trc
+#						./Run $sk $th $load_trc $run_trc >> $rfname
 #						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
 						iter=$((iter+1))
