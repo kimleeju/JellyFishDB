@@ -157,15 +157,7 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 #ifdef PRINT_HEIGHT
 	cout << height << endl;
 #endif
-	int max_height = max_height_.load(std::memory_order_relaxed);
 
-	while(height > max_height){
-//		height = max_height+1;
-		if(max_height_.compare_exchange_weak(max_height, height)){
-			max_height = height; // EUNJI: what's this? 
-			break;
-		}
-	}	
 	// Allocate a new node 
 	Node* nnode = AllocateNode(key, value, height);
 

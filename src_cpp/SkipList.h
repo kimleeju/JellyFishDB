@@ -16,7 +16,7 @@
 #include "Util.h"
 
 using namespace std;
-#define MAX_LEVEL 16
+#define MAX_LEVEL 12
 
 #define DEBUG(x) do {\
 	if(0) { std::cout << x << std::endl; } \
@@ -75,7 +75,7 @@ protected:
     Splice* seq_splice;
     TimeStamp t_global_committed;
 	atomic<long> cpr_cnt; 	    
-
+	atomic<int>max_height_;
 public:    
     //string randomString();
     virtual int Put(string key, string value, Iterator iterator ) = 0;
@@ -103,9 +103,10 @@ public:
 		int rnum = rand();
 		//if(!(rnum & 0x3)) { // 둘다 0 이어야 동작. 
 		if(1) {
-			while(rnum & 1 << 30 && height < kMaxHeight_) {
+			while(!(rnum & 0x3)  && height < kMaxHeight_) {
 				height++;
-				rnum <<= 1;
+				rnum = rand();
+				//rnum <<= 1;
 			} 
 		}
 		return height;
