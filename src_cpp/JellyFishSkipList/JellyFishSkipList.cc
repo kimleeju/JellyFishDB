@@ -262,9 +262,9 @@ void JellyFishSkipList::PrintLevel(){
 void JellyFishSkipList::PrintStat()
 {
 	cout << "JellyFishSkipList comparator count = " << cnt << endl;
-	cout << "JellyFishSkipList CAS count = "<< CAS_cnt << endl;
-	cout << "JellyFishSkipList pointer update count = " << pointer_cnt << endl;
-	cout << "JellyFishSkipList CAS failure count = " << CAS_failure_cnt << endl;
+//	cout << "JellyFishSkipList CAS count = "<< CAS_cnt << endl;
+//	cout << "JellyFishSkipList pointer update count = " << pointer_cnt << endl;
+//	cout << "JellyFishSkipList CAS failure count = " << CAS_failure_cnt << endl;
 }
 void JellyFishSkipList::ResetStat()
 {

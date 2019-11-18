@@ -51,12 +51,20 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
     int level = kMaxHeight_ -1;
     Node *last_bigger = nullptr;
+	// EUNJI_TEST
+	//int test; 
+
     while(true){
         Node* next = x->Next(level);
 		COUNT(cnt);
         int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
-       
-		 if(cmp <= 0 &&level ==0){
+     
+#if 0  
+		if(cmp ==0){
+			test = cmp;
+		}
+#endif
+		if(cmp <= 0 &&level ==0){
             return next;
         }
         else if (cmp > 0){
@@ -178,9 +186,9 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 void ConcurrentSkipList::PrintStat()
 {
 	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
-	cout << "ConcurrentSkipList CAS count = "<< CAS_cnt << endl;
-	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
-	cout << "ConcurrentSkipList CAS failure count = " << CAS_failure_cnt << endl; 
+//	cout << "ConcurrentSkipList CAS count = "<< CAS_cnt << endl;
+//	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
+//	cout << "ConcurrentSkipList CAS failure count = " << CAS_failure_cnt << endl; 
 }
 void ConcurrentSkipList::ResetStat()
 {

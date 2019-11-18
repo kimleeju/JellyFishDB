@@ -15,7 +15,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
-num="100000"
+num="1000000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
@@ -25,15 +25,15 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get range_query"
 #OP="range_query"
-OP="get"
-OP="range_query"
+OP="put get"
+#OP="range_query"
 #OP="get"
-RSLT_DIR="./perf_result_191117"
+RSLT_DIR="./perf_result_191118"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
-#CONF="uni zipf_1.2"
-CONF="dup_2"
+CONF="uni zipf_1.2 dup_2"
+#CONF="dup_2"
 #CONF="zipf_1.2"
 #CONF="uni"
 if [[ ! -f $RSLT_DIR ]]; then
@@ -87,7 +87,7 @@ for nu in {1..1}; do
 #						echo 3 > /proc/sys/vm/drop_caches
 #						sleep .5
 						
-		#				./Run $sk $th $load_trc $run_trc
+#						./Run $sk $th $load_trc $run_trc
 						./Run $sk $th $load_trc $run_trc >> $rfname
 #						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
