@@ -87,8 +87,8 @@ for nu in {1..1}; do
 #						echo 3 > /proc/sys/vm/drop_caches
 #						sleep .5
 						
-						./Run $sk $th $load_trc $run_trc
-#						./Run $sk $th $load_trc $run_trc >> $rfname
+#						./Run $sk $th $load_trc $run_trc
+						./Run $sk $th $load_trc $run_trc >> $rfname
 #						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
 						iter=$((iter+1))
