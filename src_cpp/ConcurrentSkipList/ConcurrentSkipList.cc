@@ -49,7 +49,7 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 
 Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
-    int level = kMaxHeight_ -1;
+    int level = max_height_ -1;
     Node *last_bigger = nullptr;
 	// EUNJI_TEST
 	//int test; 
@@ -125,7 +125,7 @@ int ConcurrentSkipList::FindSpliceForLevel(const string& key, int level,
 int ConcurrentSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
 {
 	//head
-	int i = MAX_LEVEL-1;
+	int i = max_height_-1;
 	int cmp; 
 	Node* start = head_;
 
@@ -162,7 +162,7 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 	while(height > max_height){
 //		height = max_height+1;
 		if(max_height_.compare_exchange_weak(max_height, height)){
-			max_height = height; // EUNJI: what's this? 
+			//max_height = height; // EUNJI: what's this? 
 			break;
 		}
 	}	
@@ -198,6 +198,7 @@ void ConcurrentSkipList::PrintSetLevel(){
 		cout<< SET_LEVEL[i-1] <<endl; 
 	}
 }
+
 void ConcurrentSkipList::PrintStat()
 {
 	cout << "ConcurrentSkipList comparator count = " << cnt << endl;

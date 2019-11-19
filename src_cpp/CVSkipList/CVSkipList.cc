@@ -58,7 +58,7 @@ CVSkipList::Splice* CVSkipList::AllocateSplice(){
 
 Node* CVSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
-    int level = kMaxHeight_ -1;
+    int level = max_height_ -1;
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
@@ -83,7 +83,7 @@ Node* CVSkipList::FindGreaterorEqual(const string& key){
 int CVSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
 
 // head 
-	int i = MAX_LEVEL-1;
+	int i = max_height_-1;
 	int cmp; 
 	Node* start = head_;
 
@@ -172,6 +172,11 @@ bool CVSkipList::Insert(string key, string value, Iterator iterator)
 		Node* ready_node = req_q.front();
 		pthread_mutex_unlock(&req_q.lock);
 		// insert a new node into the skip list
+		
+		if(ready_node->Get_height() > max_height_){
+			max_height_ = ready_node->Get_height();
+    	}
+
 		int rv = RecomputeSpliceLevels(ready_node->Get_key(), 0, iterator.splice);
 		for(int i=0;i<ready_node->Get_height();++i){ 
 			ready_node->SetNext(i, iterator.splice->next_[i]);

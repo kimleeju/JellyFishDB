@@ -53,7 +53,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 #if 1
 Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
-    int level = kMaxHeight_ -1;
+    int level = max_height_ -1;
     Node *last_bigger = nullptr;
 
     while(true){
@@ -131,7 +131,7 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
 int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
 {
 	// head 
-	int i = MAX_LEVEL-1;
+	int i = max_height_-1;
 	int cmp; 
 	Node* start = head_;
 
@@ -181,6 +181,14 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 	cout << height << endl;
 #endif
 	// fl : found_level
+	int max_height = max_height_.load(std::memory_order_relaxed);
+
+	while(height > max_height){
+		if(max_height_.compare_exchange_weak(max_height, height)){
+			//max_height = height; // EUNJI: what's this? 
+			break;
+		}
+	}
 	int fl = RecomputeSpliceLevels(key, 0, iterator.splice);
 
 #ifdef JELLYFISH

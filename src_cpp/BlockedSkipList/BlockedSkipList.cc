@@ -66,7 +66,7 @@ BlockedSkipList::Splice* BlockedSkipList::AllocateSplice(){
 
 Node* BlockedSkipList::FindGreaterorEqual(const string& key){
     Node* x = head_;
-    int level = kMaxHeight_ -1;
+    int level = max_height_ -1;
     Node *last_bigger = nullptr;
     while(true){
         Node* next = x->Next(level);
@@ -91,7 +91,7 @@ Node* BlockedSkipList::FindGreaterorEqual(const string& key){
 int BlockedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice){
 
 	// head 
-	int i = MAX_LEVEL-1;
+	int i = max_height_-1;
 	int cmp; 
 	Node* start = head_;
 	
@@ -158,8 +158,14 @@ int BlockedSkipList::KeyIsAfterNode(const string& key, Node* n){
 bool BlockedSkipList::Insert(string key, string value, Iterator iterator){
 
  // Node* nnode = AllocateNode(key, value, RandomHeight());
+	
 	int height = RandomHeight();
-    int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
+ 	
+	if(height > max_height_){
+		max_height_ = height;
+    }
+  
+ 	int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	Node* nnode = AllocateNode(key, value, height);
      for(int i=0;i<height;++i){  
         nnode->SetNext(i, iterator.splice->next_[i]);

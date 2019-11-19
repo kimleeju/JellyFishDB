@@ -27,12 +27,12 @@ OP="put get range_query"
 #OP="range_query"
 #OP="put"
 #OP="range_query"
-OP="put get" 
+OP=" put get" 
 RSLT_DIR="./perf_result_191118"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
-CONF="uni zipf_1.2 dup_2"
+CONF="uni dup_2 zipf_1.2"
 #CONF="dup_2"
 #CONF="zipf_1.2"
 #CONF="uni"
@@ -87,8 +87,8 @@ for nu in {1..1}; do
 #						echo 3 > /proc/sys/vm/drop_caches
 #						sleep .5
 						
-#						./Run $sk $th $load_trc $run_trc
-						./Run $sk $th $load_trc $run_trc >> $rfname
+						./Run $sk $th $load_trc $run_trc
+#						./Run $sk $th $load_trc $run_trc >> $rfname
 #						sleep .5
 						#./Run $sk $th $load_trc $run_trc > con.level
 						iter=$((iter+1))
