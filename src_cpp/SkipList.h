@@ -35,15 +35,15 @@ using namespace std;
 } while(0)
 
 #define GET_REFERENCE(x) do{\
-	if(1) {GET_REFERENCE[x-1]++;}\
+	if(0) {GET_REFERENCE[x-1]++;}\
 } while(0)
 
 #define PUT_REFERENCE(x) do{\
-	if(1) {PUT_REFERENCE[x-1]++;}\
+	if(0) {PUT_REFERENCE[x-1]++;}\
 } while(0)
 
 #define COUNT(x) do{\
-	if(1) {x++;} \
+	if(0) {x++;} \
 } while (0)
 
 
@@ -51,10 +51,10 @@ using namespace std;
 #define OP_EXEC
 //#define PRINT_LATENCY
 //#define PRINT_HEIGHT
-#define PRINT_STAT 
+//#define PRINT_STAT 
 //#define PRINT_LEVEL
 //#define PRINT_SET_LEVEL
-#define PRINT_REFERENCE
+//#define PRINT_REFERENCE
 #define PRINT_PERF
 #define JELLYFISH
 
