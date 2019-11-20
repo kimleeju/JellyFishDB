@@ -1,6 +1,6 @@
 thread BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList
-1 0 0 0 0 
-2 0 0 2 3 
-4 0 0 5 14 
-8 0 0 32 19 
-16 0 0 47 72 
+1 0 0 2000378 1999238 
+2 0 0 1998095 2001322 
+4 0 0 2001653 2002682 
+8 0 0 2000819 1997734 
+16 0 0 1997371 2003279 
