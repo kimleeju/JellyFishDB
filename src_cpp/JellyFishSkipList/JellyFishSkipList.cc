@@ -35,6 +35,7 @@ void JellyFishSkipList::RangeQuery(string start_key, int count, Iterator iterato
 	if(temp_ == nullptr)
 		return;
 	while(i > 1){
+		GET_REFERENCE(0);
       //for(int i=count; i > 0; --i) {
 		if(temp_->Next(0)==nullptr)
 			return;

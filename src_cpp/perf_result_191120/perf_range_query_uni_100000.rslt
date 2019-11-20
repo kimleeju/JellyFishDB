@@ -1,0 +1,280 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.276228 IOPS = 362023.400959
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.306058 IOPS = 326738.722726
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.284511 IOPS = 351483.773914
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.363922 IOPS = 274786.904886
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.27184 IOPS = 367867.127722
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.376941 IOPS = 265296.160407
+[STAT] CC PUT_SEEK = 11 0
+[STAT] CC PUT_SEEK = 10 0
+[STAT] CC PUT_SEEK = 9 0
+[STAT] CC PUT_SEEK = 8 0
+[STAT] CC PUT_SEEK = 7 0
+[STAT] CC PUT_SEEK = 6 0
+[STAT] CC PUT_SEEK = 5 0
+[STAT] CC PUT_SEEK = 4 0
+[STAT] CC PUT_SEEK = 3 0
+[STAT] CC PUT_SEEK = 2 0
+[STAT] CC PUT_SEEK = 1 0
+[STAT] CC PUT_SEEK = 0 0
+[STAT] CC GET_SEEK = 11 0
+[STAT] CC GET_SEEK = 10 0
+[STAT] CC GET_SEEK = 9 0
+[STAT] CC GET_SEEK = 8 196400
+[STAT] CC GET_SEEK = 7 120181
+[STAT] CC GET_SEEK = 6 296794
+[STAT] CC GET_SEEK = 5 956701
+[STAT] CC GET_SEEK = 4 352137
+[STAT] CC GET_SEEK = 3 437896
+[STAT] CC GET_SEEK = 2 392196
+[STAT] CC GET_SEEK = 1 401853
+[STAT] CC GET_SEEK = 0 1298543
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.268404 IOPS = 372576.414658
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.302923 IOPS = 330120.195561
+[STAT] JF PUT_SEEK = 11 0
+[STAT] JF PUT_SEEK = 10 0
+[STAT] JF PUT_SEEK = 9 0
+[STAT] JF PUT_SEEK = 8 0
+[STAT] JF PUT_SEEK = 7 0
+[STAT] JF PUT_SEEK = 6 0
+[STAT] JF PUT_SEEK = 5 0
+[STAT] JF PUT_SEEK = 4 0
+[STAT] JF PUT_SEEK = 3 0
+[STAT] JF PUT_SEEK = 2 0
+[STAT] JF PUT_SEEK = 1 0
+[STAT] JF PUT_SEEK = 0 0
+[STAT] JF GET_SEEK = 11 0
+[STAT] JF GET_SEEK = 10 0
+[STAT] JF GET_SEEK = 9 0
+[STAT] JF GET_SEEK = 8 0
+[STAT] JF GET_SEEK = 7 175649
+[STAT] JF GET_SEEK = 6 621963
+[STAT] JF GET_SEEK = 5 291290
+[STAT] JF GET_SEEK = 4 365867
+[STAT] JF GET_SEEK = 3 384853
+[STAT] JF GET_SEEK = 2 393593
+[STAT] JF GET_SEEK = 1 373200
+[STAT] JF GET_SEEK = 0 1198629
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.640979 IOPS = 156012.911499
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.204522 IOPS = 488949.844027
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.645936 IOPS = 154815.647371
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.21336 IOPS = 468696.100487
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.167658 IOPS = 596458.266232
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.216111 IOPS = 462729.800889
+[STAT] CC PUT_SEEK = 11 0
+[STAT] CC PUT_SEEK = 10 0
+[STAT] CC PUT_SEEK = 9 0
+[STAT] CC PUT_SEEK = 8 0
+[STAT] CC PUT_SEEK = 7 0
+[STAT] CC PUT_SEEK = 6 0
+[STAT] CC PUT_SEEK = 5 0
+[STAT] CC PUT_SEEK = 4 0
+[STAT] CC PUT_SEEK = 3 0
+[STAT] CC PUT_SEEK = 2 0
+[STAT] CC PUT_SEEK = 1 0
+[STAT] CC PUT_SEEK = 0 0
+[STAT] CC GET_SEEK = 11 0
+[STAT] CC GET_SEEK = 10 0
+[STAT] CC GET_SEEK = 9 0
+[STAT] CC GET_SEEK = 8 132061
+[STAT] CC GET_SEEK = 7 234205
+[STAT] CC GET_SEEK = 6 486949
+[STAT] CC GET_SEEK = 5 336880
+[STAT] CC GET_SEEK = 4 269445
+[STAT] CC GET_SEEK = 3 405933
+[STAT] CC GET_SEEK = 2 393315
+[STAT] CC GET_SEEK = 1 390533
+[STAT] CC GET_SEEK = 0 1303125
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.164373 IOPS = 608378.504986
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.199339 IOPS = 501662.996202
+[STAT] JF PUT_SEEK = 11 0
+[STAT] JF PUT_SEEK = 10 0
+[STAT] JF PUT_SEEK = 9 0
+[STAT] JF PUT_SEEK = 8 0
+[STAT] JF PUT_SEEK = 7 0
+[STAT] JF PUT_SEEK = 6 0
+[STAT] JF PUT_SEEK = 5 0
+[STAT] JF PUT_SEEK = 4 0
+[STAT] JF PUT_SEEK = 3 0
+[STAT] JF PUT_SEEK = 2 0
+[STAT] JF PUT_SEEK = 1 0
+[STAT] JF PUT_SEEK = 0 0
+[STAT] JF GET_SEEK = 11 0
+[STAT] JF GET_SEEK = 10 171777
+[STAT] JF GET_SEEK = 9 99999
+[STAT] JF GET_SEEK = 8 142770
+[STAT] JF GET_SEEK = 7 194823
+[STAT] JF GET_SEEK = 6 257205
+[STAT] JF GET_SEEK = 5 420990
+[STAT] JF GET_SEEK = 4 340024
+[STAT] JF GET_SEEK = 3 366133
+[STAT] JF GET_SEEK = 2 391282
+[STAT] JF GET_SEEK = 1 380816
+[STAT] JF GET_SEEK = 0 1202366
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.795632 IOPS = 125687.503771
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.117628 IOPS = 850146.223688
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 4 tot_ops = 100001 exec_time(s) = 1.01373 IOPS = 98646.777045
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.116594 IOPS = 857685.644201
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.116572 IOPS = 857847.510551
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.218007 IOPS = 458705.454412
+[STAT] CC PUT_SEEK = 11 0
+[STAT] CC PUT_SEEK = 10 0
+[STAT] CC PUT_SEEK = 9 0
+[STAT] CC PUT_SEEK = 8 0
+[STAT] CC PUT_SEEK = 7 0
+[STAT] CC PUT_SEEK = 6 0
+[STAT] CC PUT_SEEK = 5 0
+[STAT] CC PUT_SEEK = 4 0
+[STAT] CC PUT_SEEK = 3 0
+[STAT] CC PUT_SEEK = 2 0
+[STAT] CC PUT_SEEK = 1 0
+[STAT] CC PUT_SEEK = 0 0
+[STAT] CC GET_SEEK = 11 0
+[STAT] CC GET_SEEK = 10 0
+[STAT] CC GET_SEEK = 9 0
+[STAT] CC GET_SEEK = 8 0
+[STAT] CC GET_SEEK = 7 423700
+[STAT] CC GET_SEEK = 6 298013
+[STAT] CC GET_SEEK = 5 336651
+[STAT] CC GET_SEEK = 4 362156
+[STAT] CC GET_SEEK = 3 391106
+[STAT] CC GET_SEEK = 2 396273
+[STAT] CC GET_SEEK = 1 393669
+[STAT] CC GET_SEEK = 0 1306402
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.123003 IOPS = 812996.430981
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.217847 IOPS = 459042.355415
+[STAT] JF PUT_SEEK = 11 0
+[STAT] JF PUT_SEEK = 10 0
+[STAT] JF PUT_SEEK = 9 0
+[STAT] JF PUT_SEEK = 8 0
+[STAT] JF PUT_SEEK = 7 0
+[STAT] JF PUT_SEEK = 6 0
+[STAT] JF PUT_SEEK = 5 0
+[STAT] JF PUT_SEEK = 4 0
+[STAT] JF PUT_SEEK = 3 0
+[STAT] JF PUT_SEEK = 2 0
+[STAT] JF PUT_SEEK = 1 0
+[STAT] JF PUT_SEEK = 0 0
+[STAT] JF GET_SEEK = 11 0
+[STAT] JF GET_SEEK = 10 0
+[STAT] JF GET_SEEK = 9 0
+[STAT] JF GET_SEEK = 8 129110
+[STAT] JF GET_SEEK = 7 126614
+[STAT] JF GET_SEEK = 6 848319
+[STAT] JF GET_SEEK = 5 310157
+[STAT] JF GET_SEEK = 4 326445
+[STAT] JF GET_SEEK = 3 416494
+[STAT] JF GET_SEEK = 2 380255
+[STAT] JF GET_SEEK = 1 367602
+[STAT] JF GET_SEEK = 0 1204498
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.844134 IOPS = 118465.788607
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.05691 IOPS = 1757178.000351
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 8 tot_ops = 100001 exec_time(s) = 1.09253 IOPS = 91531.582657
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.057277 IOPS = 1745918.955253
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.083392 IOPS = 1199167.785879
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.197823 IOPS = 505507.448578
+[STAT] CC PUT_SEEK = 11 0
+[STAT] CC PUT_SEEK = 10 0
+[STAT] CC PUT_SEEK = 9 0
+[STAT] CC PUT_SEEK = 8 0
+[STAT] CC PUT_SEEK = 7 0
+[STAT] CC PUT_SEEK = 6 0
+[STAT] CC PUT_SEEK = 5 0
+[STAT] CC PUT_SEEK = 4 0
+[STAT] CC PUT_SEEK = 3 0
+[STAT] CC PUT_SEEK = 2 0
+[STAT] CC PUT_SEEK = 1 0
+[STAT] CC PUT_SEEK = 0 0
+[STAT] CC GET_SEEK = 11 0
+[STAT] CC GET_SEEK = 10 0
+[STAT] CC GET_SEEK = 9 0
+[STAT] CC GET_SEEK = 8 202944
+[STAT] CC GET_SEEK = 7 242261
+[STAT] CC GET_SEEK = 6 227258
+[STAT] CC GET_SEEK = 5 352192
+[STAT] CC GET_SEEK = 4 332866
+[STAT] CC GET_SEEK = 3 386042
+[STAT] CC GET_SEEK = 2 402900
+[STAT] CC GET_SEEK = 1 396496
+[STAT] CC GET_SEEK = 0 1299072
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.079872 IOPS = 1252015.725160
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.190819 IOPS = 524062.069291
+[STAT] JF PUT_SEEK = 11 0
+[STAT] JF PUT_SEEK = 10 0
+[STAT] JF PUT_SEEK = 9 0
+[STAT] JF PUT_SEEK = 8 0
+[STAT] JF PUT_SEEK = 7 0
+[STAT] JF PUT_SEEK = 6 0
+[STAT] JF PUT_SEEK = 5 0
+[STAT] JF PUT_SEEK = 4 0
+[STAT] JF PUT_SEEK = 3 0
+[STAT] JF PUT_SEEK = 2 0
+[STAT] JF PUT_SEEK = 1 0
+[STAT] JF PUT_SEEK = 0 0
+[STAT] JF GET_SEEK = 11 0
+[STAT] JF GET_SEEK = 10 0
+[STAT] JF GET_SEEK = 9 0
+[STAT] JF GET_SEEK = 8 0
+[STAT] JF GET_SEEK = 7 313640
+[STAT] JF GET_SEEK = 6 633778
+[STAT] JF GET_SEEK = 5 343334
+[STAT] JF GET_SEEK = 4 384393
+[STAT] JF GET_SEEK = 3 387379
+[STAT] JF GET_SEEK = 2 382313
+[STAT] JF GET_SEEK = 1 361522
+[STAT] JF GET_SEEK = 0 1198614
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.797228 IOPS = 125435.885343
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.031939 IOPS = 3130999.718213
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 1.10706 IOPS = 90329.917692
+BlockedCVSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.033207 IOPS = 3011443.370374
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.089379 IOPS = 1118842.233634
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.201807 IOPS = 495527.905375
+[STAT] CC PUT_SEEK = 11 0
+[STAT] CC PUT_SEEK = 10 0
+[STAT] CC PUT_SEEK = 9 0
+[STAT] CC PUT_SEEK = 8 0
+[STAT] CC PUT_SEEK = 7 0
+[STAT] CC PUT_SEEK = 6 0
+[STAT] CC PUT_SEEK = 5 0
+[STAT] CC PUT_SEEK = 4 0
+[STAT] CC PUT_SEEK = 3 0
+[STAT] CC PUT_SEEK = 2 0
+[STAT] CC PUT_SEEK = 1 0
+[STAT] CC PUT_SEEK = 0 0
+[STAT] CC GET_SEEK = 11 0
+[STAT] CC GET_SEEK = 10 0
+[STAT] CC GET_SEEK = 9 0
+[STAT] CC GET_SEEK = 8 0
+[STAT] CC GET_SEEK = 7 315397
+[STAT] CC GET_SEEK = 6 529647
+[STAT] CC GET_SEEK = 5 422743
+[STAT] CC GET_SEEK = 4 398708
+[STAT] CC GET_SEEK = 3 361535
+[STAT] CC GET_SEEK = 2 381110
+[STAT] CC GET_SEEK = 1 397431
+[STAT] CC GET_SEEK = 0 1301540
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.076989 IOPS = 1298899.842835
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_range_query_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.199195 IOPS = 502025.653254
+[STAT] JF PUT_SEEK = 11 0
+[STAT] JF PUT_SEEK = 10 0
+[STAT] JF PUT_SEEK = 9 0
+[STAT] JF PUT_SEEK = 8 0
+[STAT] JF PUT_SEEK = 7 0
+[STAT] JF PUT_SEEK = 6 0
+[STAT] JF PUT_SEEK = 5 0
+[STAT] JF PUT_SEEK = 4 0
+[STAT] JF PUT_SEEK = 3 0
+[STAT] JF PUT_SEEK = 2 0
+[STAT] JF PUT_SEEK = 1 0
+[STAT] JF PUT_SEEK = 0 0
+[STAT] JF GET_SEEK = 11 0
+[STAT] JF GET_SEEK = 10 0
+[STAT] JF GET_SEEK = 9 0
+[STAT] JF GET_SEEK = 8 184998
+[STAT] JF GET_SEEK = 7 132416
+[STAT] JF GET_SEEK = 6 418050
+[STAT] JF GET_SEEK = 5 341341
+[STAT] JF GET_SEEK = 4 462436
+[STAT] JF GET_SEEK = 3 379348
+[STAT] JF GET_SEEK = 2 377348
+[STAT] JF GET_SEEK = 1 369422
+[STAT] JF GET_SEEK = 0 1198306
