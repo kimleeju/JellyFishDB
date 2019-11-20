@@ -1,0 +1,6 @@
+threads ConcurrentSkipList JellyFishSkipList
+1 0 0
+2 2611 2486
+4 5943 4569
+8 14934 8049
+16 32141 15608

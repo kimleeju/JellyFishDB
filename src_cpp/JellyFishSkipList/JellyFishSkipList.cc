@@ -59,9 +59,10 @@ Node* JellyFishSkipList::FindGreaterorEqual(const string& key){
     while(true){
 
         Node* next = x->Next(level);
+		GET_REFERENCE(level);
 		COUNT(cnt);
 		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
-
+		
 		if(cmp==0){
 			GET_LEVEL(level);
 			return next;
@@ -110,6 +111,7 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
     Node* after = before->Next(level);
 	COUNT(pointer_cnt);
 	while(true){
+		PUT_REFERENCE(level);
 		if(after) 
 			cmp = KeyIsAfterNode(key, after);	
 
@@ -259,6 +261,16 @@ found:
 	return true; 
 }
 
+void JellyFishSkipList::PrintReference(){
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] JF PUT_SEEK = " << i << " " << PUT_REFERENCE[i-1] <<endl; 
+	}
+
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] JF GET_SEEK = " << i << " " << GET_REFERENCE[i-1] <<endl; 
+	}
+}
+
 void JellyFishSkipList::PrintSetLevel(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
 		cout<< SET_LEVEL[i-1] <<endl; 
@@ -266,22 +278,20 @@ void JellyFishSkipList::PrintSetLevel(){
 }
 
 void JellyFishSkipList::PrintLevel(){
-	cout<<"PUT"<<endl;
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< PUT_LEVEL[i-1] <<endl; 
+		cout<< "[STAT] JF PUT_RETURN = " << i << " " << PUT_LEVEL[i-1] <<endl; 
 	}
 
-	cout<<"GET"<<endl;
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< GET_LEVEL[i-1] <<endl; 
+		cout<< "[STAT] JF GET_RETURN = " << i << " " << GET_LEVEL[i-1] <<endl; 
 	}
 }
 void JellyFishSkipList::PrintStat()
 {
-	cout << "JellyFishSkipList comparator count = " << cnt << endl;
-//	cout << "JellyFishSkipList CAS count = "<< CAS_cnt << endl;
+//	cout << "JellyFishSkipList comparator count = " << cnt << endl;
+	cout << "[STAT] JF CAS = "<< CAS_cnt << endl;
 //	cout << "JellyFishSkipList pointer update count = " << pointer_cnt << endl;
-//	cout << "JellyFishSkipList CAS failure count = " << CAS_failure_cnt << endl;
+	cout << "[STAT] JF CAS_FAIL = " << CAS_failure_cnt << endl;
 }
 void JellyFishSkipList::ResetStat()
 {

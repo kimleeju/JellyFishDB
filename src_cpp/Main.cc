@@ -115,6 +115,10 @@ int main(int argc, char* argv[])
 	sl->PrintSetLevel();
 #endif
 
+#ifdef PRINT_REFERENCE
+	sl->PrintReference();
+#endif
+
 	return 0;
 }
 #endif

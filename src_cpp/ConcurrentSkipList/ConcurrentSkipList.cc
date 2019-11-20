@@ -56,6 +56,7 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
 
     while(true){
         Node* next = x->Next(level);
+		GET_REFERENCE(level);
 		COUNT(cnt);
         int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
      
@@ -105,6 +106,7 @@ int ConcurrentSkipList::FindSpliceForLevel(const string& key, int level,
     Node* after = before->Next(level);
 	COUNT(pointer_cnt);
 	while(true){
+		PUT_REFERENCE(level);	
 		if(after) 
 			cmp = KeyIsAfterNode(key, after);	
 
@@ -192,6 +194,15 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 	
 	return true;
 }
+void ConcurrentSkipList::PrintReference(){
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] CC PUT_SEEK = " << i << " " << PUT_REFERENCE[i-1] <<endl; 
+	}
+
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] CC GET_SEEK = " << i << " " << GET_REFERENCE[i-1] <<endl; 
+	}
+}
 
 void ConcurrentSkipList::PrintSetLevel(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
@@ -201,11 +212,12 @@ void ConcurrentSkipList::PrintSetLevel(){
 
 void ConcurrentSkipList::PrintStat()
 {
-	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
-//	cout << "ConcurrentSkipList CAS count = "<< CAS_cnt << endl;
+//	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
+	cout << "[STAT] CC CAS = "<< CAS_cnt << endl;
 //	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
-//	cout << "ConcurrentSkipList CAS failure count = " << CAS_failure_cnt << endl; 
+	cout << "[STAT] CC CAS_FAIL = " << CAS_failure_cnt << endl;
 }
+
 void ConcurrentSkipList::ResetStat()
 {
 	cpr_cnt = 0;
