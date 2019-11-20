@@ -33,6 +33,7 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 		return;
 	string str_key(temp_->Get_key());
 	while(i>1){
+		GET_REFERENCE(0);
 		if(temp_->Next(0)==nullptr)
 			return;
 		if(temp_->Next(0)->Get_key() != str_key){
