@@ -23,23 +23,23 @@ using namespace std;
 } while (0)
 
 #define SET_LEVEL(x) do{\
-	if(0) {SET_LEVEL[x-1]++;}\
+	if(0) {SET_LEVEL[x]++;}\
 } while(0)
 
 #define PUT_LEVEL(x) do{\
-	if(0) {PUT_LEVEL[x-1]++;}\
+	if(0) {PUT_LEVEL[x]++;}\
 } while(0)
 
 #define GET_LEVEL(x) do{\
-	if(0) {GET_LEVEL[x-1]++;}\
+	if(0) {GET_LEVEL[x]++;}\
 } while(0)
 
 #define GET_REFERENCE(x) do{\
-	if(0) {GET_REFERENCE[x-1]++;}\
+	if(0) {GET_REFERENCE[x]++;}\
 } while(0)
 
 #define PUT_REFERENCE(x) do{\
-	if(0) {PUT_REFERENCE[x-1]++;}\
+	if(0) {PUT_REFERENCE[x]++;}\
 } while(0)
 
 #define COUNT(x) do{\

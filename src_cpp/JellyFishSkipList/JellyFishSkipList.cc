@@ -193,7 +193,6 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
 		}
 	}
 	int fl = RecomputeSpliceLevels(key, 0, iterator.splice);
-
 #ifdef JELLYFISH
 	// Insert a new node into the value chain 
 	if(fl >= 0){ 
@@ -230,7 +229,6 @@ found:
 		}
 	}
 #endif
-
 	// Insert a new node into the skip list 
 	Node* nnode = AllocateNode(key, value, height);
 		
@@ -264,27 +262,27 @@ found:
 
 void JellyFishSkipList::PrintReference(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] JF PUT_SEEK = " << i << " " << PUT_REFERENCE[i-1] <<endl; 
+		cout<< "[STAT] JF PUT_SEEK = " << i << " " << PUT_REFERENCE[i] <<endl; 
 	}
 
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] JF GET_SEEK = " << i << " " << GET_REFERENCE[i-1] <<endl; 
+		cout<< "[STAT] JF GET_SEEK = " << i << " " << GET_REFERENCE[i] <<endl; 
 	}
 }
 
 void JellyFishSkipList::PrintSetLevel(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< SET_LEVEL[i-1] <<endl; 
+		cout<< "[STAT] JF SET_LEVEL = " << i << " " << SET_LEVEL[i] <<endl; 
 	}
 }
 
 void JellyFishSkipList::PrintLevel(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] JF PUT_RETURN = " << i << " " << PUT_LEVEL[i-1] <<endl; 
+		cout<< "[STAT] JF PUT_LEVEL = " << i << " " << PUT_LEVEL[i] <<endl; 
 	}
 
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] JF GET_RETURN = " << i << " " << GET_LEVEL[i-1] <<endl; 
+		cout<< "[STAT] JF GET_LEVEL = " << i << " " << GET_LEVEL[i] <<endl; 
 	}
 }
 void JellyFishSkipList::PrintStat()
