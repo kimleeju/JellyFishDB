@@ -35,6 +35,7 @@ void *do_query_put(void* arg)
 	int i;
 	int op_num = *((int*)arg);
 	DEBUG_PRINT(("tid %ld is created\n", syscall(SYS_gettid)));
+	printf("tid %ld is created\n", syscall(SYS_gettid));
 
 	key = 0;
 
@@ -76,7 +77,8 @@ int main(int argc, char* argv[])
 	
 	int nthreads = atoi(argv[1]);
 	int* rv = (int*) malloc (sizeof(int) * nthreads);
-	int op_num = atoi(argv[2]);
+	int op_num = atoi(argv[2])/nthreads;;
+	//int op_num = atoi(argv[2]);
 	long key_max = (long)(op_num * 10);
 	key_box=(int *) malloc (sizeof(int) * op_num);	
 	int benchmark = atoi(argv[3]);
@@ -91,7 +93,8 @@ int main(int argc, char* argv[])
 #ifndef CSKIP_LIST
 	if(sl) pthread_mutex_init(&(sl->list_lock), NULL);
 #endif
-#if 1	
+
+#if 0
 	// create permutation
 	for( i=0; i< op_num ; i++){//중복되지 않은 key값 생성
 		key_box[i]= (long) rand() % key_max;
@@ -117,8 +120,6 @@ int main(int argc, char* argv[])
 	fclose(fp);	
 #endif
 	if(benchmark==1){
-
-		
 		// start time 
 		if(gettimeofday(&t_start, NULL) == -1){
 			printf("failed to read time\n");
@@ -178,7 +179,6 @@ int main(int argc, char* argv[])
 		// print list 
 		skip_list_print_all (sl);
 		print_result(op_num * nthreads);
-
 	}
 	else if(benchmark==3){
 		// put threads 

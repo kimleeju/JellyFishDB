@@ -2,7 +2,7 @@
 CC=gcc
 LDLIBS= -lpthread -lm -g
 
-all: skip 
+all: skip cskip
 #cskip opskip
 
 skip: main.c skip.c sim.h skip.h 

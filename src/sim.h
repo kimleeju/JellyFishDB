@@ -55,7 +55,9 @@ void print_result(int ops)
 		t_end.tv_sec - t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec) / 1000000.0, 
 		ops / (t_end.tv_sec - t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec) / 1000000.0));
 */
-	printf("%6.2f\n" ,ops / (t_end.tv_sec - t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec) / 1000000.0));
+	printf("%f %6.2f\n", 
+		(t_end.tv_sec - t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec) / 1000000.0), 
+		ops / (t_end.tv_sec - t_start.tv_sec + (t_end.tv_usec - t_start.tv_usec) / 1000000.0));
 	//printf("node count : %ld \n", sl->node_cnt);
 	//printf("skipcount  : %d\n", skip_cnt);	
 	return;
