@@ -16,7 +16,7 @@ for wo in $workload; do
 	for th in $threads; do
 		line="$th "
 		for sk in $skiplists; do
-			line=$line`grep $sk $srcfile | grep "ardb" | awk -v sl="$sk" '$1==sl && $7=='"${th}"' {print $NF, s}'`
+			line=$line`grep $sk $srcfile | grep "run" | awk -v sl="$sk" '$1==sl && $7=='"${th}"' {print $NF, s}'`
 		done
 		echo $line >> $datafile
 	done
