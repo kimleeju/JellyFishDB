@@ -80,8 +80,8 @@ for nu in {1..1}; do
 					iter=5
 					while [[ $iter -le 5 ]]; do
 						#rfname="latency/$sk.lat"
-						load_trc="../trc/micro_trc/backup100trc/uni_put_load.trc"
-						run_trc=$TRC_DIR/ycsb_ardb_8_"$wo".trc
+						load_trc=$TRC_DIR/ycsb_ardb_8_"$wo"_load.trc
+						run_trc=$TRC_DIR/ycsb_ardb_8_"$wo"_run.trc
 						echo "./Run $sk $th $load_trc $run_trc"
 						#./Run $sk $th $load_trc $run_trc
 						#./Run $sk $th $load_trc $run_trc
