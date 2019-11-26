@@ -158,6 +158,7 @@ Node* ConcurrentSkipList::AllocateNode(const string& key, const string& value, i
 
 bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 {
+#if 1
 	// update current max height
 	int height = RandomHeight();
 #ifdef PRINT_HEIGHT
@@ -193,10 +194,10 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 			assert(rv < 0);
 		}
 	}
-	
 	SET_LEVEL(height-1);
 	
 	return true;
+#endif
 }
 void ConcurrentSkipList::PrintReference(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){

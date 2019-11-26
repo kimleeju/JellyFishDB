@@ -63,7 +63,6 @@ void* Worker::do_query_with_trace()
 		
 		Request rq = *p;
 		string val("abcdefghijklmnopqrstuvwzABCDEFGHIJKLMNOPQRSTUVWZ");
-
 		DEBUG(rq.op << " " << rq.key );
 #ifdef PRINT_LATENCY
 		ntimer.start();
