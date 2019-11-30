@@ -2,7 +2,7 @@
 #include "BlockedSkipList/BlockedSkipList.h"
 #include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
-//#include "StrideSkipList/StrideSkipList.h"
+#include "StrideSkipList/StrideSkipList.h"
 //#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
 //#include "SimpleSkipList/SimpleSkipList.h"
@@ -50,12 +50,10 @@ int main(int argc, char* argv[])
 
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
-	}
-#if 0	
+	}	
 	else if(type =="StrideSkipList"){
 		sl = new StrideSkipList;
-	}
-#endif	
+	}	
 	else if(type == "JellyFishSkipList"){
 		sl = new JellyFishSkipList;
 	}
@@ -87,7 +85,7 @@ int main(int argc, char* argv[])
 	else{
 		cout<< "failed to run"<<endl;
 		cout << "Usage: ./Run Options thread_count path" << endl;
-		cout << "Options: BlockedSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
+		cout << "Options: BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList" << endl;
 		return -1;
 	} 
 	// create a bench manager 	
