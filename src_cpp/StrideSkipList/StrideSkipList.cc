@@ -172,7 +172,7 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 	
 	if(iterator.splice->next_[0] != nullptr && iterator.splice->next_[0]->Get_key() == key)
 	{	
-		nnode->Set_stride_next(iterator.splice->next_[0]);
+		nnode->Set_stride_next(iterator.splice->next_[0]->Get_stride_next());
 	}
    return true;
      
