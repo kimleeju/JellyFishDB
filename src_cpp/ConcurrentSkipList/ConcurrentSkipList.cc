@@ -67,7 +67,8 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
 		}
 #endif
 		if(cmp <= 0 &&level ==0){
-            return next;
+            GET_LEVEL(level);
+			return next;
         }
         else if (cmp > 0){
             x= next;
@@ -140,6 +141,8 @@ int ConcurrentSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 		--i; 
 		start = splice->prev_[i+1];
 	}
+	
+	PUT_LEVEL(0);
 	return -1;
 
 }
@@ -155,6 +158,7 @@ Node* ConcurrentSkipList::AllocateNode(const string& key, const string& value, i
 
 bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 {
+#if 1
 	// update current max height
 	int height = RandomHeight();
 #ifdef PRINT_HEIGHT
@@ -190,24 +194,34 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator iterator)
 			assert(rv < 0);
 		}
 	}
-	
 	SET_LEVEL(height-1);
 	
 	return true;
+#endif
 }
 void ConcurrentSkipList::PrintReference(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC PUT_SEEK = " << i << " " << PUT_REFERENCE[i-1] <<endl; 
+		cout<< "[STAT] CC PUT_SEEK = " << i << " " << PUT_REFERENCE[i] <<endl; 
 	}
 
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC GET_SEEK = " << i << " " << GET_REFERENCE[i-1] <<endl; 
+		cout<< "[STAT] CC GET_SEEK = " << i << " " << GET_REFERENCE[i] <<endl; 
+	}
+}
+
+void ConcurrentSkipList::PrintLevel(){
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] CC PUT_LEVEL = " << i << " " << PUT_LEVEL[i] <<endl; 
+	}
+
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] CC GET_LEVEL = " << i << " " << GET_LEVEL[i] <<endl; 
 	}
 }
 
 void ConcurrentSkipList::PrintSetLevel(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< SET_LEVEL[i-1] <<endl; 
+		cout<< "[STAT] CC SET_LEVEL = " << i << " " << SET_LEVEL[i] <<endl;
 	}
 }
 

@@ -30,6 +30,7 @@ public:
     bool Insert(string key, string value , Iterator iterator);
 	void PrintReference();	
 	void PrintSetLevel();
+	void PrintLevel();
 	void PrintStat();
 	void ResetStat();
 

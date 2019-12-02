@@ -8,6 +8,7 @@ SRCS +=\
 	BlockedSkipList/BlockedSkipList.cc\
 	CVSkipList/CVSkipList.cc\
 	ConcurrentSkipList/ConcurrentSkipList.cc\
+	StrideSkipList/StrideSkipList.cc\
 	JellyFishSkipList/JellyFishSkipList.cc\
 	Bench/BenchManager.cc
 
@@ -29,6 +30,7 @@ $(TARG): Main.cc ./bin/libskiplist.a
 	cd ./BlockedSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./CVSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./ConcurrentSkipList && $(MAKE) clean && $(MAKE) && cd ..
+	cd ./StrideSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./JellyFishSkipList && $(MAKE) clean && $(MAKE) && cd ..
 	cd ./Bench && $(MAKE) clean && $(MAKE) && cd ..
 	$(AR) r $(@) $(OBJS)
