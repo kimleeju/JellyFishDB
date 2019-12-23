@@ -1,6 +1,7 @@
 #srcfile="perf_1000000_uni.rslt"
 
-skiplists="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
+#skiplists="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
+skiplists="ConcurrentSkipList StrideSkipList"
 threads="1 2 4 8 16 "
 #ops="put get range_query"
 #ops="put get"
