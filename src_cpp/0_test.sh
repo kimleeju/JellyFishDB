@@ -14,7 +14,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
-SKIPLISTS="ConcurrentSkipList StrideSkipList"
+#SKIPLISTS="ConcurrentSkipList StrideSkipList"
 
 workload="a b c d e f"
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
