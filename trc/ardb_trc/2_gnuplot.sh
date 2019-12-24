@@ -4,7 +4,7 @@ workloads="a b c d e f"
 
 operation="load run"
 operation="all"
-operation="load"
+#operation="load"
 
 for wl in $workloads; do
 	for op in $operation; do
