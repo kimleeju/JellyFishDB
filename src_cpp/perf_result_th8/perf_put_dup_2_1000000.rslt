@@ -1,0 +1,6 @@
+BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.00064 IOPS = 3125.000000
+BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 13.3713 IOPS = 74786.839025
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000668 IOPS = 2994.011976
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.844909 IOPS = 1183560.596467
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.0005 IOPS = 4000.000000
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.774391 IOPS = 1291338.613181

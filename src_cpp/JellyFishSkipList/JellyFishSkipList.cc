@@ -142,12 +142,10 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
 
 		// check if the value is found 
-#if 1		
 		if(cmp == 0){
 			PUT_LEVEL(i);
 			return i;
 		}
-#endif
 		// continue searching 
 		if(i <= to_level)
 			break; 
