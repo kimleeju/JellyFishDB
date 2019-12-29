@@ -1,6 +1,6 @@
-BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.00064 IOPS = 3125.000000
-BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 13.3713 IOPS = 74786.839025
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000668 IOPS = 2994.011976
-ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.844909 IOPS = 1183560.596467
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.0005 IOPS = 4000.000000
-JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.774391 IOPS = 1291338.613181
+BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000481 IOPS = 4158.004158
+BlockedCVSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 13.2224 IOPS = 75629.368064
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000754 IOPS = 2652.519894
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.83605 IOPS = 1196101.907781
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.00052 IOPS = 3846.153846
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.792654 IOPS = 1261585.761253
