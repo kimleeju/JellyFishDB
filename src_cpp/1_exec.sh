@@ -3,7 +3,7 @@ make -j4
 #CLASSPATH=$CLASSPATH:~/JDKSkipList/
 #export $CLASSPATH
 
-THREADS=8
+THREADS=16
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
@@ -12,10 +12,10 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 
-#SKIPLISTS="BlockedCVSkipList"
+SKIPLISTS="ConcurrentSkipList StrideSkipList"
 #SKIPLISTS="JellyFishSkipList"
-SKIPLISTS="BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
-num="1000000"
+#SKIPLISTS="BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
+num="100000"
 
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 #num="100"
@@ -26,10 +26,10 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 OP="put get"
 #OP="range_query"
 #OP="put"
-#OP="range_query"
+OP="range_query"
 #OP=" put get"
 #OP="get" 
-RSLT_DIR="./perf_result_th8"
+RSLT_DIR="./perf_result_stride"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
@@ -74,7 +74,7 @@ for nu in {1..1}; do
 			touch $rfname
 			echo "$rfname ...."
 	
-			th=8
+			th=1
 			while [[ $th -le $THREADS ]]; do
 				for sk in $SKIPLISTS; do
 					iter=5

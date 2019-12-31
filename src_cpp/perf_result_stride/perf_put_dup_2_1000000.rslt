@@ -1,0 +1,4 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000425 IOPS = 4705.882353
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.838589 IOPS = 1192480.464208
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000612 IOPS = 3267.973856
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/dup_2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.831418 IOPS = 1202765.636539

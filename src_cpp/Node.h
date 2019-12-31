@@ -156,7 +156,7 @@ public:
 	//	vqueue_num = 0;
 //#endif	
 //#ifdef STRIDE_SKIPLIST_H
-		stride_next =nullptr;
+		//stride_next =nullptr;
 //#endif
 
 	}

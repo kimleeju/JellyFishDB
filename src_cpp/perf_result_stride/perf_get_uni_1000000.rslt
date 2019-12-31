@@ -1,0 +1,4 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.827772 IOPS = 1208063.331449
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.562017 IOPS = 1779307.387499
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_load.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.850225 IOPS = 1176160.428122
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/uni_get_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.580275 IOPS = 1723322.562578

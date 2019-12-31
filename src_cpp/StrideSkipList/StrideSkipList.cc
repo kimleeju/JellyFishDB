@@ -22,6 +22,7 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
     int i = count;
 	if(temp_==nullptr)
 		return;
+#if 1
 	while(i>1){  
 		if(temp_->Get_stride_next()==nullptr){
 			if(temp_->Next(0)==nullptr)
@@ -33,7 +34,8 @@ void StrideSkipList::RangeQuery(string start_key, int count, Iterator iterator){
        		temp_=temp_->Get_stride_next();
 			--i;
     	}
-	} 	
+	} 
+#endif	
 }
 
 
@@ -129,8 +131,9 @@ int StrideSkipList::KeyIsAfterNode(const string& key, Node* n){
 
 
 Node* StrideSkipList::AllocateNode(const string& key, const string& value, int height){
-   Node* x = new Node(key,value, height);
-   return x;
+	Node* x = new Node(key,value, height);
+	x->Set_stride_next(nullptr);
+	return x;
 }
 
 bool StrideSkipList::Insert(string key, string value, Iterator iterator){

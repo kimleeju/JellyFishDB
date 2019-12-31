@@ -1,0 +1,4 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000517 IOPS = 3868.471954
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.799473 IOPS = 1250825.231121
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.000448 IOPS = 4464.285714
+StrideSkipList workload = ../trc/micro_trc/backup1000000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 0.792809 IOPS = 1261339.111942

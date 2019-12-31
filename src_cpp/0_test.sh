@@ -3,7 +3,7 @@ make -j4
 #CLASSPATH=$CLASSPATH:~/JDKSkipList/
 #export $CLASSPATH
 
-THREADS=16
+THREADS=8
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList StrideSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
 SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList"
@@ -14,7 +14,7 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 
 #SKIPLISTS="BlockedCVSkipList"
 #SKIPLISTS="JellyFishSkipList"
-#SKIPLISTS="ConcurrentSkipList StrideSkipList"
+SKIPLISTS="ConcurrentSkipList StrideSkipList"
 
 workload="a b c d e f"
 #SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList SimpleSkipList JellyFishSkipList"
@@ -29,7 +29,7 @@ TRC_DIR="../trc/ardb_trc"
 #OP="range_query"
 #OP=" put"
 #OP="get" 
-RSLT_DIR="./perf_result_ardb"
+RSLT_DIR="./perf_result_stride_ardb"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
@@ -74,7 +74,7 @@ for nu in {1..1}; do
 			touch $rfname
 			echo "$rfname ...."
 	
-			th=1
+			th=8
 			while [[ $th -le $THREADS ]]; do
 				for sk in $SKIPLISTS; do
 					iter=5
