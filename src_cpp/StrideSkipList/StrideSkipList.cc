@@ -1,6 +1,6 @@
 #include  "StrideSkipList.h"
 
-int StrideSkipList::Put(string key, string value, Iterator iterator){
+int StrideSkipList::Put(string key, string value, Iterator& iterator){
     t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
     return 0;
@@ -129,6 +129,11 @@ int StrideSkipList::KeyIsAfterNode(const string& key, Node* n){
 	return key.compare(n->Get_key());
 }
 
+Node* StrideSkipList::AllocateNode(Iterator& iterator,const string& key, const string& value, int height){
+	Node* x = new Node(iterator.arena,key,value, height);
+	x->Set_stride_next(nullptr);
+	return x;
+}
 
 Node* StrideSkipList::AllocateNode(const string& key, const string& value, int height){
 	Node* x = new Node(key,value, height);
@@ -136,7 +141,7 @@ Node* StrideSkipList::AllocateNode(const string& key, const string& value, int h
 	return x;
 }
 
-bool StrideSkipList::Insert(string key, string value, Iterator iterator){
+bool StrideSkipList::Insert(string key, string value, Iterator& iterator){
   //Node* nnode = AllocateNode(key, value, RandomHeight());
 //  Splice* splice = AllocateSplice();
 	int height = RandomHeight();  
@@ -153,7 +158,7 @@ bool StrideSkipList::Insert(string key, string value, Iterator iterator){
 		}
 	}
 	
-	Node* nnode = AllocateNode(key, value, height);
+	Node* nnode = AllocateNode(iterator,key, value, height);
 
 	int rv = RecomputeSpliceLevels(key, 0,iterator.splice);
     assert(rv < 0);

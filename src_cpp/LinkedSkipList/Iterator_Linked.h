@@ -1,21 +1,21 @@
-#ifndef ITERATOR_H
-#define ITERATOR_H
+#ifndef ITERATOR_LINKED_H
+#define ITERATOR_LINKED_H
 
-#include "SkipList.h"
-#include "Node.h"
-#include "Arena.h"
-class SkipList;
+#include "SkipList_Linked.h"
+#include "../Arena.h"
+#include "Node_Linked.h"
+class SkipList_Linked;
 
 
-class Iterator{
+class Iterator_Linked{
 
 public:
 	
-	void Put(string key, string value, Iterator& iterator){
+	void Put(string key, string value, Iterator_Linked& iterator){
 		sl_->Insert(key, value, iterator);
 	}
 
-        void SetList(SkipList* sl){
+        void SetList(SkipList_Linked* sl){
             sl_ = sl; 
         }
         bool Valid(){
@@ -27,28 +27,28 @@ public:
         }
         void Seek(string key){
             node_ = sl_ ->FindGreaterorEqual(key);
-		}
-	struct Node* Node(){
+	}
+	struct Node_Linked* Node_Linked(){
             return node_;
         }
     private:
-        SkipList* sl_ = nullptr;
-        struct Node* node_;
+        SkipList_Linked* sl_ = nullptr;
+        struct Node_Linked* node_;
 
     public:
 		Arena arena;
 		int seq;
-		SkipList::Splice* splice;
+		SkipList_Linked::Splice* splice;
 		bool test;
 
 public:
-        Iterator(){
+        Iterator_Linked(){
             sl_ = nullptr;
             node_ = nullptr;
 	    	splice = sl_->AllocateSplice();	
         }
 
-        Iterator(SkipList* sl, int seq_){
+        Iterator_Linked(SkipList_Linked* sl, int seq_){
             SetList(sl);
 	    	node_ = nullptr;
 	    	splice = sl_->AllocateSplice();

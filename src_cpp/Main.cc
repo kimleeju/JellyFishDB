@@ -1,7 +1,9 @@
 #include "SkipList.h"
+#include "LinkedSkipList/SkipList_Linked.h"
 #include "BlockedSkipList/BlockedSkipList.h"
 #include "CVSkipList/CVSkipList.h"
 #include "ConcurrentSkipList/ConcurrentSkipList.h"
+#include "LinkedSkipList/LinkedSkipList.h"
 #include "StrideSkipList/StrideSkipList.h"
 //#include "JDKSkipList/JDKSkipList.h"
 #include "JellyFishSkipList/JellyFishSkipList.h"
@@ -15,7 +17,7 @@ using namespace std;
 int main(int argc, char* argv[])
 { 	
 	SkipList* sl;
-
+	SkipList_Linked* sl_lk;	
 	if (argc < 5){
 		cout << "Usage: ./Run Options thread_count load_trc run_trc" << endl;
 		cout << "Options: BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JDKSkipList JellyFishSkipList" << endl;
@@ -26,7 +28,6 @@ int main(int argc, char* argv[])
 	int thread_num = atoi(argv[2]);
 	char *load_trc_fname = argv[3];
 	char *run_trc_fname = argv[4];
-
 	int rv;
 
 #if 1
@@ -51,6 +52,9 @@ int main(int argc, char* argv[])
 	else if(type == "ConcurrentSkipList"){
 		sl = new ConcurrentSkipList;
 	}	
+	else if(type == "LinkedSkipList") {
+		sl_lk = new LinkedSkipList;
+	}
 	else if(type =="StrideSkipList"){
 		sl = new StrideSkipList;
 	}	
@@ -89,7 +93,8 @@ int main(int argc, char* argv[])
 		return -1;
 	} 
 	// create a bench manager 	
-	BenchManager bm(thread_num, sl, type);
+	BenchManager bm(thread_num, (type=="LinkedSkipList") ? (SkipList*)sl_lk:sl, type);
+		
 	rv = bm.run_trc(load_trc_fname); 
 	if (rv < 0){
 		cout << "Failed to load trc" << endl;
@@ -120,5 +125,4 @@ int main(int argc, char* argv[])
 	return 0;
 }
 #endif
-
 

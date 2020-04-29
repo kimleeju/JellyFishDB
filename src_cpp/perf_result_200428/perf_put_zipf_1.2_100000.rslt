@@ -1,0 +1,2 @@
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.000248 IOPS = 8064.516129
+BlockedSpinSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.288089 IOPS = 347118.425209

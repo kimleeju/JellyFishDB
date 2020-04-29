@@ -1,5 +1,5 @@
-#ifndef SKIPLIST_H
-#define SKIPLIST_H
+#ifndef SKIPLIST_LINKED_H
+#define SKIPLIST_LINKED_H
 #include<atomic>
 #include<string>
 #include<iostream>
@@ -11,10 +11,9 @@
 #include<assert.h>
 //#include<memory>
 // #include<pthread.h>
-#include "Arena.h"
-#include "Node.h"
-#include "LinkedSkipList/Node_Linked.h"
-#include "Util.h"
+#include "../Arena.h"
+#include "Node_Linked.h"
+#include "../Util.h"
 
 using namespace std;
 #define MAX_LEVEL 12
@@ -61,18 +60,18 @@ using namespace std;
 
 
 
-class Iterator;
+class Iterator_Linked;
 
-class SkipList {
+class SkipList_Linked {
 public:
 	class Splice{
 		public:
 			int height_ =0;
-			Node** prev_;
-        		Node** next_;
+			Node_Linked** prev_;
+        		Node_Linked** next_;
    	 };
     
-	Node* head_;
+	Node_Linked* head_;
 	atomic<int> cnt;
 	atomic<int> pointer_cnt;
 	atomic<int> CAS_failure_cnt;
@@ -90,18 +89,18 @@ protected:
 	atomic<int>max_height_;
 public:    
     //string randomString();
-	virtual int Put(string key, string value, Iterator& iterator ) = 0;
-	virtual string Get(string key, Iterator iterator) = 0;
-	virtual void RangeQuery(string start_key, int count, Iterator iterator) = 0;
+	virtual int Put(string key, string value, Iterator_Linked& iterator ) = 0;
+	virtual string Get(string key, Iterator_Linked iterator) = 0;
+	virtual void RangeQuery(string start_key, int count, Iterator_Linked iterator) = 0;
 
 	virtual Splice* AllocateSplice() =0;
-	virtual Node* FindGreaterorEqual(const string& key)=0;
+	virtual Node_Linked* FindGreaterorEqual(const string& key)=0;
 	virtual int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice = 0)=0;
-	virtual int FindSpliceForLevel(const string& key, int level, Node** sp_prev, Node** sp_next, Node* before)=0;
-	virtual int KeyIsAfterNode(const string& key, Node* n)=0;
-	virtual Node* AllocateNode(const string& key, const string& value, int height)=0;
+	virtual int FindSpliceForLevel(const string& key, int level, Node_Linked** sp_prev, Node_Linked** sp_next, Node_Linked* before)=0;
+	virtual int KeyIsAfterNode(const string& key, Node_Linked* n)=0;
+	virtual Node_Linked* AllocateNode(const string& key, const string& value, int height)=0;
  	//virtual int RandomHeight()=0;
-    	virtual bool Insert(string key, string value, Iterator& iterator)=0;
+    	virtual bool Insert(string key, string value, Iterator_Linked& iterator)=0;
 	virtual void SetThreadNum(int t_num){}		
 	virtual void PrintReference(){}
 	virtual void PrintSetLevel(){}
@@ -125,14 +124,14 @@ public:
 		return height;
 	};
 
-    SkipList(int kMaxHeight, Node* head, Splice* seq_splice_) : 
+    SkipList_Linked(int kMaxHeight, Node_Linked* head, Splice* seq_splice_) : 
         head_(head),
         kMaxHeight_(kMaxHeight),
         seq_splice(seq_splice_)
     {}
 
-    SkipList()  
+    SkipList_Linked()  
     {}
-    ~SkipList() {}  
+    ~SkipList_Linked() {}  
 };
 #endif

@@ -1,6 +1,6 @@
 #include "JellyFishSkipList.h"
 
-int JellyFishSkipList::Put(string key, string value, Iterator iterator){
+int JellyFishSkipList::Put(string key, string value, Iterator& iterator){
 #ifdef OP_EXEC
     t_global_committed.get_and_inc();
     iterator.Put(key, value, iterator);
@@ -109,13 +109,14 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
 	assert(before != NULL);
 	int cmp = 1;
 
-    Node* after = before->Next(level);
+	Node* after = before->Next(level);
 	COUNT(pointer_cnt);
+
 	while(true){
 		PUT_REFERENCE(level);
 		if(after) 
 			cmp = KeyIsAfterNode(key, after);	
-
+		
 		if(!after || cmp <= 0) {
 			COUNT(pointer_cnt);
 			COUNT(pointer_cnt);
@@ -124,9 +125,9 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
 			return cmp;
 		}
 		COUNT(pointer_cnt);
-        COUNT(pointer_cnt);
+        	COUNT(pointer_cnt);
 		before = after;
-        after = after->Next(level);
+        	after = after->Next(level);
 	}
 }
 
@@ -169,14 +170,18 @@ VNode* JellyFishSkipList::AllocateVNode(const string& value){
    return x; 
 }
 
+Node* JellyFishSkipList::AllocateNode(Iterator& iterator,const string& key, const string& value, int height){
+	Node* x = new Node(iterator.arena,key, value, height);
+	return x;
+}
 
 Node* JellyFishSkipList::AllocateNode(const string& key, const string& value, int height){
-   Node* x = new Node(key, value, height);
-   return x;
+	Node* x = new Node(key, value, height);
+	return x;
 }
 
 
-bool JellyFishSkipList::Insert(string key, string value, Iterator iterator)
+bool JellyFishSkipList::Insert(string key, string value, Iterator& iterator)
 {
 	int height = RandomHeight();
 #ifdef PRINT_HEIGHT
@@ -229,7 +234,7 @@ found:
 	}
 #endif
 	// Insert a new node into the skip list 
-	Node* nnode = AllocateNode(key, value, height);
+	Node* nnode = AllocateNode(iterator,key, value, height);
 		
 	for(int i = 0; i < height; ++i){
 		while(true){
@@ -254,7 +259,15 @@ found:
 #endif
 		}
 	}
-	
+#if 0
+	cout<<endl<<"---------------------"<<endl;
+	Node* temp = head_;
+	while(temp !=NULL)
+	{
+		cout<<temp->Get_key()<<"->";
+		temp=temp->Next(0);
+	}
+#endif		
 	SET_LEVEL(height-1);
 	return true; 
 }

@@ -6,7 +6,6 @@
 #include <assert.h>
 #include <stdio.h>
 
-
 //#include <Windows.h>
 using namespace std;
 
@@ -15,7 +14,6 @@ class Thread{
 	public:
 		pthread_t tid;
 		pid_t pid;
-	
 	private:
 		static void *_entry_func(void* arg) {
 			assert(arg);

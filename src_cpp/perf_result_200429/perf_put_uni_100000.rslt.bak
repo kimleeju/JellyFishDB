@@ -1,0 +1,10 @@
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.075285 IOPS = 26.565717
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.396921 IOPS = 251941.822176
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 0.074364 IOPS = 26.894734
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.252435 IOPS = 396145.542417
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.074094 IOPS = 26.992739
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.228695 IOPS = 437267.977000
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.074778 IOPS = 26.745834
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.184133 IOPS = 543091.135212
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.075943 IOPS = 26.335541
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_put_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.169096 IOPS = 591385.958272

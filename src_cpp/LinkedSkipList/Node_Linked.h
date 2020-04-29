@@ -1,63 +1,63 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef NODE_LINKED_H
+#define NODE_LINKED_H
 
 #include<string>
 #include<vector>
 #include<queue>
-#include "SkipList.h"
-#include "Util.h"
+#include "../SkipList.h"
+#include "../Util.h"
 using namespace std;
 
 
 
-// VNode 
-typedef struct VNode {
-	VNode* NoBarrier_Next() {
+// VNode_Linked 
+typedef struct VNode_Linked{
+	VNode_Linked* NoBarrier_Next() {
 		return (&next)->load(std::memory_order_relaxed);
 	}
 
-	void NoBarrier_SetNext(VNode* x) {
+	void NoBarrier_SetNext(VNode_Linked* x) {
 		(&next)->store(x,std::memory_order_relaxed);	
 	}
 	
-	bool CASNext(VNode* expected, VNode* x) {
+	bool CASNext(VNode_Linked* expected, VNode_Linked* x) {
 		return (&next)->compare_exchange_strong(expected, x);
 	}
 
 	string value; 
 	string timestamp; 
-	atomic<VNode*> next; 
+	atomic<VNode_Linked*> next; 
 
-}VNode;
+}VNode_Linked;
 
 
-// Node 
-typedef struct Node {
+// Node_Linked 
+typedef struct Node_Linked{
 public:
 
-	Node* Next(int n) {
-		//return (&prefix[0]-sizeof(Node*)*(n))->load(std::memory_order_acquire);
+	Node_Linked* Next(int n) {
+		//return (&prefix[0]-sizeof(Node_Linked*)*(n))->load(std::memory_order_acquire);
 		return (&prefix[n])->load(std::memory_order_acquire);
 	}
 
-	void SetNext(int n, Node* x) {
+	void SetNext(int n, Node_Linked* x) {
 		(&prefix[n])->store(x, std::memory_order_release);	
 	}
 
-	bool CASNext(int n, Node* expected, Node* x) {
+	bool CASNext(int n, Node_Linked* expected, Node_Linked* x) {
 		return (&prefix[n])->compare_exchange_strong(expected, x);	
 	}
 
 
-	Node* NoBarrier_Next(int n) {
+	Node_Linked* NoBarrier_Next(int n) {
 		return (&prefix[n])->load(std::memory_order_relaxed);
 	}
 				
-	void NoBarrier_SetNext(int n, Node* x) {
+	void NoBarrier_SetNext(int n, Node_Linked* x) {
 		(&prefix[n])->store(x,std::memory_order_relaxed);	
 	}
 
-	void InsertAfter(Node* prev, int level) {
+	void InsertAfter(Node_Linked* prev, int level) {
 		NoBarrier_SetNext(level, prev->NoBarrier_Next(level));
 		prev->SetNext(level, this);
 	}
@@ -88,19 +88,19 @@ public:
 	}
 
 //#ifdef JELLYFISH_SKIPLIST_H
-	atomic<VNode*> vqueue;
+	atomic<VNode_Linked*> vqueue;
 //	atomic<int> vqueue_num;
 
 
-	bool CAS_vqueue(VNode* expected, VNode* n){
+	bool CAS_vqueue(VNode_Linked* expected, VNode_Linked* n){
 		return (&vqueue)->compare_exchange_strong(expected,n);
 	}
 
-	void Set_vqueue(VNode* n){
+	void Set_vqueue(VNode_Linked* n){
 		(&vqueue)->store(n, std::memory_order_relaxed);
 	}
 
-	VNode* Get_vqueue(){
+	VNode_Linked* Get_vqueue(){
 		return vqueue;
 	}
 #if 0
@@ -115,17 +115,17 @@ public:
 //#endif
 
 //#ifdef STRIDE_SKIPLIST_H
-	void Set_stride_next(Node* next){
+	void Set_stride_next(Node_Linked* next){
 		stride_next = next;
 	}
 
-	Node* Get_stride_next(){
+	Node_Linked* Get_stride_next(){
 		return stride_next;
 	}
 //#endif
 
 private:
-	std::atomic<Node*>* prefix; 
+	std::atomic<Node_Linked*>* prefix; 
 //	char* arena_pointer;			
 	std::atomic<char>* arena_pointer;
 	//char* arena_pointer;
@@ -135,7 +135,7 @@ private:
 	int height;
 
 //#ifdef STRIDE_SKIPLIST_H
-	Node* stride_next;
+	Node_Linked* stride_next;
 //#endif
 
 public:
@@ -146,24 +146,24 @@ public:
 
 #if 1
 	// Constructor 
-	Node(const string& key_, const string& value_,int height_) 
+	Node_Linked(const string& key_, const string& value_,int height_) 
 		: str_key(key_), str_value(value_), height(height_)
 	{
-		prefix = new std::atomic<Node*> [height];
+		prefix = new std::atomic<Node_Linked*> [height];
 
 		for(int i=0; i < height; i++)
 			(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
 		Set_vqueue(nullptr);
 	}
 #endif
-	Node(Arena& arena_, const string& key_, const string& value_,int height_) 
+	Node_Linked(Arena& arena_, const string& key_, const string& value_,int height_) 
 
 		: str_key(key_), str_value(value_), height(height_)
 	{
 	
 #if 1
-		arena_pointer=arena_.AllocateAligned(sizeof(std::atomic<Node*>)*height + sizeof(Node));
-		prefix = reinterpret_cast<std::atomic<Node*>*>(arena_pointer);
+		arena_pointer=arena_.AllocateAligned(sizeof(std::atomic<Node_Linked*>)*height + sizeof(Node_Linked));
+		prefix = reinterpret_cast<std::atomic<Node_Linked*>*>(arena_pointer);
 		for(int i=0; i < height; i++){
 			(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
 		}
@@ -172,12 +172,12 @@ public:
 		Set_vqueue(nullptr);
 	}
 
-	~Node(){
+	~Node_Linked(){
 		delete[] prefix;	
 	}
 
 
-} Node;
+} Node_Linked;
 
 
 #endif

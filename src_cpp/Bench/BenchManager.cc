@@ -52,7 +52,6 @@ void* Worker::do_query_with_trace()
 		cout << "Skip List is not created" << endl;
 		return NULL;
 	}
-
 	Iterator *iter = new Iterator(sl, th);
 	sl->SetThreadNum(th); // for JDK SkipList
 			
@@ -67,7 +66,6 @@ void* Worker::do_query_with_trace()
 #ifdef PRINT_LATENCY
 		ntimer.start();
 #endif
-
 		if (rq.op == "put" || rq.op == "PUT" || 
 			rq.op == "update" || rq.op == "UPDATE") {
 			sl->Put(rq.key, val, *iter);

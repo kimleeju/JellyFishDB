@@ -1,9 +1,6 @@
-#include  "ConcurrentSkipList.h"
+#include  "LinkedSkipList.h"
 
-std::atomic<int> i;
-
-
-int ConcurrentSkipList::Put(string key, string value, Iterator& iterator){
+int LinkedSkipList::Put(string key, string value, Iterator_Linked& iterator){
 #ifdef OP_EXEC
 	t_global_committed.get_and_inc();
 	iterator.Put(key,value, iterator);
@@ -12,11 +9,11 @@ int ConcurrentSkipList::Put(string key, string value, Iterator& iterator){
 }
 
 
-string ConcurrentSkipList::Get(string key, Iterator iterator){
+string LinkedSkipList::Get(string key, Iterator_Linked iterator){
 #ifdef OP_EXEC
     t_global_committed.get_and_inc();
     iterator.Seek(key);
-    return iterator.Node()->Get_value();
+    return iterator.Node_Linked()->Get_value();
 
 #else
 	string get_value("deadbeaf");
@@ -26,10 +23,10 @@ string ConcurrentSkipList::Get(string key, Iterator iterator){
 
 
 
-void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterator){
+void LinkedSkipList::RangeQuery(string start_key, int count, Iterator_Linked iterator){
 	t_global_committed.get_and_inc();
 	iterator.Seek(start_key);
-	Node* temp_ = iterator.Node();
+	Node_Linked* temp_ = iterator.Node_Linked();
 	int i = count;
 	
 	if(temp_== nullptr)
@@ -51,15 +48,15 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 }
 
 
-Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
-    Node* x = head_;
+Node_Linked* LinkedSkipList::FindGreaterorEqual(const string& key){
+    Node_Linked* x = head_;
     int level = max_height_ -1;
-    Node *last_bigger = nullptr;
+    Node_Linked *last_bigger = nullptr;
 	// EUNJI_TEST
 	//int test; 
 
     while(true){
-        Node* next = x->Next(level);
+        Node_Linked* next = x->Next(level);
 		GET_REFERENCE(level);
 		COUNT(cnt);
         int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
@@ -84,15 +81,15 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
 }
  
 
-ConcurrentSkipList::Splice* ConcurrentSkipList::AllocateSplice(){
+LinkedSkipList::Splice* LinkedSkipList::AllocateSplice(){
 	Splice* splice = new Splice();
 	splice->height_ = 0;
-	splice->prev_ = new Node *[MAX_LEVEL];
-	splice->next_ = new Node *[MAX_LEVEL];
+	splice->prev_ = new Node_Linked *[MAX_LEVEL];
+	splice->next_ = new Node_Linked *[MAX_LEVEL];
   	return splice;
 }
 
-int ConcurrentSkipList::KeyIsAfterNode(const string& key, Node* n){
+int LinkedSkipList::KeyIsAfterNode(const string& key, Node_Linked* n){
 	if(n == nullptr)
 		return -1;
 
@@ -101,14 +98,14 @@ int ConcurrentSkipList::KeyIsAfterNode(const string& key, Node* n){
 }
 
 
-int ConcurrentSkipList::FindSpliceForLevel(const string& key, int level, 
-		Node** sp_prev, Node** sp_next, Node* before)
+int LinkedSkipList::FindSpliceForLevel(const string& key, int level, 
+		Node_Linked** sp_prev, Node_Linked** sp_next, Node_Linked* before)
 {
 	
 	assert(before != NULL);
 	int cmp;
 
-	Node* after = before->Next(level);
+	Node_Linked* after = before->Next(level);
 	COUNT(pointer_cnt);
 	while(true){
 		PUT_REFERENCE(level);	
@@ -131,12 +128,12 @@ int ConcurrentSkipList::FindSpliceForLevel(const string& key, int level,
 	}
 }
 
-int ConcurrentSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
+int LinkedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
 {
 	//head
 	int i = max_height_-1;
 	int cmp; 
-	Node* start = head_;
+	Node_Linked* start = head_;
 
 	while(1){
 		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
@@ -154,21 +151,21 @@ int ConcurrentSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 
 
 
-Node* ConcurrentSkipList::AllocateNode(Iterator& iterator, const string& key, const string& value, int height){
-	Node* x = new Node(iterator.arena,key, value, height);
+Node_Linked* LinkedSkipList::AllocateNode(Iterator_Linked& iterator, const string& key, const string& value, int height){
+	Node_Linked* x = new Node_Linked(iterator.arena,key, value, height);
 	return x;
 }
 
 
 
-Node* ConcurrentSkipList::AllocateNode(const string& key, const string& value, int height){
-	Node* x = new Node(key, value, height);
+Node_Linked* LinkedSkipList::AllocateNode(const string& key, const string& value, int height){
+	Node_Linked* x = new Node_Linked(key, value, height);
 	return x;
 }
 
 
 
-bool ConcurrentSkipList::Insert(string key, string value, Iterator& iterator)
+bool LinkedSkipList::Insert(string key, string value, Iterator_Linked& iterator)
 {
 #if 1
 	// update current max height
@@ -187,8 +184,8 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator& iterator)
 	}	
 	// Allocate a new node 
 	
-//	Node* nnode = AllocateNode(key, value, height);
-	Node* nnode = AllocateNode(iterator, key, value, height);
+//	Node_Linked* nnode = AllocateNode(key, value, height);
+	Node_Linked* nnode = AllocateNode(iterator, key, value, height);
 //	cout<<"i = "<<++i<<endl;
 	int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	assert(rv < 0);
@@ -211,47 +208,47 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator& iterator)
 	return true;
 #endif
 }
-void ConcurrentSkipList::PrintReference(){
+void LinkedSkipList::PrintReference(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC PUT_SEEK = " << i << " " << PUT_REFERENCE[i] <<endl; 
+		cout<< "[STAT] LK PUT_SEEK = " << i << " " << PUT_REFERENCE[i] <<endl; 
 	}
 
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC GET_SEEK = " << i << " " << GET_REFERENCE[i] <<endl; 
-	}
-}
-
-void ConcurrentSkipList::PrintLevel(){
-	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC PUT_LEVEL = " << i << " " << PUT_LEVEL[i] <<endl; 
-	}
-
-	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC GET_LEVEL = " << i << " " << GET_LEVEL[i] <<endl; 
+		cout<< "[STAT] LK GET_SEEK = " << i << " " << GET_REFERENCE[i] <<endl; 
 	}
 }
 
-void ConcurrentSkipList::PrintSetLevel(){
+void LinkedSkipList::PrintLevel(){
 	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
-		cout<< "[STAT] CC SET_LEVEL = " << i << " " << SET_LEVEL[i] <<endl;
+		cout<< "[STAT] LK PUT_LEVEL = " << i << " " << PUT_LEVEL[i] <<endl; 
+	}
+
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] LK GET_LEVEL = " << i << " " << GET_LEVEL[i] <<endl; 
 	}
 }
 
-void ConcurrentSkipList::PrintStat()
+void LinkedSkipList::PrintSetLevel(){
+	for(int i = MAX_LEVEL-1 ; i >= 0 ; --i){
+		cout<< "[STAT] LK SET_LEVEL = " << i << " " << SET_LEVEL[i] <<endl;
+	}
+}
+
+void LinkedSkipList::PrintStat()
 {
-//	cout << "ConcurrentSkipList comparator count = " << cnt << endl;
-	cout << "[STAT] CC CAS = "<< CAS_cnt << endl;
-//	cout << "ConcurrentSkipList pointer update count = " << pointer_cnt << endl;
-	cout << "[STAT] CC CAS_FAIL = " << CAS_failure_cnt << endl;
+//	cout << "LinkedSkipList comparator count = " << cnt << endl;
+	cout << "[STAT] LK CAS = "<< CAS_cnt << endl;
+//	cout << "LinkedSkipList pointer update count = " << pointer_cnt << endl;
+	cout << "[STAT] LK CAS_FAIL = " << CAS_failure_cnt << endl;
 }
 
-void ConcurrentSkipList::ResetStat()
+void LinkedSkipList::ResetStat()
 {
 	cpr_cnt = 0;
 }
 
 
-ConcurrentSkipList::ConcurrentSkipList()
+LinkedSkipList::LinkedSkipList()
 {
 	string key = "!";
 	string val = "!";

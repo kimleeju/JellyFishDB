@@ -1,6 +1,6 @@
 #include "CVSkipList.h"
 
-int CVSkipList::Put(string key, string value, Iterator iterator){
+int CVSkipList::Put(string key, string value, Iterator& iterator){
 	t_global_committed.get_and_inc();
     iterator.Put(key,value, iterator);
 	return 0;
@@ -134,21 +134,26 @@ int CVSkipList::KeyIsAfterNode(const string& key, Node* n){
 
 
 
-
-
-Node* CVSkipList::AllocateNode(const string& key,const string& value, int height){
-   Node* x = new Node(key,value,height);
+Node* CVSkipList::AllocateNode(Iterator& iterator,const string& key,const string& value, int height){
+	Node* x = new Node(iterator.arena,key,value,height);
 	x->done = false;
 	pthread_cond_init(&x->cond,NULL);	
-   return x;
+	return x;
+}
+
+Node* CVSkipList::AllocateNode(const string& key,const string& value, int height){
+ 	Node* x = new Node(key,value,height);
+	x->done = false;
+	pthread_cond_init(&x->cond,NULL);	
+	return x;
 }
  
 
 
-bool CVSkipList::Insert(string key, string value, Iterator iterator)
+bool CVSkipList::Insert(string key, string value, Iterator& iterator)
 {
 	int height = RandomHeight();
-	Node* nnode = AllocateNode(key, value, height);
+	Node* nnode = AllocateNode(iterator,key, value, height);
 	pthread_mutex_lock(&req_q.lock);
 	req_q.push_back(nnode);
 
