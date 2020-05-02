@@ -26,6 +26,7 @@ public:
 	int FindSpliceForLevel(const string& key, int level, Node_Linked** sp_prev, Node_Linked** sp_next, Node_Linked* before);
 	int RecomputeSpliceLevels(const string& key, int to_level, Splice* splice);
 	int KeyIsAfterNode(const string& key, Node_Linked* n);
+	VNode_Linked* AllocateVNode(Iterator_Linked& iterator, const string& value);
 	Node_Linked* AllocateNode(Iterator_Linked& iterator,const string& key, const string& value, int height); 
 	Node_Linked* AllocateNode(const string& key, const string& value, int height); 
 	bool Insert(string key, string value , Iterator_Linked &iterator);

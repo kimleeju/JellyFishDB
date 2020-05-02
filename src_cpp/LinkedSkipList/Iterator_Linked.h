@@ -23,7 +23,7 @@ public:
         }
         void Next(){
             if(Valid() != 0)
-            node_ = node_->Next(0);
+            node_ = node_->Next();
         }
         void Seek(string key){
             node_ = sl_ ->FindGreaterorEqual(key);
@@ -36,10 +36,10 @@ public:
         struct Node_Linked* node_;
 
     public:
-		Arena arena;
-		int seq;
-		SkipList_Linked::Splice* splice;
-		bool test;
+	Arena arena;
+	int seq;
+	SkipList_Linked::Splice* splice;
+	bool test;
 
 public:
         Iterator_Linked(){

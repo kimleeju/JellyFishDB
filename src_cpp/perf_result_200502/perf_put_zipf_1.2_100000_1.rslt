@@ -1,0 +1,95 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.073995 IOPS = 27.028853
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.423715 IOPS = 236010.053928
+x[0] = 0x92bdc0
+x[1] = 0x92ce40
+x[2] = 0x92ceb0
+x[3] = 0x92cf20
+x[4] = 0x92cf90
+x[5] = 0x92d000
+x[6] = 0x92d070
+x[7] = 0x92d0e0
+x[8] = 0x92d150
+x[9] = 0x92d1c0
+x[10] = 0x92d230
+x[11] = 0x92d2a0
+-----------
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.061844 IOPS = 32.339435
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.352979 IOPS = 283305.805728
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 1 tot_ops = 2 exec_time(s) = 0.055345 IOPS = 36.136959
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.293922 IOPS = 340229.720810
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 0.073245 IOPS = 27.305618
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.23032 IOPS = 434182.875999
+x[0] = 0x21dfdc0
+x[1] = 0x21e0e40
+x[2] = 0x21e0eb0
+x[3] = 0x21e0f20
+x[4] = 0x21e0f90
+x[5] = 0x21e1000
+x[6] = 0x21e1070
+x[7] = 0x21e10e0
+x[8] = 0x21e1150
+x[9] = 0x21e11c0
+x[10] = 0x21e1230
+x[11] = 0x21e12a0
+-----------
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 0.075563 IOPS = 26.467980
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.213713 IOPS = 467921.932685
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 2 tot_ops = 2 exec_time(s) = 0.075903 IOPS = 26.349420
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.223995 IOPS = 446443.000960
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.075838 IOPS = 26.372003
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.19674 IOPS = 508290.129104
+x[0] = 0x1d7edc0
+x[1] = 0x1d7fe40
+x[2] = 0x1d7feb0
+x[3] = 0x1d7ff20
+x[4] = 0x1d7ff90
+x[5] = 0x1d80000
+x[6] = 0x1d80070
+x[7] = 0x1d800e0
+x[8] = 0x1d80150
+x[9] = 0x1d801c0
+x[10] = 0x1d80230
+x[11] = 0x1d802a0
+-----------
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.074553 IOPS = 26.826553
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.188337 IOPS = 530968.423624
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 4 tot_ops = 2 exec_time(s) = 0.074492 IOPS = 26.848521
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.199605 IOPS = 500994.464067
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.075048 IOPS = 26.649611
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.182915 IOPS = 546707.487084
+x[0] = 0xb97dc0
+x[1] = 0xb98e40
+x[2] = 0xb98eb0
+x[3] = 0xb98f20
+x[4] = 0xb98f90
+x[5] = 0xb99000
+x[6] = 0xb99070
+x[7] = 0xb990e0
+x[8] = 0xb99150
+x[9] = 0xb991c0
+x[10] = 0xb99230
+x[11] = 0xb992a0
+-----------
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.068708 IOPS = 29.108692
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.171199 IOPS = 584121.402578
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.074155 IOPS = 26.970535
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.176423 IOPS = 566825.187192
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.074865 IOPS = 26.714753
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.163922 IOPS = 610052.341968
+x[0] = 0x20a1dc0
+x[1] = 0x20a2e40
+x[2] = 0x20a2eb0
+x[3] = 0x20a2f20
+x[4] = 0x20a2f90
+x[5] = 0x20a3000
+x[6] = 0x20a3070
+x[7] = 0x20a30e0
+x[8] = 0x20a3150
+x[9] = 0x20a31c0
+x[10] = 0x20a3230
+x[11] = 0x20a32a0
+-----------
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.075824 IOPS = 26.376873
+LinkedSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.16717 IOPS = 598199.437698
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.076631 IOPS = 26.099098
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/zipf_1.2_put_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.170447 IOPS = 586698.504520

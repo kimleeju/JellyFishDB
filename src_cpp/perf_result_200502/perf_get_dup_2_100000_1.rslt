@@ -1,0 +1,85 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.431118 IOPS = 231957.375939
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.328529 IOPS = 304390.175601
+x[0] = 0x1453dc0
+x[1] = 0x1454e40
+x[2] = 0x1454eb0
+x[3] = 0x1454f20
+x[4] = 0x1454f90
+x[5] = 0x1455000
+x[6] = 0x1455070
+x[7] = 0x14550e0
+x[8] = 0x1455150
+x[9] = 0x14551c0
+x[10] = 0x1455230
+x[11] = 0x14552a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.410217 IOPS = 243775.855218
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.281784 IOPS = 354885.302217
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.250622 IOPS = 399011.259985
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.184001 IOPS = 543480.741952
+x[0] = 0xd5ddc0
+x[1] = 0xd5ee40
+x[2] = 0xd5eeb0
+x[3] = 0xd5ef20
+x[4] = 0xd5ef90
+x[5] = 0xd5f000
+x[6] = 0xd5f070
+x[7] = 0xd5f0e0
+x[8] = 0xd5f150
+x[9] = 0xd5f1c0
+x[10] = 0xd5f230
+x[11] = 0xd5f2a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.229367 IOPS = 435986.868207
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.192861 IOPS = 518513.333437
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.196541 IOPS = 508804.778647
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.152734 IOPS = 654739.612660
+x[0] = 0x204ddc0
+x[1] = 0x204ee40
+x[2] = 0x204eeb0
+x[3] = 0x204ef20
+x[4] = 0x204ef90
+x[5] = 0x204f000
+x[6] = 0x204f070
+x[7] = 0x204f0e0
+x[8] = 0x204f150
+x[9] = 0x204f1c0
+x[10] = 0x204f230
+x[11] = 0x204f2a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.196223 IOPS = 509629.350280
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.128617 IOPS = 777509.971466
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.179143 IOPS = 558218.853095
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.117782 IOPS = 849034.657248
+x[0] = 0x12c8dc0
+x[1] = 0x12c9e40
+x[2] = 0x12c9eb0
+x[3] = 0x12c9f20
+x[4] = 0x12c9f90
+x[5] = 0x12ca000
+x[6] = 0x12ca070
+x[7] = 0x12ca0e0
+x[8] = 0x12ca150
+x[9] = 0x12ca1c0
+x[10] = 0x12ca230
+x[11] = 0x12ca2a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.168053 IOPS = 595056.321518
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.113865 IOPS = 878241.777544
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.169693 IOPS = 589305.392680
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.096898 IOPS = 1032023.364775
+x[0] = 0x902dc0
+x[1] = 0x903e40
+x[2] = 0x903eb0
+x[3] = 0x903f20
+x[4] = 0x903f90
+x[5] = 0x904000
+x[6] = 0x904070
+x[7] = 0x9040e0
+x[8] = 0x904150
+x[9] = 0x9041c0
+x[10] = 0x904230
+x[11] = 0x9042a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.171187 IOPS = 584162.348776
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/dup_2_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.105359 IOPS = 949145.303201

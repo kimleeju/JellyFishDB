@@ -35,34 +35,41 @@ typedef struct VNode_Linked{
 typedef struct Node_Linked{
 public:
 
-	Node_Linked* Next(int n) {
-		//return (&prefix[0]-sizeof(Node_Linked*)*(n))->load(std::memory_order_acquire);
-		return (&prefix[n])->load(std::memory_order_acquire);
+	Node_Linked* Next() {
+		return (&prefix)->load(std::memory_order_acquire);
 	}
 
-	void SetNext(int n, Node_Linked* x) {
-		(&prefix[n])->store(x, std::memory_order_release);	
+	void SetNext(Node_Linked* x) {
+		(&prefix)->store(x, std::memory_order_release);	
 	}
 
-	bool CASNext(int n, Node_Linked* expected, Node_Linked* x) {
-		return (&prefix[n])->compare_exchange_strong(expected, x);	
+	bool CASNext( Node_Linked* expected, Node_Linked* x) {
+		return (&prefix)->compare_exchange_strong(expected, x);	
 	}
 
 
-	Node_Linked* NoBarrier_Next(int n) {
-		return (&prefix[n])->load(std::memory_order_relaxed);
+	Node_Linked* NoBarrier_Next() {
+		return (&prefix)->load(std::memory_order_relaxed);
 	}
 				
-	void NoBarrier_SetNext(int n, Node_Linked* x) {
-		(&prefix[n])->store(x,std::memory_order_relaxed);	
+	Node_Linked* Get_Down(){
+		return (&Down)->load(std::memory_order_acquire);
 	}
 
-	void InsertAfter(Node_Linked* prev, int level) {
-		NoBarrier_SetNext(level, prev->NoBarrier_Next(level));
-		prev->SetNext(level, this);
+	void SetDown(Node_Linked* x) {
+		(&Down)->store(x,std::memory_order_relaxed);	
+	}
+	
+	void NoBarrier_SetNext(Node_Linked* x) {
+		(&prefix)->store(x,std::memory_order_relaxed);	
 	}
 
-	void Set_key(string key){
+	void InsertAfter(Node_Linked* prev) {
+		NoBarrier_SetNext(prev->NoBarrier_Next());
+		prev->SetNext(this);
+	}
+
+	void Set_key(const string& key){
 		str_key = key;
 	}
 
@@ -125,9 +132,9 @@ public:
 //#endif
 
 private:
-	std::atomic<Node_Linked*>* prefix; 
+	std::atomic<Node_Linked*> prefix; 
+	std::atomic<Node_Linked*> Down;
 //	char* arena_pointer;			
-	std::atomic<char>* arena_pointer;
 	//char* arena_pointer;
 	string str_key;
 	string str_value;
@@ -147,27 +154,21 @@ public:
 #if 1
 	// Constructor 
 	Node_Linked(const string& key_, const string& value_,int height_) 
-		: str_key(key_), str_value(value_), height(height_)
-	{
-		prefix = new std::atomic<Node_Linked*> [height];
-
-		for(int i=0; i < height; i++)
-			(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
+		: str_key(key_),  height(height_)
+	{	
+		if(value_ != "NULL")
+			str_value = value_;
+		(&prefix)->store(nullptr,std::memory_order_relaxed);	
 		Set_vqueue(nullptr);
 	}
 #endif
 	Node_Linked(Arena& arena_, const string& key_, const string& value_,int height_) 
-
-		: str_key(key_), str_value(value_), height(height_)
+		: str_key(key_),str_value(value_), height(height_)
 	{
-	
 #if 1
-		arena_pointer=arena_.AllocateAligned(sizeof(std::atomic<Node_Linked*>)*height + sizeof(Node_Linked));
-		prefix = reinterpret_cast<std::atomic<Node_Linked*>*>(arena_pointer);
-		for(int i=0; i < height; i++){
-			(&prefix[i])->store(nullptr,std::memory_order_relaxed);	
-		}
-	
+		//std::atomic<char>* arena_pointer = arena_.AllocateAligned(sizeof(Node_Linked));	
+		//prefix = reinterpret_cast<std::atomic<Node_Linked*>>(arena_pointer);
+		(&prefix)->store(nullptr,std::memory_order_relaxed);	
 #endif			
 		Set_vqueue(nullptr);
 	}

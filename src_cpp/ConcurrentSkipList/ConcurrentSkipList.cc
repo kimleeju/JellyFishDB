@@ -14,9 +14,9 @@ int ConcurrentSkipList::Put(string key, string value, Iterator& iterator){
 
 string ConcurrentSkipList::Get(string key, Iterator iterator){
 #ifdef OP_EXEC
-    t_global_committed.get_and_inc();
-    iterator.Seek(key);
-    return iterator.Node()->Get_value();
+	t_global_committed.get_and_inc();
+	iterator.Seek(key);
+	return iterator.Node()->Get_value();
 
 #else
 	string get_value("deadbeaf");
@@ -52,33 +52,30 @@ void ConcurrentSkipList::RangeQuery(string start_key, int count, Iterator iterat
 
 
 Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
-    Node* x = head_;
-    int level = max_height_ -1;
-    Node *last_bigger = nullptr;
+	Node* x = head_;
+	int level = max_height_ -1;
+	Node *last_bigger = nullptr;
 	// EUNJI_TEST
 	//int test; 
 
-    while(true){
-        Node* next = x->Next(level);
+	Node* next;
+	while(true){
+		next = x->Next(level);
 		GET_REFERENCE(level);
 		COUNT(cnt);
-        int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
-     
-#if 0  
-		if(cmp ==0){
-			test = cmp;
-		}
-#endif
-		if(cmp <= 0 &&level ==0){
-            GET_LEVEL(level);
-			return next;
+	int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
+	if(cmp <= 0 &&level ==0){	
+		GET_LEVEL(level);
+		if(next == nullptr)
+			cout<<"aaaaaa"<<endl;
+		return next;
         }
-        else if (cmp > 0){
-            x= next;
-        }
-        else{
-            last_bigger = next;
-            level --;
+	else if (cmp > 0){
+		x= next;
+	}
+	else{
+		last_bigger = next;
+		level --;
         }
     }
 }
@@ -135,7 +132,7 @@ int ConcurrentSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 {
 	//head
 	int i = max_height_-1;
-	int cmp; 
+	int cmp = 1; 
 	Node* start = head_;
 
 	while(1){

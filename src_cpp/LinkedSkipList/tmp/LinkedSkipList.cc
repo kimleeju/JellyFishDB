@@ -14,6 +14,7 @@ string LinkedSkipList::Get(string key, Iterator_Linked iterator){
 	t_global_committed.get_and_inc();
 	iterator.Seek(key);
 	return iterator.Node_Linked()->Get_value();
+
 #else
 	string get_value("deadbeaf");
 	return get_value;
@@ -51,9 +52,17 @@ Node_Linked* LinkedSkipList::FindGreaterorEqual(const string& key){
 	Node_Linked* x = head_;
 	int level = max_height_ -1;
 	Node_Linked *last_bigger = nullptr;
-	Node_Linked* next;
+	for ( int j = MAX_LEVEL-1 ;j > level; j--)
+	{	
+		x = x-> Get_Down();
+	}
+
+	// EUNJI_TEST
+	//int test; 
+
 	while(true){
-		next = x->Next();
+		Node_Linked* next = x->Next();
+		GET_REFERENCE(level);
 		COUNT(cnt);
 		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
      
@@ -64,8 +73,6 @@ Node_Linked* LinkedSkipList::FindGreaterorEqual(const string& key){
 #endif
 		if(cmp <= 0 &&level ==0){
 			GET_LEVEL(level);
-			if(next == nullptr)
-				cout<<"aaaaaa"<<endl;
 			return next;
         	}
 	
@@ -105,7 +112,8 @@ int LinkedSkipList::FindSpliceForLevel(const string& key, int level,
 {
 	
 	assert(before != nullptr);
-	int cmp = 1;
+	int cmp;
+	
 	Node_Linked* after = before->Next();
 	COUNT(pointer_cnt);
 	while(true){
@@ -114,13 +122,10 @@ int LinkedSkipList::FindSpliceForLevel(const string& key, int level,
 			//cout<<"aaaaaaaa-------->";
 		if(after) 
 			cmp = KeyIsAfterNode(key, after);	
-		if(!after || cmp <= 0) {
-			//while(before->Get_height() > level)
-			//	before = before->Get_Down();
-			//after = before->Next();
-			COUNT(pointer_cnt);
-			COUNT(pointer_cnt);
 
+		if(!after || cmp <= 0) {
+			COUNT(pointer_cnt);
+			COUNT(pointer_cnt);
 			*sp_prev = before;
 			*sp_next = after;
 			return cmp;
@@ -138,13 +143,11 @@ int LinkedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splic
 	int i = max_height_-1;
 	int cmp; 
 	Node_Linked* start = head_;
-	int j = MAX_LEVEL-1;
-	while(j > i){
-		start = start->Get_Down();
-		j--;
+	for ( int j = MAX_LEVEL-1 ;j > i; j--)
+	{	
+		start = start-> Get_Down();
 	}
 	while(1){
-		
 		cmp = FindSpliceForLevel(key, i, &splice->prev_[i], &splice->next_[i], start);
 		// continue searching 
 		if(i <= to_level)
@@ -158,64 +161,36 @@ int LinkedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splic
 		start = splice->prev_[i+1]->Get_Down();
 	}
 	PUT_LEVEL(0);
-
 	return -1;
 
 }
-#if 1
 
 
-VNode_Linked* LinkedSkipList::AllocateVNode(Iterator_Linked& iterator, const string& value){
-	std::atomic<char>* arena_pointer=iterator.arena.AllocateAligned(sizeof(VNode_Linked));
-	VNode_Linked* x = reinterpret_cast<VNode_Linked*>(arena_pointer);
-	x->value = value;
-	x->NoBarrier_SetNext(nullptr);
-	return x;
-}
-#endif
-#if 0
-VNode_Linked* LinkedSkipList::AllocateVNode(Iterator_Linked& iterator, const string& value){
-	VNode_Linked * x = new VNode_Linked();
-	x->value = value;
-	x->NoBarrier_SetNext(nullptr);
-	return x;
-}
-#endif
 
-#if 0
 Node_Linked* LinkedSkipList::AllocateNode(Iterator_Linked& iterator, const string& key, const string& value, int height){
-	Node_Linked* x = new Node_Linked(iterator.arena,key,value,height);
-	return x;
-}
-#endif
-#if 1
-Node_Linked* LinkedSkipList::AllocateNode(Iterator_Linked& iterator, const string& key, const string& value, int height){
-	//Node_Linked* x = new Node_Linked(iterator.arena,key,value,height);
-	std::atomic<char>* arena_pointer = iterator.arena.AllocateAligned(sizeof(Node_Linked));
-	Node_Linked* x = reinterpret_cast<Node_Linked*>(arena_pointer);	
+	
+	std::atomic<char>* arena_pointer=iterator.arena.AllocateAligned(sizeof(Node_Linked));
+	Node_Linked* x = reinterpret_cast<Node_Linked*>(arena_pointer+ sizeof(Node_Linked));
 	x->Set_key(key);
-	x->Set_height(height);
 	x->Set_value(value);
+	x->Set_height(height);	
 	x->SetNext(nullptr);	
-	return x;	
+	return x;
 }
-#endif
+
+
+
 Node_Linked* LinkedSkipList::AllocateNode(const string& key, const string& value, int height){
 	Node_Linked* x[height];
 	for(int i = 0; i<height; i++)
 	{
-		if ( i ==0 ){
-			x[i] = new Node_Linked(key, value, i);
+		x[i] = new Node_Linked(key, value, height);
+		if ( i ==0 )
 			x[i]->SetDown(nullptr);
-		}
-		else{
-			x[i] = new Node_Linked(key, "NULL", i);
+		else
 			x[i]->SetDown(x[i-1]);
-		}
-		cout<<"x["<<i<<"] = "<<x[i]<<endl;
-	}
-	cout<<"-----------"<<endl;
 	
+	}
 	return x[height-1];
 }
 
@@ -240,43 +215,14 @@ bool LinkedSkipList::Insert(string key, string value, Iterator_Linked& iterator)
 	}
 		
 	int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
-	
 	// Allocate a new node 
 	if(rv >= 0){
 	
 		Node_Linked* fnode = iterator.splice->next_[0];
-		VNode_Linked* nvnode = AllocateVNode(iterator,value);
-		#if 0
-		if(fnode->Get_key() != key){
-		cout<<"fnode->Get_key() = "<<fnode->Get_key()<<endl;
-		cout<<"key = "<<key<<endl;
-		cout<<"rm = "<<rv<<endl;	
-		}
-		#endif
-		assert(fnode->Get_key() ==key);
-		while(1){
-			VNode_Linked* vq = fnode->Get_vqueue();
-			
-			if(vq == nullptr){
-				if(fnode->CAS_vqueue(vq,nvnode)){
-					return true;
-				}
-				continue;
-			}
-			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
-			if(fnode->CAS_vqueue(vq,nvnode)){
-				return true;
-			}
-		}
-			
-	}
+		VNode* nvnode = AllocateVNode(value);
 	
-	for (int i =0; i<height; i++){
-		Node_Linked* nnode;
-		if( i == 0)	
-			nnode = AllocateNode(iterator, key, value, i);
-		else
-			nnode = AllocateNode(iterator, key, "NULL", i);
+	for (int i =0; i<height; i++){	
+		Node_Linked* nnode = AllocateNode(iterator, key, value, i);
 		while(true){
 			nnode->NoBarrier_SetNext(iterator.splice->next_[i]);	
 			COUNT(pointer_cnt);
@@ -292,14 +238,12 @@ bool LinkedSkipList::Insert(string key, string value, Iterator_Linked& iterator)
 			// failure
 			COUNT(CAS_failure_cnt);
 			rv = RecomputeSpliceLevels(key, i, iterator.splice);
-		}	
+			assert(rv < 0);
+		}
 	}
-
-		
+	
 	#if 0
 	Node_Linked* temp =head_;
-	for ( int i =0 ;i <11 ; i++)
-		temp = temp->Get_Down();
 	cout<<endl;
 	while (temp != NULL)
 	{

@@ -15,7 +15,7 @@
 #include "Node.h"
 #include "LinkedSkipList/Node_Linked.h"
 #include "Util.h"
-
+#include "BloomFilter.h"
 using namespace std;
 #define MAX_LEVEL 12
 
@@ -71,7 +71,7 @@ public:
 			Node** prev_;
         		Node** next_;
    	 };
-    
+	BloomFilter bloom;    
 	Node* head_;
 	atomic<int> cnt;
 	atomic<int> pointer_cnt;

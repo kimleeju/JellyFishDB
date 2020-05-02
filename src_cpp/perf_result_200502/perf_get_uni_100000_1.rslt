@@ -1,0 +1,85 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.412094 IOPS = 242665.508355
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.333277 IOPS = 300053.709077
+x[0] = 0x18d0dc0
+x[1] = 0x18d1e40
+x[2] = 0x18d1eb0
+x[3] = 0x18d1f20
+x[4] = 0x18d1f90
+x[5] = 0x18d2000
+x[6] = 0x18d2070
+x[7] = 0x18d20e0
+x[8] = 0x18d2150
+x[9] = 0x18d21c0
+x[10] = 0x18d2230
+x[11] = 0x18d22a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 1 tot_ops = 100001 exec_time(s) = 0.416504 IOPS = 240096.133531
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 1 tot_ops = 100001 exec_time(s) = 0.314507 IOPS = 317961.126461
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.241426 IOPS = 414209.737145
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.211538 IOPS = 472733.031418
+x[0] = 0x19a0dc0
+x[1] = 0x19a1e40
+x[2] = 0x19a1eb0
+x[3] = 0x19a1f20
+x[4] = 0x19a1f90
+x[5] = 0x19a2000
+x[6] = 0x19a2070
+x[7] = 0x19a20e0
+x[8] = 0x19a2150
+x[9] = 0x19a21c0
+x[10] = 0x19a2230
+x[11] = 0x19a22a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 2 tot_ops = 100001 exec_time(s) = 0.304057 IOPS = 328888.991209
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 2 tot_ops = 100001 exec_time(s) = 0.208022 IOPS = 480723.192739
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.155393 IOPS = 643536.066618
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.156437 IOPS = 639241.355945
+x[0] = 0x1872dc0
+x[1] = 0x1873e40
+x[2] = 0x1873eb0
+x[3] = 0x1873f20
+x[4] = 0x1873f90
+x[5] = 0x1874000
+x[6] = 0x1874070
+x[7] = 0x18740e0
+x[8] = 0x1874150
+x[9] = 0x18741c0
+x[10] = 0x1874230
+x[11] = 0x18742a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 4 tot_ops = 100001 exec_time(s) = 0.181143 IOPS = 552055.558316
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 4 tot_ops = 100001 exec_time(s) = 0.139998 IOPS = 714303.061472
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.178145 IOPS = 561346.094474
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.115403 IOPS = 866537.265062
+x[0] = 0x1fbcdc0
+x[1] = 0x1fbde40
+x[2] = 0x1fbdeb0
+x[3] = 0x1fbdf20
+x[4] = 0x1fbdf90
+x[5] = 0x1fbe000
+x[6] = 0x1fbe070
+x[7] = 0x1fbe0e0
+x[8] = 0x1fbe150
+x[9] = 0x1fbe1c0
+x[10] = 0x1fbe230
+x[11] = 0x1fbe2a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 8 tot_ops = 100001 exec_time(s) = 0.168731 IOPS = 592665.248235
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 8 tot_ops = 100001 exec_time(s) = 0.112932 IOPS = 885497.467503
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.171833 IOPS = 581966.211380
+ConcurrentSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.098851 IOPS = 1011633.670878
+x[0] = 0x1eb4dc0
+x[1] = 0x1eb5e40
+x[2] = 0x1eb5eb0
+x[3] = 0x1eb5f20
+x[4] = 0x1eb5f90
+x[5] = 0x1eb6000
+x[6] = 0x1eb6070
+x[7] = 0x1eb60e0
+x[8] = 0x1eb6150
+x[9] = 0x1eb61c0
+x[10] = 0x1eb6230
+x[11] = 0x1eb62a0
+-----------
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_load.trc th = 16 tot_ops = 100001 exec_time(s) = 0.172463 IOPS = 579840.313575
+JellyFishSkipList workload = ../trc/micro_trc/backup100000trc/uni_get_run.trc th = 16 tot_ops = 100001 exec_time(s) = 0.095219 IOPS = 1050221.069324
