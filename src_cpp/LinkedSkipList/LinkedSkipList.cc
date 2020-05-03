@@ -13,7 +13,10 @@ string LinkedSkipList::Get(string key, Iterator_Linked iterator){
 #ifdef OP_EXEC
 	t_global_committed.get_and_inc();
 	iterator.Seek(key);
-	return iterator.Node_Linked() == NULL ? NULL : iterator.Node_Linked()->Get_value();
+	if(iterator.Node_Linked()->Get_vqueue() != nullptr)
+		return iterator.Node_Linked() -> Get_vqueue() -> value;
+	else
+		return iterator.Node_Linked() -> Get_value();
 #else
 	string get_value("deadbeaf");
 	return get_value;
@@ -50,28 +53,25 @@ void LinkedSkipList::RangeQuery(string start_key, int count, Iterator_Linked ite
 Node_Linked* LinkedSkipList::FindGreaterorEqual(const string& key){
 	Node_Linked* x = head_;
 	int level = max_height_ -1;
+	int j = MAX_LEVEL -1;
+	while(j > level){
+		x = x->Get_Down();
+		j--;
+	}	
+
 	Node_Linked *last_bigger = nullptr;
 	Node_Linked* next;
 	while(true){
 		next = x->Next();
-		COUNT(cnt);
 		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
      
-#if 0  
-		if(cmp ==0){
-			test = cmp;
-		}
-#endif
 		if(cmp <= 0 &&level ==0){
-			GET_LEVEL(level);
 			return next;
         	}
 	
         	else if (cmp > 0){
 			x= next;	
 		}
-
-
 		else{
 			last_bigger = next;
 			level --;
@@ -160,7 +160,7 @@ int LinkedSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splic
 	return -1;
 
 }
-#if 1
+#if 0
 
 
 VNode_Linked* LinkedSkipList::AllocateVNode(Iterator_Linked& iterator, const string& value){
@@ -171,10 +171,9 @@ VNode_Linked* LinkedSkipList::AllocateVNode(Iterator_Linked& iterator, const str
 	return x;
 }
 #endif
-#if 0
+#if 1
 VNode_Linked* LinkedSkipList::AllocateVNode(Iterator_Linked& iterator, const string& value){
-	VNode_Linked * x = new VNode_Linked();
-	x->value = value;
+	VNode_Linked * x = new VNode_Linked(value);
 	x->NoBarrier_SetNext(nullptr);
 	return x;
 }

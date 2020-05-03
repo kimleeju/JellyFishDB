@@ -23,6 +23,7 @@ typedef struct VNode_Linked{
 	bool CASNext(VNode_Linked* expected, VNode_Linked* x) {
 		return (&next)->compare_exchange_strong(expected, x);
 	}
+	VNode_Linked(const string & value_):value(value_){}	
 
 	string value; 
 	string timestamp; 

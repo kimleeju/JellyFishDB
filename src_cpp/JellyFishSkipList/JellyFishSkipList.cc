@@ -117,7 +117,7 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
 		if(after) 
 			cmp = KeyIsAfterNode(key, after);	
 		if(cmp == 0){
-			*sp_prev = after;
+			*sp_next = after;
 			return cmp;
 		}
 		if(!after || cmp < 0) {
@@ -149,7 +149,7 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 			int cmp = (next == nullptr || next == last_bigger) ? -1 :KeyIsAfterNode(key,next);
 			
 			if(cmp == 0){
-				splice->prev_[0] = next;
+				splice->next_[0] = next;
 				return 0;
 			}
 			else if(cmp < 0 && level == 0){
@@ -191,9 +191,13 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 }
 
 
+VNode* JellyFishSkipList::AllocateVNode(Iterator& iterator, const string& value){
+	VNode * x = new VNode(value);
+	x->NoBarrier_SetNext(nullptr);
+	return x; 
+}
 
-
-
+#if 0
 VNode* JellyFishSkipList::AllocateVNode(Iterator& iterator, const string& value){
   	std::atomic<char>* arena_pointer = iterator.arena.AllocateAligned(sizeof(VNode));
 	VNode* x = reinterpret_cast<VNode*>(arena_pointer); 
@@ -201,7 +205,7 @@ VNode* JellyFishSkipList::AllocateVNode(Iterator& iterator, const string& value)
 	x->NoBarrier_SetNext(nullptr);
 	return x; 
 }
-
+#endif
 Node* JellyFishSkipList::AllocateNode(Iterator& iterator,const string& key, const string& value, int height){
 	Node* x = new Node(iterator.arena,key, value, height);
 	return x;
@@ -233,7 +237,7 @@ bool JellyFishSkipList::Insert(string key, string value, Iterator& iterator)
 	// Insert a new node into the value chain 
 	if(fl >= 0){ 
 found:
-		Node* fnode = iterator.splice->prev_[fl];
+		Node* fnode = iterator.splice->next_[fl];
 		VNode* nvnode = AllocateVNode(iterator,value);
 
 		assert(fnode->Get_key() == key);
@@ -243,30 +247,23 @@ found:
 		
 			if(vq == nullptr) { // empty, and it's the first node 
 				if(fnode->CAS_vqueue(vq, nvnode)){
-					COUNT(CAS_cnt);
 					return true;
 				}
-				COUNT(CAS_failure_cnt);
 				continue;
 			}
 				// not first node
-			DEBUG("Insert into vqueue: key = " + key);
-			DEBUG(" vq = " << vq );
 			nvnode->NoBarrier_SetNext(vq->NoBarrier_Next());
-			COUNT(pointer_cnt);
 			if(fnode->CAS_vqueue(vq, nvnode)){
-				COUNT(CAS_cnt);
 				return true;
 			}
-			COUNT(CAS_failure_cnt);
 		}
 	}
 	else if(fl == -2)
 		height = 1;
 #endif
 	// Insert a new node into the skip list 
-	Node* nnode = AllocateNode(iterator,key, value, height);
-		
+	//Node* nnode = AllocateNode(iterator,key, value, height);
+	Node* nnode =AllocateNode(key,value,height);		
 	for(int i = 0; i < height; ++i){
 		while(true){
 			nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);
@@ -302,7 +299,6 @@ found:
 		temp=temp->Next(0);
 	}
 #endif		
-	SET_LEVEL(height-1);
 	return true; 
 }
 

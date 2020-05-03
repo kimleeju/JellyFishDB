@@ -61,23 +61,19 @@ Node* ConcurrentSkipList::FindGreaterorEqual(const string& key){
 	Node* next;
 	while(true){
 		next = x->Next(level);
-		GET_REFERENCE(level);
-		COUNT(cnt);
-	int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
-	if(cmp <= 0 &&level ==0){	
-		GET_LEVEL(level);
-		if(next == nullptr)
-			cout<<"aaaaaa"<<endl;
-		return next;
-        }
-	else if (cmp > 0){
-		x= next;
-	}
-	else{
-		last_bigger = next;
-		level --;
-        }
-    }
+		int cmp = (next == nullptr || next == last_bigger) ? -1 : KeyIsAfterNode(key,next);
+		
+		if(cmp <= 0 &&level ==0){	
+			return next;
+        	}
+		else if (cmp > 0){
+			x= next;
+		}
+		else{
+			last_bigger = next;
+			level --;
+	        }
+    	}
 }
  
 
@@ -185,8 +181,8 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator& iterator)
 	}	
 	// Allocate a new node 
 	
-//	Node* nnode = AllocateNode(key, value, height);
-	Node* nnode = AllocateNode(iterator, key, value, height);
+	Node* nnode = AllocateNode(key, value, height);
+//	Node* nnode = AllocateNode(iterator, key, value, height);
 //	cout<<"i = "<<++i<<endl;
 	int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	assert(rv < 0);
