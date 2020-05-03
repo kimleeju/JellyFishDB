@@ -190,14 +190,14 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 	return -1;
 }
 
-
+#if 0
 VNode* JellyFishSkipList::AllocateVNode(Iterator& iterator, const string& value){
 	VNode * x = new VNode(value);
 	x->NoBarrier_SetNext(nullptr);
 	return x; 
 }
-
-#if 0
+#endif
+#if 1
 VNode* JellyFishSkipList::AllocateVNode(Iterator& iterator, const string& value){
   	std::atomic<char>* arena_pointer = iterator.arena.AllocateAligned(sizeof(VNode));
 	VNode* x = reinterpret_cast<VNode*>(arena_pointer); 
@@ -262,8 +262,8 @@ found:
 		height = 1;
 #endif
 	// Insert a new node into the skip list 
-	//Node* nnode = AllocateNode(iterator,key, value, height);
-	Node* nnode =AllocateNode(key,value,height);		
+	Node* nnode = AllocateNode(iterator,key, value, height);
+	//Node* nnode =AllocateNode(key,value,height);		
 	for(int i = 0; i < height; ++i){
 		while(true){
 			nnode -> NoBarrier_SetNext(i, iterator.splice->next_[i]);

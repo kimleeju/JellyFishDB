@@ -30,13 +30,13 @@ OP="put"
 #OP="range_query"
 #OP=" put get"
 #OP="get" 
-RSLT_DIR="./perf_result_200503"
+RSLT_DIR="./perf_result_Bloom"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
 CONF="uni dup_2 zipf_1.2"
 #CONF="dup_2 zipf_1.2"
-CONF="zipf_1.2"
+#CONF="zipf_1.2"
 #CONF="uni"
 if [[ ! -f $RSLT_DIR ]]; then
 	mkdir $RSLT_DIR
@@ -68,14 +68,14 @@ for nu in {1..1}; do
 		#rfname="$RSLT_DIR/perf_"$suffix"_"$op".rslt"
 		echo "$op ....."
 		for cf in $CONF; do
-			rfname="$RSLT_DIR/perf_"$op"_"$cf"_"$num"_"$nu".rslt"
+			rfname="$RSLT_DIR/perf_"$op"_"$cf"_"$num".rslt"
 			if [[ -f $rfname ]];then
 				mv $rfname $rfname.bak
 			fi
 			touch $rfname
 			echo "$rfname ...."
 	
-			th=1
+			th=8
 			while [[ $th -le $THREADS ]]; do
 				for sk in $SKIPLISTS; do
 					iter=5

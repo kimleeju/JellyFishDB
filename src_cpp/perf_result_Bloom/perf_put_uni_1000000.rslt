@@ -1,0 +1,12 @@
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.076308 IOPS = 26.209572
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 1.30152 IOPS = 768334.360339
+LinkedSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.066641 IOPS = 30.011554
+LinkedSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 1.11971 IOPS = 893089.282046
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_load.trc th = 8 tot_ops = 2 exec_time(s) = 0.07363 IOPS = 27.162841
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_run.trc th = 8 tot_ops = 1000001 exec_time(s) = 1.21741 IOPS = 821416.103518
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.077121 IOPS = 25.933274
+ConcurrentSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 1.16721 IOPS = 856748.386102
+LinkedSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.084528 IOPS = 23.660799
+LinkedSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.972492 IOPS = 1028287.122156
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_load.trc th = 16 tot_ops = 2 exec_time(s) = 0.08521 IOPS = 23.471424
+JellyFishSkipList workload = ../trc/micro_trc/backup1000000trc/uni_put_run.trc th = 16 tot_ops = 1000001 exec_time(s) = 0.996342 IOPS = 1003672.433763

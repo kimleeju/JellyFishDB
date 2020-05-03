@@ -4,7 +4,9 @@
 #include<string>
 #include<stdlib.h>
 //#define BLOOM_SIZE 1000000
-#define BLOOM_ENTRIES 10000000000
+#define BLOOM_ENTRIES 1024 * 1024 * 1024
+//#define BLOOM_ENTRIES 10000000000
+#define BLOOM_ENTRIES_BITS 30
 #define BITS_FOR_ENTRY 8
 using namespace std;
 
@@ -18,19 +20,24 @@ using namespace std;
 			void Insert(string& key){
 				long long idx, offset;
 				long long _key = stoll(key);	
-				_key=_key % BLOOM_ENTRIES; 
-				idx = _key / BITS_FOR_ENTRY;
-				offset = _key % BITS_FOR_ENTRY;
+				//_key=_key % BLOOM_ENTRIES; 
+				_key = _key & ((1 << 30) - 1);
+				//idx = _key / BITS_FOR_ENTRY;
+				idx = _key >> 3;
+				//offset = _key % BITS_FOR_ENTRY;
+				offset = _key & 7;
 				setBit(idx,offset);
 			}
 	
-			
 			bool getBit(const string& key){
 				long long idx, offset;
 				long long _key = stoll(key);
-				_key=_key % BLOOM_ENTRIES; 
-				idx = _key / BITS_FOR_ENTRY;
-				offset = _key % BITS_FOR_ENTRY;
+				//_key=_key % BLOOM_ENTRIES; 
+				_key = _key & ((1 << 30) - 1);
+				//idx = _key / BITS_FOR_ENTRY;
+				idx = _key >> 3;
+				//offset = _key % BITS_FOR_ENTRY;
+				offset = _key & 7;
 				return ((num[idx] & (1 <<offset)));
 			}
 

@@ -181,8 +181,8 @@ bool ConcurrentSkipList::Insert(string key, string value, Iterator& iterator)
 	}	
 	// Allocate a new node 
 	
-	Node* nnode = AllocateNode(key, value, height);
-//	Node* nnode = AllocateNode(iterator, key, value, height);
+//	Node* nnode = AllocateNode(key, value, height);
+	Node* nnode = AllocateNode(iterator, key, value, height);
 //	cout<<"i = "<<++i<<endl;
 	int rv = RecomputeSpliceLevels(key, 0, iterator.splice);
 	assert(rv < 0);

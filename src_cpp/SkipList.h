@@ -17,7 +17,7 @@
 #include "Util.h"
 #include "BloomFilter.h"
 
-//#define BLOOM
+#define BLOOM
 
 using namespace std;
 #define MAX_LEVEL 12

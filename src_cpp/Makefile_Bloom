@@ -1,6 +1,6 @@
 CC=g++
 
-CXXFLAGS=-std=c++11 -g -Wall -O0 
+CXXFLAGS=-std=c++11 -g -Wall -O0 -DBLOOM
 
 LDFLAGS=-pthread
 
@@ -19,15 +19,8 @@ OBJS = $(SRCS:.cc=.o)
 $(info $(OBJS))
 
 TARG=Run
-TARG-BLOOM=Run-Bloom
 
 all: $(TARG)
-
-bloom: $(TARG-BLOOM)
-
-$(TARG-BLOOM): Main.cc ./bin/libskiplist.a
-	#CXXFLAGS += ${CXXFLAGS} -DBLOOM
-	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ $^
 
 $(TARG): Main.cc ./bin/libskiplist.a
 	$(CC) $(LDFLAGS) $(CXXFLAGS) -o $@ $^
