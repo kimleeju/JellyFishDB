@@ -29,7 +29,10 @@ public:
             node_ = sl_ ->FindGreaterorEqual(key);
 	}
 	struct Node_Linked* Node_Linked(){
-            return node_;
+            	if(Valid() == 0)
+			return NULL;
+		else
+			return node_;
         }
     private:
         SkipList_Linked* sl_ = nullptr;

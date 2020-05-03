@@ -137,6 +137,7 @@ int JellyFishSkipList::FindSpliceForLevel(const string& key, int level,  Node** 
 
 int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, Splice* splice)
 {
+#ifdef BLOOM
 	if(bloom.getBit(key))
 	{
 		Node* x = head_;
@@ -165,7 +166,7 @@ int  JellyFishSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 			}
 		}
 	}
-	
+#endif
 	// head 
 	int i = max_height_-1;
 	int cmp; 
@@ -289,7 +290,9 @@ found:
 #endif
 		}
 	}
+#ifdef BLOOM
 	bloom.Insert(key);
+#endif
 #if 0
 	cout<<endl<<"---------------------"<<endl;
 	Node* temp = head_;

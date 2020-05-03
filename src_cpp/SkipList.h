@@ -16,6 +16,9 @@
 #include "LinkedSkipList/Node_Linked.h"
 #include "Util.h"
 #include "BloomFilter.h"
+
+#define BLOOM
+
 using namespace std;
 #define MAX_LEVEL 12
 

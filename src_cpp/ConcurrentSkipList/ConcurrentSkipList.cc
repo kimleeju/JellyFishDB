@@ -150,12 +150,13 @@ int ConcurrentSkipList::RecomputeSpliceLevels(const string& key, int to_level, S
 }
 
 
-
+#if 1
 Node* ConcurrentSkipList::AllocateNode(Iterator& iterator, const string& key, const string& value, int height){
 	Node* x = new Node(iterator.arena,key, value, height);
 	return x;
 }
 
+#endif
 
 
 Node* ConcurrentSkipList::AllocateNode(const string& key, const string& value, int height){

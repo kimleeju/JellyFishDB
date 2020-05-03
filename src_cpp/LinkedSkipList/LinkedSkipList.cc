@@ -13,7 +13,7 @@ string LinkedSkipList::Get(string key, Iterator_Linked iterator){
 #ifdef OP_EXEC
 	t_global_committed.get_and_inc();
 	iterator.Seek(key);
-	return iterator.Node_Linked()->Get_value();
+	return iterator.Node_Linked() == NULL ? NULL : iterator.Node_Linked()->Get_value();
 #else
 	string get_value("deadbeaf");
 	return get_value;
@@ -64,8 +64,6 @@ Node_Linked* LinkedSkipList::FindGreaterorEqual(const string& key){
 #endif
 		if(cmp <= 0 &&level ==0){
 			GET_LEVEL(level);
-			if(next == nullptr)
-				cout<<"aaaaaa"<<endl;
 			return next;
         	}
 	
@@ -182,13 +180,13 @@ VNode_Linked* LinkedSkipList::AllocateVNode(Iterator_Linked& iterator, const str
 }
 #endif
 
-#if 0
+#if 1
 Node_Linked* LinkedSkipList::AllocateNode(Iterator_Linked& iterator, const string& key, const string& value, int height){
 	Node_Linked* x = new Node_Linked(iterator.arena,key,value,height);
 	return x;
 }
 #endif
-#if 1
+#if 0
 Node_Linked* LinkedSkipList::AllocateNode(Iterator_Linked& iterator, const string& key, const string& value, int height){
 	//Node_Linked* x = new Node_Linked(iterator.arena,key,value,height);
 	std::atomic<char>* arena_pointer = iterator.arena.AllocateAligned(sizeof(Node_Linked));
@@ -212,9 +210,9 @@ Node_Linked* LinkedSkipList::AllocateNode(const string& key, const string& value
 			x[i] = new Node_Linked(key, "NULL", i);
 			x[i]->SetDown(x[i-1]);
 		}
-		cout<<"x["<<i<<"] = "<<x[i]<<endl;
+	//	cout<<"x["<<i<<"] = "<<x[i]<<endl;
 	}
-	cout<<"-----------"<<endl;
+	//cout<<"-----------"<<endl;
 	
 	return x[height-1];
 }
