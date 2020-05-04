@@ -11,8 +11,8 @@ SKIPLISTS="BlockedSpinSkipList BlockedCVSkipList ConcurrentSkipList JellyFishSki
 SKIPLISTS="BlockedSpinSkipList ConcurrentSkipList JellyFishSkipList"
 #SKIPLISTS="BlockedCVSkipList"
 SKIPLISTS="BlockedSpinSkipList"
+#SKIPLISTS="ConcurrentSkipList LinkedSkipList JellyFishSkipList"
 SKIPLISTS="ConcurrentSkipList LinkedSkipList JellyFishSkipList"
-#SKIPLISTS="ConcurrentSkipList JellyFishSkipList"
 #SKIPLISTS="LinkedSkipList"
 #SKIPLISTS="JellyFishSkipList"
 #SKIPLISTS="BlockedCVSkipList ConcurrentSkipList JellyFishSkipList"
@@ -26,11 +26,11 @@ TRC_DIR="../trc/micro_trc/backup"$num"trc"
 #TRC_DIR="../trc/micro_trc/backup100000trc/result"
 OP="put get"
 #OP="range_query"
-OP="put"
+OP="put get"
 #OP="range_query"
 #OP=" put get"
 #OP="get" 
-RSLT_DIR="./perf_result_Bloom"
+RSLT_DIR="./perf_result_200505"
 #RSLT_DIR="./perf_result_count"
 
 #OP="put"
@@ -75,7 +75,7 @@ for nu in {1..1}; do
 			touch $rfname
 			echo "$rfname ...."
 	
-			th=8
+			th=1
 			while [[ $th -le $THREADS ]]; do
 				for sk in $SKIPLISTS; do
 					iter=5
@@ -96,6 +96,7 @@ for nu in {1..1}; do
 						iter=$((iter+1))
 					done
 				done
+			#	th=$((th+1))
 				th=$((th+th))
 			done
 			cat $rfname | grep "run" | awk '{print $1, $NF}'
