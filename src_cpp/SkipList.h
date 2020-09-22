@@ -15,7 +15,7 @@
 #include "Node.h"
 #include "LinkedSkipList/Node_Linked.h"
 #include "Util.h"
-#include "BloomFilter.h"
+//#include "BloomFilter.h"
 
 #define BLOOM
 
